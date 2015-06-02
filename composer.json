@@ -1,0 +1,12 @@
+{
+  "name": "BlackScorp/logd",
+  "description": "Legends of the green dragon",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Vitalij Mik",
+      "email": "vitalij@blackscorp.de"
+    }
+  ]
+}
