@@ -1,5 +1,5 @@
 {
-  "name": "BlackScorp/logd",
+  "name": "blackscorp/logd",
   "description": "Legends of the green dragon",
   "minimum-stability": "dev",
   "license": "proprietary",
@@ -8,5 +8,13 @@
       "name": "Vitalij Mik",
       "email": "vitalij@blackscorp.de"
     }
-  ]
+  ],
+  "autoload-dev": {
+    "psr-4": {
+      "Logd\\Core\\Test\\": "tests/"
+    }
+  },
+  "require-dev":{
+    "phpunit/phpunit":"~5.2"
+  }
 }
