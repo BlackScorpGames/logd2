@@ -9,6 +9,11 @@
       "email": "vitalij@blackscorp.de"
     }
   ],
+  "autoload":{
+    "files":[
+      "fakeFunctions.php"
+    ]
+  },
   "autoload-dev": {
     "psr-4": {
       "Logd\\Core\\Test\\": "tests/"
