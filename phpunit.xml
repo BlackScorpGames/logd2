@@ -15,6 +15,12 @@
         </testsuite>
     </testsuites>
     <filter>
+        <whitelist>
+            <directory>lib</directory>
+        </whitelist>
+    </filter>
+    <filter>
+
         <blacklist>
             <directory>vendor</directory>
         </blacklist>
