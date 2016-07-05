@@ -161,7 +161,11 @@ function db_get_server_version() {
 }
 
 function db_select_db($dbname){
-	global $mysqli_resource;
+	if(!$dbname){
+        return null;
+    }
+    global $mysqli_resource;
+
 	$r = $mysqli_resource->select_db($dbname);
 	return $r;
 }
