@@ -2,13 +2,18 @@
   "name": "blackscorp/logd",
   "description": "Legends of the green dragon",
   "minimum-stability": "dev",
-  "license": "proprietary",
+  "license": "MIT",
   "authors": [
     {
       "name": "Vitalij Mik",
       "email": "vitalij@blackscorp.de"
     }
   ],
+  "autoload":{
+    "psr-4":{
+      "Logd\\Core\\":"src/"
+    }
+  },
   "autoload-dev": {
     "psr-4": {
       "Logd\\Core\\Test\\": "tests/"
