@@ -1,4 +1,6 @@
 <?php
+error_reporting(-1);
+ini_set('display_errors',true);
 // translator ready
 // addnews ready
 // mail ready
@@ -90,6 +92,7 @@ require_once("lib/php_generic_environment.php");
 
 //session_register("session");
 session_name("session");
+session_start();
 $session =& $_SESSION['session'];
 
 // lets us provide output in dbconnect.php that only appears if there's a
