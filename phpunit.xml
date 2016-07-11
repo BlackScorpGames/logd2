@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd"
         colors="true"
         convertErrorsToExceptions="true"
         convertNoticesToExceptions="true"
@@ -15,16 +17,18 @@
         </testsuite>
     </testsuites>
     <filter>
-        <whitelist>
-            <directory>lib</directory>
+        <whitelist >
+            <directory>./</directory>
+            <exclude>
+                <directory>vendor</directory>
+                <directory>tools</directory>
+                <directory>coverage</directory>
+                <directory>templates</directory>
+                <directory>images</directory>
+            </exclude>
         </whitelist>
     </filter>
-    <filter>
 
-        <blacklist>
-            <directory>vendor</directory>
-        </blacklist>
-    </filter>
     <php>
         <server name="REMOTE_ADDR" value="127.0.0.1" />
     </php>
