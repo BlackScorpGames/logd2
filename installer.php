@@ -16,7 +16,7 @@ if (file_exists("dbconnect.php")){
 }
 $noinstallnavs=false;
 
-tlschema("installer");
+Translator::tlschema("installer");
 
 $stages=array(
 	"1. Introduction",

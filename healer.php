@@ -7,7 +7,7 @@ require_once("lib/forest.php");
 require_once("lib/http.php");
 require_once("lib/villagenav.php");
 
-tlschema("healer");
+Translator::tlschema("healer");
 
 $config = unserialize($session['user']['donationconfig']);
 
@@ -115,7 +115,7 @@ foreach($companions as $name => $companion){
 		}
 	}
 }
-tlschema("nav");
+Translator::tlschema("nav");
 addnav("`bReturn`b");
 if ($return==""){
 	if($playerheal || $compheal){
@@ -129,7 +129,7 @@ if ($return==""){
 }else{
 	addnav("R?Return whence you came",$return);
 }
-tlschema();
+Translator::tlschema();
 output_notl("`0");
 page_footer();
 ?>

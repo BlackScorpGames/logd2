@@ -7,7 +7,7 @@ require_once("common.php");
 require_once("lib/commentary.php");
 require_once("lib/http.php");
 
-tlschema("petition");
+Translator::tlschema("petition");
 
 check_su_access(SU_EDIT_PETITIONS);
 

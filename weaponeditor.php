@@ -8,7 +8,7 @@ require_once("lib/http.php");
 
 check_su_access(SU_EDIT_EQUIPMENT);
 
-tlschema("weapon");
+Translator::tlschema("weapon");
 
 page_header("Weapon Editor");
 $weaponlevel = (int)httpget("level");

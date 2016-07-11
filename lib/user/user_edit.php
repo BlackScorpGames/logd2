@@ -88,9 +88,9 @@ if (httpget("subop")==""){
 		}
 		rawoutput("<form action='user.php?op=savemodule&module=$module&userid=$userid$returnpetition' method='POST'>");
 		addnav("","user.php?op=savemodule&module=$module&userid=$userid$returnpetition");
-		tlschema("module-$module");
+		Translator::tlschema("module-$module");
 		showform($msettings,$data);
-		tlschema();
+		Translator::tlschema();
 		rawoutput("</form>");
 	}else{
 		output("The $module module doesn't appear to define any user preferences.");

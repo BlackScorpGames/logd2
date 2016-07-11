@@ -5,7 +5,7 @@
 require_once("common.php");
 require_once("lib/http.php");
 
-tlschema("rawsql");
+Translator::tlschema("rawsql");
 
 check_su_access(SU_RAW_SQL);
 

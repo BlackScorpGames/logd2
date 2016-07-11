@@ -6,7 +6,7 @@ require_once("lib/http.php");
 
 check_su_access(SU_EDIT_USERS);
 
-tlschema("retitle");
+Translator::tlschema("retitle");
 
 page_header("Title Editor");
 $op = httpget('op');

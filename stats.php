@@ -5,7 +5,7 @@
 require_once("common.php");
 require_once("lib/dhms.php");
 
-tlschema("stats");
+Translator::tlschema("stats");
 
 check_su_access(SU_EDIT_CONFIG);
 

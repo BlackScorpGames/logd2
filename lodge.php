@@ -9,7 +9,7 @@ require_once("lib/http.php");
 require_once("lib/villagenav.php");
 require_once("lib/names.php");
 
-tlschema("lodge");
+Translator::tlschema("lodge");
 
 addcommentary();
 

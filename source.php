@@ -8,7 +8,7 @@ require_once("common.php");
 require_once("lib/errorhandling.php");
 require_once("lib/http.php");
 
-tlschema("source");
+Translator::tlschema("source");
 
 $url=httpget('url');
 if ($url) {

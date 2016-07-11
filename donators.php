@@ -8,7 +8,7 @@ require_once("lib/systemmail.php");
 
 check_su_access(SU_EDIT_DONATIONS);
 
-tlschema("donation");
+Translator::tlschema("donation");
 
 page_header("Donator's Page");
 require_once("lib/superusernav.php");
@@ -18,9 +18,9 @@ superusernav();
 $ret=httpget('ret');
 $return = cmd_sanitize($ret);
 $return = substr($return,strrpos($return,"/")+1);
-tlschema("nav");
+Translator::tlschema("nav");
 addnav("Return whence you came",$return);
-tlschema();
+Translator::tlschema();
 
 $add = translate_inline("Add Donation");
 rawoutput("<form action='donators.php?op=add1&ret=".rawurlencode($ret)."' method='POST'>");

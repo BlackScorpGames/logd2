@@ -1,5 +1,5 @@
 <?php
-tlschema("petition");
+Translator::tlschema("petition");
 popup_header("Petition for Help");
 $post = httpallpost();
 if (count($post)>0){

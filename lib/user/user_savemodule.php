@@ -5,10 +5,10 @@ $module = httpget('module');
 $post = httpallpost();
 $post = modulehook("validateprefs", $post, true, $module);
 if (isset($post['validation_error']) && $post['validation_error']) {
-	tlschema("module-$module");
+	Translator::tlschema("module-$module");
 	$post['validation_error'] =
 		translate_inline($post['validation_error']);
-	tlschema();
+	Translator::tlschema();
 	output("Unable to change settings: `\$%s`0", $post['validation_error']);
 } else {
 	reset($post);

@@ -14,7 +14,7 @@ if ($skin > "") {
 require_once("lib/villagenav.php");
 require_once("common.php");
 
-tlschema("prefs");
+Translator::tlschema("prefs");
 
 require_once("lib/is_email.php");
 require_once("lib/showform.php");
@@ -149,7 +149,7 @@ if ($op=="suicide" && getsetting("selfdelete",0)!=0) {
 		"email"=>"Email Address",
 		"Display Preferences,title",
 		"template"=>"Skin,theme",
-		"language"=>"Language,enum,".getsetting("serverlanguages","en,English,de,Deutsch,fr,Français,dk,Danish,es,Español,it,Italian"),
+		"language"=>"Language,enum,".getsetting("serverlanguages","en,English,de,Deutsch,fr,Franï¿½ais,dk,Danish,es,Espaï¿½ol,it,Italian"),
 		"tabconfig"=>"Show config sections in tabs,bool",
 		"Game Behavior Preferences,title",
 		"emailonmail"=>"Send email when you get new Ye Olde Mail?,bool",

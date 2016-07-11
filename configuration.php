@@ -8,7 +8,7 @@ require_once("lib/http.php");
 
 check_su_access(SU_EDIT_CONFIG);
 
-tlschema("configuration");
+Translator::tlschema("configuration");
 
 $op = httpget('op');
 $module=httpget('module');
@@ -163,9 +163,9 @@ if ($op=="save"){
 				}
 				rawoutput("<form action='configuration.php?op=modulesettings&module=$module&save=1' method='POST'>",true);
 				addnav("","configuration.php?op=modulesettings&module=$module&save=1");
-				tlschema("module-$module");
+				Translator::tlschema("module-$module");
 				showform($msettings,$module_settings[$mostrecentmodule]);
-				tlschema();
+				Translator::tlschema();
 				rawoutput("</form>",true);
 			}else{
 				output("The %s module does not appear to define any module settings.", $module);
@@ -214,7 +214,7 @@ if ($op == "") {
 		"emailpetitions"=>"Should submitted petitions be emailed to Admin Email address?,bool",
 		"Enter languages here like this: `i(shortname 2 chars) comma (readable name of the language)`i and continue as long as you wish,note",
 		"serverlanguages"=>"Languages available on this server",
-		"defaultlanguage"=>"Default Language,enum,".getsetting("serverlanguages","en,English,fr,Français,dk,Danish,de,Deutsch,es,Español,it,Italian"),
+		"defaultlanguage"=>"Default Language,enum,".getsetting("serverlanguages","en,English,fr,Franï¿½ais,dk,Danish,de,Deutsch,es,Espaï¿½ol,it,Italian"),
 		"edittitles"=>"Should DK titles be editable in user editor,bool",
 		"motditems"=>"How many items should be shown on the motdlist,int",
 

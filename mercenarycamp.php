@@ -6,7 +6,7 @@ require_once("common.php");
 require_once("lib/http.php");
 require_once("lib/villagenav.php");
 
-tlschema("mercenarycamp");
+Translator::tlschema("mercenarycamp");
 
 checkday();
 $name = stripslashes(rawurldecode(httpget('name')));
@@ -90,16 +90,16 @@ $basetext['schemas'] = $schemas;
 $texts = modulehook("mercenarycamptext",$basetext);
 $schemas = $texts['schemas'];
 
-tlschema($schemas['title']);
+Translator::tlschema($schemas['title']);
 page_header($texts['title']);
 output("`c`b`&".$texts['title']."`0`b`c");
-tlschema();
+Translator::tlschema();
 
 $op = httpget("op");
 
 if ($op==""){
   	if (httpget('skip') != 1) {
-		tlschema($schemas['desc']);
+		Translator::tlschema($schemas['desc']);
 	  	if (is_array($texts['desc'])) {
 	  		foreach ($texts['desc'] as $description) {
 	  			output_notl(sprintf_translate($description));
@@ -107,7 +107,7 @@ if ($op==""){
 	  	} else {
 	  		output($texts['desc']);
 	  	}
-	  	tlschema();
+	  	Translator::tlschema();
   	}
 
 	$sql = "SELECT * FROM " .  db_prefix("companions") . "
@@ -115,9 +115,9 @@ if ($op==""){
 				AND (companionlocation = '{$session['user']['location']}' OR companionlocation = 'all')
 				AND companionactive = 1";
 	$result = db_query($sql);
-  	tlschema($schemas['buynav']);
+  	Translator::tlschema($schemas['buynav']);
 	addnav($texts['buynav']);
-	tlschema();
+	Translator::tlschema();
 	switch (db_num_rows($result)) {
 		case 0:
 			if (is_array($texts['nocompanions'])) {
@@ -176,7 +176,7 @@ if ($op==""){
 } else if ($op == "heal") {
 	$cost = httpget('cost');
 	if ($cost == 'notenough') {
-		tlschema($schemas['healpaid']);
+		Translator::tlschema($schemas['healpaid']);
 	  	if (is_array($texts['healnotenough'])) {
 	  		foreach ($texts['healnotenough'] as $healnotenough) {
 	  			output_notl(sprintf_translate($healnotenough));
@@ -184,12 +184,12 @@ if ($op==""){
 	  	} else {
 	  		output($texts['healnotenough']);
 	  	}
-		tlschema();
+		Translator::tlschema();
 	} else {
 		$companions[$name]['hitpoints'] = $companions[$name]['maxhitpoints'];
 		$session['user']['gold'] -= $cost;
 		debuglog("spent $cost gold on healing a companion", false, false, "healcompanion", $cost);
-		tlschema($schemas['healpaid']);
+		Translator::tlschema($schemas['healpaid']);
 	  	if (is_array($texts['healpaid'])) {
 	  		foreach ($texts['healpaid'] as $healpaid) {
 	  			output_notl(sprintf_translate($healpaid));
@@ -197,7 +197,7 @@ if ($op==""){
 	  	} else {
 	  		output($texts['healpaid']);
 	  	}
-		tlschema();
+		Translator::tlschema();
 	}
 	healnav($companions, $texts, $schemas);
 	addnav("Navigation");
@@ -224,7 +224,7 @@ if ($op==""){
 			debuglog("has spent {$row['companioncostgold']} gold and {$row['companioncostgems']} gems on hiring a mercenary ({$row['name']}).");
 		} else {
 			// applying the companion failed. Most likely they already have more than enough companions...
-			tlschema($schemas['toomanycompanions']);
+			Translator::tlschema($schemas['toomanycompanions']);
 			if (is_array($texts['toomanycompanions'])) {
 				foreach ($texts['toomanycompanions'] as $toomanycompanions) {
 					output_notl(sprintf_translate($toomanycompanions));
@@ -232,7 +232,7 @@ if ($op==""){
 			} else {
 				output($texts['toomanycompanions']);
 			}
-			tlschema();
+			Translator::tlschema();
 		}
 	}
 	addnav("Navigation");
@@ -245,9 +245,9 @@ page_footer();
 
 function healnav($companions, $texts, $schemas) {
 	global $session;
-	tlschema($schemas['healnav']);
+	Translator::tlschema($schemas['healnav']);
 	addnav($texts['healnav']);
-	tlschema();
+	Translator::tlschema();
 	$healable = false;
 	foreach ($companions as $name => $companion) {
 		if (isset($companion['cannotbehealed']) && $companion['cannotbehealed'] == true) {
@@ -265,7 +265,7 @@ function healnav($companions, $texts, $schemas) {
 		}
 	}
 	if ($healable == true) {
-	  	tlschema($schemas['healtext']);
+	  	Translator::tlschema($schemas['healtext']);
 	  	if (is_array($texts['healtext'])) {
 	  		foreach ($texts['healtext'] as $healtext) {
 	  			output_notl(sprintf_translate($healtext));
@@ -273,7 +273,7 @@ function healnav($companions, $texts, $schemas) {
 	  	} else {
 	  		output($texts['healtext']);
 	  	}
-		tlschema();
+		Translator::tlschema();
 	}
 }
 ?>

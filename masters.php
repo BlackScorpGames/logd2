@@ -7,7 +7,7 @@ require_once("lib/http.php");
 
 check_su_access(SU_EDIT_CREATURES);
 
-tlschema("masters");
+Translator::tlschema("masters");
 
 $op = httpget('op');
 $id = (int)httpget('id');

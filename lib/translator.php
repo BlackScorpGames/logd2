@@ -1,4 +1,10 @@
 <?php
+$translation_table = array();
+$translatorbuttons = array();
+$seentlbuttons = array();
+$translation_is_enabled = true;
+$translation_namespace = "";
+$translation_namespace_stack = array();
 // translator ready
 // addnews ready
 // mail ready
@@ -29,7 +35,7 @@ function translate($indata,$namespace=FALSE){
 	if (!$namespace) $namespace=$translation_namespace;
 	$outdata = $indata;
 	if (!isset($namespace) || $namespace=="")
-		tlschema();
+		Translator::tlschema();
 
 	$foundtranslation = false;
 	if ($namespace != "notranslate") {
@@ -85,13 +91,13 @@ function sprintf_translate(){
 	} else {
 		// array_shift returns the first element of an array and shortens this array by one...
 		if (is_bool($args[0]) && array_shift($args)) {
-			tlschema(array_shift($args));
+			Translator::tlschema(array_shift($args));
 			$setschema = true;
 		}
 		$args[0] = str_replace("`%","`%%",$args[0]);
 		$args[0] = translate($args[0]);
 		if ($setschema) {
-			tlschema();
+			Translator::tlschema();
 		}
  	}
 	reset($args);
@@ -122,7 +128,7 @@ function translate_inline($in,$namespace=FALSE){
 
 function translate_mail($in,$to=0){
 	global $session;
-	tlschema("mail"); // should be same schema like systemmails!
+	Translator::tlschema("mail"); // should be same schema like systemmails!
 	if (!is_array($in)) $in=array($in);
 	//this is done by sprintf_translate.
 	//$in[0] = str_replace("`%","`%%",$in[0]);
@@ -139,7 +145,7 @@ function translate_mail($in,$to=0){
 
 	$out = call_user_func_array("sprintf_translate", $in);
 
-	tlschema();
+	Translator::tlschema();
 	unset($session['tlanguage']);
 	return $out;
 }
@@ -235,7 +241,8 @@ function enable_translation($enable=true){
 
 $translation_namespace = "";
 $translation_namespace_stack = array();
-function tlschema($schema=false){
+class Translator{
+public static function tlschema($schema=false){
 	global $translation_namespace,$translation_namespace_stack,$REQUEST_URI;
 	if ($schema===false){
 		$translation_namespace = array_pop($translation_namespace_stack);
@@ -246,7 +253,7 @@ function tlschema($schema=false){
 		$translation_namespace = $schema;
 	}
 }
-
+}
 function translator_check_collect_texts()
 {
 	$tlmax = getsetting("tl_maxallowed",0);

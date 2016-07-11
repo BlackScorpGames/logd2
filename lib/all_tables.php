@@ -1214,8 +1214,8 @@ return array(
 		'arguments'=>array(
 			'name'=>'arguments', 'type'=>'text'
 			),
-		'tlschema'=>array(
-			'name'=>'tlschema', 'type'=>'varchar(255)', 'default'=>'news'
+		'Translator::tlschema'=>array(
+			'name'=>'Translator::tlschema', 'type'=>'varchar(255)', 'default'=>'news'
 			),
 		'key-PRIMARY'=>array(
 			'name'=>'PRIMARY',

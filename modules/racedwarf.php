@@ -135,9 +135,9 @@ function racedwarf_dohook($hookname,$args){
 		break;
 	case "moderate":
 		if (is_module_active("cities")) {
-			tlschema("commentary");
+			Translator::tlschema("commentary");
 			$args["village-$race"]=sprintf_translate("City of %s", $city);
-			tlschema();
+			Translator::tlschema();
 		}
 		break;
 	case "creatureencounter":
@@ -151,7 +151,7 @@ function racedwarf_dohook($hookname,$args){
 		$capital = getsetting("villagename", LOCATION_FIELDS);
 		$hotkey = substr($city, 0, 1);
 		$ccity = urlencode($city);
-		tlschema("module-cities");
+		Translator::tlschema("module-cities");
 		if ($session['user']['location']==$capital){
 			addnav("Safer Travel");
 			addnav(array("%s?Go to %s", $hotkey, $city),"runmodule.php?module=cities&op=travel&city=$ccity");
@@ -163,7 +163,7 @@ function racedwarf_dohook($hookname,$args){
 			addnav("Superuser");
 			addnav(array("%s?Go to %s", $hotkey, $city),"runmodule.php?module=cities&op=travel&city=$ccity&su=1");
 		}
-		tlschema();
+		Translator::tlschema();
 		break;
 	case "villagetext":
 		racedwarf_checkcity();
@@ -217,9 +217,9 @@ function racedwarf_dohook($hookname,$args){
 		break;
 	case "village":
 		if ($session['user']['location'] == $city) {
-			tlschema($args['schemas']['tavernnav']);
+			Translator::tlschema($args['schemas']['tavernnav']);
 			addnav($args['tavernnav']);
-			tlschema();
+			Translator::tlschema();
 			addnav("K?Great Kegs of Ale","runmodule.php?module=racedwarf&op=ale");
 		}
 		break;

@@ -249,12 +249,12 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 				"6 months", "9 months", "12 months",
 				"1 year"
 			);
-			tlschema("showform");
+			Translator::tlschema("showform");
 			while (list($k,$v)=each($vals)){
 				$vals[$k]=translate($v);
 				rawoutput(tlbutton_pop());
 			}
-			tlschema();
+			Translator::tlschema();
 			reset($vals);
 			rawoutput("<select name='$keyout'>");
 			while(list($k,$v)=each($vals)) {
@@ -293,10 +293,10 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 			rawoutput("<input type='password' name='$keyout' value='".HTMLEntities($out, ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."'>");
 			break;
 		case "bool":
-			tlschema("showform");
+			Translator::tlschema("showform");
 			$yes = translate_inline("Yes");
 			$no = translate_inline("No");
-			tlschema();
+			Translator::tlschema();
 			rawoutput("<select name='$keyout'>");
 			rawoutput("<option value='0'".($row[$key]==0?" selected":"").">$no</option>");
 			rawoutput("<option value='1'".($row[$key]==1?" selected":"").">$yes</option>");
@@ -433,9 +433,9 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 		</script>");
 	}
 	rawoutput("</td></tr></table>");
-	tlschema("showform");
+	Translator::tlschema("showform");
 	$save = translate_inline("Save");
-	tlschema();
+	Translator::tlschema();
 	if ($nosave) {}
 	else rawoutput("<input type='submit' class='button' value='$save'>");
 	return $returnvalues;

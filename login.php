@@ -8,7 +8,7 @@ require_once("lib/systemmail.php");
 require_once("lib/checkban.php");
 require_once("lib/http.php");
 
-tlschema("login");
+Translator::tlschema("login");
 translator_setup();
 $op = httpget('op');
 $name = httppost('name');

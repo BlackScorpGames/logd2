@@ -12,7 +12,7 @@ require_once("lib/buffs.php");
 require_once("lib/events.php");
 require_once("lib/villagenav.php");
 
-tlschema("inn");
+Translator::tlschema("inn");
 
 addcommentary();
 $iname = getsetting("innname", LOCATION_INN);
