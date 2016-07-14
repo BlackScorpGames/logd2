@@ -144,7 +144,7 @@ $comment = Http::httppost('insertcommentary');
 // the commentary (or talking) or dealing with any of the hooks in the village.
 if (!$op && $com=="" && !$comment && !$refresh && !$commenting) {
 	// The '1' should really be sysadmin customizable.
-	if (module_events("village", Settings::getsetting("villagechance", 0)) != 0) {
+	if (Modules::module_events("village", Settings::getsetting("villagechance", 0)) != 0) {
 		if (checknavs()) {
 			PageParts::page_footer();
 		} else {

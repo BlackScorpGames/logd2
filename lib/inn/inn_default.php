@@ -1,6 +1,6 @@
 <?php
 if ($com=="" && !$comment && $op!="fleedragon") {
-	if (module_events("inn", Settings::getsetting("innchance", 0)) != 0) {
+	if (Modules::module_events("inn", Settings::getsetting("innchance", 0)) != 0) {
 		if (checknavs()) {
 			PageParts::page_footer();
 		} else {

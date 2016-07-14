@@ -398,6 +398,42 @@ $currenthook = "";
 
 class Modules
 {
+    public static function module_events($eventtype, $basechance, $baseLink = false)
+    {
+        if ($baseLink === false) {
+            global $PHP_SELF;
+            $baseLink = substr($PHP_SELF, strrpos($PHP_SELF, "/") + 1) . "?";
+        } else {
+            //debug("Base link was specified as $baseLink");
+            //debug(debug_backtrace());
+        }
+        if (e_rand(1, 100) <= $basechance) {
+            global $PHP_SELF;
+            $events = module_collect_events($eventtype);
+            $chance = r_rand(1, 100);
+            reset($events);
+            $sum = 0;
+            foreach ($events as $event) {
+                if ($event['rawchance'] == 0) {
+                    continue;
+                }
+                if ($chance > $sum && $chance <= $sum + $event['normchance']) {
+                    $_POST['i_am_a_hack'] = 'true';
+                    Translator::tlschema("events");
+                    OutputClass::output("`^`c`bSomething Special!`c`b`0");
+                    Translator::tlschema();
+                    $op = Http::httpget('op');
+                    httpset('op', "");
+                    module_do_event($eventtype, $event['modulename'], false, $baseLink);
+                    httpset('op', $op);
+                    return 1;
+                }
+                $sum += $event['normchance'];
+            }
+        }
+        return 0;
+    }
+
     public static function modulehook($hookname, $args = false, $allowinactive = false, $only = false)
     {
         global $navsection, $mostrecentmodule;
@@ -1085,40 +1121,7 @@ function module_collect_events($type, $allowinactive=false)
 	return Modules::modulehook("collect-events", $events);
 }
 
-function module_events($eventtype, $basechance, $baseLink = false) {
-	if ($baseLink === false){
-		global $PHP_SELF;
-		$baseLink = substr($PHP_SELF,strrpos($PHP_SELF,"/")+1)."?";
-	}else{
-		//debug("Base link was specified as $baseLink");
-		//debug(debug_backtrace());
-	}
-	if (e_rand(1, 100) <= $basechance) {
-		global $PHP_SELF;
-		$events = module_collect_events($eventtype);
-		$chance = r_rand(1, 100);
-		reset($events);
-		$sum = 0;
-		foreach($events as $event) {
-			if ($event['rawchance'] == 0) {
-				continue;
-			}
-			if ($chance > $sum && $chance <= $sum + $event['normchance']) {
-				$_POST['i_am_a_hack'] = 'true';
-				Translator::tlschema("events");
-				OutputClass::output("`^`c`bSomething Special!`c`b`0");
-				Translator::tlschema();
-				$op = Http::httpget('op');
-				httpset('op', "");
-				module_do_event($eventtype, $event['modulename'], false, $baseLink);
-				httpset('op', $op);
-				return 1;
-			}
-			$sum += $event['normchance'];
-		}
-	}
-	return 0;
-}
+
 
 function module_do_event($type, $module, $allowinactive=false, $baseLink=false)
 {
