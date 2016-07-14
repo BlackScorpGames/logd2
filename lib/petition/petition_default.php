@@ -37,7 +37,7 @@ if (count($post)>0){
 					dirname($_SERVER['REQUEST_URI']));
 				if (!preg_match("/\\/$/", $url)) {
 					$url = $url . "/";
-					savesetting("serverurl", $url);
+					Settings::savesetting("serverurl", $url);
 				}
 				$tl_server = Translator::translate_inline("Server");
 				$tl_author = Translator::translate_inline("Author");

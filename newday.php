@@ -302,7 +302,7 @@ if ($dp < $dkills) {
                 $gametoday = gametime();
             if (gmdate("Ymd",$gametoday)!=gmdate("Ymd",$lastnewdaysemaphore)){
                 //we need to run the hook, update the setting, and unlock.
-                savesetting("newdaySemaphore",gmdate("Y-m-d H:i:s"));
+                Settings::savesetting("newdaySemaphore",gmdate("Y-m-d H:i:s"));
                 $sql = "UNLOCK TABLES";
                 db_query($sql);
 				require("lib/newday/newday_runonce.php");

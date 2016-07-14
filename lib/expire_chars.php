@@ -8,7 +8,7 @@ require_once("lib/constants.php");
 $lastexpire = strtotime(Settings::getsetting("last_char_expire","0000-00-00 00:00:00"));
 $needtoexpire = strtotime("-23 hours");
 if ($lastexpire < $needtoexpire){
-	savesetting("last_char_expire",date("Y-m-d H:i:s"));
+	Settings::savesetting("last_char_expire",date("Y-m-d H:i:s"));
 	$old = Settings::getsetting("expireoldacct",45);
 	$new = Settings::getsetting("expirenewacct",10);
 	$trash = Settings::getsetting("expiretrashacct",1);

@@ -3,25 +3,7 @@
 // addnews ready
 // mail ready
 
-function savesetting($settingname,$value){
-	global $settings;
-		loadsettings();
-	if (!isset($settings[$settingname]) && $value){
-			$sql = "INSERT INTO " . db_prefix("settings") . " (setting,value) VALUES (\"".addslashes($settingname)."\",\"".addslashes($value)."\")";
-	}else if (isset($settings[$settingname])) {
-			$sql = "UPDATE " . db_prefix("settings") . " SET value=\"".addslashes($value)."\" WHERE setting=\"".addslashes($settingname)."\"";
-	} else {
-		return false;
-	}
-	db_query($sql);
-	$settings[$settingname]=$value;
-	invalidatedatacache("game-settings");
-	if (db_affected_rows()>0) {
-		return true;
-	}else{
-		return false;
-	}
-}
+
 
 function loadsettings(){
 	global $settings;
@@ -69,10 +51,33 @@ class Settings
             return $settings[$settingname];
         }
         if (!isset($settings[$settingname])) {
-            savesetting($settingname, $default);
+            Settings::savesetting($settingname, $default);
             return $default;
         } else {
             return $settings[$settingname];
+        }
+    }
+
+    public static function savesetting($settingname, $value)
+    {
+        global $settings;
+        loadsettings();
+        if (!isset($settings[$settingname]) && $value) {
+            $sql = "INSERT INTO " . db_prefix("settings") . " (setting,value) VALUES (\"" . addslashes($settingname) . "\",\"" . addslashes($value) . "\")";
+        } else {
+            if (isset($settings[$settingname])) {
+                $sql = "UPDATE " . db_prefix("settings") . " SET value=\"" . addslashes($value) . "\" WHERE setting=\"" . addslashes($settingname) . "\"";
+            } else {
+                return false;
+            }
+        }
+        db_query($sql);
+        $settings[$settingname] = $value;
+        invalidatedatacache("game-settings");
+        if (db_affected_rows() > 0) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

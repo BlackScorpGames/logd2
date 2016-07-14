@@ -70,7 +70,7 @@ if ($op=="save"){
 				(stripslashes($val) != $settings[$key])) {
 			if (!isset($old[$key]))
 				$old[$key] = "";
-			savesetting($key,stripslashes($val));
+			Settings::savesetting($key,stripslashes($val));
 			OutputClass::output("Setting %s to %s`n", $key, stripslashes($val));
 			gamelog("`@Changed core setting `^$key`@ from `#{$old[$key]}`@ to `&$val`0","settings");
 			// Notify every module

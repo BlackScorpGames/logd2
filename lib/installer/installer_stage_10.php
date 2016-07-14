@@ -30,11 +30,11 @@ if (db_num_rows($result)==0){
 			$sql = "INSERT INTO " .db_prefix("accounts") ." (login,password,superuser,name,ctitle,regdate) VALUES('$name','$pass',$su,'`%Admin `&$name`0','`%Admin', NOW())";
 			db_query($sql);
 			OutputClass::output("`^Your superuser account has been created as `%Admin `&$name`^!");
-			savesetting("installer_version",$logd_version);
+			Settings::savesetting("installer_version",$logd_version);
 		}
 	}else{
 		$showform=true;
-		savesetting("installer_version",$logd_version);
+		Settings::savesetting("installer_version",$logd_version);
 	}
 	if ($showform){
 		rawoutput("<form action='installer.php?stage=$stage' method='POST'>");
@@ -50,6 +50,6 @@ if (db_num_rows($result)==0){
 	}
 }else{
 	OutputClass::output("`#You already have a superuser account set up on this server.");
-	savesetting("installer_version",$logd_version);
+	Settings::savesetting("installer_version",$logd_version);
 }
 ?>

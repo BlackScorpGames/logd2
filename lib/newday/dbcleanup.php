@@ -1,6 +1,6 @@
 <?php
 //db cleanup
-savesetting("lastdboptimize",date("Y-m-d H:i:s"));
+Settings::savesetting("lastdboptimize",date("Y-m-d H:i:s"));
 $result = db_query("SHOW TABLES");
 $tables = array();
 $start = getmicrotime();

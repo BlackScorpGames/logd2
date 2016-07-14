@@ -265,11 +265,11 @@ function translator_check_collect_texts()
 	$tlmax = Settings::getsetting("tl_maxallowed",0);
 
 	if (Settings::getsetting("permacollect", 0)) {
-		savesetting("collecttexts", 1);
+		Settings::savesetting("collecttexts", 1);
 	} elseif ($tlmax && Settings::getsetting("OnlineCount", 0) <= $tlmax) {
-		savesetting("collecttexts", 1);
+		Settings::savesetting("collecttexts", 1);
 	} else {
-		savesetting("collecttexts", 0);
+		Settings::savesetting("collecttexts", 0);
 	}
 }
 

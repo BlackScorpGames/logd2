@@ -74,8 +74,8 @@ if (abs(Settings::getsetting("OnlineCountLast",0) - strtotime("now")) > 60){
 	$result = db_query($sql);
 	$onlinecount = db_fetch_assoc($result);
 	$onlinecount = $onlinecount ['onlinecount'];
-	savesetting("OnlineCount",$onlinecount);
-	savesetting("OnlineCountLast",strtotime("now"));
+	Settings::savesetting("OnlineCount",$onlinecount);
+	Settings::savesetting("OnlineCountLast",strtotime("now"));
 }else{
 	$onlinecount = Settings::getsetting("OnlineCount",0);
 }

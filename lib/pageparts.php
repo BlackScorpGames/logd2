@@ -218,7 +218,7 @@ function page_footer($saveuser=true){
 		$a = Settings::getsetting("serverurl","http://".$_SERVER['SERVER_NAME'].($_SERVER['SERVER_PORT'] == 80?"":":".$_SERVER['SERVER_PORT']).dirname($_SERVER['REQUEST_URI']));
 		if (!preg_match("/\\/$/", $a)) {
 			$a = $a . "/";
-			savesetting("serverurl", $a);
+			Settings::savesetting("serverurl", $a);
 		}
 
 		$l = Settings::getsetting("defaultlanguage","en");
@@ -227,7 +227,7 @@ function page_footer($saveuser=true){
 		$u = Settings::getsetting("logdnetserver","http://logdnet.logd.com/");
 		if (!preg_match("/\\/$/", $u)) {
 			$u = $u . "/";
-			savesetting("logdnetserver", $u);
+			Settings::savesetting("logdnetserver", $u);
 		}
 
 
@@ -735,8 +735,8 @@ function charstats(){
 				if ($onlinecount==0)
 					$ret.=appoencode(Translator::translate_inline("`iNone`i"));
 			}
-			savesetting("OnlineCount",$onlinecount);
-			savesetting("OnlineCountLast",strtotime("now"));
+			Settings::savesetting("OnlineCount",$onlinecount);
+			Settings::savesetting("OnlineCountLast",strtotime("now"));
 			updatedatacache("charlisthomepage",$ret);
 		}
 		return $ret;

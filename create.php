@@ -46,7 +46,7 @@ if ($op=="val"){
 		}
 		//only set this if they are not doing a forgotten password.
 		if (substr($id,0,1)!="x") {
-			savesetting("newestplayer", $row['acctid']);
+			Settings::savesetting("newestplayer", $row['acctid']);
 			invalidatedatacache('newest');
 		}
 	}else{
@@ -232,7 +232,7 @@ if (Settings::getsetting("allowcreation",1)==0){
 							if ($old > 0) {
 								OutputClass::output("`^Characters that have reached level 2 at least once will be deleted after %s days of no activity.`n`0", $old);
 							}
-							savesetting("newestplayer", $row['acctid']);
+							Settings::savesetting("newestplayer", $row['acctid']);
 						}
 					}
 				}

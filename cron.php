@@ -6,7 +6,7 @@ $dir='/yourdir';
 //end of admin modifications
 chdir($dir);
 require_once("common.php");
-savesetting("newdaySemaphore",gmdate("Y-m-d H:i:s"));
+Settings::savesetting("newdaySemaphore",gmdate("Y-m-d H:i:s"));
 if ($dir!='') {
 	require("lib/newday/newday_runonce.php");
 }

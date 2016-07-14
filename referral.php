@@ -24,7 +24,7 @@ if ($session['user']['loggedin']){
 			dirname($_SERVER['REQUEST_URI']));
 	if (!preg_match("/\\/$/", $url)) {
 		$url = $url . "/";
-		savesetting("serverurl", $url);
+		Settings::savesetting("serverurl", $url);
 	}
 
 	OutputClass::output("How does the site know that I referred a person?`n");

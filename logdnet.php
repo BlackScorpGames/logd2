@@ -213,7 +213,7 @@ if ($op==""){
 	$u = Settings::getsetting("logdnetserver", "http://logdnet.logd.com/");
 	if (!preg_match("/\\/$/", $u)) {
 		$u = $u . "/";
-		savesetting("logdnetserver", $u);
+		Settings::savesetting("logdnetserver", $u);
 	}
 	$servers=pullurl($u."logdnet.php?op=net");
 	if (!$servers) $servers = array();

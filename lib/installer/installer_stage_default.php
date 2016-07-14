@@ -8,6 +8,6 @@ if ($session['user']['loggedin']){
 }else{
 	OutputClass::addnav("Login Screen","./");
 }
-savesetting("installer_version",$logd_version);
+Settings::savesetting("installer_version",$logd_version);
 $noinstallnavs=true;
 ?>
