@@ -53,7 +53,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 
 	$op = Http::httpget('op');
 	if ($op==""){
-		checkday();
+		GameDateTime::checkday();
 		OutputClass::output("The sound of conflict surrounds you.  The clang of weapons in grisly battle inspires your warrior heart. ");
 		OutputClass::output("`n`n`^%s stands ready to evaluate you.`0",
 				$master['creaturename']);
@@ -125,7 +125,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 			}
 		}
 	}else if($op=="question"){
-		checkday();
+		GameDateTime::checkday();
 		OutputClass::output("You approach `^%s`0 timidly and inquire as to your standing in the class.",$master['creaturename']);
 		if($session['user']['experience']>=$exprequired){
 			OutputClass::output("`n`n`^%s`0 says, \"Gee, your muscles are getting bigger than mine...\"",$master['creaturename']);
@@ -261,7 +261,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 		}
 	}
 }else{
-	checkday();
+	GameDateTime::checkday();
 	OutputClass::output("You stroll into the battle grounds.");
 	OutputClass::output("Younger warriors huddle together and point as you pass by.");
 	OutputClass::output("You know this place well.");

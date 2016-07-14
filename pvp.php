@@ -21,7 +21,7 @@ $op = Http::httpget('op');
 $act = Http::httpget('act');
 
 if ($op=="" && $act!="attack"){
-	checkday();
+	GameDateTime::checkday();
 	pvpwarning();
 	$args = array(
 		'atkmsg'=> '`4You head out to the fields, where you know some unwitting warriors are sleeping.`n`nYou have `^%s`4 PvP fights left for today.`n`n',

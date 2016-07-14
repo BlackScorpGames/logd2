@@ -41,7 +41,7 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 	invalidatedatacache("list.php-warsonline");
 } else {
 
-	checkday();
+	GameDateTime::checkday();
 	if ($session['user']['alive']){
 		villagenav();
 	}else{

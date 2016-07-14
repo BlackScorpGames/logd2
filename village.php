@@ -113,7 +113,7 @@ Translator::tlschema();
 
 Commentary::addcommentary();
 $skipvillagedesc = Events::handle_event("village");
-checkday();
+GameDateTime::checkday();
 
 if ($session['user']['slaydragon'] == 1) {
 	$session['user']['slaydragon'] = 0;

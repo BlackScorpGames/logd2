@@ -29,7 +29,7 @@ if ($op=="pay"){
 	commentdisplay("`5While in a deep trance, you are able to talk with the dead:`n", "shade","Project",25,"projects");
 	OutputClass::addnav("Snap out of your trance","gypsy.php");
 }else{
-	checkday();
+	GameDateTime::checkday();
 	PageParts::page_header("Gypsy Seer's tent");
 	OutputClass::output("`5You duck into a gypsy tent like many you have seen throughout the realm.");
 	OutputClass::output("All of them promise to let you talk with the deceased, and most of them surprisingly seem to work.");

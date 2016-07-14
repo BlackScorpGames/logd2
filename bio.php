@@ -7,7 +7,7 @@ require_once("lib/sanitize.php");
 
 Translator::tlschema("bio");
 
-checkday();
+GameDateTime::checkday();
 
 $ret = Http::httpget('ret');
 if ($ret==""){

@@ -91,7 +91,7 @@ $id = Http::httpget('id');
 global $playermount;
 
 if ($op==""){
-	checkday();
+	GameDateTime::checkday();
 	Translator::tlschema($schemas['desc']);
   	if (is_array($texts['desc'])) {
   		foreach ($texts['desc'] as $description) {

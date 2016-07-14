@@ -92,7 +92,7 @@ function darkhorse_dohook($hookname,$args){
 function darkhorse_checkday(){
 	// Reset special-in just in case checkday kicks in.
 	$session['user']['specialinc']="";
-	checkday();
+	GameDateTime::checkday();
 	// And now set it back.
 	$session['user']['specialinc']="module:darkhorse";
 }

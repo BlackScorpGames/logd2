@@ -8,7 +8,7 @@ require_once("lib/villagenav.php");
 
 Translator::tlschema("weapon");
 
-checkday();
+GameDateTime::checkday();
 $tradeinvalue = round(($session['user']['weaponvalue']*.75),0);
 $basetext=array(
 	"title"			=>	"MightyE's Weapons",

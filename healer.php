@@ -24,7 +24,7 @@ $cost = round($cost,0);
 
 $op = Http::httpget('op');
 if ($op==""){
-  	checkday();
+  	GameDateTime::checkday();
 	OutputClass::output("`3You duck into the small smoke-filled grass hut.");
 	OutputClass::output("The pungent aroma makes you cough, attracting the attention of a grizzled old person that does a remarkable job of reminding you of a rock, which probably explains why you didn't notice them until now.");
 	OutputClass::output("Couldn't be your failure as a warrior.");

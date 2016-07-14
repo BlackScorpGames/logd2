@@ -67,19 +67,6 @@ function relativedate($indate){
 	return $laston;
 }
 
-function checkday() {
-	global $session,$revertsession,$REQUEST_URI;
-	if ($session['user']['loggedin']){
-		OutputClass::output_notl("<!--CheckNewDay()-->",true);
-		if(is_new_day()){
-			$session=$revertsession;
-			$session['user']['restorepage']=$REQUEST_URI;
-			$session['allowednavs']=array();
-			OutputClass::addnav("","newday.php");
-			RedirectClass::redirect("newday.php");
-		}
-	}
-}
 
 function is_new_day($now=0){
 	global $session;
@@ -112,6 +99,22 @@ class GameDateTime
 		}
 		return strtotime("{$details['now']} + {$details['realsecstotomorrow']} seconds");
 	}
+
+    public static function checkday()
+    {
+        global $session, $revertsession, $REQUEST_URI;
+        if ($session['user']['loggedin']) {
+            OutputClass::output_notl("<!--CheckNewDay()-->", true);
+            if (is_new_day()) {
+                $session = $revertsession;
+                $session['user']['restorepage'] = $REQUEST_URI;
+                $session['allowednavs'] = array();
+                OutputClass::addnav("", "newday.php");
+                RedirectClass::redirect("newday.php");
+            }
+        }
+}
+
 }
 function gametime(){
 	$time = convertgametime(strtotime("now"));

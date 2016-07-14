@@ -14,7 +14,7 @@ PageParts::page_header("Ye Olde Bank");
 OutputClass::output("`^`c`bYe Olde Bank`b`c");
 $op = Http::httpget('op');
 if ($op==""){
-  checkday();
+  GameDateTime::checkday();
   OutputClass::output("`6As you approach the pair of impressive carved rock crystal doors, they part to allow you entrance into the bank.");
   OutputClass::output("You find yourself standing in a room of exquisitely vaulted ceilings of carved stone.");
   OutputClass::output("Light filters through tall windows in shafts of soft radiance.");

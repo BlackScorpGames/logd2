@@ -17,7 +17,7 @@ if (!$skipgraveyardtext) {
 		RedirectClass::redirect("village.php");
 	}
 
-	checkday();
+	GameDateTime::checkday();
 }
 $battle = false;
 strip_all_buffs();

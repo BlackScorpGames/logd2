@@ -14,7 +14,7 @@ if ($session['user']['dragonkills']>0 ||
 	Commentary::addcommentary();
 }
 
-checkday();
+GameDateTime::checkday();
 if ($session['user']['dragonkills']>0 ||
 		$session['user']['superuser'] & SU_EDIT_COMMENTS){
 	PageParts::page_header("The Veteran's Club");

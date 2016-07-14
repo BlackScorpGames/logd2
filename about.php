@@ -12,7 +12,7 @@ Translator::tlschema("about");
 PageParts::page_header("About Legend of the Green Dragon");
 $details = gametimedetails();
 
-checkday();
+GameDateTime::checkday();
 $op = Http::httpget('op');
 
 switch ($op) {

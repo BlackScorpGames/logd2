@@ -16,7 +16,7 @@ $superusermask = SU_HIDE_FROM_LEADERBOARD;
 $standardwhere = "(locked=0 AND (superuser & $superusermask) = 0)";
 
 PageParts::page_header("Hall of Fame");
-checkday();
+GameDateTime::checkday();
 
 OutputClass::addnav("Other");
 villagenav();

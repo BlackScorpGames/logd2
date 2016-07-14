@@ -11,7 +11,7 @@ Translator::tlschema("list");
 
 PageParts::page_header("List Warriors");
 if ($session['user']['loggedin']) {
-	checkday();
+	GameDateTime::checkday();
 	if ($session['user']['alive']) {
 		villagenav();
 	} else {

@@ -8,7 +8,7 @@ require_once("lib/villagenav.php");
 
 Translator::tlschema("mercenarycamp");
 
-checkday();
+GameDateTime::checkday();
 $name = stripslashes(rawurldecode(Http::httpget('name')));
 if (isset($companions[$name])) {
 	$displayname = $companions[$name]['name'];

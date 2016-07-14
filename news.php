@@ -17,7 +17,7 @@ if ((int)Settings::getsetting("expirecontent",180)>0){
 	db_query($sql);
 }
 
-if ($session['user']['loggedin']) checkday();
+if ($session['user']['loggedin']) GameDateTime::checkday();
 $newsperpage=50;
 
 $offset = (int)Http::httpget('offset');

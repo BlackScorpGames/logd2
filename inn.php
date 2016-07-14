@@ -30,7 +30,7 @@ PageParts::page_header(array("%s",sanitize($iname)));
 $skipinndesc = Events::handle_event("inn");
 
 if (!$skipinndesc) {
-	checkday();
+	GameDateTime::checkday();
 	OutputClass::rawoutput("<span style='color: #9900FF'>");
 	OutputClass::output_notl("`c`b");
 	OutputClass::output($iname);

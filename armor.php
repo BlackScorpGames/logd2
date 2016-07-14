@@ -8,7 +8,7 @@ require_once("lib/villagenav.php");
 
 Translator::tlschema("armor");
 
-checkday();
+GameDateTime::checkday();
 $tradeinvalue = round(($session['user']['armorvalue']*.75),0);
 $basetext=array(
 	"title"			=>	"Pegasus Armor",

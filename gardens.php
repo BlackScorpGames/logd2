@@ -36,7 +36,7 @@ if (!$op && $com=="" && !$comment && !$refresh && !$commenting) {
 	}
 }
 if (!$skipgardendesc) {
-	checkday();
+	GameDateTime::checkday();
 
 	OutputClass::output("`b`c`2The Gardens`0`c`b");
 

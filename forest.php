@@ -53,7 +53,7 @@ if ($op=="dragon"){
 }
 
 if ($op=="search"){
-	checkday();
+	GameDateTime::checkday();
 	if ($session['user']['turns']<=0){
 		OutputClass::output("`\$`bYou are too tired to search the forest any longer today.  Perhaps tomorrow you will have more energy.`b`0");
 		$op="";

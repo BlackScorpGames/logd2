@@ -10,7 +10,7 @@ Translator::tlschema("shades");
 
 PageParts::page_header("Land of the Shades");
 Commentary::addcommentary();
-checkday();
+GameDateTime::checkday();
 
 if ($session['user']['alive']) RedirectClass::redirect("village.php");
 OutputClass::output("`\$You walk among the dead now, you are a shade. ");

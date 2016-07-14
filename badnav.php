@@ -10,7 +10,7 @@ Translator::tlschema("badnav");
 
 if ($session['user']['loggedin'] && $session['loggedin']){
 	if (strpos($session['OutputClass::output'],"<!--CheckNewDay()-->")){
-		checkday();
+		GameDateTime::checkday();
 	}
 	while (list($key,$val)=each($session['allowednavs'])){
 		//hack-tastic.

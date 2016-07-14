@@ -14,7 +14,7 @@ Translator::tlschema("lodge");
 Commentary::addcommentary();
 
 $op = Http::httpget('op');
-if ($op == "") checkday();
+if ($op == "") GameDateTime::checkday();
 
 $pointsavailable =
 	$session['user']['donation']-$session['user']['donationspent'];
