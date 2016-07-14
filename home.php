@@ -55,7 +55,7 @@ if (Settings::getsetting("homenewestplayer", 1)) {
 	}
 }
 
-clearnav();
+OutputClass::clearnav();
 addnav("New to LoGD?");
 addnav("Create a character","create.php");
 addnav("Game Functions");

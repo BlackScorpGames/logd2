@@ -24,7 +24,7 @@ function check_su_access($level){
 			page_footer();
 		}
 	}else{
-		clearnav();
+		OutputClass::clearnav();
 		$session['OutputClass::output']="";
 		PageParts::page_header("INFIDEL!");
 		// This buff is useless because the graveyard (rightly, really)

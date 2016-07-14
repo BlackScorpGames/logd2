@@ -83,21 +83,35 @@ function output_notl($indata){
  * @see output_notl
  *
  */
-class OutputClass{
-public static function output(){
-	global $block_new_output;
+class OutputClass
+{
+    public static function output()
+    {
+        global $block_new_output;
 
-	if ($block_new_output) return;
-	$args = func_get_args();
-	if (is_array($args[0])) $args = $args[0];
-	if (is_bool($args[0]) && array_shift($args)) {
-		$schema= array_shift($args);
-		$args[0] = translate($args[0],$schema);
-	} else {
-		$args[0] = translate($args[0]);
-	}
-	call_user_func_array("output_notl",$args);
-}
+        if ($block_new_output) {
+            return;
+        }
+        $args = func_get_args();
+        if (is_array($args[0])) {
+            $args = $args[0];
+        }
+        if (is_bool($args[0]) && array_shift($args)) {
+            $schema = array_shift($args);
+            $args[0] = translate($args[0], $schema);
+        } else {
+            $args[0] = translate($args[0]);
+        }
+        call_user_func_array("output_notl", $args);
+    }
+
+    /**
+     * Reset and wipe the navs
+     *
+     */
+    public static function clearnav(){
+        $session['allowednavs']=array();
+    }
 }
 /**
  * Generate debug OutputClass::output for players who have the SU_DEBUG_OUTPUT flag set in the superuser mask
@@ -878,13 +892,7 @@ function navcount(){
 	return $c;
 }
 
-/**
- * Reset and wipe the navs
- *
- */
-function clearnav(){
-	$session['allowednavs']=array();
-}
+
 
 /**
  * Reset the OutputClass::output and wipe the navs
@@ -893,7 +901,7 @@ function clearnav(){
 function clearoutput(){
 	global $output,$nestedtags,$header,$nav,$session;
 
-	clearnav();
+	OutputClass::clearnav();
 	$output="";
 	unset($nestedtags);
 	$header="";
