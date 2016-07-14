@@ -2,26 +2,31 @@
 // translator ready
 // addnews ready
 // mail ready
-
-function templatereplace($itemname,$vals=false){
-	global $template;
-	if (!isset($template[$itemname]))
-		OutputClass::output("`bWarning:`b The `i%s`i template part was not found!`n", $itemname);
-	$out = $template[$itemname];
-	if (!is_array($vals)) return $out;
-	@reset($vals);
-	while (list($key,$val)=@each($vals)){
-		if (strpos($out,"{".$key."}")===false){
-			OutputClass::output("`bWarning:`b the `i%s`i piece was not found in the `i%s`i te".
-					"mplate part! (%s)`n", $key, $itemname, $out);
-			$out .= $val;
-		}else{
-			$out = str_replace("{"."$key"."}",$val,$out);
+class Template
+{
+	public static function templatereplace($itemname, $vals = false)
+	{
+		global $template;
+		if (!isset($template[$itemname])) {
+			OutputClass::output("`bWarning:`b The `i%s`i template part was not found!`n", $itemname);
 		}
+		$out = $template[$itemname];
+		if (!is_array($vals)) {
+			return $out;
+		}
+		@reset($vals);
+		while (list($key, $val) = @each($vals)) {
+			if (strpos($out, "{" . $key . "}") === false) {
+				OutputClass::output("`bWarning:`b the `i%s`i piece was not found in the `i%s`i te" .
+					"mplate part! (%s)`n", $key, $itemname, $out);
+				$out .= $val;
+			} else {
+				$out = str_replace("{" . "$key" . "}", $val, $out);
+			}
+		}
+		return $out;
 	}
-	return $out;
 }
-
 function prepare_template($force=false){
 	if (!$force) {
 		if (defined("TEMPLATE_IS_PREPARED")) return;

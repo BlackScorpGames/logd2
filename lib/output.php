@@ -755,10 +755,10 @@ function private_addnav($text,$link=false,$priv=false,$pop=false,$popsize="500x3
 	$ignoreuntil="";
 	if ($link===false){
 		$text = holidayize($text,'nav');
-		$thisnav.=tlbutton_pop().templatereplace("navhead",array("title"=>appoencode($text,$priv)));
+		$thisnav.=tlbutton_pop().Template::templatereplace("navhead",array("title"=>appoencode($text,$priv)));
 	}elseif ($link === "") {
 		$text = holidayize($text,'nav');
-		$thisnav.=tlbutton_pop().templatereplace("navhelp",array("text"=>appoencode($text,$priv)));
+		$thisnav.=tlbutton_pop().Template::templatereplace("navhelp",array("text"=>appoencode($text,$priv)));
 	} elseif ($link == "!!!addraw!!!") {
 		$thisnav .= $text;
 	}else{
@@ -865,7 +865,7 @@ function private_addnav($text,$link=false,$priv=false,$pop=false,$popsize="500x3
 					$quickkeys[$key]="window.location='$link$extra'";
 				}
 			}
-			$n= templatereplace("navitem",array(
+			$n= Template::templatereplace("navitem",array(
 				"text"=>appoencode($text,$priv),
 				"link"=>HTMLEntities($link.($pop!=true?$extra:""), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")),
 				"accesskey"=>$keyrep,

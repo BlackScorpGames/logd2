@@ -340,7 +340,7 @@ function page_footer($saveuser=true){
 			OutputClass::addnav("", "viewpetition.php");
 		}
 		$p .= " `\${$petitions[5]}`0|`^{$petitions[4]}`0|`b{$petitions[0]}`b|{$petitions[1]}|`!{$petitions[3]}`0|`#{$petitions[7]}`0|`%{$petitions[6]}`0|`i{$petitions[2]}`i";
-		$pcount = templatereplace("petitioncount", array("petitioncount"=>appoencode($p, true)));
+		$pcount = Template::templatereplace("petitioncount", array("petitioncount"=>appoencode($p, true)));
 		$footer = str_replace("{petitiondisplay}", $pcount, $footer);
 		$header = str_replace("{petitiondisplay}", $pcount, $header);
 	} else {
@@ -521,12 +521,12 @@ function setcharstat($cat, $label, $val) {
 function getcharstats($buffs){
 	//returns OutputClass::output formatted character statistics.
 	global $charstat_info;
-	$charstat_str = templatereplace("statstart");
+	$charstat_str = Template::templatereplace("statstart");
 	reset($charstat_info);
 	foreach ($charstat_info as $label=>$section) {
 		if (count($section)) {
 			$arr = array("title"=>Translator::translate_inline($label));
-			$sectionhead = templatereplace("stathead", $arr);
+			$sectionhead = Template::templatereplace("stathead", $arr);
 			reset($section);
 			foreach ($section as $name=>$val) {
 				if ($name==$label){
@@ -534,19 +534,19 @@ function getcharstats($buffs){
 					// 'statbuff' template piece.
 					$a2 = array("title"=>Translator::translate_inline("`0$name"),
 							"value"=>"`^$val`0");
-					$charstat_str .= templatereplace("statbuff", $a2);
+					$charstat_str .= Template::templatereplace("statbuff", $a2);
 				}else{
 					$a2 = array("title"=>Translator::translate_inline("`&$name`0"),
 							"value"=>"`^$val`0");
-					$charstat_str .= $sectionhead.templatereplace("statrow", $a2);
+					$charstat_str .= $sectionhead.Template::templatereplace("statrow", $a2);
 					$sectionhead = "";
 				}
 			}
 		}
 	}
-	$charstat_str .= templatereplace("statbuff",
+	$charstat_str .= Template::templatereplace("statbuff",
 			array("title"=>Translator::translate_inline("`0Buffs"),"value"=>$buffs));
-	$charstat_str .= templatereplace("statend");
+	$charstat_str .= Template::templatereplace("statend");
 	return appoencode($charstat_str,true);
 }
 

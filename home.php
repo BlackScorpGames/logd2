@@ -105,7 +105,7 @@ if ($onlinecount<Settings::getsetting("maxonline",0) || Settings::getsetting("ma
 	$uname = Translator::translate_inline("<u>U</u>sername");
 	$pass = Translator::translate_inline("<u>P</u>assword");
 	$butt = Translator::translate_inline("Log in");
-	OutputClass::rawoutput("<form action='login.php' method='POST' onSubmit=\"md5pass();\">".templatereplace("login",array("username"=>$uname,"password"=>$pass,"button"=>$butt))."</form>");
+	OutputClass::rawoutput("<form action='login.php' method='POST' onSubmit=\"md5pass();\">".Template::templatereplace("login",array("username"=>$uname,"password"=>$pass,"button"=>$butt))."</form>");
 	OutputClass::output_notl("`c");
 	OutputClass::addnav("","login.php");
 } else {
@@ -118,7 +118,7 @@ if ($onlinecount<Settings::getsetting("maxonline",0) || Settings::getsetting("ma
 		$session['message'].=Translator::translate_inline("`b`#If you are not sure what cookies are, please <a href='http://en.wikipedia.org/wiki/WWW_browser_cookie'>read this article</a> about them, and how to enable them.`b`n");
 	}
 	if ($session['message']>"") OutputClass::output("`b`\$%s`b`n", $session['message'],true);
-	OutputClass::rawoutput(templatereplace("loginfull",array()));
+	OutputClass::rawoutput(Template::templatereplace("loginfull",array()));
 	OutputClass::output_notl("`c");
 }
 
