@@ -43,7 +43,7 @@ if ($detail>0){
 }
 
 
-page_footer();
+PageParts::page_footer();
 
 function clanform(){
 	OutputClass::rawoutput("<form action='clan.php?op=new&apply=1' method='POST'>");

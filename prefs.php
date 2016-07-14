@@ -313,5 +313,5 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 		OutputClass::addnav("","prefs.php?op=suicide&userid={$session['user']['acctid']}");
 	}
 }
-page_footer();
+PageParts::page_footer();
 ?>

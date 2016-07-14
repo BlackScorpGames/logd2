@@ -22,8 +22,8 @@ if (navcount() == 0) {
 	}
 	$session['user']['specialty'] = "MP";
 	OutputClass::addnav("Continue","newday.php?continue=1$resline");
-	page_footer();
+	PageParts::page_footer();
 }else{
-	page_footer();
+	PageParts::page_footer();
 }
 ?>

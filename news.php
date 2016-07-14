@@ -141,5 +141,5 @@ if ($totaltoday>$newsperpage){
 	}
 }
 
-page_footer();
+PageParts::page_footer();
 ?>

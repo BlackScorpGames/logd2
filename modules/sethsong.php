@@ -117,7 +117,7 @@ function sethsong_run(){
 	OutputClass::addnav("I?Return to the Inn","inn.php");
 	villagenav();
 	OutputClass::rawoutput("</span>");
-	page_footer();
+	PageParts::page_footer();
 }
 
 function sethsong_sing()

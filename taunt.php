@@ -92,5 +92,5 @@ if ($op == "") {
 	OutputClass::addnav("Taunts");
 	OutputClass::addnav("Add a new taunt","taunt.php?op=edit");
 }
-page_footer();
+PageParts::page_footer();
 ?>

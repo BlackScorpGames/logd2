@@ -39,5 +39,5 @@
 		OutputClass::addnav("Return to the Lobby","clan.php");
 	}
 
-	page_footer();
+	PageParts::page_footer();
 ?>

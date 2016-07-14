@@ -287,5 +287,5 @@ foreach ($mods as $area=>$name) {
 }
 Translator::tlschema();
 
-page_footer();
+PageParts::page_footer();
 ?>

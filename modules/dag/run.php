@@ -240,6 +240,6 @@ function dag_run_private(){
 		OutputClass::addnav("View by Level", "runmodule.php?module=dag&op=list&sort=level");
 	}
 	OutputClass::rawoutput("</span>");
-	page_footer();
+	PageParts::page_footer();
 }
 ?>

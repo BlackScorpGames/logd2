@@ -320,5 +320,5 @@ if ($dp < $dkills) {
 	debuglog("New Day Turns: $turnstoday");
 
 }
-page_footer();
+PageParts::page_footer();
 ?>

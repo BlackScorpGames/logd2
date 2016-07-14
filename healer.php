@@ -131,5 +131,5 @@ if ($return==""){
 }
 Translator::tlschema();
 OutputClass::output_notl("`0");
-page_footer();
+PageParts::page_footer();
 ?>

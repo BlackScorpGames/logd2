@@ -28,5 +28,5 @@ if ($session['user']['loggedin']) {
 }else{
 	OutputClass::addnav("Login Page","index.php");
 }
-page_footer();
+PageParts::page_footer();
 ?>

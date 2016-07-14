@@ -60,13 +60,13 @@ if ($session['user']['loggedin']){
 		OutputClass::rawoutput("</td></tr>");
 	}
 	OutputClass::rawoutput("</table>",true);
-	page_footer();
+	PageParts::page_footer();
 }else{
 	PageParts::page_header("Welcome to Legend of the Green Dragon");
 	OutputClass::output("`@Legend of the Green Dragon is a remake of the classic BBS Door Game Legend of the Red Dragon.");
 	OutputClass::output("Adventure into the classic realm that was one of the world's very first multiplayer roleplaying games!");
 	OutputClass::addnav("Create a character","create.php?r=".HTMLEntities(Http::httpget('r'), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
 	OutputClass::addnav("Login Page","index.php");
-	page_footer();
+	PageParts::page_footer();
 }
 ?>

@@ -489,7 +489,7 @@ function dag_manage(){
 		OutputClass::output("Bounty closed.");
 	// ***END ADD***
 	}
-	page_footer();
+	PageParts::page_footer();
 }
 
 function dag_pvpwin($args){

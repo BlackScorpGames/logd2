@@ -75,7 +75,7 @@ if ($op=="search"){
 				$op = "";
 				httpset("op", "");
 			} else {
-				page_footer();
+				PageParts::page_footer();
 			}
 		}else{
 			$session['user']['turns']--;
@@ -306,5 +306,5 @@ if ($op==""){
 	// sometimes, but not others.
 	forest($dontdisplayforestmessage);
 }
-page_footer();
+PageParts::page_footer();
 ?>

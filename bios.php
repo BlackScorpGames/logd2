@@ -62,5 +62,5 @@ for ($i=0;$i<$number;$i++){
 	OutputClass::output_notl("`&%s`0: `^%s`0`n", $row['name'], soap($row['bio']));
 }
 db_free_result($result);
-page_footer();
+PageParts::page_footer();
 ?>

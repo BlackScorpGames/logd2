@@ -111,7 +111,7 @@ if (file_exists("dbconnect.php")){
 		OutputClass::output("If you've previously been running the game here, chances are that you lost a file called '`%dbconnect.php`#' from your site.");
 		OutputClass::output("If that's the case, no worries, we can get you back up and running in no time, and the installer can help!");
 		OutputClass::addnav("Game Installer","installer.php");
-		page_footer();
+		PageParts::page_footer();
 	}
 }
 
@@ -144,7 +144,7 @@ if ($link===false){
 	 	if (!defined("DB_NODB")) define("DB_NODB",true);
 		PageParts::page_header("Database Connection Error");
 		OutputClass::output("Unable to connect to the database server.  Sorry it didn't work out.");
-		page_footer();
+		PageParts::page_footer();
 	}
 	define("DB_CONNECTED",false);
 }else{
@@ -163,7 +163,7 @@ if (!DB_CONNECTED || !db_select_db ($DB_NAME)){
 	 	if (!defined("DB_NODB")) define("DB_NODB",true);
 		PageParts::page_header("Database Connection Error");
 		OutputClass::output("I was able to connect to the database server, but couldn't connect to the specified database.  Sorry it didn't work out.");
-		page_footer();
+		PageParts::page_footer();
 	}
 	define("DB_CHOSEN",false);
 }else{
@@ -234,7 +234,7 @@ if ($logd_version != Settings::getsetting("installer_version","-1") && !defined(
 	OutputClass::rawoutput("<meta http-equiv='refresh' content='30; url={$session['user']['restorepage']}'>");
 	OutputClass::addnav("Installer (Admins only!)","installer.php");
 	define("NO_SAVE_USER",true);
-	page_footer();
+	PageParts::page_footer();
 }
 
 if ($session['user']['hitpoints']>0){

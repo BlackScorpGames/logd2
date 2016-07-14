@@ -328,5 +328,5 @@ if ($id && $op != ""){
 		OutputClass::addnav(array("Next %s",$status),"viewpetition.php?op=view&id=$nextid");
 	}
 }
-page_footer();
+PageParts::page_footer();
 ?>

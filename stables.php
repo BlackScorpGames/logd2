@@ -296,5 +296,5 @@ if ($confirm == 0) {
 	}
 }
 
-page_footer();
+PageParts::page_footer();
 ?>

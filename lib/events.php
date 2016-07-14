@@ -54,7 +54,7 @@ function handle_event($location, $baseLink=false, $needHeader=false)
 		}
 		if (checknavs()) {
 			// The page rendered some linkage, so we just want to exit.
-			page_footer();
+			PageParts::page_footer();
 		} else {
 			$skipdesc=true;
 			$session['user']['specialinc'] = "";

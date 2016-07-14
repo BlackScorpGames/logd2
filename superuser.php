@@ -81,5 +81,5 @@ OutputClass::addnav("Module Configurations");
 
 Modules::modulehook("superuser", array(), true);
 
-page_footer();
+PageParts::page_footer();
 ?>

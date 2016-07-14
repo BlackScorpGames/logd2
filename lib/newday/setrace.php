@@ -24,9 +24,9 @@ if (navcount()==0){
 	}
 	$session['user']['race']="Human";
 	OutputClass::addnav("Continue","newday.php?continue=1$resline");
-	page_footer();
+	PageParts::page_footer();
 }else{
 	PageParts::page_header("A little history about yourself");
-	page_footer();
+	PageParts::page_footer();
 }
 ?>

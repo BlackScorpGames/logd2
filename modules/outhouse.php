@@ -118,7 +118,7 @@ function outhouse_run(){
 			OutputClass::output("Dejected, you return to the forest.");
 			require_once("lib/forest.php");
 			forest(true);
-			page_footer();
+			PageParts::page_footer();
 		}
 
 		PageParts::page_header("Private Toilet");
@@ -236,6 +236,6 @@ function outhouse_run(){
 			forest(true);
 		}
 	}
-	page_footer();
+	PageParts::page_footer();
 }
 ?>

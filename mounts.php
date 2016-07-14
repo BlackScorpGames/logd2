@@ -462,5 +462,5 @@ function mountform($mount){
 	OutputClass::rawoutput("<input type='submit' class='button' value='$save'></form>");
 }
 
-page_footer();
+PageParts::page_footer();
 ?>

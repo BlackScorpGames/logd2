@@ -146,6 +146,6 @@ OutputClass::addnav("R?Restart Translator", "untranslated.php");
 OutputClass::addnav("N?Translate by Namespace", "untranslated.php?op=list");
 require_once("lib/superusernav.php");
 superusernav();
-page_footer();
+PageParts::page_footer();
 
 ?>

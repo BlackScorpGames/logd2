@@ -188,6 +188,6 @@ function game_fivesix_run(){
 	OutputClass::addnav("Other Games",appendlink(urldecode($ret), "op=oldman"));
 	OutputClass::addnav("Return to the Main Room",appendlink(urldecode($ret), "op=tavern"));
 
-	page_footer();
+	PageParts::page_footer();
 }
 ?>

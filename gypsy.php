@@ -44,5 +44,5 @@ if ($op=="pay"){
 	OutputClass::addnav("Forget it","village.php");
 	Modules::modulehook("gypsy");
 }
-page_footer();
+PageParts::page_footer();
 ?>

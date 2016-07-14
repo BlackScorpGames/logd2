@@ -233,5 +233,5 @@ if (isset($table) && is_array($table)){
 	}
 }
 
-page_footer();
+PageParts::page_footer();
 ?>

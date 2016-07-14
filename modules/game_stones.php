@@ -127,6 +127,6 @@ function game_stones_run(){
 		OutputClass::addnav("Return to Main Room", appendlink(urldecode($ret), "op=tavern"));
 	}
 	$session['user']['specialmisc']=serialize($stones);
-	page_footer();
+	PageParts::page_footer();
 }
 ?>

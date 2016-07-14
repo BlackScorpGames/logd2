@@ -149,7 +149,7 @@ function drinks_run_private(){
 		}
 		require_once("lib/villagenav.php");
 		villagenav();
-		page_footer();
+		PageParts::page_footer();
 	}
 }
 ?>

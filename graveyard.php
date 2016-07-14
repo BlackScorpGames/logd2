@@ -128,5 +128,5 @@ switch ($op) {
 		break;
 }
 
-page_footer();
+PageParts::page_footer();
 ?>

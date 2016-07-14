@@ -258,7 +258,7 @@ if ($op==""){
 		$i++;
 	}
 	OutputClass::rawoutput("</table>");
-	page_footer();
+	PageParts::page_footer();
 }
 
 function apply_logdnet_bans($logdnet){

@@ -167,5 +167,5 @@ for($i=0;$i<$max;$i++){
 }
 OutputClass::rawoutput("</table>");
 OutputClass::output_notl("`c");
-page_footer();
+PageParts::page_footer();
 ?>

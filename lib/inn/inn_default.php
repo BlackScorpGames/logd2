@@ -2,7 +2,7 @@
 if ($com=="" && !$comment && $op!="fleedragon") {
 	if (module_events("inn", Settings::getsetting("innchance", 0)) != 0) {
 		if (checknavs()) {
-			page_footer();
+			PageParts::page_footer();
 		} else {
 			$skipinndesc = true;
 			$session['user']['specialinc'] = "";

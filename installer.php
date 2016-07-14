@@ -137,6 +137,6 @@ if (!$noinstallnavs){
 		OutputClass::addnav($stages[$x],"installer.php?stage=$x");
 	}
 }
-page_footer(false);
+PageParts::page_footer(false);
 
 ?>

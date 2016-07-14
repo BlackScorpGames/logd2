@@ -86,5 +86,5 @@ if ($op=="" || $op=="sql"){
 	OutputClass::rawoutput("</form>");
 	OutputClass::addnav("", "rawsql.php?op=php");
 }
-page_footer();
+PageParts::page_footer();
 ?>

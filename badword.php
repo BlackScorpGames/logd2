@@ -152,7 +152,7 @@ if ($op=="add" || $op=="remove"){
 	db_query($sql);
 	invalidatedatacache("nastywordlist");
 }
-page_footer();
+PageParts::page_footer();
 
 function show_word_list($words){
 	sort($words);

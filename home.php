@@ -141,5 +141,5 @@ if (Settings::getsetting("homeskinselect", 1)) {
 	OutputClass::rawoutput("</tr></table></form>");
 }
 
-page_footer();
+PageParts::page_footer();
 ?>

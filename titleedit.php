@@ -179,5 +179,5 @@ function title_help()
 	OutputClass::output("If you have a gap, the title given will be for the DK rank less than or equal to the players current number of DKs.`n");
 }
 
-page_footer();
+PageParts::page_footer();
 ?>

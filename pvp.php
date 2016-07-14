@@ -127,5 +127,5 @@ if ($battle){
 		fightnav(false,false, "pvp.php$extra");
 	}
 }
-page_footer();
+PageParts::page_footer();
 ?>

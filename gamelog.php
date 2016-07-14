@@ -66,6 +66,6 @@ while ($row = db_fetch_assoc($result)) {
 	OutputClass::output_notl("`n");
 }
 
-page_footer();
+PageParts::page_footer();
 
 ?>

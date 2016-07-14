@@ -241,7 +241,7 @@ function drinks_editor(){
 		OutputClass::output("`2Effect no damage message: Message if no damage is done. (Only used with damage shield)`n");
 		OutputClass::output("`2Effect message: What shows when this buff has an effect. (Only used with damage shield)`n`n");
 	}
-	page_footer();
+	PageParts::page_footer();
 }
 
 ?>

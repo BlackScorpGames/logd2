@@ -36,7 +36,7 @@ if ($session['user']['loggedin'] && $session['loggedin']){
 			OutputClass::addnav("Return to Shades", "shades.php");
 			OutputClass::output("Your navs are corrupted, please return to the Shades.");
 		}
-		page_footer();
+		PageParts::page_footer();
 	}
 	echo $row['OutputClass::output'];
 	$session['debug']="";

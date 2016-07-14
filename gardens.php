@@ -24,7 +24,7 @@ $comment = httppost('insertcommentary');
 if (!$op && $com=="" && !$comment && !$refresh && !$commenting) {
 	if (module_events("gardens", Settings::getsetting("gardenchance", 0)) != 0) {
 		if (checknavs()) {
-			page_footer();
+			PageParts::page_footer();
 		} else {
 			// Reset the special for good.
 			$session['user']['specialinc'] = "";
@@ -51,5 +51,5 @@ Modules::modulehook("gardens", array());
 commentdisplay("", "gardens","Whisper here",30,"whispers");
 
 module_display_events("gardens", "gardens.php");
-page_footer();
+PageParts::page_footer();
 ?>

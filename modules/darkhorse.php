@@ -314,7 +314,7 @@ function darkhorse_run(){
 		darkhorse_runevent("forest", "forest.php?");
 		// Clear the specialinc, just in case.
 		$session['user']['specialinc']="";
-		page_footer();
+		PageParts::page_footer();
 	}
 }
 ?>

@@ -447,5 +447,5 @@ if ($op == "") {
 	ShowFormClass::showform($setup,$vals);
 	OutputClass::rawoutput("</form>");
 }
-page_footer();
+PageParts::page_footer();
 ?>

@@ -103,5 +103,5 @@ for ($i=0;$i<$number;$i++){
 	//OutputClass::output("</td></tr>",true);
 }
 OutputClass::rawoutput("</table>");
-page_footer();
+PageParts::page_footer();
 ?>

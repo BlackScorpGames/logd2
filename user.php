@@ -273,7 +273,7 @@ switch($op) {
 		require("lib/user/user_.php");
 		break;
 }
-page_footer();
+PageParts::page_footer();
 
 function show_bitfield($val){
 	$out = "";

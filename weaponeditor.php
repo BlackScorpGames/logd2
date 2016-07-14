@@ -112,5 +112,5 @@ if ($op==""){
 	}
 	OutputClass::rawoutput("</table>");
 }
-page_footer();
+PageParts::page_footer();
 ?>

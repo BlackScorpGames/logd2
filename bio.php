@@ -158,7 +158,7 @@ if ($target = db_fetch_assoc($result)) {
   }
 
   Modules::modulehook("bioend", $target);
-  page_footer();
+  PageParts::page_footer();
 } else {
 	PageParts::page_header("Character has been deleted");
 	OutputClass::output("This character is already deleted.");
@@ -179,6 +179,6 @@ if ($target = db_fetch_assoc($result)) {
 	  }
 	  Translator::tlschema();
   }
-	page_footer();
+	PageParts::page_footer();
 }
 ?>

@@ -159,7 +159,7 @@ function forestdefeat($enemies,$where="in the forest"){
 	OutputClass::output("`4All gold on hand has been lost!`n");
 	OutputClass::output("`4%s %% of experience has been lost!`b`n",$percent);
 	OutputClass::output("You may begin fighting again tomorrow.");
-	page_footer();
+	PageParts::page_footer();
 }
 
 function buffbadguy($badguy){

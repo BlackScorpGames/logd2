@@ -334,7 +334,7 @@ function racedwarf_run(){
 		Modules::modulehook("ale");
 		OutputClass::addnav("Other");
 		villagenav();
-		page_footer();
+		PageParts::page_footer();
 		break;
 	}
 }

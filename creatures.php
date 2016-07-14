@@ -242,5 +242,5 @@ if ($op=="" || $op=="search"){
 	OutputClass::addnav("Navigation");
 	OutputClass::addnav("Return to the creature editor","creatures.php?level=$level");
 }
-page_footer();
+PageParts::page_footer();
 ?>

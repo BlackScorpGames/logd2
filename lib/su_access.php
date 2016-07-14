@@ -21,7 +21,7 @@ function check_su_access($level){
 			Translator::tlschema("nav");
 			OutputClass::addnav("M?Return to the Mundane","village.php");
 			Translator::tlschema();
-			page_footer();
+			PageParts::page_footer();
 		}
 	}else{
 		OutputClass::clearnav();
@@ -68,7 +68,7 @@ function check_su_access($level){
 			$body = sprintf($body, $session['user']['name'], $_SERVER['REQUEST_URI'], $SERVER['HTTP_REFERER']);
 			systemmail($row['acctid'],$subj,$body);
 		}
-		page_footer();
+		PageParts::page_footer();
 	}
 }
 ?>

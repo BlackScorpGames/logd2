@@ -43,7 +43,7 @@ if ($name!=""){
 			checkban($session['user']['login']); //check if this account is banned
 			checkban(); //check if this computer is banned
 			// If the player isn't allowed on for some reason, anything on
-			// this hook should automatically call page_footer and exit
+			// this hook should automatically call PageParts::page_footer and exit
 			// itself.
 			Modules::modulehook("check-login");
 

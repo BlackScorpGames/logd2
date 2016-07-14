@@ -263,6 +263,6 @@ if (Settings::getsetting("allowgoldtransfer",1)){
 	}
 }
 
-page_footer();
+PageParts::page_footer();
 
 ?>

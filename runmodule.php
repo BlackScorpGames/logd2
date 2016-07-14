@@ -48,6 +48,6 @@ if (injectmodule(Http::httpget('module'), (Http::httpget('admin')?true:false))){
 		OutputClass::addnav("L?Return to the Login","index.php");
 	}
 	OutputClass::output("You are attempting to use a module which is no longer active, or has been uninstalled.");
-	page_footer();
+	PageParts::page_footer();
 }
 ?>

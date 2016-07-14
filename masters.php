@@ -140,5 +140,5 @@ if ($op == "") {
 	OutputClass::output("`n`#You can change the names, weapons and messages of all of the Training Masters.");
 	OutputClass::output("It is suggested, that you do not toy around with this, unless you know what you are doing.`0`n");
 }
-page_footer();
+PageParts::page_footer();
 ?>

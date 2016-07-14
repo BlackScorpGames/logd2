@@ -349,6 +349,6 @@ function cedrikspotions_run(){
 		villagenav();
 	}
 	OutputClass::rawoutput("</span>");
-	page_footer();
+	PageParts::page_footer();
 }
 ?>

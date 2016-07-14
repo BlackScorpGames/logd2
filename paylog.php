@@ -98,5 +98,5 @@ if ($op==""){
 	OutputClass::rawoutput("</table>");
 	OutputClass::addnav("Refresh","paylog.php");
 }
-page_footer();
+PageParts::page_footer();
 ?>

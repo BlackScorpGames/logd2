@@ -289,11 +289,11 @@ if ($battle){
 			OutputClass::output("`4All gold on hand has been lost!`n");
 			OutputClass::output("You may begin fighting again tomorrow.");
 
-			page_footer();
+			PageParts::page_footer();
 		}else{
 		  fightnav(true,false);
 		}
 	}
 }
-page_footer();
+PageParts::page_footer();
 ?>

@@ -268,6 +268,6 @@ function crazyaudrey_run(){
 		require_once("lib/villagenav.php");
 		villagenav();
 	}
-	page_footer();
+	PageParts::page_footer();
 }
 ?>

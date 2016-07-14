@@ -113,6 +113,6 @@ function game_dice_run(){
 		OutputClass::output("With that, he turns back to his dice, apparently having already forgotten his anger.");
 		OutputClass::addnav("Return to the Main Room", appendlink(urldecode($ret), "op=tavern"));
 	}
-	page_footer();
+	PageParts::page_footer();
 }
 ?>

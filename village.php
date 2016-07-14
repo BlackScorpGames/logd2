@@ -146,7 +146,7 @@ if (!$op && $com=="" && !$comment && !$refresh && !$commenting) {
 	// The '1' should really be sysadmin customizable.
 	if (module_events("village", Settings::getsetting("villagechance", 0)) != 0) {
 		if (checknavs()) {
-			page_footer();
+			PageParts::page_footer();
 		} else {
 			// Reset the special for good.
 			$session['user']['specialinc'] = "";
@@ -299,5 +299,5 @@ if (!isset($args['block']) || $args['block'] != 'yes') {
 }
 
 module_display_events("village", "village.php");
-page_footer();
+PageParts::page_footer();
 ?>

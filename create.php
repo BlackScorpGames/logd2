@@ -312,5 +312,5 @@ if (Settings::getsetting("allowcreation",1)==0){
 	}
 }
 OutputClass::addnav("Login","index.php");
-page_footer();
+PageParts::page_footer();
 ?>

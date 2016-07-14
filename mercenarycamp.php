@@ -240,7 +240,7 @@ if ($op==""){
 }
 OutputClass::addnav("Navigation");
 villagenav();
-page_footer();
+PageParts::page_footer();
 
 
 function healnav($companions, $texts, $schemas) {

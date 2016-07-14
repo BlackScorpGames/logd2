@@ -16,7 +16,7 @@ if ($session['user']['gravefights']<=0){
 			$op = "";
 			httpset("op", "");
 		} else {
-			page_footer();
+			PageParts::page_footer();
 		}
 	} else {
 		$session['user']['gravefights']--;

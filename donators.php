@@ -168,5 +168,5 @@ if ($op==""){
 		}
 	}
 }
-page_footer();
+PageParts::page_footer();
 ?>
