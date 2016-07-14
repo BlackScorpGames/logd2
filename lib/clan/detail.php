@@ -1,8 +1,8 @@
 <?php
 	if ($session['user']['superuser'] & SU_EDIT_COMMENTS){
-		$clanname = httppost('clanname');
+		$clanname = Http::httppost('clanname');
 		if ($clanname) $clanname = full_sanitize($clanname);
-		$clanshort = httppost('clanshort');
+		$clanshort = Http::httppost('clanshort');
 		if ($clanshort) $clanshort = full_sanitize($clanshort);
 		if ($clanname>"" && $clanshort>""){
 			$sql = "UPDATE " . db_prefix("clans") . " SET clanname='$clanname',clanshort='$clanshort' WHERE clanid='$detail'";
@@ -10,13 +10,13 @@
 			db_query($sql);
 			invalidatedatacache("clandata-$detail");
 		}
-		if (httppost('block')>""){
+		if (Http::httppost('block')>""){
 			$blockdesc = Translator::translate_inline("Description blocked for inappropriate usage.");
 			$sql = "UPDATE " . db_prefix("clans") . " SET descauthor=4294967295, clandesc='$blockdesc' where clanid='$detail'";
 			OutputClass::output("Blocking public description`n");
 			db_query($sql);
 			invalidatedatacache("clandata-$detail");
-		}elseif (httppost('unblock')>""){
+		}elseif (Http::httppost('unblock')>""){
 			$sql = "UPDATE " . db_prefix("clans") . " SET descauthor=0, clandesc='' where clanid='$detail'";
 			OutputClass::output("UNblocking public description`n");
 			db_query($sql);

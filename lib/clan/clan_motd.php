@@ -2,7 +2,7 @@
 		PageParts::page_header("Update Clan Description / MoTD");
 		OutputClass::addnav("Clan Options");
 		if ($session['user']['clanrank']>=CLAN_OFFICER){
-			$clanmotd = substr(httppost('clanmotd'),0,4096);
+			$clanmotd = substr(Http::httppost('clanmotd'),0,4096);
 			if (httppostisset('clanmotd') &&
 					stripslashes($clanmotd)!=$claninfo['clanmotd']){
 				$sql = "UPDATE " . db_prefix("clans") . " SET clanmotd='$clanmotd',motdauthor={$session['user']['acctid']} WHERE clanid={$claninfo['clanid']}";
@@ -12,7 +12,7 @@
 				OutputClass::output("Updating MoTD`n");
 				$claninfo['motdauthor']=$session['user']['acctid'];
 			}
-			$clandesc = httppost('clandesc');
+			$clandesc = Http::httppost('clandesc');
 			if (httppostisset('clandesc') &&
 					stripslashes($clandesc)!=$claninfo['clandesc'] &&
 					$claninfo['descauthor']!=4294967295){
@@ -23,7 +23,7 @@
 				$claninfo['clandesc']=stripslashes($clandesc);
 				$claninfo['descauthor']=$session['user']['acctid'];
 			}
-			$customsay = httppost('customsay');
+			$customsay = Http::httppost('customsay');
 			if (httppostisset('customsay') && $customsay!=$claninfo['customsay'] && $session['user']['clanrank']>=CLAN_LEADER){
 				$sql = "UPDATE " . db_prefix("clans") . " SET customsay='$customsay' WHERE clanid={$claninfo['clanid']}";
 				db_query($sql);

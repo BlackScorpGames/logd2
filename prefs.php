@@ -5,7 +5,7 @@
 
 require_once("lib/http.php");
 
-$skin = httppost('template');
+$skin = Http::httppost('template');
 if ($skin > "") {
 	setcookie("template",$skin,strtotime("+45 days"));
 	$_COOKIE['template']=$skin;
@@ -49,7 +49,7 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 	}
 
 
-    $oldvalues = stripslashes(httppost('oldvalues'));
+    $oldvalues = stripslashes(Http::httppost('oldvalues'));
 	$oldvalues = unserialize($oldvalues);
 
 	$post = httpallpost();
@@ -57,8 +57,8 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 
 	if (count($post)==0){
 	}else{
-		$pass1 = httppost('pass1');
-		$pass2 = httppost('pass2');
+		$pass1 = Http::httppost('pass1');
+		$pass2 = Http::httppost('pass2');
 		if ($pass1!=$pass2){
 			OutputClass::output("`#Your passwords do not match.`n");
 		}else{
@@ -93,7 +93,7 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 			// If this is a module userpref handle and skip
 			debug("Setting $key to $val");
 			if (strstr($key, "___")) {
-				$val = httppost($key);
+				$val = Http::httppost($key);
 				$x = explode("___", $key);
 				$module = $x[0];
 				$key = $x[1];
@@ -104,9 +104,9 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 				set_module_pref($key, $val, $module);
 				continue;
 			}
-			$session['user']['prefs'][$key]=httppost($key);
+			$session['user']['prefs'][$key]=Http::httppost($key);
 		}
-		$bio = stripslashes(httppost('bio'));
+		$bio = stripslashes(Http::httppost('bio'));
 		$bio = comment_sanitize($bio);
 		if ($bio!=comment_sanitize($session['user']['bio'])){
 			if ($session['user']['biotime']>"9000-01-01") {
@@ -117,7 +117,7 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 				$session['user']['biotime']=date("Y-m-d H:i:s");
 			}
 		}
-		$email = httppost('email');
+		$email = Http::httppost('email');
 		if ($email!=$session['user']['emailaddress']){
 			if (is_email($email)){
 				if (Settings::getsetting("requirevalidemail",0)==1){

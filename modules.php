@@ -20,12 +20,12 @@ $op = Http::httpget('op');
 $module = Http::httpget('module');
 
 if ($op == 'mass'){
-	if (httppost("activate")) $op = "activate";
-	if (httppost("deactivate")) $op = "deactivate";
-	if (httppost("uninstall")) $op = "uninstall";
-	if (httppost("reinstall")) $op = "reinstall";
-	if (httppost("install")) $op = "install";
-	$module = httppost("module");
+	if (Http::httppost("activate")) $op = "activate";
+	if (Http::httppost("deactivate")) $op = "deactivate";
+	if (Http::httppost("uninstall")) $op = "uninstall";
+	if (Http::httppost("reinstall")) $op = "reinstall";
+	if (Http::httppost("install")) $op = "install";
+	$module = Http::httppost("module");
 }
 $theOp = $op;
 if (is_array($module)){

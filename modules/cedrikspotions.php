@@ -95,7 +95,7 @@ function cedrikspotions_dohook($hookname,$args){
 
 function cedrikspotions_run(){
 	global $session;
-	$wish = httppost('wish');
+	$wish = Http::httppost('wish');
 	$op = Http::httpget("op");
 	$iname = Settings::getsetting("innname", LOCATION_INN);
 	Translator::tlschema("inn");
@@ -109,7 +109,7 @@ function cedrikspotions_run(){
 	$mincost = 0;
 	$maxcost = 0;
 	$cost = 0;
-	$gemcount = httppost('gemcount');
+	$gemcount = Http::httppost('gemcount');
 	if ($gemcount == "") {
 		if(get_module_setting("random")) {
 			$cost =get_module_setting("randcost");

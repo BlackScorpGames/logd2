@@ -119,9 +119,9 @@ function dag_run_private(){
 		}
 	}elseif ($op=="finalize") {
 		if (Http::httpget('subfinal')==1){
-			$sql = "SELECT acctid,name,login,level,locked,age,dragonkills,pk,experience FROM " . db_prefix("accounts") . " WHERE name='".addslashes(rawurldecode(stripslashes(httppost('contractname'))))."' AND locked=0";
+			$sql = "SELECT acctid,name,login,level,locked,age,dragonkills,pk,experience FROM " . db_prefix("accounts") . " WHERE name='".addslashes(rawurldecode(stripslashes(Http::httppost('contractname'))))."' AND locked=0";
 		}else{
-			$contractname = stripslashes(rawurldecode(httppost('contractname')));
+			$contractname = stripslashes(rawurldecode(Http::httppost('contractname')));
 			$name="%";
 			for ($x=0;$x<strlen($contractname);$x++){
 				$name.=substr($contractname,$x,1)."%";
@@ -144,7 +144,7 @@ function dag_run_private(){
 			}
 			OutputClass::rawoutput("</select>");
 			OutputClass::output_notl("`n`n");
-			$amount = httppost('amount');
+			$amount = Http::httppost('amount');
 			OutputClass::output("`2Amount to Place: ");
 			OutputClass::rawoutput("<input name='amount' id='amount' width='5' value='$amount'>");
 			OutputClass::output_notl("`n`n");
@@ -166,7 +166,7 @@ function dag_run_private(){
 				OutputClass::output("Dag Durnick stares at you angrily, `7\"I told ye that I not be an assassin.  That ain't a target worthy of a bounty.  Now get outta me sight!\"");
 			} else {
 				// All good!
-				$amt = abs((int)httppost('amount'));
+				$amt = abs((int)Http::httppost('amount'));
 				$min = get_module_setting("bountymin") * $row['level'];
 				$max = get_module_setting("bountymax") * $row['level'];
 				$fee = get_module_setting("bountyfee");

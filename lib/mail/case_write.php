@@ -1,10 +1,10 @@
 <?php
-$subject=httppost('subject');
+$subject=Http::httppost('subject');
 $body="";
 $row="";
 $replyto = (int)Http::httpget('replyto');
 if ($session['user']['superuser'] & SU_IS_GAMEMASTER) {
-	$from = httppost('from');
+	$from = Http::httppost('from');
 }
 if ($replyto!=""){
 	$mail = db_prefix("mail");
@@ -69,7 +69,7 @@ if (isset($row['login']) && $row['login']!=""){
 	}
 }else{
 	OutputClass::output("`2To: ");
-	$to = httppost('to');
+	$to = Http::httppost('to');
 	$sql = "SELECT login,name,superuser FROM accounts WHERE login = '".addslashes($to)."' AND locked = 0";
 	$result = db_query($sql);
 	$db_num_rows = db_num_rows($result);

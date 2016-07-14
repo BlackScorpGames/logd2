@@ -11,7 +11,7 @@ require_once("lib/http.php");
 Translator::tlschema("login");
 translator_setup();
 $op = Http::httpget('op');
-$name = httppost('name');
+$name = Http::httppost('name');
 $iname = Settings::getsetting("innname", LOCATION_INN);
 $vname = Settings::getsetting("villagename", LOCATION_FIELDS);
 
@@ -19,12 +19,12 @@ if ($name!=""){
 	if ($session['loggedin']){
 		RedirectClass::redirect("badnav.php");
 	}else{
-		$password = httppost('password');
+		$password = Http::httppost('password');
 		$password = stripslashes($password);
 		if (substr($password, 0, 5) == "!md5!") {
 			$password = md5(substr($password, 5));
 		} elseif (substr($password, 0, 6) == "!md52!") {// && strlen($password) == 38) {
-			$force = httppost('force');
+			$force = Http::httppost('force');
 			if ($force) {
 				$password = addslashes(substr($password, 6));
 			} else {

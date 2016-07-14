@@ -1,11 +1,11 @@
 <?php
 require("lib/installer/installer_sqlstatements.php");
-if (httppost("type")>""){
-	if (httppost("type")=="install") {
+if (Http::httppost("type")>""){
+	if (Http::httppost("type")=="install") {
 		$session['fromversion']="-1";
 		$session['dbinfo']['upgrade']=false;
 	}else{
-		$session['fromversion']=httppost("version");
+		$session['fromversion']=Http::httppost("version");
 		$session['dbinfo']['upgrade']=true;
 	}
 }

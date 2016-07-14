@@ -56,13 +56,13 @@ if ($op==""){
 }elseif($op=="transfer2"){
 	OutputClass::output("`6`bConfirm Transfer`b:`n");
 	$string="%";
-	$to = httppost('to');
+	$to = Http::httppost('to');
 	for ($x=0;$x<strlen($to);$x++){
 		$string .= substr($to,$x,1)."%";
 	}
 	$sql = "SELECT name,login FROM " . db_prefix("accounts") . " WHERE name LIKE '".addslashes($string)."' AND locked=0 ORDER by login='$to' DESC, name='$to' DESC, login";
 	$result = db_query($sql);
-	$amt = abs((int)httppost('amount'));
+	$amt = abs((int)Http::httppost('amount'));
 	if (db_num_rows($result)==1){
 		$row = db_fetch_assoc($result);
 		$msg = Translator::translate_inline("Complete Transfer");
@@ -98,8 +98,8 @@ if ($op==""){
 		OutputClass::output("`@Elessa`6 blinks at you from behind her spectacles, \"`@I'm sorry, but I can find no one matching that name who does business with our bank!  Please try again.`6\"");
 	}
 }elseif($op=="transfer3"){
-	$amt = abs((int)httppost('amount'));
-	$to = httppost('to');
+	$amt = abs((int)Http::httppost('amount'));
+	$to = Http::httppost('to');
 	OutputClass::output("`6`bTransfer Completion`b`n");
 	if ($session['user']['gold']+$session['user']['goldinbank']<$amt){
 		OutputClass::output("`@Elessa`6 stands up to her full, but still diminutive height and glares at you, \"`@How can you transfer `^%s`@ gold when you only possess `^%s`@?`6\"",$amt,$session['user']['gold']+$session['user']['goldinbank']);
@@ -157,7 +157,7 @@ if ($op==""){
 	OutputClass::rawoutput("<script language='javascript'>document.getElementById('input').focus();</script>",true);
   OutputClass::addnav("","bank.php?op=depositfinish");
 }elseif($op=="depositfinish"){
-	$amount = abs((int)httppost('amount'));
+	$amount = abs((int)Http::httppost('amount'));
 	if ($amount==0){
 		$amount=$session['user']['gold'];
 	}
@@ -198,11 +198,11 @@ if ($op==""){
 	OutputClass::rawoutput("<script language='javascript'>document.getElementById('input').focus();</script>");
 	OutputClass::addnav("","bank.php?op=withdrawfinish");
 }elseif($op=="withdrawfinish"){
-	$amount=abs((int)httppost('amount'));
+	$amount=abs((int)Http::httppost('amount'));
 	if ($amount==0){
 		$amount=abs($session['user']['goldinbank']);
 	}
-	if ($amount>$session['user']['goldinbank'] && httppost('borrow')=="") {
+	if ($amount>$session['user']['goldinbank'] && Http::httppost('borrow')=="") {
 		OutputClass::output("`\$ERROR: Not enough gold in the bank to withdraw.`^`n`n");
 		OutputClass::output("`6Having been informed that you have `^%s`6 gold in your account, you declare that you would like to withdraw all `^%s`6 of it.`n`n", $session['user']['goldinbank'], $amount);
 		OutputClass::output("`@Elessa`6 looks at you for a few moments without blinking, then advises you to take basic arithmetic.  You realize your folly and think you should try again.");

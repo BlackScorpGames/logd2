@@ -26,7 +26,7 @@ OutputClass::addnav("","badword.php?op=test");
 OutputClass::output("`7Test a word:`0");
 OutputClass::rawoutput("<input name='word'><input type='submit' class='button' value='$test'></form>");
 if ($op=="test"){
-	$word = httppost("word");
+	$word = Http::httppost("word");
 	$return = soap($word,true);
 	if ($return == $word)
 		OutputClass::output("`7\"%s\" does not trip any filters.`0`n`n", $word);
@@ -57,7 +57,7 @@ $row = db_fetch_assoc($result);
 $words = explode(" ",$row['words']);
 if ($op=="addgood"){
 
-	$newregexp = stripslashes(httppost('word'));
+	$newregexp = stripslashes(Http::httppost('word'));
 
 	// not sure if the line below should appear, as the strings in the good
 	// word list have different behaviour than those in the nasty word list,
@@ -80,7 +80,7 @@ if ($op=="addgood"){
 if ($op=="removegood"){
 
 	// false if not found
-	$removekey = array_search(stripslashes(httppost('word')),$words);
+	$removekey = array_search(stripslashes(Http::httppost('word')),$words);
 	// $removekey can be 0
 	if ( $removekey !== false ) unset($words[$removekey]);
 
@@ -119,7 +119,7 @@ reset($words);
 
 if ($op=="add"){
 
-	$newregexp = stripslashes(httppost('word'));
+	$newregexp = stripslashes(Http::httppost('word'));
 
 	// automagically escapes all unescaped single quote characters
 	$newregexp = preg_replace('/(?<!\\\\)\'/', '\\\'', $newregexp);
@@ -136,7 +136,7 @@ if ($op=="add"){
 }
 if ($op=="remove"){
 	// false if not found
-	$removekey = array_search(stripslashes(httppost('word')),$words);
+	$removekey = array_search(stripslashes(Http::httppost('word')),$words);
 	// $removekey can be 0
 	if ( $removekey !== false ) unset($words[$removekey]);
 

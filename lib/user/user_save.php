@@ -1,7 +1,7 @@
 <?php
 $sql = "";
 $updates=0;
-$oldvalues = stripslashes(httppost('oldvalues'));
+$oldvalues = stripslashes(Http::httppost('oldvalues'));
 $oldvalues = unserialize($oldvalues);
 // Handle recombining the old name
 $otitle = $oldvalues['title'];

@@ -19,7 +19,7 @@ if($op=="del"){
 	header("Location: mail.php");
 	exit();
 }elseif($op=="process"){
-	$msg = httppost('msg');
+	$msg = Http::httppost('msg');
 	if (!is_array($msg) || count($msg)<1){
 		$session['message'] = "`\$`bYou cannot delete zero messages!  What does this mean?  You pressed \"Delete Checked\" but there are no messages checked!  What sort of world is this that people press buttons that have no meaning?!?`b`0";
 		header("Location: mail.php");

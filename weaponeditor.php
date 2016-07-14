@@ -55,9 +55,9 @@ if($op=="edit" || $op=="add"){
 	$op = "";
 	httpset("op", $op);
 }else if($op=="save"){
-	$weaponid = (int)httppost("weaponid");
-	$damage = httppost("damage");
-	$weaponname = httppost("weaponname");
+	$weaponid = (int)Http::httppost("weaponid");
+	$damage = Http::httppost("damage");
+	$weaponname = Http::httppost("weaponname");
 	if ($weaponid>0){
 		$sql = "UPDATE " . db_prefix("weapons") . " SET weaponname=\"$weaponname\",damage=\"$damage\",value=" .  $values[$damage]." WHERE weaponid='$weaponid'";
 	}else{

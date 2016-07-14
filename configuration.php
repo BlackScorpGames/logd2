@@ -15,17 +15,17 @@ $module=Http::httpget('module');
 if ($op=="save"){
 	include_once("lib/gamelog.php");
 	//loadsettings();
-	if ((int)httppost('blockdupemail') == 1 &&
-			(int)httppost('requirevalidemail') != 1) {
+	if ((int)Http::httppost('blockdupemail') == 1 &&
+			(int)Http::httppost('requirevalidemail') != 1) {
 		httppostset('requirevalidemail', "1");
 		OutputClass::output("`brequirevalidemail has been set since blockdupemail was set.`b`n");
 	}
-	if ((int)httppost('requirevalidemail') == 1 &&
-			(int)httppost('requireemail') != 1) {
+	if ((int)Http::httppost('requirevalidemail') == 1 &&
+			(int)Http::httppost('requireemail') != 1) {
 		httppostset('requireemail', "1");
 		OutputClass::output("`brequireemail has been set since requirevalidemail was set.`b`n");
 	}
-	$defsup = httppost("defaultsuperuser");
+	$defsup = Http::httppost("defaultsuperuser");
 	if ($defsup != "") {
 		$value = 0;
 		while(list($k, $v)=each($defsup)) {
@@ -33,33 +33,33 @@ if ($op=="save"){
 		}
 		httppostset('defaultsuperuser', $value);
 	}
-	$tmp = stripslashes(httppost("villagename"));
+	$tmp = stripslashes(Http::httppost("villagename"));
 	if ($tmp && $tmp != $settings['villagename']) {
 		debug("Updating village name -- moving players");
 		$sql = "UPDATE " . db_prefix("accounts") . " SET location='".
-			httppost("villagename") . "' WHERE location='" .
+			Http::httppost("villagename") . "' WHERE location='" .
 			addslashes($settings['villagename']) . "'";
 		db_query($sql);
 		if ($session['user']['location'] == $settings['villagename'])
 			$session['user']['location'] =
-				stripslashes(httppost('villagename'));
+				stripslashes(Http::httppost('villagename'));
 		debug("Moving companions");
 		$sql = "UPDATE " . db_prefix("companions") . " SET companionlocation = '".
-			httppost("villagename") . "' WHERE companionlocation = '".
+			Http::httppost("villagename") . "' WHERE companionlocation = '".
 			addslashes($settings['villagename']) . "'";
 		db_query($sql);
 	}
-	$tmp = stripslashes(httppost("innname"));
+	$tmp = stripslashes(Http::httppost("innname"));
 	if ($tmp && $tmp != $settings['innname']) {
 		debug("Updating inn name -- moving players");
 		$sql = "UPDATE " . db_prefix("accounts") . " SET location='".
-			httppost("innname") . "' WHERE location='" .
+			Http::httppost("innname") . "' WHERE location='" .
 			addslashes($settings['innname']) . "'";
 		db_query($sql);
 		if ($session['user']['location'] == $settings['innname'])
-			$session['user']['location'] = stripslashes(httppost('innname'));
+			$session['user']['location'] = stripslashes(Http::httppost('innname'));
 	}
-	if (stripslashes(httppost("motditems")) != $settings['motditems']) {
+	if (stripslashes(Http::httppost("motditems")) != $settings['motditems']) {
 		invalidatedatacache("motd");
 	}
 	$post = httpallpost();

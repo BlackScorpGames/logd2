@@ -15,6 +15,18 @@ class Http
         }
         return $res;
     }
+
+	public static function httppost($var)
+	{
+		global $HTTP_POST_VARS;
+
+		$res = isset($_POST[$var]) ? $_POST[$var] : false;
+		if ($res === false) {
+			$res = isset($HTTP_POST_VARS[$var]) ?
+				$HTTP_POST_VARS[$var] : false;
+		}
+		return $res;
+	}
 }
 function httpallget() {
 	return $_GET;
@@ -26,16 +38,7 @@ function httpset($var, $val,$force=false){
 	if (isset($HTTP_GET_VARS[$var])) $HTTP_GET_VARS[$var] = $val;
 }
 
-function httppost($var){
-	global $HTTP_POST_VARS;
 
-	$res = isset($_POST[$var]) ? $_POST[$var] : false;
-	if ($res === false) {
-		$res = isset($HTTP_POST_VARS[$var]) ?
-			$HTTP_POST_VARS[$var] : false;
-	}
-	return $res;
-}
 
 function httppostisset($var) {
 	global $HTTP_POST_VARS;

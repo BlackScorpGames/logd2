@@ -28,15 +28,15 @@ $header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
 $fp = fsockopen ('www.paypal.com', 80, $errno, $errstr, 30);
 
 // assign posted variables to local variables
-$item_name = httppost('item_name');
-$item_number = httppost('item_number');
-$payment_status = httppost('payment_status');
-$payment_amount = httppost('mc_gross');
-$payment_currency = httppost('mc_currency');
-$txn_id = httppost('txn_id');
-$receiver_email = httppost('receiver_email');
-$payer_email = httppost('payer_email');
-$payment_fee = httppost('mc_fee');
+$item_name = Http::httppost('item_name');
+$item_number = Http::httppost('item_number');
+$payment_status = Http::httppost('payment_status');
+$payment_amount = Http::httppost('mc_gross');
+$payment_currency = Http::httppost('mc_currency');
+$txn_id = Http::httppost('txn_id');
+$receiver_email = Http::httppost('receiver_email');
+$payer_email = Http::httppost('payer_email');
+$payment_fee = Http::httppost('mc_fee');
 
 $response='';
 if (!$fp) {

@@ -30,7 +30,7 @@ if($op=="del"){
 	header("Location: mail.php");
 	exit();
 }elseif($op=="process"){
-	$msg = httppost('msg');
+	$msg = Http::httppost('msg');
 	if (!is_array($msg) || count($msg)<1){
 		$session['message'] = "`\$`bYou cannot delete zero messages!  What does this mean?  You pressed \"Delete Checked\" but there are no messages checked!  What sort of world is this that people press buttons that have no meaning?!?`b`0";
 		header("Location: mail.php");
@@ -82,7 +82,7 @@ OutputClass::rawoutput("</tr></table>");
 OutputClass::output_notl("`n`n");
 
 if($op=="send"){
-	$to = httppost('to');
+	$to = Http::httppost('to');
 	$sql = "SELECT acctid FROM " . db_prefix("accounts") . " WHERE login='$to'";
 	$result = db_query($sql);
 	if (db_num_rows($result)>0){
@@ -93,8 +93,8 @@ if($op=="send"){
 		if ($row['count']>=Settings::getsetting("inboxlimit",50)) {
 			OutputClass::output("`\$You cannot send that person mail, their mailbox is full!`0`n`n");
 		}else{
-			$subject =  str_replace("`n","",httppost('subject'));
-			$body = str_replace("`n","\n",httppost('body'));
+			$subject =  str_replace("`n","",Http::httppost('subject'));
+			$body = str_replace("`n","\n",Http::httppost('body'));
 			$body = str_replace("\r\n","\n",$body);
 			$body = str_replace("\r","\n",$body);
 			$body = addslashes(substr(stripslashes($body),0,(int)Settings::getsetting("mailsizelimit",1024)));
@@ -105,10 +105,10 @@ if($op=="send"){
 	}else{
 		OutputClass::output("Could not find the recipient, please try again.`n");
 	}
-	if (httppost("returnto")>""){
+	if (Http::httppost("returnto")>""){
 		$op="read";
 		httpset('op','read');
-		$id = httppost('returnto');
+		$id = Http::httppost('returnto');
 		httpset('id',$id);
 	}else{
 		$op="";
@@ -251,7 +251,7 @@ if ($op==""){
 	$search = htmlentities(Translator::translate_inline("Search"));
 	OutputClass::output_notl("`2$to <input name='to' value=\"".htmlentities(stripslashes(Http::httpget('prepop')))."\"> <input type='submit' class='button' value=\"$search\"></form>",true);
 }elseif($op=="write"){
-	$subject=httppost('subject');
+	$subject=Http::httppost('subject');
 	$body="";
 	$row = "";
 	OutputClass::output_notl("<form action='mail.php?op=send' method='POST'>",true);
@@ -316,7 +316,7 @@ if ($op==""){
         }
 	}else{
 		OutputClass::output("`2To: ");
-		$to = httppost('to');
+		$to = Http::httppost('to');
 		$string="%";
 		for ($x=0;$x<strlen($to);$x++){
 			$string .= substr($to,$x,1)."%";

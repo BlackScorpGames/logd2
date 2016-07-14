@@ -56,7 +56,7 @@ if ($op=="val"){
 	}
 }
 if ($op=="forgot"){
-	$charname = httppost('charname');
+	$charname = Http::httppost('charname');
 	if ($charname!=""){
 		$sql = "SELECT acctid,login,emailaddress,emailvalidation,password FROM " . db_prefix("accounts") . " WHERE login='$charname'";
 		$result = db_query($sql);
@@ -106,16 +106,16 @@ if (Settings::getsetting("allowcreation",1)==0){
 }else{
 	if ($op=="create"){
 		$emailverification="";
-		$shortname = sanitize_name(Settings::getsetting("spaceinname", 0), httppost('name'));
+		$shortname = sanitize_name(Settings::getsetting("spaceinname", 0), Http::httppost('name'));
 
 		if (soap($shortname)!=$shortname){
 			OutputClass::output("`\$Error`^: Bad language was found in your name, please consider revising it.`n");
 			$op="";
 		}else{
 			$blockaccount=false;
-			$email = httppost('email');
-			$pass1= httppost('pass1');
-			$pass2= httppost('pass2');
+			$email = Http::httppost('email');
+			$pass1= Http::httppost('pass1');
+			$pass2= Http::httppost('pass2');
 			if (Settings::getsetting("blockdupeemail",0)==1 && Settings::getsetting("requireemail",0)==1){
 				$sql = "SELECT login FROM " . db_prefix("accounts") . " WHERE emailaddress='$email'";
 				$result = db_query($sql);
@@ -125,7 +125,7 @@ if (Settings::getsetting("allowcreation",1)==0){
 				}
 			}
 
-			$passlen = (int)httppost("passlen");
+			$passlen = (int)Http::httppost("passlen");
 			if (substr($pass1, 0, 5) != "!md5!" &&
 					substr($pass1, 0, 6) != "!md52!") {
 				$passlen = strlen($pass1);
@@ -164,7 +164,7 @@ if (Settings::getsetting("allowcreation",1)==0){
 					OutputClass::output("`\$Error`^: Someone is already known by that name in this realm, please try again.");
 					$op="";
 				}else{
-					$sex = (int)httppost('sex');
+					$sex = (int)Http::httppost('sex');
 					// Inserted the following line to prevent hacking
 					// Reported by Eliwood
 					if ($sex <> SEX_MALE) $sex = SEX_FEMALE;

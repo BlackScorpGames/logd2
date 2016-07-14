@@ -34,9 +34,9 @@ if ($op==""){
 	OutputClass::rawoutput("</form>");
 	popup_footer();
 }elseif ($_GET['op']=='save'){
-	$uri = httppost('uri');
-	$text = httppost('text');
-	$trans = httppost('trans');
+	$uri = Http::httppost('uri');
+	$text = Http::httppost('text');
+	$trans = Http::httppost('trans');
 
 	$page = $uri;
 	if (strpos($page,"?")!==false) $page = substr($page,0,strpos($page,"?"));
@@ -83,7 +83,7 @@ if ($op==""){
 		}
 	}
 	db_query($sql);
-	if (httppost("savenotclose")>""){
+	if (Http::httppost("savenotclose")>""){
 		header("Location: translatortool.php?op=list&u=$page");
 		exit();
 	}else{

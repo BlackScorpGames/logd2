@@ -40,7 +40,7 @@ if (!$skipinndesc) {
 $subop = Http::httpget('subop');
 
 $com = Http::httpget('comscroll');
-$comment = httppost('insertcommentary');
+$comment = Http::httppost('insertcommentary');
 
 require_once("lib/partner.php");
 $partner = get_partner();

@@ -93,7 +93,7 @@ if ($act==""){
 	OutputClass::output_notl("`n`!&#0096;! `@&#0096;@ `#&#0096;# `\$&#0096;\$ `%&#0096;% `^&#0096;^ `&&#0096;& `n",true);
 	OutputClass::output("`% Got it?`0\"  You can practice below:");
 	OutputClass::rawoutput("<form action=\"$REQUEST_URI\" method='POST'>",true);
-	$testtext = httppost('testtext');
+	$testtext = Http::httppost('testtext');
 	OutputClass::output("You entered %s`n", prevent_colors(HTMLEntities($testtext, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))), true);
 	OutputClass::output("It looks like %s`n", $testtext);
 	$try = Translator::translate_inline("Try");

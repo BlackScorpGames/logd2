@@ -51,7 +51,7 @@ if ($op=="edit"){
 	$op = "";
 	httpset("op", "");
 }else if($op=="save"){
-	$taunt = httppost('taunt');
+	$taunt = Http::httppost('taunt');
 	if ($tauntid!=""){
 		$sql = "UPDATE " . db_prefix("taunts") . " SET taunt=\"$taunt\",editor=\"".addslashes($session['user']['login'])."\" WHERE tauntid=\"$tauntid\"";
 	}else{

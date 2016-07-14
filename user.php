@@ -31,7 +31,7 @@ $gentimecount = 0;
 $order = "acctid";
 if ($sort!="") $order = "$sort";
 $display = 0;
-$query = httppost('q');
+$query = Http::httppost('q');
 if ($query === false) $query = Http::httpget('q');
 
 if ($op=="search" || $op== ""){

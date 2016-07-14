@@ -40,7 +40,7 @@ function game_dice_run(){
 	PageParts::page_header("A Game of Dice");
 
 	if ($session['user']['gold']>0){
-		$bet = abs((int)Http::httpget('bet') + (int)httppost('bet'));
+		$bet = abs((int)Http::httpget('bet') + (int)Http::httppost('bet'));
 		if ($bet<=0){
 			OutputClass::addnav("Never mind", appendlink(urldecode($ret), "op=oldman"));
 			OutputClass::output("`3\"`!You get to roll a die, and choose to keep or pass on the roll.  If you pass, you get up to two more chances to roll, for a total of three rolls.  Once you keep your roll (or on the third roll), I will do the same.  In the end, if my die is higher than yours, I win, if yours is higher, you win, and if they are a tie, neither of us wins, and we each keep our bet.`3\"`n`n");

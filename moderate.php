@@ -31,13 +31,13 @@ OutputClass::addnav("Clan Halls");
 
 $op = Http::httpget("op");
 if ($op=="commentdelete"){
-	$comment = httppost('comment');
-	if (httppost('delnban')>''){
+	$comment = Http::httppost('comment');
+	if (Http::httppost('delnban')>''){
 		$sql = "SELECT DISTINCT uniqueid,author FROM " . db_prefix("commentary") . " INNER JOIN " . db_prefix("accounts") . " ON acctid=author WHERE commentid IN ('" . join("','",array_keys($comment)) . "')";
 		$result = db_query($sql);
 		$untildate = date("Y-m-d H:i:s",strtotime("+3 days"));
-		$reason = httppost("reason");
-		$reason0 = httppost("reason0");
+		$reason = Http::httppost("reason");
+		$reason0 = Http::httppost("reason0");
 		$default = "Banned for comments you posted.";
 		if ($reason0 != $reason && $reason0 != $default) $reason = $reason0;
 		if ($reason=="") $reason = $default;
@@ -121,7 +121,7 @@ if ($op==""){
 }elseif ($op=="audit"){
 	$subop = Http::httpget("subop");
 	if ($subop=="undelete") {
-		$unkeys = httppost("mod");
+		$unkeys = Http::httppost("mod");
 		if ($unkeys && is_array($unkeys)) {
 			$sql = "SELECT * FROM ".db_prefix("moderatedcomments")." WHERE modid IN ('".join("','",array_keys($unkeys))."')";
 			$result = db_query($sql);

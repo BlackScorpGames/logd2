@@ -25,9 +25,9 @@ superusernav();
 OutputClass::addnav("Functions");
 
 if ($op=="save") {
-	$male = httppost('male');
-	$female = httppost('female');
-	$dk = httppost('dk');
+	$male = Http::httppost('male');
+	$female = Http::httppost('female');
+	$dk = Http::httppost('dk');
 	// Ref is currently unused
 	// $ref = httppost('ref');
 	$ref = '';

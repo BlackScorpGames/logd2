@@ -1,12 +1,12 @@
 <?php
 require_once("lib/dbwrapper.php");
 if (httppostisset("DB_HOST")) {
-	$session['dbinfo']['DB_HOST']=httppost("DB_HOST");
-	$session['dbinfo']['DB_USER']=httppost("DB_USER");
-	$session['dbinfo']['DB_PASS']=httppost("DB_PASS");
-	$session['dbinfo']['DB_NAME']=httppost("DB_NAME");
-	$session['dbinfo']['DB_USEDATACACHE']=(bool)httppost("DB_USEDATACACHE");
-	$session['dbinfo']['DB_DATACACHEPATH']=httppost("DB_DATACACHEPATH");
+	$session['dbinfo']['DB_HOST']=Http::httppost("DB_HOST");
+	$session['dbinfo']['DB_USER']=Http::httppost("DB_USER");
+	$session['dbinfo']['DB_PASS']=Http::httppost("DB_PASS");
+	$session['dbinfo']['DB_NAME']=Http::httppost("DB_NAME");
+	$session['dbinfo']['DB_USEDATACACHE']=(bool)Http::httppost("DB_USEDATACACHE");
+	$session['dbinfo']['DB_DATACACHEPATH']=Http::httppost("DB_DATACACHEPATH");
 }
 OutputClass::output("`@`c`bTesting the Database Connection`b`c`2");
 OutputClass::output("Trying to establish a connection with the database:`n");

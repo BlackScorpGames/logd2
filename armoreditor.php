@@ -49,9 +49,9 @@ if($op=="edit" || $op=="add"){
 	$op = "";
 	httpset("op", $op);
 }else if($op=="save"){
-	$armorid = httppost('armorid');
-	$armorname = httppost('armorname');
-	$defense = httppost('defense');
+	$armorid = Http::httppost('armorid');
+	$armorname = Http::httppost('armorname');
+	$defense = Http::httppost('defense');
 	if ($armorid>0){
 		$sql = "UPDATE " . db_prefix("armor") . " SET armorname=\"$armorname\",defense=\"$defense\",value=".$values[$defense]." WHERE armorid='$armorid'";
 	}else{

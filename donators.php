@@ -25,13 +25,13 @@ Translator::tlschema();
 $add = Translator::translate_inline("Add Donation");
 OutputClass::rawoutput("<form action='donators.php?op=add1&ret=".rawurlencode($ret)."' method='POST'>");
 OutputClass::addnav("","donators.php?op=add1&ret=".rawurlencode($ret)."");
-$name = httppost("name");
+$name = Http::httppost("name");
 if ($name=="") $name = Http::httpget("name");
-$amt = httppost("amt");
+$amt = Http::httppost("amt");
 if ($amt=="") $amt = Http::httpget("amt");
-$reason = httppost("reason");
+$reason = Http::httppost("reason");
 if ($reason=="") $reason = Http::httpget("reason");
-$txnid = httppost("txnid");
+$txnid = Http::httppost("txnid");
 if ($txnid=="") $txnid = Http::httpget("txnid");
 if ($reason == "") $reason = Translator::translate_inline("manual donation entry");
 
@@ -132,7 +132,7 @@ if ($op==""){
 	OutputClass::rawoutput("</table>",true);
 }else if ($op=="add1"){
 	$search="%";
-	$name = httppost('name');
+	$name = Http::httppost('name');
 	if ($name=='') $name = Http::httpget('name');
 	for ($i=0;$i<strlen($name);$i++){
 		$z = substr($name, $i, 1);
@@ -142,11 +142,11 @@ if ($op==""){
 	$sql = "SELECT name,acctid,donation,donationspent FROM " . db_prefix("accounts") . " WHERE login LIKE '$search' or name LIKE '$search' LIMIT 100";
 	$result = db_query($sql);
 	$ret = Http::httpget('ret');
-	$amt = httppost('amt');
+	$amt = Http::httppost('amt');
 	if ($amt=='') $amt = Http::httpget("amt");
-	$reason = httppost("reason");
+	$reason = Http::httppost("reason");
 	if ($reason=="") $reason = Http::httpget("reason");
-	$txnid = httppost('txnid');
+	$txnid = Http::httppost('txnid');
 	if ($txnid=='') $txnid = Http::httpget("txnid");
 	OutputClass::output("Confirm the addition of %s points to:`n",$amt);
 	if ($reason) OutputClass::output("(Reason: `^`b`i%s`i`b`0)`n`n",$reason);

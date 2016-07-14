@@ -60,7 +60,7 @@ $canbuy = $retargs['buy'];
 $pdks = array();
 reset($labels);
 foreach($labels as $type=>$label) {
-	$pdks[$type] = (int)httppost($type);
+	$pdks[$type] = (int)Http::httppost($type);
 }
 
 $pdk=Http::httpget("pdk");

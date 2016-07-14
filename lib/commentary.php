@@ -41,11 +41,11 @@ class Commentary
 	public static function addcommentary()
 	{
 		global $session, $emptypost;
-		$section = httppost('section');
-		$talkline = httppost('talkline');
-		$schema = httppost('schema');
-		$comment = trim(httppost('insertcommentary'));
-		$counter = httppost('counter');
+		$section = Http::httppost('section');
+		$talkline = Http::httppost('talkline');
+		$schema = Http::httppost('schema');
+		$comment = trim(Http::httppost('insertcommentary'));
+		$counter = Http::httppost('counter');
 		$remove = URLDecode(Http::httpget('removecomment'));
 		if ($remove > 0) {
 			$return = '/' . Http::httpget('returnpath');

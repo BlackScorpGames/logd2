@@ -25,8 +25,8 @@ if ($session['user']['superuser'] & SU_POST_MOTD) {
 }
 
 if ($op=="vote"){
-	$motditem = httppost('motditem');
-	$choice = httppost('choice');
+	$motditem = Http::httppost('motditem');
+	$choice = Http::httppost('choice');
 	$sql = "DELETE FROM " . db_prefix("pollresults") . " WHERE motditem='$motditem' AND account='{$session['user']['acctid']}'";
 	db_query($sql);
 	$sql = "INSERT INTO " . db_prefix("pollresults") . " (choice,account,motditem) VALUES ('$choice','{$session['user']['acctid']}','$motditem')";
@@ -54,7 +54,7 @@ if ($op == "add" || $op == "addpoll" || $op == "del")  {
 if ($op=="") {
 	$count = Settings::getsetting("motditems", 5);
 	$newcount = Http::httpget("newcount");
-	if (!$newcount || !httppost('proceed')) $newcount=0;
+	if (!$newcount || !Http::httppost('proceed')) $newcount=0;
 	/*
 	motditem("Beta!","Please see the beta message below.","","", "");
 	*/

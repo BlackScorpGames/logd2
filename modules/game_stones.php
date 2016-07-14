@@ -43,7 +43,7 @@ function game_stones_run(){
 	$side = Http::httpget('side');
 	if ($side=="likepair") $stones['side']="likepair";
 	if ($side=="unlikepair") $stones['side']="unlikepair";
-	$bet = httppost('bet');
+	$bet = Http::httppost('bet');
 	if ($bet != "")
 		$stones['bet'] = min($session['user']['gold'], abs((int)$bet));
 	if (!isset($stones['side']) || $stones['side']==""){

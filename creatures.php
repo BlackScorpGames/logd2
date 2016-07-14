@@ -24,13 +24,13 @@ superusernav();
 $op = Http::httpget("op");
 $subop = Http::httpget("subop");
 if ($op == "save"){
-	$forest = (int)(httppost('forest'));
-	$grave = (int)(httppost('graveyard'));
-	$id = httppost('creatureid');
+	$forest = (int)(Http::httppost('forest'));
+	$grave = (int)(Http::httppost('graveyard'));
+	$id = Http::httppost('creatureid');
 	if (!$id) $id = Http::httpget("creatureid");
 	if ($subop == "") {
 		$post = httpallpost();
-		$lev = (int)httppost('creaturelevel');
+		$lev = (int)Http::httppost('creaturelevel');
 		if ($id){
 			$sql = "";
 			reset($post);
@@ -110,7 +110,7 @@ if ($op=="del"){
 if ($op=="" || $op=="search"){
 	$level = Http::httpget("level");
 	if (!$level) $level = 1;
-	$q = httppost("q");
+	$q = Http::httppost("q");
 	if ($q) {
 		$where = "creaturename LIKE '%$q%' OR creatureweapon LIKE '%$q%' OR creaturelose LIKE '%$q%' OR createdby LIKE '%$q%'";
 	} else {

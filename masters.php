@@ -24,11 +24,11 @@ if ($op == "del") {
 	$op = "";
 	httpset("op", "");
 } elseif ($op == "save") {
-	$name = addslashes(httppost('name'));
-	$weapon = addslashes(httppost('weapon'));
-	$win = addslashes(httppost('win'));
-	$lose = addslashes(httppost('lose'));
-	$lev = (int)httppost('level');
+	$name = addslashes(Http::httppost('name'));
+	$weapon = addslashes(Http::httppost('weapon'));
+	$win = addslashes(Http::httppost('win'));
+	$lose = addslashes(Http::httppost('lose'));
+	$lev = (int)Http::httppost('level');
 	if ($id != 0) {
 		$sql = "UPDATE " . db_prefix("masters") . " SET creaturelevel=$lev, creaturename='$name', creatureweapon='$weapon',  creaturewin='$win', creaturelose='$lose' WHERE creatureid=$id";
 	} else {

@@ -467,7 +467,7 @@ class ShowFormClass
         }
         OutputClass::rawoutput("</table><br>", true);
         if ($showform_id == 1) {
-            $startIndex = (int)httppost("showFormTabIndex");
+            $startIndex = (int)Http::httppost("showFormTabIndex");
             if ($startIndex == 0) {
                 $startIndex = 1;
             }

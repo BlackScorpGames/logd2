@@ -1,7 +1,7 @@
 <?php
-$to = httppost('to');
+$to = Http::httppost('to');
 if ($session['user']['superuser'] & SU_IS_GAMEMASTER) {
-	$from = httppost('from');
+	$from = Http::httppost('from');
 	if ($from == "" || is_numeric(trim($from)) || $from == "0") {
 		$from = $session['user']['acctid'];
 	}
@@ -24,8 +24,8 @@ if(db_num_rows($result)>0){
 	if ($row['count']>=Settings::getsetting("inboxlimit",50)) {
 		OutputClass::output("`\$You cannot send that person mail, their mailbox is full!`0`n`n");
 	}else{
-		$subject = str_replace("`n","",httppost('subject'));
-		$body = str_replace("`n","\n",httppost('body'));
+		$subject = str_replace("`n","",Http::httppost('subject'));
+		$body = str_replace("`n","\n",Http::httppost('body'));
 		$body = str_replace("\r\n","\n",$body);
 		$body = str_replace("\r","\n",$body);
 		$body = addslashes(substr(stripslashes($body),0,(int)Settings::getsetting("mailsizelimit",1024)));
@@ -37,10 +37,10 @@ if(db_num_rows($result)>0){
 }else{
 	OutputClass::output("Could not find the recipient, please try again.`n");
 }
-if(httppost("returnto")){
+if(Http::httppost("returnto")){
 	$op="read";
 	httpset('op','read');
-	$id = httppost('returnto');
+	$id = Http::httppost('returnto');
 	httpset('id',$id);
 }else{
 	$op="";

@@ -31,7 +31,7 @@ $statuses=Translator::translate_inline($statuses);
 $op = Http::httpget("op");
 $id = Http::httpget("id");
 
-if (trim(httppost('insertcommentary'))!="") {
+if (trim(Http::httppost('insertcommentary'))!="") {
 	/* Update the bug if someone adds comments as well */
 	$sql = "UPDATE " . db_prefix("petitions") . " SET closeuserid='{$session['user']['acctid']}',closedate='".date("Y-m-d H:i:s")."' WHERE petitionid='$id'";
 	db_query($sql);

@@ -18,7 +18,7 @@ OutputClass::addnav("PHP","rawsql.php?op=php");
 
 $op = Http::httpget("op");
 if ($op=="" || $op=="sql"){
-	$sql = httppost('sql');
+	$sql = Http::httppost('sql');
 	if ($sql != "") {
 		$sql = stripslashes($sql);
 		Modules::modulehook("rawsql-execsql",array("sql"=>$sql));
@@ -62,7 +62,7 @@ if ($op=="" || $op=="sql"){
 	OutputClass::rawoutput("</form>");
 	OutputClass::addnav("", "rawsql.php");
 }else{
-	$php = stripslashes(httppost("php"));
+	$php = stripslashes(Http::httppost("php"));
 	$source = Translator::translate_inline("Source:");
 	$execute = Translator::translate_inline("Execute");
 	if ($php>""){

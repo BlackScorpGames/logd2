@@ -1,8 +1,8 @@
 <?php
 		$apply = Http::httpget('apply');
 		if ($apply==1){
-			$ocn = httppost('clanname');
-			$ocs = httppost('clanshort');
+			$ocn = Http::httppost('clanname');
+			$ocs = Http::httppost('clanshort');
 			$clanname = stripslashes($ocn);
 			$clanname = full_sanitize($clanname);
 			$clanname = preg_replace("'[^[:alpha:] \\'-]'","",$clanname);

@@ -80,7 +80,7 @@ if ($op=="deactivate"){
 	$subop = Http::httpget("subop");
 	if ($subop == "") {
 		$buff = array();
-		$mount = httppost('mount');
+		$mount = Http::httppost('mount');
 		if ($mount) {
 			reset($mount['mountbuff']);
 			while (list($key,$val)=each($mount['mountbuff'])){

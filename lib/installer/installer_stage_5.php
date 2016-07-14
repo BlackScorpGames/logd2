@@ -1,7 +1,7 @@
 <?php
 require_once("lib/installer/installer_functions.php");
 if (httppostisset("DB_PREFIX") > ""){
-	$session['dbinfo']['DB_PREFIX'] = httppost("DB_PREFIX");
+	$session['dbinfo']['DB_PREFIX'] = Http::httppost("DB_PREFIX");
 }
 if ($session['dbinfo']['DB_PREFIX'] > "" && substr($session['dbinfo']['DB_PREFIX'],-1)!="_")
 $session['dbinfo']['DB_PREFIX'] .= "_";

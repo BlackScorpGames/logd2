@@ -61,7 +61,7 @@ if ($op=="deactivate"){
 } elseif ($op=="save"){
 	$subop = Http::httpget("subop");
 	if ($subop == "") {
-		$companion = httppost('companion');
+		$companion = Http::httppost('companion');
 		if ($companion) {
 			if (!isset($companion['allowinshades'])) {
 				$companion['allowinshades'] = 0;

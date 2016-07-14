@@ -1,6 +1,6 @@
 <?php
 $string="%";
-$name = httppost('name');
+$name = Http::httppost('name');
 for ($x=0;$x<strlen($name);$x++){
 	$string .= substr($name,$x,1)."%";
 }

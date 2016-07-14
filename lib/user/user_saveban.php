@@ -1,6 +1,6 @@
 <?php
 $sql = "INSERT INTO " . db_prefix("bans") . " (banner,";
-$type = httppost("type");
+$type = Http::httppost("type");
 if ($type=="ip"){
 	$sql.="ipfilter";
 }else{
@@ -8,24 +8,24 @@ if ($type=="ip"){
 }
 $sql.=",banexpire,banreason) VALUES ('" . addslashes($session['user']['name']) . "',";
 if ($type=="ip"){
-	$sql.="\"".httppost("ip")."\"";
+	$sql.="\"".Http::httppost("ip")."\"";
 }else{
-	$sql.="\"".httppost("id")."\"";
+	$sql.="\"".Http::httppost("id")."\"";
 }
-$duration = (int)httppost("duration");
+$duration = (int)Http::httppost("duration");
 if ($duration == 0) $duration="0000-00-00";
 else $duration = date("Y-m-d", strtotime("+$duration days"));
 	$sql.=",\"$duration\",";
-$sql.="\"".httppost("reason")."\")";
+$sql.="\"".Http::httppost("reason")."\")";
 if ($type=="ip"){
-	if (substr($_SERVER['REMOTE_ADDR'],0,strlen(httppost("ip"))) ==
-			httppost("ip")){
+	if (substr($_SERVER['REMOTE_ADDR'],0,strlen(Http::httppost("ip"))) ==
+			Http::httppost("ip")){
 		$sql = "";
 		OutputClass::output("You don't really want to ban yourself now do you??");
 		OutputClass::output("That's your own IP address!");
 	}
 }else{
-	if ($_COOKIE['lgi']==httppost("id")){
+	if ($_COOKIE['lgi']==Http::httppost("id")){
 		$sql = "";
 		OutputClass::output("You don't really want to ban yourself now do you??");
 		OutputClass::output("That's your own ID!");
@@ -35,6 +35,6 @@ if ($sql!=""){
 	db_query($sql);
 	OutputClass::output("%s ban rows entered.`n`n", db_affected_rows());
 	OutputClass::output_notl("%s", db_error(LINK));
-	debuglog("entered a ban: " .  ($type=="ip"?  "IP: ".httppost("ip"): "ID: ".httppost("id")) . " Ends after: $duration  Reason: \"" .  httppost("reason")."\"");
+	debuglog("entered a ban: " .  ($type=="ip"?  "IP: ".Http::httppost("ip"): "ID: ".Http::httppost("id")) . " Ends after: $duration  Reason: \"" .  Http::httppost("reason")."\"");
 }
 ?>

@@ -37,11 +37,11 @@ function dag_manage(){
 	OutputClass::rawoutput("<form action='runmodule.php?module=dag&manage=true&op=viewbounties&type=search&admin=true' method='POST'>");
 	OutputClass::addnav("","runmodule.php?module=dag&manage=true&op=viewbounties&type=search&admin=true");
 	OutputClass::output("Setter: ");
-	OutputClass::rawoutput("<input name='setter' value=\"".htmlentities(stripslashes(httppost('setter')))."\">");
+	OutputClass::rawoutput("<input name='setter' value=\"".htmlentities(stripslashes(Http::httppost('setter')))."\">");
 	OutputClass::output(" Winner: ");
-	OutputClass::rawoutput("<input name='getter' value=\"".htmlentities(stripslashes(httppost('getter')))."\">");
+	OutputClass::rawoutput("<input name='getter' value=\"".htmlentities(stripslashes(Http::httppost('getter')))."\">");
 	OutputClass::output(" Target: ");
-	OutputClass::rawoutput("<input name='target' value=\"".htmlentities(stripslashes(httppost('target')))."\">");
+	OutputClass::rawoutput("<input name='target' value=\"".htmlentities(stripslashes(Http::httppost('target')))."\">");
 	OutputClass::output_notl("`n");
 	OutputClass::output("Order by: ");
 	$id = Translator::translate_inline("ID");
@@ -56,17 +56,17 @@ function dag_manage(){
 	$asc = Translator::translate_inline("Ascending");
 	$search = Translator::translate_inline("Search");
 	OutputClass::rawoutput("<select name='s'>
-		<option value='1'".(httppost('s')=='1'?" selected":"").">$id</option>
-		<option value='2'".(httppost('s')=='2'?" selected":"").">$amt</option>
-		<option value='3'".(httppost('s')=='3'?" selected":"").">$targ</option>
-		<option value='4'".(httppost('s')=='4'?" selected":"").">$set</option>
-		<option value='5'".(httppost('s')=='5'?" selected":"").">$sdate</option>
-		<option value='6'".(httppost('s')=='6'?" selected":"").">$stat</option>
-		<option value='7'".(httppost('s')=='7'?" selected":"").">$win</option>
-		<option value='8'".(httppost('s')=='8'?" selected":"").">$wdate</option>
+		<option value='1'".(Http::httppost('s')=='1'?" selected":"").">$id</option>
+		<option value='2'".(Http::httppost('s')=='2'?" selected":"").">$amt</option>
+		<option value='3'".(Http::httppost('s')=='3'?" selected":"").">$targ</option>
+		<option value='4'".(Http::httppost('s')=='4'?" selected":"").">$set</option>
+		<option value='5'".(Http::httppost('s')=='5'?" selected":"").">$sdate</option>
+		<option value='6'".(Http::httppost('s')=='6'?" selected":"").">$stat</option>
+		<option value='7'".(Http::httppost('s')=='7'?" selected":"").">$win</option>
+		<option value='8'".(Http::httppost('s')=='8'?" selected":"").">$wdate</option>
 		</select>");
-	OutputClass::rawoutput("<input type='radio' name='d' value='1'".(httppost('d')==1?" checked":"")."> $desc");
-	OutputClass::rawoutput("<input type='radio' name='d' value='2'".(httppost('d')==1?"":" checked")."> $asc");
+	OutputClass::rawoutput("<input type='radio' name='d' value='1'".(Http::httppost('d')==1?" checked":"")."> $desc");
+	OutputClass::rawoutput("<input type='radio' name='d' value='2'".(Http::httppost('d')==1?"":" checked")."> $asc");
 	OutputClass::output_notl("`n");
 	OutputClass::rawoutput("<input type='submit' class='button' value='$search'>");
 	OutputClass::rawoutput("</form>");
@@ -150,9 +150,9 @@ function dag_manage(){
 		OutputClass::addnav("","runmodule.php?module=dag&manage=true&op=addbounty&admin=true");
 	}else if ($op == "addbounty") {
 		if (Http::httpget('subfinal')==1){
-			$sql = "SELECT acctid,name,login,level,locked,age,dragonkills,pk,experience FROM " . db_prefix("accounts") . " WHERE name='".addslashes(rawurldecode(stripslashes(httppost('contractname'))))."' AND locked=0";
+			$sql = "SELECT acctid,name,login,level,locked,age,dragonkills,pk,experience FROM " . db_prefix("accounts") . " WHERE name='".addslashes(rawurldecode(stripslashes(Http::httppost('contractname'))))."' AND locked=0";
 		}else{
-			$contractname = stripslashes(rawurldecode(httppost('contractname')));
+			$contractname = stripslashes(rawurldecode(Http::httppost('contractname')));
 			$name="%";
 			for ($x=0;$x<strlen($contractname);$x++){
 				$name.=substr($contractname,$x,1)."%";
@@ -175,7 +175,7 @@ function dag_manage(){
 			}
 			OutputClass::rawoutput("</select>");
 			OutputClass::output_notl("`n`n");
-			$amount = httppost('amount');
+			$amount = Http::httppost('amount');
 			OutputClass::output("`2Amount to Place: ");
 			OutputClass::rawoutput("<input name='amount' id='amount' width='5' value='$amount'>");
 			OutputClass::output_notl("`n`n");
@@ -189,7 +189,7 @@ function dag_manage(){
 			if ($row['locked']) {
 				OutputClass::output("Target is a locked user.");
 			}
-			$amt = (int)httppost('amount');
+			$amt = (int)Http::httppost('amount');
 			if ($amt <= 0) {
 				OutputClass::output("That bounty value make no sense.");
 			} else {
@@ -338,7 +338,7 @@ function dag_manage(){
 		}
 		//override those options in favor of the search form if it exists
 		if ($type=='search'){
-			switch(httppost('s')){
+			switch(Http::httppost('s')){
 				case 1: $s = " ORDER BY bountyid"; break;
 				case 2: $s = " ORDER BY amount"; break;
 				case 3: $s = " ORDER BY target"; break;
@@ -348,14 +348,14 @@ function dag_manage(){
 				case 7: $s = " ORDER BY winner"; break;
 				case 8: $s = " ORDER BY windate"; break;
 			}
-			switch(httppost('d')){
+			switch(Http::httppost('d')){
 				case 1: $d = " DESC"; break;
 				case 2: $d = " ASC"; break;
 			}
 			$t = "";
-			if (httppost('setter')>'') {
+			if (Http::httppost('setter')>'') {
 				if ($t>"") $t.=" AND";
-				$a = httppost('setter');
+				$a = Http::httppost('setter');
 				$setter = "%";
 				for ($i=0;$i<strlen($a);$i++){
 					$setter.=$a[$i]."%";
@@ -369,9 +369,9 @@ function dag_manage(){
 				if (count($ids)==0) $ids[0]=0;
 				$t .= " setter IN (".join(",",$ids).")";
 			}
-			if (httppost('getter')>'') {
+			if (Http::httppost('getter')>'') {
 				if ($t>"") $t.=" AND";
-				$a = httppost('getter');
+				$a = Http::httppost('getter');
 				$getter = "%";
 				for ($i=0;$i<strlen($a);$i++){
 					$getter.=$a[$i]."%";
@@ -385,9 +385,9 @@ function dag_manage(){
 				if (count($ids)==0) $ids[0]=0;
 				$t .= " winner IN (".join(",",$ids).")";
 			}
-			if (httppost('target')>'') {
+			if (Http::httppost('target')>'') {
 				if ($t>"") $t.=" AND";
-				$a = httppost('target');
+				$a = Http::httppost('target');
 				$target = "%";
 				for ($i=0;$i<strlen($a);$i++){
 					$target.=$a[$i]."%";

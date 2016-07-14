@@ -113,7 +113,7 @@ function darkhorse_bartender($from){
 		OutputClass::output("You are about to answer when you realize the question was rhetorical.`n`n");
 		OutputClass::output("He continues, \"`%To do colorsh, here'sh what you need to do.  Firsht, you ushe a &#0096; mark (found right above the tab key) followed by 1, 2, 3, 4, 5, 6, 7, !, @, #, $, %, ^, &, ), q or Q.  Each of thoshe correshpondsh with a color to look like this: `n`1&#0096;1 `2&#0096;2 `3&#0096;3 `4&#0096;4 `5&#0096;5 `6&#0096;6 `7&#0096;7 `n`!&#0096;! `@&#0096;@ `#&#0096;# `\$&#0096;\$ `%&#0096;% `^&#0096;^ `&&#0096;& `n `)&#0096;) `q&#0096;q `Q&#0096;Q `n`% got it?`0\"`n  You can practice below:", true);
 		OutputClass::rawoutput("<form action=\"".$from."op=bartender&what=colors\" method='POST'>");
-		$testtext = httppost('testtext');
+		$testtext = Http::httppost('testtext');
 		$try = Translator::translate_inline("Try");
 		OutputClass::rawoutput("<input name='testtext' id='testtext'><input type='submit' class='button' value='$try'></form>");
 		OutputClass::addnav("",$from."op=bartender&what=colors");
@@ -136,7 +136,7 @@ function darkhorse_bartender($from){
 			}else{
 				OutputClass::addnav("Search Again",$from."op=bartender&what=enemies");
 				$search = "%";
-				$name = httppost('name');
+				$name = Http::httppost('name');
 				for ($i=0;$i<strlen($name);$i++){
 					$search.=substr($name,$i,1)."%";
 				}

@@ -24,8 +24,8 @@ if ($op == "list") {
 	$namespace = Http::httpget('ns');
 
 	if ($mode == "save") {
-		$intext = httppost('intext');
-		$outtext = httppost('outtext');
+		$intext = Http::httppost('intext');
+		$outtext = Http::httppost('outtext');
 		if ($outtext <> "") {
 			$login = $session['user']['login'];
 			$language = $session['user']['prefs']['language'];
@@ -88,10 +88,10 @@ if ($op == "list") {
 
 } else {
 	if ($op == "step2") {
-		$intext = httppost('intext');
-		$outtext = httppost('outtext');
-		$namespace = httppost('namespace');
-		$language = httppost('language');
+		$intext = Http::httppost('intext');
+		$outtext = Http::httppost('outtext');
+		$namespace = Http::httppost('namespace');
+		$language = Http::httppost('language');
 		if ($outtext <> "") {
 			$login = $session['user']['login'];
 			$sql = "INSERT INTO " . db_prefix("translations") . " (language,uri,intext,outtext,author,version) VALUES" . " ('$language','$namespace','$intext','$outtext','$login','$logd_version')";
