@@ -122,29 +122,6 @@ function sprintf_translate(){
 
 
 
-function translate_mail($in,$to=0){
-	global $session;
-	Translator::tlschema("mail"); // should be same schema like systemmails!
-	if (!is_array($in)) $in=array($in);
-	//this is done by sprintf_translate.
-	//$in[0] = str_replace("`%","`%%",$in[0]);
-	if ($to>0){
-		$language = db_fetch_assoc(db_query("SELECT prefs FROM ".db_prefix("accounts")." WHERE acctid=$to"));
-		$language['prefs'] = unserialize($language['prefs']);
-		$session['tlanguage'] = $language['prefs']['language']?$language['prefs']['language']:Settings::getsetting("defaultlanguage","en");
-	}
-	reset($in);
-	// translation offered within translation tool here is in language
-	// of sender!
-	// translation of mails can't be done in language of recipient by
-	// the sender via translation tool.
-
-	$out = call_user_func_array("sprintf_translate", $in);
-
-	Translator::tlschema();
-	unset($session['tlanguage']);
-	return $out;
-}
 
 function tl($in){
 	$out = translate($in);
@@ -240,6 +217,34 @@ $translation_namespace_stack = array();
 
 class Translator
 {
+
+    public static function translate_mail($in, $to = 0)
+    {
+        global $session;
+        Translator::tlschema("mail"); // should be same schema like systemmails!
+        if (!is_array($in)) {
+            $in = array($in);
+        }
+        //this is done by sprintf_translate.
+        //$in[0] = str_replace("`%","`%%",$in[0]);
+        if ($to > 0) {
+            $language = db_fetch_assoc(db_query("SELECT prefs FROM " . db_prefix("accounts") . " WHERE acctid=$to"));
+            $language['prefs'] = unserialize($language['prefs']);
+            $session['tlanguage'] = $language['prefs']['language'] ? $language['prefs']['language'] : Settings::getsetting("defaultlanguage",
+                "en");
+        }
+        reset($in);
+        // translation offered within translation tool here is in language
+        // of sender!
+        // translation of mails can't be done in language of recipient by
+        // the sender via translation tool.
+
+        $out = call_user_func_array("sprintf_translate", $in);
+
+        Translator::tlschema();
+        unset($session['tlanguage']);
+        return $out;
+    }
 	public static function tlschema($schema = false)
 	{
 		global $translation_namespace, $translation_namespace_stack, $REQUEST_URI;

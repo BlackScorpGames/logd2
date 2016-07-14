@@ -138,7 +138,7 @@ if ($name!=""){
 							// this failed attempt if it includes superusers.
 							$sql = "SELECT acctid FROM " . db_prefix("accounts") ." WHERE (superuser&".SU_EDIT_USERS.")";
 							$result2 = db_query($sql);
-							$subj = translate_mail(array("`#%s failed to log in too many times!",$_SERVER['REMOTE_ADDR']),0);
+							$subj = Translator::translate_mail(array("`#%s failed to log in too many times!",$_SERVER['REMOTE_ADDR']),0);
 							$number=db_num_rows($result2);
 							for ($i=0;$i<$number;$i++){
 								$row2 = db_fetch_assoc($result2);
@@ -146,7 +146,7 @@ if ($name!=""){
 								$sql = "DELETE FROM " . db_prefix("mail") . " WHERE msgto={$row2['acctid']} AND msgfrom=0 AND subject = '".serialize($subj)."' AND seen=0";
 								db_query($sql);
 								if (db_affected_rows()>0) $noemail = true; else $noemail = false;
-								$msg = translate_mail(array("This message is generated as a result of one or more of the accounts having been a superuser account.  Log Follows:`n`n%s",$alert),0);
+								$msg = Translator::translate_mail(array("This message is generated as a result of one or more of the accounts having been a superuser account.  Log Follows:`n`n%s",$alert),0);
 								systemmail($row2['acctid'],$subj,$msg,0,$noemail);
 							}//end for
 						}//end if($su)

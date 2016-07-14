@@ -68,8 +68,8 @@ if ($op=="forgot"){
 					$sql = "UPDATE " . db_prefix("accounts") . " SET emailvalidation='{$row['emailvalidation']}' where login='{$row['login']}'";
 					db_query($sql);
 				}
-				$subj = translate_mail("LoGD Account Verification",$row['acctid']);
-				$msg = translate_mail(array("Someone from %s requested a forgotten password link for your account.  If this was you, then here is your"
+				$subj = Translator::translate_mail("LoGD Account Verification",$row['acctid']);
+				$msg = Translator::translate_mail(array("Someone from %s requested a forgotten password link for your account.  If this was you, then here is your"
 						." link, you may click it to log into your account and change your password from your preferences page in the village square.`n`n"
 						."If you didn't request this email, then don't sweat it, you're the one who is receiving this email, not them."
 						."`n`n  http://%s?op=val&id=%s `n`n Thanks for playing!",
@@ -207,8 +207,8 @@ if (Settings::getsetting("allowcreation",1)==0){
 						//end
 						Modules::modulehook("process-create", $args);
 						if ($emailverification!=""){
-							$subj = translate_mail("LoGD Account Verification",0);
-							 $msg = translate_mail(array("Login name: %s `n`nIn order to verify your account, you will need to click on the link below.`n`n http://%s?op=val&id=%s `n`nThanks for playing!",$shortname,
+							$subj = Translator::translate_mail("LoGD Account Verification",0);
+							 $msg = Translator::translate_mail(array("Login name: %s `n`nIn order to verify your account, you will need to click on the link below.`n`n http://%s?op=val&id=%s `n`nThanks for playing!",$shortname,
 								($_SERVER['SERVER_NAME'].($_SERVER['SERVER_PORT'] == 80?"":":".$_SERVER['SERVER_PORT']).$_SERVER['SCRIPT_NAME']),
 								$emailverification),
 								0);

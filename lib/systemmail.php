@@ -54,11 +54,11 @@ function systemmail($to,$subject,$body,$from=0,$noemail=false){
 	if ($email && !$noemail){
 		if ($serialized&2){
 			$body = unserialize(stripslashes($body));
-			$body = translate_mail($body,$to);
+			$body = Translator::translate_mail($body,$to);
 		}
 		if ($serialized&1){
 			$subject = unserialize(stripslashes($subject));
-			$subject = translate_mail($subject,$to);
+			$subject = Translator::translate_mail($subject,$to);
 		}
 
 		$sql = "SELECT name FROM " . db_prefix("accounts") . " WHERE acctid='$from'";
@@ -82,8 +82,8 @@ function systemmail($to,$subject,$body,$from=0,$noemail=false){
 		$body = preg_replace("'[`]n'", "\n", $body);
 		$body = full_sanitize($body);
 		$subject = htmlentities($subject, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
-		$mailsubj = translate_mail(array("New LoGD Mail (%s)", $subject),$to);
-		$mailbody = translate_mail(array("You have received new mail on LoGD at http://%s`n`n"
+		$mailsubj = Translator::translate_mail(array("New LoGD Mail (%s)", $subject),$to);
+		$mailbody = Translator::translate_mail(array("You have received new mail on LoGD at http://%s`n`n"
 			."-=-=-=-=-=-=-=-=-=-=-=-=-=-`n"
 			."From: %s`n"
 			."To: %s`n"

@@ -272,11 +272,11 @@ if ($op==""){
 	}
 	$write = Translator::translate_inline("Write Mail");
 	// We assume that petitions are handled in default language
-	$yourpeti = translate_mail("Your Petition",0);
-	$peti = translate_mail("Petition",0);
-	$row['body'] = str_replace("[charname]",translate_mail("[charname]",0),$row['body']);
-	$row['body'] = str_replace("[email]",translate_mail("[email]",0),$row['body']);
-	$row['body'] = str_replace("[description]",translate_mail("[description]",0),$row['body']);
+	$yourpeti = Translator::translate_mail("Your Petition",0);
+	$peti = Translator::translate_mail("Petition",0);
+	$row['body'] = str_replace("[charname]",Translator::translate_mail("[charname]",0),$row['body']);
+	$row['body'] = str_replace("[email]",Translator::translate_mail("[email]",0),$row['body']);
+	$row['body'] = str_replace("[description]",Translator::translate_mail("[description]",0),$row['body']);
 	// For email replies, make sure we don't overflow the URI buffer.
 	$reppet = substr(stripslashes($row['body']), 0, 2000);
 	OutputClass::output("`@From: ");
