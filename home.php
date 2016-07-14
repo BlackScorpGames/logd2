@@ -135,7 +135,7 @@ if (Settings::getsetting("homeskinselect", 1)) {
 	if ($prefs['template'] == "")
 		$prefs['template'] = Settings::getsetting("defaultskin", "jade.htm");
 	require_once("lib/showform.php");
-	showform($form, $prefs, true);
+	ShowFormClass::showform($form, $prefs, true);
 	$submit = Translator::translate_inline("Choose");
 	OutputClass::rawoutput("</td><td><br>&nbsp;<input type='submit' class='button' value='$submit'></td>");
 	OutputClass::rawoutput("</tr></table></form>");

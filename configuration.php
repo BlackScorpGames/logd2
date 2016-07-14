@@ -164,7 +164,7 @@ if ($op=="save"){
 				OutputClass::rawoutput("<form action='configuration.php?op=modulesettings&module=$module&save=1' method='POST'>",true);
 				OutputClass::addnav("","configuration.php?op=modulesettings&module=$module&save=1");
 				Translator::tlschema("module-$module");
-				showform($msettings,$module_settings[$mostrecentmodule]);
+				ShowFormClass::showform($msettings,$module_settings[$mostrecentmodule]);
 				Translator::tlschema();
 				OutputClass::rawoutput("</form>",true);
 			}else{
@@ -444,7 +444,7 @@ if ($op == "") {
 
 	OutputClass::rawoutput("<form action='configuration.php?op=save' method='POST'>");
 	OutputClass::addnav("","configuration.php?op=save");
-	showform($setup,$vals);
+	ShowFormClass::showform($setup,$vals);
 	OutputClass::rawoutput("</form>");
 }
 page_footer();

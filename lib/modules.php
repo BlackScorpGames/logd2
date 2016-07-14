@@ -1247,7 +1247,7 @@ function module_objpref_edit($type, $module, $id)
 			$data[$row['setting']] = $row['value'];
 		}
 		Translator::tlschema("module-$module");
-		showform($msettings, $data);
+		ShowFormClass::showform($msettings, $data);
 		Translator::tlschema();
 	}
 }

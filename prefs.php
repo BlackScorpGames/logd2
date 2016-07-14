@@ -293,7 +293,7 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 	$form = array_merge($form, $msettings);
 	$prefs = array_merge($prefs, $mdata);
 	OutputClass::rawoutput("<form action='prefs.php?op=save' method='POST' onSubmit='return(md5pass)'>");
-	$info = showform($form,$prefs);
+	$info = ShowFormClass::showform($form,$prefs);
 	OutputClass::rawoutput("<input type='hidden' value=\"" .
 			htmlentities(serialize($info), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" name='oldvalues'>");
 

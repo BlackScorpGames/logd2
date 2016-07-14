@@ -50,7 +50,7 @@ if (Http::httpget("subop")==""){
 	$args['user']['test'] = "Is out there???";
 	*/
 	$showformargs = Modules::modulehook("modifyuserview", array("userinfo"=>$userinfo, "user"=>$row));
-	$info = showform($showformargs['userinfo'],$showformargs['user']);
+	$info = ShowFormClass::showform($showformargs['userinfo'],$showformargs['user']);
 	OutputClass::rawoutput("<input type='hidden' value=\"".htmlentities(serialize($info), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" name='oldvalues'>");
 	OutputClass::rawoutput("</form>");
 		OutputClass::output("`n`nLast Page Viewed:`n");
@@ -89,7 +89,7 @@ if (Http::httpget("subop")==""){
 		OutputClass::rawoutput("<form action='user.php?op=savemodule&module=$module&userid=$userid$returnpetition' method='POST'>");
 		OutputClass::addnav("","user.php?op=savemodule&module=$module&userid=$userid$returnpetition");
 		Translator::tlschema("module-$module");
-		showform($msettings,$data);
+		ShowFormClass::showform($msettings,$data);
 		Translator::tlschema();
 		OutputClass::rawoutput("</form>");
 	}else{

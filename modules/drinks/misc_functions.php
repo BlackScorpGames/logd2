@@ -210,7 +210,7 @@ function drinks_editor(){
 	if (($op == "edit" || $op == "add") && $subop=="") {
 		OutputClass::rawoutput("<form action='runmodule.php?module=drinks&act=editor&op=save&admin=true' method='POST'>");
 		OutputClass::addnav("","runmodule.php?module=drinks&act=editor&op=save&admin=true");
-		showform($drinksarray,$row);
+		ShowFormClass::showform($drinksarray,$row);
 		OutputClass::rawoutput("</form>");
 		OutputClass::output("`\$NOTE:`7 Make sure that you know what you are doing when modifying or adding drinks.`n");
 		OutputClass::output("Just because the drinks have a lot of options, doesn't mean you have to use all of them`n`n");

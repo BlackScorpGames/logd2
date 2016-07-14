@@ -228,7 +228,7 @@ if ($op=="" || $op=="search"){
 				"creatureaiscript"=>"Creature's A.I.,textarearesizeable",
 			);
 			OutputClass::rawoutput("<form action='creatures.php?op=save' method='POST'>");
-			showform($form, $row);
+			ShowFormClass::showform($form, $row);
 			OutputClass::rawoutput("</form>");
 			OutputClass::addnav("","creatures.php?op=save");
 		}

@@ -40,7 +40,7 @@ if($op=="edit" || $op=="add"){
 	}
 	OutputClass::rawoutput("<form action='armoreditor.php?op=save&level=$armorlevel' method='POST'>");
 	OutputClass::addnav("","armoreditor.php?op=save&level=$armorlevel");
-	showform($armorarray,$row);
+	ShowFormClass::showform($armorarray,$row);
 	OutputClass::rawoutput("</form>");
 }else if($op=="del"){
 	$sql = "DELETE FROM " . db_prefix("armor") . " WHERE armorid='$id'";

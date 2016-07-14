@@ -117,7 +117,7 @@ if ($op == ""){
 	}
 	OutputClass::rawoutput("<form action='titleedit.php?op=save&id=$id' method='POST'>");
 	OutputClass::addnav("","titleedit.php?op=save&id=$id");
-	showform($editarray,$row);
+	ShowFormClass::showform($editarray,$row);
 	OutputClass::rawoutput("</form>");
 	OutputClass::addnav("Functions");
 	OutputClass::addnav("Main Title Editor", "titleedit.php");
