@@ -26,13 +26,13 @@ if ($op=="deactivate"){
 	$sql = "UPDATE " . db_prefix("companions") . " SET companionactive=0 WHERE companionid='$id'";
 	db_query($sql);
 	$op="";
-	httpset("op", "");
+	Http::httpset("op", "");
 	invalidatedatacache("companionsdata-$id");
 } elseif ($op=="activate"){
 	$sql = "UPDATE " . db_prefix("companions") . " SET companionactive=1 WHERE companionid='$id'";
 	db_query($sql);
 	$op="";
-	httpset("op", "");
+	Http::httpset("op", "");
 	invalidatedatacache("companiondata-$id");
 } elseif ($op=="del") {
 	//drop the companion.
@@ -40,7 +40,7 @@ if ($op=="deactivate"){
 	db_query($sql);
 	module_delete_objprefs('companions', $id);
 	$op = "";
-	httpset("op", "");
+	Http::httpset("op", "");
 	invalidatedatacache("companiondata-$id");
 } elseif ($op=="take"){
 	$sql = "SELECT * FROM " . db_prefix("companions") . " WHERE companionid='$id'";
@@ -57,7 +57,7 @@ if ($op=="deactivate"){
 		OutputClass::output("`\$Succesfully taken `^%s`\$ as companion.", $row['name']);
 	}
 	$op = "";
-	httpset("op", "");
+	Http::httpset("op", "");
 } elseif ($op=="save"){
 	$subop = Http::httpget("subop");
 	if ($subop == "") {
@@ -126,7 +126,7 @@ if ($op=="deactivate"){
 	} else {
 		$op = "";
 	}
-	httpset("op", $op);
+	Http::httpset("op", $op);
 }
 
 if ($op==""){

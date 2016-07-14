@@ -81,7 +81,7 @@ if ($op=="save"){
 	}
 	OutputClass::output("`^Settings saved.`0");
 	$op = "";
-	httpset($op, "");
+	Http::httpset($op, "");
 }elseif($op=="modulesettings"){
 	include_once("lib/gamelog.php");
 	if (injectmodule($module,true)){
@@ -123,7 +123,7 @@ if ($op=="save"){
 				OutputClass::output("`^Module %s settings saved.`0`n", $module);
 			}
 			$save = "";
-			httpset('save', "");
+			Http::httpset('save', "");
 		}
 		if ($save == "") {
 			$info = get_module_info($module);

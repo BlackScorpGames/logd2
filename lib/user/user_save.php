@@ -146,5 +146,5 @@ OutputClass::addnav("","user.php");
 	OutputClass::output("No fields were changed in the user's record.");
 }
 $op = "edit";
-httpset($op, "edit");
+Http::httpset($op, "edit");
 ?>

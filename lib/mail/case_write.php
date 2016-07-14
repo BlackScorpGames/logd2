@@ -93,7 +93,7 @@ if (isset($row['login']) && $row['login']!=""){
 	}elseif ($db_num_rows==0){
 		OutputClass::output("`\$No one was found who matches \"%s\".`n",stripslashes($to));
 		OutputClass::output("`@Please try again.`n");
-		httpset('prepop', $to, true);
+		Http::httpset('prepop', $to, true);
 		OutputClass::rawoutput("</form>");
 		require("lib/mail/case_address.php");
 		popup_footer();

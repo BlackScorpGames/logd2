@@ -24,7 +24,7 @@ if ($op=="run"){
 	if (e_rand()%3 == 0){
 		OutputClass::output ("`c`b`&You have successfully fled your opponent!`0`b`c`n");
 		$op="";
-		httpset('op', "");
+		Http::httpset('op', "");
 		unsuspend_buffs();
 		foreach($companions as $index => $companion) {
 			if(isset($companion['expireafterfight']) && $companion['expireafterfight']) {
@@ -57,7 +57,7 @@ if ($op=="search"){
 	if ($session['user']['turns']<=0){
 		OutputClass::output("`\$`bYou are too tired to search the forest any longer today.  Perhaps tomorrow you will have more energy.`b`0");
 		$op="";
-		httpset('op', "");
+		Http::httpset('op', "");
 	}else{
 		Modules::modulehook("forestsearch", array());
 		$args = array(
@@ -73,7 +73,7 @@ if ($op=="search"){
 				$session['user']['specialmisc'] = "";
 				$dontdisplayforestmessage=true;
 				$op = "";
-				httpset("op", "");
+				Http::httpset("op", "");
 			} else {
 				PageParts::page_footer();
 			}
@@ -272,7 +272,7 @@ if ($op=="search"){
 			// because they are already set in the nav itself, we need this here.
 			// It will not break anything else. I hope.
 			if(Http::httpget('auto') != "") {
-				httpset('op', 'fight');
+				Http::httpset('op', 'fight');
 				$op = 'fight';
 			}
 		}
@@ -290,7 +290,7 @@ if ($battle){
 	if ($victory){
 		require_once("lib/forestoutcomes.php");
 		$op="";
-		httpset('op', "");
+		Http::httpset('op', "");
 		forestvictory($newenemies,isset($options['denyflawless'])?$options['denyflawless']:false);
 		$dontdisplayforestmessage=true;
 	}elseif($defeat){

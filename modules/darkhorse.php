@@ -309,7 +309,7 @@ function darkhorse_runevent($type, $link){
 function darkhorse_run(){
 	$op = Http::httpget('op');
 	if ($op == "enter") {
-		httpset("op", "tavern");
+		Http::httpset("op", "tavern");
 		PageParts::page_header(get_module_setting("tavernname"));
 		darkhorse_runevent("forest", "forest.php?");
 		// Clear the specialinc, just in case.

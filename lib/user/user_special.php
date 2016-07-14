@@ -15,5 +15,5 @@ if (Http::httppost("newday") !=""){
 	db_query($sql);
 }
 $op = "edit";
-httpset("op", "edit");
+Http::httpset("op", "edit");
 ?>

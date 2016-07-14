@@ -22,7 +22,7 @@ if ($op == "del") {
 	db_query($sql);
 	OutputClass::output("`^Master deleted.`0");
 	$op = "";
-	httpset("op", "");
+	Http::httpset("op", "");
 } elseif ($op == "save") {
 	$name = addslashes(Http::httppost('name'));
 	$weapon = addslashes(Http::httppost('weapon'));
@@ -45,7 +45,7 @@ if ($op == "del") {
 		OutputClass::output("`^Master %s`^ updated.", stripslashes($name));
 	}
 	$op = "";
-	httpset("op", "");
+	Http::httpset("op", "");
 } elseif ($op == "edit") {
 	OutputClass::addnav("Functions");
 	OutputClass::addnav("Return to Masters Editor", "masters.php");

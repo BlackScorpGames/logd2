@@ -65,14 +65,14 @@ if ($op=="" && $act!="attack"){
 if ($op=="run"){
   OutputClass::output("Your pride prevents you from running");
   $op="fight";
-  httpset('op', $op);
+  Http::httpset('op', $op);
 }
 
 $skill = Http::httpget('skill');
 if ($skill!=""){
   OutputClass::output("Your honor prevents you from using any special ability");
   $skill="";
-  httpset('skill', $skill);
+  Http::httpset('skill', $skill);
 }
 if ($op=="fight" || $op=="run"){
 	$battle=true;
@@ -96,7 +96,7 @@ if ($battle){
 		}
 
 		$op = "";
-		httpset('op', $op);
+		Http::httpset('op', $op);
 		if ($killedin==$iname){
 			OutputClass::addnav("Return to the inn","inn.php");
 		} else {

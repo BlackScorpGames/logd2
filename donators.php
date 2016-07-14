@@ -102,7 +102,7 @@ if ($op=="add2"){
 	}else {
 		systemmail($id,array("Donation Points Added"),array("`2You have received %d donation points for %s.",$points,$reason));
 	}
-	httpset('op', "");
+	Http::httpset('op', "");
 	$op = "";
 }
 

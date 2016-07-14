@@ -79,7 +79,7 @@ if ($battle){
 		OutputClass::output("`#You receive `^%s`# favor with `\$%s`#!`n`0", $badguy['creatureexp'],$deathoverlord);
 		$session['user']['deathpower']+=$badguy['creatureexp'];
 		$op = "";
-		httpset('op', "");
+		Http::httpset('op', "");
 		$skipgraveyardtext=true;
 	}else{
 		if ($defeat){

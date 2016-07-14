@@ -42,26 +42,26 @@ while (list($key,$module)=each($modules)){
 		if (install_module($module)){
 
 		}else{
-			httpset('cat','');
+			Http::httpset('cat','');
 		}
 		$op="";
-		httpset('op', "");
+		Http::httpset('op', "");
 	}elseif($op=="uninstall"){
 		if (uninstall_module($module)) {
 		} else {
 			OutputClass::output("Unable to inject module.  Module not uninstalled.`n");
 		}
 		$op="";
-		httpset('op', "");
+		Http::httpset('op', "");
 	}elseif($op=="activate"){
 		activate_module($module);
 		$op="";
-		httpset('op', "");
+		Http::httpset('op', "");
 		invalidatedatacache("inject-$module");
 	}elseif($op=="deactivate"){
 		deactivate_module($module);
 		$op="";
-		httpset('op', "");
+		Http::httpset('op', "");
 		invalidatedatacache("inject-$module");
 	}elseif($op=="reinstall"){
 		$sql = "UPDATE " . db_prefix("modules") . " SET filemoddate='0000-00-00 00:00:00' WHERE modulename='$module'";
@@ -69,7 +69,7 @@ while (list($key,$module)=each($modules)){
 		// We don't care about the return value here at all.
 		injectmodule($module, true);
 		$op="";
-		httpset('op', "");
+		Http::httpset('op', "");
 		invalidatedatacache("inject-$module");
 	}
 }

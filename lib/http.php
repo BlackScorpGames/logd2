@@ -27,16 +27,23 @@ class Http
 		}
 		return $res;
 	}
+
+    public static function httpset($var, $val, $force = false)
+    {
+        global $HTTP_GET_VARS;
+        if (isset($_GET[$var]) || $force) {
+            $_GET[$var] = $val;
+        }
+        if (isset($HTTP_GET_VARS[$var])) {
+            $HTTP_GET_VARS[$var] = $val;
+        }
+    }
+
 }
 function httpallget() {
 	return $_GET;
 }
 
-function httpset($var, $val,$force=false){
-	global $HTTP_GET_VARS;
-	if (isset($_GET[$var]) || $force) $_GET[$var] = $val;
-	if (isset($HTTP_GET_VARS[$var])) $HTTP_GET_VARS[$var] = $val;
-}
 
 
 

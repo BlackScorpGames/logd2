@@ -8,7 +8,7 @@ if ($com=="" && !$comment && $op!="fleedragon") {
 			$session['user']['specialinc'] = "";
 			$session['user']['specialmisc'] = "";
 			$op = "";
-			httpset("op", "");
+			Http::httpset("op", "");
 		}
 	}
 }

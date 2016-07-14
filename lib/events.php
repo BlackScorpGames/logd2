@@ -60,7 +60,7 @@ class Events
                 $skipdesc = true;
                 $session['user']['specialinc'] = "";
                 $session['user']['specialmisc'] = "";
-                httpset("op", "");
+                Http::httpset("op", "");
             }
         }
         Translator::tlschema();

@@ -153,7 +153,7 @@ if (!$op && $com=="" && !$comment && !$refresh && !$commenting) {
 			$session['user']['specialmisc'] = "";
 			$skipvillagedesc=true;
 			$op = "";
-			httpset("op", "");
+			Http::httpset("op", "");
 		}
 	}
 }

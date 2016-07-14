@@ -43,13 +43,13 @@ if ($op=="deactivate"){
 	$sql = "UPDATE " . db_prefix("mounts") . " SET mountactive=0 WHERE mountid='$id'";
 	db_query($sql);
 	$op="";
-	httpset("op", "");
+	Http::httpset("op", "");
 	invalidatedatacache("mountdata-$id");
 } elseif ($op=="activate"){
 	$sql = "UPDATE " . db_prefix("mounts") . " SET mountactive=1 WHERE mountid='$id'";
 	db_query($sql);
 	$op="";
-	httpset("op", "");
+	Http::httpset("op", "");
 	invalidatedatacache("mountdata-$id");
 } elseif ($op=="del") {
 	//refund for anyone who has a mount of this type.
@@ -63,7 +63,7 @@ if ($op=="deactivate"){
 	db_query($sql);
 	module_delete_objprefs('mounts', $id);
 	$op = "";
-	httpset("op", "");
+	Http::httpset("op", "");
 	invalidatedatacache("mountdata-$id");
 } elseif ($op=="give") {
 	$session['user']['hashorse'] = $id;
@@ -75,7 +75,7 @@ if ($op=="deactivate"){
 	if ($buff['schema'] == "") $buff['schema'] = "mounts";
 	apply_buff("mount",$buff);
 	$op="";
-	httpset("op", "");
+	Http::httpset("op", "");
 }elseif ($op=="save"){
 	$subop = Http::httpget("subop");
 	if ($subop == "") {
@@ -122,7 +122,7 @@ if ($op=="deactivate"){
 	} else {
 		$op = "";
 	}
-	httpset("op", $op);
+	Http::httpset("op", $op);
 }
 
 if ($op==""){

@@ -20,6 +20,6 @@ if (isset($post['validation_error']) && $post['validation_error']) {
 	OutputClass::output("`^Preferences for module %s saved.`n", $module);
 }
 $op = "edit";
-httpset("op", "edit");
-httpset("subop", "module", true);
+Http::httpset("op", "edit");
+Http::httpset("subop", "module", true);
 ?>

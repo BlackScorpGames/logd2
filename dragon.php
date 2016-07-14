@@ -253,7 +253,7 @@ if ($op==""){
 if ($op=="run"){
 	OutputClass::output("The creature's tail blocks the only exit to its lair!");
 	$op="fight";
-	httpset('op', 'fight');
+	Http::httpset('op', 'fight');
 }
 if ($op=="fight" || $op=="run"){
 	$battle=true;

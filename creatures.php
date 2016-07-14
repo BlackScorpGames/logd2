@@ -89,9 +89,9 @@ if ($op == "save"){
 		OutputClass::output("`^Saved!`0`n");
 	}
 	// Set the Http::httpget id so that we can do the editor once we save
-	httpset("creatureid", $id, true);
+	Http::httpset("creatureid", $id, true);
 	// Set the Http::httpget op so we drop back into the editor
-	httpset("op", "edit");
+	Http::httpset("op", "edit");
 }
 
 $op = Http::httpget('op');
@@ -105,7 +105,7 @@ if ($op=="del"){
 		OutputClass::output("Creature not deleted: %s", db_error(LINK));
 	}
 	$op="";
-	httpset('op', "");
+	Http::httpset('op', "");
 }
 if ($op=="" || $op=="search"){
 	$level = Http::httpget("level");

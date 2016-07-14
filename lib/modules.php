@@ -423,9 +423,9 @@ class Modules
                     OutputClass::output("`^`c`bSomething Special!`c`b`0");
                     Translator::tlschema();
                     $op = Http::httpget('op');
-                    httpset('op', "");
+                    Http::httpset('op', "");
                     module_do_event($eventtype, $event['modulename'], false, $baseLink);
-                    httpset('op', $op);
+                    Http::httpset('op', $op);
                     return 1;
                 }
                 $sum += $event['normchance'];

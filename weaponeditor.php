@@ -53,7 +53,7 @@ if($op=="edit" || $op=="add"){
 	$sql = "DELETE FROM " . db_prefix("weapons") . " WHERE weaponid='$id'";
 	db_query($sql);
 	$op = "";
-	httpset("op", $op);
+	Http::httpset("op", $op);
 }else if($op=="save"){
 	$weaponid = (int)Http::httppost("weaponid");
 	$damage = Http::httppost("damage");
@@ -66,7 +66,7 @@ if($op=="edit" || $op=="add"){
 	db_query($sql);
 	//OutputClass::output($sql);
 	$op = "";
-	httpset("op", $op);
+	Http::httpset("op", $op);
 }
 if ($op==""){
 	$sql = "SELECT max(level+1) as level FROM " . db_prefix("weapons");

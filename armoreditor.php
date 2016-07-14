@@ -47,7 +47,7 @@ if($op=="edit" || $op=="add"){
 	db_query($sql);
 	//OutputClass::output($sql);
 	$op = "";
-	httpset("op", $op);
+	Http::httpset("op", $op);
 }else if($op=="save"){
 	$armorid = Http::httppost('armorid');
 	$armorname = Http::httppost('armorname');
@@ -59,7 +59,7 @@ if($op=="edit" || $op=="add"){
 	}
 	db_query($sql);
 	$op = "";
-	httpset("op", $op);
+	Http::httpset("op", $op);
 }
 if ($op==""){
 	$sql = "SELECT max(level+1) AS level FROM " . db_prefix("armor");

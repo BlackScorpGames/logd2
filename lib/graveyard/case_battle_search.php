@@ -2,7 +2,7 @@
 if ($session['user']['gravefights']<=0){
 	OutputClass::output("`\$`bYour soul can bear no more torment in this afterlife.`b`0");
 	$op="";
-	httpset('op', "");
+	Http::httpset('op', "");
 }else{
 	require_once("lib/extended-battle.php");
 	suspend_companions("allowinshades", true);
@@ -14,7 +14,7 @@ if ($session['user']['gravefights']<=0){
 			$session['user']['specialmisc'] = "";
 			$skipgraveyardtext=true;
 			$op = "";
-			httpset("op", "");
+			Http::httpset("op", "");
 		} else {
 			PageParts::page_footer();
 		}

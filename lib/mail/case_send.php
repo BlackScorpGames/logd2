@@ -39,11 +39,11 @@ if(db_num_rows($result)>0){
 }
 if(Http::httppost("returnto")){
 	$op="read";
-	httpset('op','read');
+	Http::httpset('op','read');
 	$id = Http::httppost('returnto');
-	httpset('id',$id);
+	Http::httpset('id',$id);
 }else{
 	$op="";
-	httpset('op', "");
+	Http::httpset('op', "");
 }
 ?>

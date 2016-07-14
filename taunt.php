@@ -49,7 +49,7 @@ if ($op=="edit"){
 	$sql = "DELETE FROM " . db_prefix("taunts") . " WHERE tauntid=\"$tauntid\"";
 	db_query($sql);
 	$op = "";
-	httpset("op", "");
+	Http::httpset("op", "");
 }else if($op=="save"){
 	$taunt = Http::httppost('taunt');
 	if ($tauntid!=""){
@@ -59,7 +59,7 @@ if ($op=="edit"){
 	}
 	db_query($sql);
 	$op = "";
-	httpset("op", "");
+	Http::httpset("op", "");
 }
 if ($op == "") {
 	$sql = "SELECT * FROM " . db_prefix("taunts");

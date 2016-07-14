@@ -83,7 +83,7 @@ function drinks_editor(){
 		module_delete_objprefs('drinks', $drinkid);
 		db_query($sql);
 		$op = "";
-		httpset('op', "");
+		Http::httpset('op', "");
 	}
 	if($op=="save"){
 		$subop = Http::httpget("subop");
@@ -123,23 +123,23 @@ function drinks_editor(){
 		}
 		if ($drinkid) {
 			$op = "edit";
-			httpset("drinkid", $drinkid, true);
+			Http::httpset("drinkid", $drinkid, true);
 		} else {
 			$op = "";
 		}
-		httpset('op', $op);
+		Http::httpset('op', $op);
 	}
 	if ($op == "activate") {
 		$sql = "UPDATE " . db_prefix("drinks") . " SET active=1 WHERE drinkid='$drinkid'";
 		db_query($sql);
 		$op = "";
-		httpset('op', "");
+		Http::httpset('op', "");
 	}
 	if ($op == "deactivate") {
 		$sql = "UPDATE " . db_prefix("drinks") . " SET active=0 WHERE drinkid='$drinkid'";
 		db_query($sql);
 		$op = "";
-		httpset('op', "");
+		Http::httpset('op', "");
 	}
 	if ($op==""){
 		$op = Translator::translate_inline("Ops");

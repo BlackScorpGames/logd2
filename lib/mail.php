@@ -107,12 +107,12 @@ if($op=="send"){
 	}
 	if (Http::httppost("returnto")>""){
 		$op="read";
-		httpset('op','read');
+		Http::httpset('op','read');
 		$id = Http::httppost('returnto');
-		httpset('id',$id);
+		Http::httpset('id',$id);
 	}else{
 		$op="";
-		httpset('op', "");
+		Http::httpset('op', "");
 	}
 }
 

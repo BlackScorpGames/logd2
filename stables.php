@@ -134,7 +134,7 @@ if ($op==""){
 		$confirm = 1;
 	} else {
 		$op="confirmbuy";
-		httpset("op",$op);
+		Http::httpset("op",$op);
 	}
 }
 if ($op == 'confirmbuy') {

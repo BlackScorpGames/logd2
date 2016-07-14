@@ -31,7 +31,7 @@ if (!$op && $com=="" && !$comment && !$refresh && !$commenting) {
 			$session['user']['specialmisc'] = "";
 			$skipgardendesc=true;
 			$op = "";
-			httpset("op", "");
+			Http::httpset("op", "");
 		}
 	}
 }
