@@ -7,9 +7,9 @@ if (!$skipgraveyardtext) {
 	OutputClass::output("In the center of the graveyard is an ancient looking mausoleum which has been worn by the effects of untold years.");
 	OutputClass::output("A sinister looking gargoyle adorns the apex of its roof; its eyes seem to follow  you, and its mouth gapes with sharp stone teeth.");
 	OutputClass::output("The plaque above the door reads `\$%s`), Overlord of Death`).",$deathoverlord);
-	modulehook("graveyard-desc");
+	Modules::modulehook("graveyard-desc");
 }
-modulehook("graveyard");
+Modules::modulehook("graveyard");
 	if ($session['user']['gravefights']) {
 	OutputClass::addnav("Look for Something to Torment","graveyard.php?op=search");
 }

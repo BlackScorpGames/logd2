@@ -15,7 +15,7 @@ OutputClass::output("Well, actually you will find answers to the questions that 
 OutputClass::output("So, here, read and learn, and leave us alone!`@\"`n`n");
 OutputClass::output("`^`bContents:`b`0`n");
 
-modulehook("faq-pretoc");
+Modules::modulehook("faq-pretoc");
 OutputClass::output("`^`bNew Player & FAQ`b`0`n");
 $t = Translator::translate_inline("`@New Player Primer`0");
 output_notl("&#149;<a href='petition.php?op=primer'>%s</a><br/>", $t, true);
@@ -25,7 +25,7 @@ $t = Translator::translate_inline("`@Frequently Asked Questions on Game Play (wi
 output_notl("&#149;<a href='petition.php?op=faq2'>%s</a><br/>", $t, true);
 $t = Translator::translate_inline("`@Frequently Asked Questions on Technical Issues`0");
 output_notl("&#149;<a href='petition.php?op=faq3'>%s</a><br/>", $t, true);
-modulehook("faq-toc");
-modulehook("faq-posttoc");
+Modules::modulehook("faq-toc");
+Modules::modulehook("faq-posttoc");
 OutputClass::output("`nThank you,`nthe Management.`n");
 ?>

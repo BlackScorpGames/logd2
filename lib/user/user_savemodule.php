@@ -3,7 +3,7 @@
 $userid = Http::httpget('userid');
 $module = Http::httpget('module');
 $post = httpallpost();
-$post = modulehook("validateprefs", $post, true, $module);
+$post = Modules::modulehook("validateprefs", $post, true, $module);
 if (isset($post['validation_error']) && $post['validation_error']) {
 	Translator::tlschema("module-$module");
 	$post['validation_error'] =

@@ -59,12 +59,12 @@ if ($op=="search"){
 		$op="";
 		httpset('op', "");
 	}else{
-		modulehook("forestsearch", array());
+		Modules::modulehook("forestsearch", array());
 		$args = array(
 			'soberval'=>0.9,
 			'sobermsg'=>"`&Faced with the prospect of death, you sober up a little.`n",
 			'schema'=>'forest');
-		modulehook("soberup", $args);
+		Modules::modulehook("soberup", $args);
 		if (module_events("forest", Settings::getsetting("forestchance", 15)) != 0) {
 			if (!checknavs()) {
 				// If we're showing the forest, make sure to reset the special

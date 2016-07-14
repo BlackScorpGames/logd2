@@ -11,7 +11,7 @@ function increment_specialty($colorcode, $spec=false){
 	}
 	Translator::tlschema("skills");
 	if ($session['user']['specialty']!=""){
-		$specialties = modulehook("incrementspecialty",
+		$specialties = Modules::modulehook("incrementspecialty",
 				array("color"=>$colorcode));
 	}else{
 		OutputClass::output("`7You have no direction in the world, you should rest and make some important decisions about your life.`0`n");

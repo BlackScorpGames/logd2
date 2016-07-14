@@ -18,7 +18,7 @@ PageParts::page_header("Healer's Hut");
 OutputClass::output("`#`b`cHealer's Hut`c`b`n");
 
 $cost = log($session['user']['level']) * (($session['user']['maxhitpoints']-$session['user']['hitpoints']) + 10);
-$result=modulehook("healmultiply",array("alterpct"=>1.0));
+$result=Modules::modulehook("healmultiply",array("alterpct"=>1.0));
 $cost*=$result['alterpct'];
 $cost = round($cost,0);
 
@@ -100,7 +100,7 @@ if($session['user']['hitpoints'] < $session['user']['maxhitpoints']){
 	for ($i=90;$i>0;$i-=10){
 		OutputClass::addnav(array("%s%% - %s gold", $i, round($cost*$i/100,0)),"healer.php?op=buy&pct=$i$returnline");
 	}
-	modulehook('potion');
+	Modules::modulehook('potion');
 }
 OutputClass::addnav("`bHeal Companions`b");
 $compheal = false;

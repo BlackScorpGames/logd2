@@ -20,5 +20,5 @@ OutputClass::addnav(array("Restore Your Soul (%s favor)",$favortoheal),"graveyar
 OutputClass::addnav("Places");
 OutputClass::addnav("S?Land of the Shades","shades.php");
 OutputClass::addnav("G?Return to the Graveyard","graveyard.php");
-modulehook("ramiusfavors");
+Modules::modulehook("ramiusfavors");
 ?>

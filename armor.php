@@ -37,7 +37,7 @@ $schemas = array(
 );
 
 $basetext['schemas'] = $schemas;
-$texts = modulehook("armortext",$basetext);
+$texts = Modules::modulehook("armortext",$basetext);
 $schemas = $texts['schemas'];
 
 Translator::tlschema($schemas['title']);
@@ -87,7 +87,7 @@ if ($op==""){
 	$i = 0;
 	while($row = db_fetch_assoc($result)) {
 		$link = true;
-		$row = modulehook("modify-armor", $row);
+		$row = Modules::modulehook("modify-armor", $row);
 		if (isset($row['skip']) && $row['skip'] === true) {
 			continue;
 		}
@@ -140,7 +140,7 @@ if ($op==""){
 		villagenav();
 	}else{
 		$row = db_fetch_assoc($result);
-		$row = modulehook("modify-armor", $row);
+		$row = Modules::modulehook("modify-armor", $row);
 		if ($row['value']>($session['user']['gold']+$tradeinvalue)){
 			Translator::tlschema($schemas['notenoughgold']);
 			OutputClass::output($texts['notenoughgold'],$row['armorname']);

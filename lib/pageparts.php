@@ -38,12 +38,12 @@ public static function page_header(){
 		if (!array_key_exists($script,$runheaders))
 			$runheaders[$script] = false;
 		if (!$runheaders[$script]) {
-			modulehook("everyheader", array('script'=>$script));
+			Modules::modulehook("everyheader", array('script'=>$script));
 			if ($session['user']['loggedin']) {
-				modulehook("everyheader-loggedin", array('script'=>$script));
+				Modules::modulehook("everyheader-loggedin", array('script'=>$script));
 			}
 			$runheaders[$script] = true;
-			modulehook("header-$script");
+			Modules::modulehook("header-$script");
 		}
 	}
 
@@ -90,21 +90,21 @@ function page_footer($saveuser=true){
 	//page footer module hooks
 	$script = substr($SCRIPT_NAME,0,strpos($SCRIPT_NAME,"."));
 	$replacementbits = array();
-	$replacementbits = modulehook("footer-$script",$replacementbits);
+	$replacementbits = Modules::modulehook("footer-$script",$replacementbits);
 	if ($script == "runmodule" && (($module = Http::httpget('module'))) > "") {
-		// This modulehook allows you to hook directly into any module without
+		// This Modules::modulehook allows you to hook directly into any module without
 		// the need to hook into footer-runmodule and then checking for the
 		// required module.
-		modulehook("footer-$module",$replacementbits);
+		Modules::modulehook("footer-$module",$replacementbits);
 	}
 	// Pass the script file down into the footer so we can do something if
 	// we need to on certain pages (much like we do on the header.
 	// Problem is 'script' is a valid replacement token, so.. use an
 	// invalid one which we can then blow away.
 	$replacementbits['__scriptfile__'] = $script;
-	$replacementbits = modulehook("everyfooter",$replacementbits);
+	$replacementbits = Modules::modulehook("everyfooter",$replacementbits);
 	if ($session['user']['loggedin']) {
-		$replacementbits = modulehook("everyfooter-loggedin", $replacementbits);
+		$replacementbits = Modules::modulehook("everyfooter-loggedin", $replacementbits);
 	}
 	unset($replacementbits['__scriptfile__']);
 	//OutputClass::output any template part replacements that above hooks need (eg,
@@ -395,7 +395,7 @@ function popup_header($title="Legend of the Green Dragon"){
 	translator_setup();
 	prepare_template();
 
-	modulehook("header-popup");
+	Modules::modulehook("header-popup");
 
 	$arguments = func_get_args();
 	if (!$arguments || count($arguments) == 0) {
@@ -426,7 +426,7 @@ function popup_footer(){
 	// we need to on certain pages (much like we do on the header.
 	// Problem is 'script' is a valid replacement token, so.. use an
 	// invalid one which we can then blow away.
-	$replacementbits = modulehook("footer-popup",array());
+	$replacementbits = Modules::modulehook("footer-popup",array());
 	//OutputClass::output any template part replacements that above hooks need
 	reset($replacementbits);
 	while (list($key,$val)=each($replacementbits)){
@@ -705,7 +705,7 @@ function charstats(){
 		if ($u['hashorse'])
 			addcharstat("Creature", $playermount['mountname'] . "`0");
 
-		modulehook("charstats");
+		Modules::modulehook("charstats");
 
 		$charstat = getcharstats($buffs);
 
@@ -719,7 +719,7 @@ function charstats(){
 			$onlinecount=0;
 			// If a module wants to do it's own display of the online chars,
 			// let it.
-			$list = modulehook("onlinecharlist", array());
+			$list = Modules::modulehook("onlinecharlist", array());
 			if (isset($list['handled']) && $list['handled']) {
 				$onlinecount = $list['count'];
 				$ret = $list['list'];
@@ -763,7 +763,7 @@ function loadtemplate($templatename){
 		$fieldname=substr($val,0,strpos($val,"-->"));
 		if ($fieldname!=""){
 			$template[$fieldname]=substr($val,strpos($val,"-->")+3);
-			modulehook("template-{$fieldname}",
+			Modules::modulehook("template-{$fieldname}",
 					array("content"=>$template[$fieldname]));
 		}
 	}

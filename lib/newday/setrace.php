@@ -6,11 +6,11 @@ if ($setrace!=""){
 	$session['user']['race']=$setrace;
 	// Set the person to the main village/capital by default
 	$session['user']['location'] = $vname;
-	modulehook("setrace");
+	Modules::modulehook("setrace");
 	OutputClass::addnav("Continue","newday.php?continue=1$resline");
 }else{
 	OutputClass::output("Where do you recall growing up?`n`n");
-	modulehook("chooserace");
+	Modules::modulehook("chooserace");
 }
 if (navcount()==0){
 	clearoutput();

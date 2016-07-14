@@ -45,7 +45,7 @@
 						$sql = "DELETE FROM " . db_prefix("clans") . " WHERE clanid={$row['clanid']}";
 						db_query($sql);
 					}else{
-/*//*/					$row = modulehook("clan-applymember", $row);
+/*//*/					$row = Modules::modulehook("clan-applymember", $row);
 /*//*/					if (isset($row['handled']) && $row['handled']) continue;
 						$memb_n = Translator::translate_inline("(%s members)");
 						$memb_1 = Translator::translate_inline("(%s member)");

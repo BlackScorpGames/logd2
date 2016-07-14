@@ -50,7 +50,7 @@ if ($op=="deactivate"){
 		$row['defense'] = $row['defense'] + $row['defenseperlevel'] * $session['user']['level'];
 		$row['maxhitpoints'] = $row['maxhitpoints'] + $row['maxhitpointsperlevel'] * $session['user']['level'];
 		$row['hitpoints'] = $row['maxhitpoints'];
-		$row = modulehook("alter-companion", $row);
+		$row = Modules::modulehook("alter-companion", $row);
 		$row['abilities'] = @unserialize($row['abilities']);
 		require_once("lib/buffs.php");
 		apply_companion($row['name'], $row);
@@ -274,12 +274,12 @@ function companionform($companion){
 	rawoutput("<tr><td nowrap>");
 	OutputClass::output("Companion Availability:");
 	rawoutput("</td><td nowrap>");
-	// Run a modulehook to find out where camps are located.  By default
+	// Run a Modules::modulehook to find out where camps are located.  By default
 	// they are located in 'Degolburg' (ie, getgamesetting('villagename'));
 	// Some later module can remove them however.
 	$vname = Settings::getsetting('villagename', LOCATION_FIELDS);
 	$locs = array($vname => sprintf_translate("The Village of %s", $vname));
-	$locs = modulehook("camplocs", $locs);
+	$locs = Modules::modulehook("camplocs", $locs);
 	$locs['all'] = Translator::translate_inline("Everywhere");
 	ksort($locs);
 	reset($locs);

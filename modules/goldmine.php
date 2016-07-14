@@ -193,7 +193,7 @@ function goldmine_runevent($type)
 				OutputClass::output("`7Unfortunately, you are quickly done in.`n");
 				OutputClass::output("Your over-exuberant hit caused a massive cave in.`n");
 				// Find the chance of dying based on race
-				$vals = modulehook("raceminedeath");
+				$vals = Modules::modulehook("raceminedeath");
 				$dead = 0;
 				$racesave = 1;
 				if (isset($vals['racesave']) && $vals['racesave']) {

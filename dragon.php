@@ -59,7 +59,7 @@ if ($op==""){
 	$badguy['creaturedefense']+=$defflux;
 	$badguy['creaturehealth']+=$hpflux;
 
-	$badguy = modulehook("buffdragon", $badguy);
+	$badguy = Modules::modulehook("buffdragon", $badguy);
 
 	$session['user']['badguy']=createstring($badguy);
 	$battle=true;
@@ -110,7 +110,7 @@ if ($op==""){
 					($session['user']['level']*10),
 			'base' => $dkpoints + ($session['user']['level'] * 10),
 			);
-	$hpgain = modulehook("hprecalc", $hpgain);
+	$hpgain = Modules::modulehook("hprecalc", $hpgain);
 	calculate_buff_fields();
 
 	$nochange=array("acctid"=>1
@@ -154,7 +154,7 @@ if ($op==""){
 				   ,"clanjoindate"=>1
 				   ,"regdate"=>1);
 
-	$nochange = modulehook("dk-preserve", $nochange);
+	$nochange = Modules::modulehook("dk-preserve", $nochange);
 
 	$session['user']['dragonage'] = $session['user']['age'];
 	if ($session['user']['dragonage'] <  $session['user']['bestdragonage'] ||
@@ -230,7 +230,7 @@ if ($op==""){
 	OutputClass::output("Dimly you remember that you are a new warrior, and something of a dangerous Green Dragon that is plaguing the area.  You decide you would like to earn a name for yourself by perhaps some day confronting this vile creature.");
 
 	// allow explanative text as well.
-	modulehook("dragonkilltext");
+	Modules::modulehook("dragonkilltext");
 
 	$regname = get_player_basename();
 	OutputClass::output("`n`n`^You are now known as `&%s`^!!",$session['user']['name']);
@@ -246,7 +246,7 @@ if ($op==""){
 	debuglog("slew the dragon and starts with {$session['user']['gold']} gold and {$session['user']['gems']} gems");
 
 	// Moved this hear to make some things easier.
-	modulehook("dragonkill", array());
+	Modules::modulehook("dragonkill", array());
 	invalidatedatacache("list.php-warsonline");
 }
 

@@ -56,7 +56,7 @@ function forestvictory($enemies,$denyflawless=false){
 		debuglog("received gold for slaying a monster.",false,false,"forestwin",$badguy['creaturegold']);
 	}
 	// No gem hunters allowed!
-	$args = modulehook("alter-gemchance", array("chance"=>Settings::getsetting("forestgemchance", 25)));
+	$args = Modules::modulehook("alter-gemchance", array("chance"=>Settings::getsetting("forestgemchance", 25)));
 	$gemchances = $args['chance'];
 	if ($session['user']['level'] < 15 && e_rand(1,$gemchances) == 1) {
 		OutputClass::output("`&You find A GEM!`n`#");
@@ -197,11 +197,11 @@ function buffbadguy($badguy){
 		$badguy['creatureexp'] = round($badguy['creatureexp']*$bonus, 0);
 	}
 
-	$badguy = modulehook("creatureencounter",$badguy);
+	$badguy = Modules::modulehook("creatureencounter",$badguy);
 	debug("DEBUG: $dk modification points total.");
 	debug("DEBUG: +$atkflux allocated to attack.");
 	debug("DEBUG: +$defflux allocated to defense.");
 	debug("DEBUG: +".($hpflux/5)."*5 to hitpoints.");
-	return modulehook("buffbadguy",$badguy);
+	return Modules::modulehook("buffbadguy",$badguy);
 }
 ?>

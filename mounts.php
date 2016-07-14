@@ -215,7 +215,7 @@ if ($op==""){
 		rawoutput("</td><td>");
 		$features = array("FF"=>$row['mountforestfights']);
 		$args = array("id"=>$row['mountid'],"features"=>&$features);
-		$args = modulehook("mountfeatures", $args);
+		$args = Modules::modulehook("mountfeatures", $args);
 		reset($features);
 		$mcount = 1;
 		$max = count($features);
@@ -342,12 +342,12 @@ function mountform($mount){
 	rawoutput("<tr><td nowrap>");
 	OutputClass::output("Mount Availability:");
 	rawoutput("</td><td nowrap>");
-	// Run a modulehook to find out where stables are located.  By default
+	// Run a Modules::modulehook to find out where stables are located.  By default
 	// they are located in 'Degolburg' (ie, getgamesetting('villagename'));
 	// Some later module can remove them however.
 	$vname = Settings::getsetting('villagename', LOCATION_FIELDS);
 	$locs = array($vname => sprintf_translate("The Village of %s", $vname));
-	$locs = modulehook("stablelocs", $locs);
+	$locs = Modules::modulehook("stablelocs", $locs);
 	$locs['all'] = Translator::translate_inline("Everywhere");
 	ksort($locs);
 	reset($locs);

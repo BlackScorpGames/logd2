@@ -331,7 +331,7 @@ function racedwarf_run(){
 		OutputClass::output("`3You make your way over to the great kegs of ale lined up near by, looking to score a hearty draught from their mighty reserves.");
 		OutputClass::output("A mighty dwarven barkeep named `\$G`4argoyle`3 stands at least 4 feet tall, and is serving out the drinks to the boisterous crowd.");
 		OutputClass::addnav("Drinks");
-		modulehook("ale");
+		Modules::modulehook("ale");
 		OutputClass::addnav("Other");
 		villagenav();
 		page_footer();

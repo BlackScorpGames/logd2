@@ -79,7 +79,7 @@ if ($session['user']['superuser'] & SU_EDIT_CONFIG) OutputClass::addnav("Stats",
 
 OutputClass::addnav("Module Configurations");
 
-modulehook("superuser", array(), true);
+Modules::modulehook("superuser", array(), true);
 
 page_footer();
 ?>

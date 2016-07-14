@@ -9,7 +9,7 @@ require_once("lib/buffs.php");
 
 Translator::tlschema("newday");
 //mass_module_prepare(array("newday-intercept", "newday"));
-modulehook("newday-intercept",array());
+Modules::modulehook("newday-intercept",array());
 
 /***************
  **  SETTINGS **
@@ -54,7 +54,7 @@ $canbuy = array(
 		"de"=>1,
 		"unknown"=>0,
 );
-$retargs = modulehook("dkpointlabels", array('desc'=>$labels, 'buy'=>$canbuy));
+$retargs = Modules::modulehook("dkpointlabels", array('desc'=>$labels, 'buy'=>$canbuy));
 $labels = $retargs['desc'];
 $canbuy = $retargs['buy'];
 $pdks = array();
@@ -72,7 +72,7 @@ if ($pdk==1){
 	reset($labels);
 	$pdktotal = 0;
 	$pdkneg = false;
-	modulehook("pdkpointrecalc");
+	Modules::modulehook("pdkpointrecalc");
 	foreach($labels as $type=>$label) {
 		$pdktotal += (int)$pdks[$type];
 		if((int)$pdks[$type] < 0) $pdkneg = true;
@@ -122,7 +122,7 @@ if ($dp < $dkills) {
 	OutputClass::output("`2Turns for today set to `^%s`2.`n",$turnsperday);
 
 	$turnstoday = "Base: $turnsperday";
-	$args = modulehook("pre-newday",
+	$args = Modules::modulehook("pre-newday",
 			array("resurrection"=>$resurrection, "turnstoday"=>$turnstoday));
 	$turnstoday = $args['turnstoday'];
 
@@ -314,7 +314,7 @@ if ($dp < $dkills) {
 		}
 
 	}
-	$args = modulehook("newday",
+	$args = Modules::modulehook("newday",
 			array("resurrection"=>$resurrection, "turnstoday"=>$turnstoday));
 	$turnstoday = $args['turnstoday'];
 	debuglog("New Day Turns: $turnstoday");

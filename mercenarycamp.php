@@ -87,7 +87,7 @@ $schemas = array(
 );
 
 $basetext['schemas'] = $schemas;
-$texts = modulehook("mercenarycamptext",$basetext);
+$texts = Modules::modulehook("mercenarycamptext",$basetext);
 $schemas = $texts['schemas'];
 
 Translator::tlschema($schemas['title']);
@@ -148,7 +148,7 @@ if ($op==""){
 			break;
 	}
 	while ($row = db_fetch_assoc($result)) {
-		$row = modulehook("alter-companion", $row);
+		$row = Modules::modulehook("alter-companion", $row);
 		if ($row['companioncostgold'] && $row['companioncostgems']) {
 			if ($session['user']['gold'] >= $row['companioncostgold'] && $session['user']['gems'] >= $row['companioncostgems'] && !isset($companions[$row['name']])) {
 				OutputClass::addnav(array("%s`n`^%s Gold, `%%%s Gems`0",$row['name'], $row['companioncostgold'], $row['companioncostgems']), "mercenarycamp.php?op=buy&id={$row['companionid']}");
@@ -211,7 +211,7 @@ if ($op==""){
 		$row['defense'] = $row['defense'] + $row['defenseperlevel'] * $session['user']['level'];
 		$row['maxhitpoints'] = $row['maxhitpoints'] + $row['maxhitpointsperlevel'] * $session['user']['level'];
 		$row['hitpoints'] = $row['maxhitpoints'];
-		$row = modulehook("alter-companion", $row);
+		$row = Modules::modulehook("alter-companion", $row);
 		$row['abilities'] = @unserialize($row['abilities']);
 		require_once("lib/buffs.php");
 		if (apply_companion($row['name'], $row)) {

@@ -165,7 +165,7 @@ function darkhorse_bartender($from){
 				$result = db_query($sql);
 				if (db_num_rows($result)>0){
 					$row = db_fetch_assoc($result);
-					$row = modulehook("adjuststats", $row);
+					$row = Modules::modulehook("adjuststats", $row);
 					$name = str_replace("s", "sh", $row['name']);
 					$name = str_replace("S", "Sh", $name);
 					OutputClass::output("\"`7Well... letsh shee what I know about %s`7,`0\" he says...`n`n", $name);
@@ -253,7 +253,7 @@ function darkhorse_runevent($type, $link){
 
 		// Special case here.  go and see if the comment area is blocked and
 		// if so, don't put the link in.
-		$args = modulehook("blockcommentarea", array("section"=>"darkhorse"));
+		$args = Modules::modulehook("blockcommentarea", array("section"=>"darkhorse"));
 		if (!isset($args['block']) || $args['block'] != 'yes') {
 			OutputClass::addnav("Examine the tables",$from."op=tables");
 		}
@@ -272,7 +272,7 @@ function darkhorse_runevent($type, $link){
 	case "oldman":
 		darkhorse_checkday();
 		OutputClass::addnav("Old Man");
-		modulehook("darkhorsegame", array("return"=>$gameret));
+		Modules::modulehook("darkhorsegame", array("return"=>$gameret));
 		OutputClass::output("The old man looks up at you, his eyes sunken and hollow.");
 		OutputClass::output("His red eyes make it seem that he may have been crying recently so you ask him what is bothering him.");
 		if ($session['user']['sex'] == SEX_MALE) {

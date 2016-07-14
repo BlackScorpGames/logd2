@@ -36,7 +36,7 @@ if ($pay){
 		OutputClass::output("You already paid for a room for the day.");
 		OutputClass::addnav("Go to room","inn.php?op=room&pay=1");
 	}else{
-		modulehook("innrooms");
+		Modules::modulehook("innrooms");
 		OutputClass::output("You stroll over to the bartender and request a room.");
 		OutputClass::output("He eyes you up and says, \"It will cost `\$%s`0 gold for the night in a standard room.", $expense);
 		$fee = Settings::getsetting("innfee", "5%");

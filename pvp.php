@@ -27,7 +27,7 @@ if ($op=="" && $act!="attack"){
 		'atkmsg'=> '`4You head out to the fields, where you know some unwitting warriors are sleeping.`n`nYou have `^%s`4 PvP fights left for today.`n`n',
 		'schemas'=>array('atkmsg'=>'pvp')
 	);
-	$args = modulehook("pvpstart", $args);
+	$args = Modules::modulehook("pvpstart", $args);
 	Translator::tlschema($args['schemas']['atkmsg']);
 	OutputClass::output($args['atkmsg'], $session['user']['playerfights']);
 	Translator::tlschema();

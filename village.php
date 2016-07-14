@@ -16,7 +16,7 @@ $valid_loc = array();
 $vname = Settings::getsetting("villagename", LOCATION_FIELDS);
 $iname = Settings::getsetting("innname", LOCATION_INN);
 $valid_loc[$vname]="village";
-$valid_loc = modulehook("validlocation", $valid_loc);
+$valid_loc = Modules::modulehook("validlocation", $valid_loc);
 if (!isset($valid_loc[$session['user']['location']])) {
 	$session['user']['location']=$vname;
 }
@@ -102,9 +102,9 @@ $origtexts['schemas'] = $schemas;
 // instead.
 // This hook is specifically to allow modules that do other villages to create
 // ambience.
-$texts = modulehook("villagetext",$origtexts);
+$texts = Modules::modulehook("villagetext",$origtexts);
 //and now a special hook for the village
-$texts = modulehook("villagetext-{$session['user']['location']}",$texts);
+$texts = Modules::modulehook("villagetext-{$session['user']['location']}",$texts);
 $schemas = $texts['schemas'];
 
 Translator::tlschema($schemas['title']);
@@ -256,21 +256,21 @@ OutputClass::addnav("","viewpetition.php");
 OutputClass::addnav("","weaponeditor.php");
 
 if (!$skipvillagedesc) {
-	modulehook("collapse{", array("name"=>"villagedesc-".$session['user']['location']));
+	Modules::modulehook("collapse{", array("name"=>"villagedesc-".$session['user']['location']));
 	Translator::tlschema($schemas['text']);
 	OutputClass::output($texts['text']);
 	Translator::tlschema();
-	modulehook("}collapse");
-	modulehook("collapse{", array("name"=>"villageclock-".$session['user']['location']));
+	Modules::modulehook("}collapse");
+	Modules::modulehook("collapse{", array("name"=>"villageclock-".$session['user']['location']));
 	Translator::tlschema($schemas['clock']);
 	OutputClass::output($texts['clock'],GameDateTime::getgametime());
 	Translator::tlschema();
-	modulehook("}collapse");
-	modulehook("village-desc",$texts);
+	Modules::modulehook("}collapse");
+	Modules::modulehook("village-desc",$texts);
 	//support for a special village-only hook
-	modulehook("village-desc-{$session['user']['location']}",$texts);
+	Modules::modulehook("village-desc-{$session['user']['location']}",$texts);
 	if ($texts['newestplayer'] > "" && $texts['newest']) {
-		modulehook("collapse{", array("name"=>"villagenewest-".$session['user']['location']));
+		Modules::modulehook("collapse{", array("name"=>"villagenewest-".$session['user']['location']));
 		Translator::tlschema($schemas['newest']);
 		OutputClass::output($texts['newest'], $texts['newestplayer']);
 		Translator::tlschema();
@@ -281,16 +281,16 @@ if (!$skipvillagedesc) {
 			OutputClass::addnav("","user.php?op=edit&userid=$id");
 		}
 		output_notl("`n");
-		modulehook("}collapse");
+		Modules::modulehook("}collapse");
 	}
 }
-modulehook("village",$texts);
+Modules::modulehook("village",$texts);
 //special hook for all villages... saves queries...
-modulehook("village-{$session['user']['location']}",$texts);
+Modules::modulehook("village-{$session['user']['location']}",$texts);
 
 if ($skipvillagedesc) OutputClass::output("`n");
 
-$args = modulehook("blockcommentarea", array("section"=>$texts['section']));
+$args = Modules::modulehook("blockcommentarea", array("section"=>$texts['section']));
 if (!isset($args['block']) || $args['block'] != 'yes') {
 		Translator::tlschema($schemas['talk']);
 		OutputClass::output($texts['talk']);

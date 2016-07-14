@@ -55,7 +55,7 @@
 						OutputClass::addnav("Return to the Lobby","clan.php");
 					}else{
 /*//*/						$args = array("ocn"=>$ocn, "ocs"=>$ocs, "clanname"=>$clanname, "clanshort"=>$clanshort);
-/*//*/						$args = modulehook("process-createclan", $args);
+/*//*/						$args = Modules::modulehook("process-createclan", $args);
 /*//*/						if (isset($args['blocked']) && $args['blocked']){
 /*//*/							output_notl(sprintf_translate($args['blockmsg']));
 /*//*/							clanform();

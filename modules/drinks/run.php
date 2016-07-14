@@ -10,7 +10,7 @@ function drinks_run_private(){
 		drinks_editor();
 	}elseif ($act=="buy"){
 		$texts = drinks_gettexts();
-		$drinktext = modulehook("drinks-text",$texts);
+		$drinktext = Modules::modulehook("drinks-text",$texts);
 
 		Translator::tlschema($drinktext['schemas']['title']);
 		PageParts::page_header($drinktext['title']);

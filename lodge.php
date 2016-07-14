@@ -45,7 +45,7 @@ if ($op==""){
 		OutputClass::output("Sensing that you belong, she lays down and goes back to sleep.`n`n");
 		commentdisplay("Nearby some other rugged hunters talk:`n", "hunterlodge","Talk quietly",25);
 		OutputClass::addnav("Use Points");
-		modulehook("lodge");
+		Modules::modulehook("lodge");
 	}else{
 		$iname = Settings::getsetting("innname", LOCATION_INN);
 		OutputClass::output("You pull out your Frequent Boozer Card from %s, with 9 out of the 10 slots punched out with a small profile of %s`0's Head.`n`n", $iname,Settings::getsetting('barkeep','`tCedrik'));
@@ -53,7 +53,7 @@ if ($op==""){
 	}
 }else if ($op=="points"){
 	OutputClass::output("`b`3Points:`b`n`n");
-	$points_messages = modulehook(
+	$points_messages = Modules::modulehook(
 		"donator_point_messages",
 		array(
 			'messages'=>array(
@@ -80,7 +80,7 @@ if ($op==""){
 	OutputClass::output("You can also gain contributor points for contributing in other ways that the administration may specify.");
 	OutputClass::output("So, don't despair if you cannot send cash, there will always be non-cash ways of gaining contributor points.`n`n");
 	OutputClass::output("`b`3Purchases that are currently available:`0`b`n");
-	$args = modulehook("pointsdesc", array("format"=>"`#&#149;`7 %s`n", "count"=>0));
+	$args = Modules::modulehook("pointsdesc", array("format"=>"`#&#149;`7 %s`n", "count"=>0));
 	if ($args['count'] == 0) {
 		OutputClass::output("`#&#149;`7None -- Please talk to your admin about creating some.`n", true);
 	}

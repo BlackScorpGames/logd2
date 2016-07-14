@@ -15,7 +15,7 @@
 		OutputClass::output("With a large metallic \"Chunk\" the lock on the door disengages, and the door swings silently open, admitting the warrior before slamming shut.`n`n");
 		OutputClass::output("In the center of the lobby sits a highly polished desk, behind which sits `%%s`7, the clan registrar.",$registrar);
 		OutputClass::output("She can take your filing for a new clan, or accept your application to an existing clan.`n`n");
-/*//*/	modulehook("clan-enter");
+/*//*/	Modules::modulehook("clan-enter");
 		if ($op=="withdraw"){
 			$session['user']['clanid']=0;
 			$session['user']['clanrank']=CLAN_APPLICANT;

@@ -60,7 +60,7 @@ $schemas = array(
 	'offer'=>'stables',
 );
 $basetext['schemas']=$schemas;
-$texts = modulehook("stabletext", $basetext);
+$texts = Modules::modulehook("stabletext", $basetext);
 $schemas = $texts['schemas'];
 
 Translator::tlschema($schemas['title']);
@@ -69,7 +69,7 @@ Translator::tlschema();
 
 OutputClass::addnav("Other");
 villagenav();
-modulehook("stables-nav");
+Modules::modulehook("stables-nav");
 
 require_once("lib/mountname.php");
 list($name, $lcname) = getmountname();
@@ -101,7 +101,7 @@ if ($op==""){
   		OutputClass::output($texts['desc']);
   	}
 	Translator::tlschema();
-	modulehook("stables-desc");
+	Modules::modulehook("stables-desc");
 }elseif($op=="examine"){
 	$sql = "SELECT * FROM " . db_prefix("mounts") . " WHERE mountid='$id'";
 	$result = db_query_cached($sql, "mountdata-$id", 3600);
@@ -178,8 +178,8 @@ if ($op == 'confirmbuy') {
 			$repaygold = round($playermount['mountcostgold']*2/3,0);
 			$repaygems = round($playermount['mountcostgems']*2/3,0);
 			// Recalculate the special name as well.
-			modulehook("stable-mount", array());
-			modulehook("boughtmount");
+			Modules::modulehook("stable-mount", array());
+			Modules::modulehook("boughtmount");
 			require_once("lib/mountname.php");
 			list($name, $lcname) = getmountname();
 			$grubprice = round($session['user']['level']*$playermount['mountfeedcost'], 0);
@@ -242,7 +242,7 @@ if ($op == 'confirmbuy') {
 	debuglog("gained $repaygold gold and $repaygems gems selling their mount, a $debugmount");
 	strip_buff('mount');
 	$session['user']['hashorse']=0;
-	modulehook("soldmount");
+	Modules::modulehook("soldmount");
 
 	$amtstr = "";
 	if ($repaygold > 0) {

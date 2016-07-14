@@ -28,7 +28,7 @@ if ($session['user']['dragonkills']>0 ||
 	OutputClass::output("It somehow reminds you of the head of one of the great serpents from legend.`n`n");
 	OutputClass::output("You have discovered The Veteran's Club.`n`n");
 
-	modulehook("rock");
+	Modules::modulehook("rock");
 
 	commentdisplay("", "veterans","Boast here",30,"boasts");
 }else{

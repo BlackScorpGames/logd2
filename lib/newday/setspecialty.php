@@ -2,12 +2,12 @@
 $setspecialty=Http::httpget('setspecialty');
 if ($setspecialty != "") {
 	$session['user']['specialty']=$setspecialty;
-	modulehook("set-specialty");
+	Modules::modulehook("set-specialty");
 	OutputClass::addnav("Continue","newday.php?continue=1$resline");
 } else {
 	PageParts::page_header("A little history about yourself");
 	OutputClass::output("What do you recall doing as a child?`n`n");
-	modulehook("choose-specialty");
+	Modules::modulehook("choose-specialty");
 }
 if (navcount() == 0) {
 	clearoutput();
