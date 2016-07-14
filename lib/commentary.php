@@ -38,6 +38,25 @@ function commentarylocs() {
 
 class Commentary
 {
+    public static function commentdisplay(
+        $intro,
+        $section,
+        $message = "Interject your own commentary?",
+        $limit = 10,
+        $talkline = "says",
+        $schema = false
+    ) {
+        // Let's add a hook for modules to block commentary sections
+        $args = Modules::modulehook("blockcommentarea", array("section" => $section));
+        if (isset($args['block']) && ($args['block'] == "yes")) {
+            return;
+        }
+
+        if ($intro) {
+            OutputClass::output($intro);
+        }
+        viewcommentary($section, $message, $limit, $talkline, $schema);
+    }
 	public static function addcommentary()
 	{
 		global $session, $emptypost;
@@ -170,15 +189,7 @@ function injectcommentary($section, $talkline, $comment, $schema=false) {
 	}
 }
 
-function commentdisplay($intro, $section, $message="Interject your own commentary?",$limit=10,$talkline="says",$schema=false) {
-	// Let's add a hook for modules to block commentary sections
-	$args = Modules::modulehook("blockcommentarea", array("section"=>$section));
-	if (isset($args['block']) && ($args['block'] == "yes"))
-		return;
 
-	if ($intro) OutputClass::output($intro);
-	viewcommentary($section, $message, $limit, $talkline, $schema);
-}
 
 function viewcommentary($section,$message="Interject your own commentary?",$limit=10,$talkline="says",$schema=false) {
  	global $session,$REQUEST_URI,$doublepost, $translation_namespace;

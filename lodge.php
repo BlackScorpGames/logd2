@@ -43,7 +43,7 @@ if ($op==""){
 		OutputClass::output("In the chair closest to the fire sits J. C. Petersen, reading a heavy tome entitled \"Alchemy Today.\"`n`n");
 		OutputClass::output("As you approach, a large hunting dog at his feet raises her head and looks at you.");
 		OutputClass::output("Sensing that you belong, she lays down and goes back to sleep.`n`n");
-		commentdisplay("Nearby some other rugged hunters talk:`n", "hunterlodge","Talk quietly",25);
+		Commentary::commentdisplay("Nearby some other rugged hunters talk:`n", "hunterlodge","Talk quietly",25);
 		OutputClass::addnav("Use Points");
 		Modules::modulehook("lodge");
 	}else{

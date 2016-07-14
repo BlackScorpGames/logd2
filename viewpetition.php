@@ -293,7 +293,7 @@ if ($op==""){
 	$body = preg_replace("'([[:alnum:]_.-]+[@][[:alnum:]_.-]{2,}([.][[:alnum:]_.-]{2,})+)'i","<a href='mailto:\\1?subject=RE: $peti&body=".str_replace("+"," ",URLEncode("\n\n----- $yourpeti -----\n".$row['body']))."'>\\1</a>",$body);
 	$body = preg_replace("'([\\[][[:alnum:]_.-]+[\\]])'i","<span class='colLtRed'>\\1</span>",$body);
 	OutputClass::rawoutput("<span style='font-family: fixed-width'>".nl2br($body)."</span>");
-	commentdisplay("`n`@Commentary:`0`n", "pet-$id","Add information",200);
+	Commentary::commentdisplay("`n`@Commentary:`0`n", "pet-$id","Add information",200);
 	if ($viewpageinfo){
 		OutputClass::output("`n`n`@Page Info:`&`n");
 		$row['pageinfo']=stripslashes($row['pageinfo']);

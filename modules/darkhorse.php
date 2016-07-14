@@ -262,7 +262,7 @@ function darkhorse_runevent($type, $link){
 	case "tables":
 		require_once("lib/commentary.php");
 		Commentary::addcommentary();
-		commentdisplay("You examine the etchings in the table:`n`n",
+		Commentary::commentdisplay("You examine the etchings in the table:`n`n",
 				"darkhorse","Add your own etching:");
 		OutputClass::addnav("Return to the Main Room",$from."op=tavern");
 		break;

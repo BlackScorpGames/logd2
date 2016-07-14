@@ -38,7 +38,7 @@ if ($session['user']['sex']){
 }else{
 	OutputClass::output("Inside you are greeted by the sight of numerous scantily clad buxom women who wave palm fronds at you and offer to feed you grapes as you lounge on Greco-Roman couches draped with silk.`n`n");
 }
-commentdisplay("", "superuser","Engage in idle conversation with other gods:",25);
+Commentary::commentdisplay("", "superuser","Engage in idle conversation with other gods:",25);
 OutputClass::addnav("Actions");
 if ($session['user']['superuser'] & SU_EDIT_PETITIONS) OutputClass::addnav("Petition Viewer","viewpetition.php");
 if ($session['user']['superuser'] & SU_EDIT_COMMENTS) OutputClass::addnav("C?Recent Commentary","moderate.php");

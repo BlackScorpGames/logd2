@@ -30,7 +30,7 @@ if ($session['user']['dragonkills']>0 ||
 
 	Modules::modulehook("rock");
 
-	commentdisplay("", "veterans","Boast here",30,"boasts");
+	Commentary::commentdisplay("", "veterans","Boast here",30,"boasts");
 }else{
 	PageParts::page_header("Curious looking rock");
 	OutputClass::output("You approach the curious looking rock.  ");

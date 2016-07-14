@@ -20,7 +20,7 @@ OutputClass::output("Their souls whisper their torments, haunting your mind with
 
 OutputClass::output("`nA sepulchral voice intones, \"`QIt is now %s in the world above.`\$\"`n`n",GameDateTime::getgametime());
 Modules::modulehook("shades", array());
-commentdisplay("`n`QNearby, some lost souls lament:`n", "shade","Despair",25,"despairs");
+Commentary::commentdisplay("`n`QNearby, some lost souls lament:`n", "shade","Despair",25,"despairs");
 
 OutputClass::addnav("Log out","login.php?op=logout");
 OutputClass::addnav("Places");

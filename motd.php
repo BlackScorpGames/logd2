@@ -105,7 +105,7 @@ if ($op=="") {
 	OutputClass::rawoutput(" <input type='submit' value='".Translator::translate_inline("Submit")."' class='button'>");
 	OutputClass::rawoutput("</form>");
 
-	commentdisplay("`n`@Commentary:`0`n", "motd");
+	Commentary::commentdisplay("`n`@Commentary:`0`n", "motd");
 }
 
 $session['needtoviewmotd']=false;

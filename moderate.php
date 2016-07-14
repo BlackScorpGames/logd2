@@ -113,9 +113,9 @@ if ($op==""){
 	OutputClass::addnav("", "$link");
 	if ($area==""){
 		talkform("X","says");
-		commentdisplay("", "' or '1'='1","X",100);
+		Commentary::commentdisplay("", "' or '1'='1","X",100);
 	}else{
-		commentdisplay("", $area,"X",100);
+		Commentary::commentdisplay("", $area,"X",100);
 		talkform($area,"says");
 	}
 }elseif ($op=="audit"){

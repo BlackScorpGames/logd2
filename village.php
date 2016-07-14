@@ -295,7 +295,7 @@ if (!isset($args['block']) || $args['block'] != 'yes') {
 		Translator::tlschema($schemas['talk']);
 		OutputClass::output($texts['talk']);
 		Translator::tlschema();
-		commentdisplay("",$texts['section'],"Speak",25,$texts['sayline'], $schemas['sayline']);
+		Commentary::commentdisplay("",$texts['section'],"Speak",25,$texts['sayline'], $schemas['sayline']);
 }
 
 module_display_events("village", "village.php");

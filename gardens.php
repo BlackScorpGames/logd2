@@ -48,7 +48,7 @@ if (!$skipgardendesc) {
 villagenav();
 Modules::modulehook("gardens", array());
 
-commentdisplay("", "gardens","Whisper here",30,"whispers");
+Commentary::commentdisplay("", "gardens","Whisper here",30,"whispers");
 
 module_display_events("gardens", "gardens.php");
 PageParts::page_footer();

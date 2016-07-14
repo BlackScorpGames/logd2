@@ -21,7 +21,7 @@
 			OutputClass::output_notl("`n");
 		}
 
-		commentdisplay("", "clan-{$claninfo['clanid']}","Speak",25,($claninfo['customsay']>''?$claninfo['customsay']:"says"));
+		Commentary::commentdisplay("", "clan-{$claninfo['clanid']}","Speak",25,($claninfo['customsay']>''?$claninfo['customsay']:"says"));
 
 		Modules::modulehook("clanhall");
 

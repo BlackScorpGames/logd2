@@ -26,7 +26,7 @@ if ($op=="pay"){
 	}
 }elseif ($op=="talk"){
 	PageParts::page_header("In a deep trance, you talk with the shades");
-	commentdisplay("`5While in a deep trance, you are able to talk with the dead:`n", "shade","Project",25,"projects");
+	Commentary::commentdisplay("`5While in a deep trance, you are able to talk with the dead:`n", "shade","Project",25,"projects");
 	OutputClass::addnav("Snap out of your trance","gypsy.php");
 }else{
 	GameDateTime::checkday();
