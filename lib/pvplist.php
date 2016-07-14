@@ -5,7 +5,7 @@
 
 //put these outside the function since they're used by scripts outside of
 //this function.
-$pvptime = getsetting("pvptimeout",600);
+$pvptime = Settings::getsetting("pvptimeout",600);
 $pvptimeout = date("Y-m-d H:i:s",strtotime("-$pvptime seconds"));
 
 function pvplist($location=false,$link=false,$extra=false,$sql=false){
@@ -20,15 +20,15 @@ function pvplist($location=false,$link=false,$extra=false,$sql=false){
 		$extra = "?act=attack";
 	}
 
-	$days = getsetting("pvpimmunity", 5);
-	$exp = getsetting("pvpminexp", 1500);
+	$days = Settings::getsetting("pvpimmunity", 5);
+	$exp = Settings::getsetting("pvpminexp", 1500);
 	$clanrankcolors=array("`!","`#","`^","`&", "`\$");
 
 	if ($sql === false) {
 		$lev1 = $session['user']['level']-1;
 		$lev2 = $session['user']['level']+2;
 		$last = date("Y-m-d H:i:s",
-				strtotime("-".getsetting("LOGINTIMEOUT", 900)." sec"));
+				strtotime("-".Settings::getsetting("LOGINTIMEOUT", 900)." sec"));
 		$id = $session['user']['acctid'];
 		$loc = addslashes($location);
 

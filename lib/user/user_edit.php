@@ -33,7 +33,7 @@ if (Http::httpget("subop")==""){
 	addnav("","user.php?op=save&userid=$userid$returnpetition");
 	$save = translate_inline("Save");
 	rawoutput("<input type='submit' class='button' value='$save'>");
-	if ($row['loggedin']==1 && $row['laston']>date("Y-m-d H:i:s",strtotime("-".getsetting("LOGINTIMEOUT",900)." seconds"))){
+	if ($row['loggedin']==1 && $row['laston']>date("Y-m-d H:i:s",strtotime("-".Settings::getsetting("LOGINTIMEOUT",900)." seconds"))){
 		output_notl("`\$");
 		rawoutput("<span style='font-size: 20px'>");
 		OutputClass::output("`\$Warning:`0");
@@ -51,7 +51,7 @@ if (Http::httpget("subop")==""){
 	*/
 	$showformargs = modulehook("modifyuserview", array("userinfo"=>$userinfo, "user"=>$row));
 	$info = showform($showformargs['userinfo'],$showformargs['user']);
-	rawoutput("<input type='hidden' value=\"".htmlentities(serialize($info), ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\" name='oldvalues'>");
+	rawoutput("<input type='hidden' value=\"".htmlentities(serialize($info), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" name='oldvalues'>");
 	rawoutput("</form>");
 		OutputClass::output("`n`nLast Page Viewed:`n");
 	rawoutput("<iframe src='user.php?op=lasthit&userid=$userid' width='100%' height='400'>");

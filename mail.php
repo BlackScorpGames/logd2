@@ -8,7 +8,7 @@ require_once("lib/http.php");
 
 Translator::tlschema("mail");
 
-$superusermessage = getsetting("superuseryommessage","Asking an admin for gems, gold, weapons, armor, or anything else which you have not earned will not be honored.  If you are experiencing problems with the game, please use the 'Petition for Help' link instead of contacting an admin directly.");
+$superusermessage = Settings::getsetting("superuseryommessage","Asking an admin for gems, gold, weapons, armor, or anything else which you have not earned will not be honored.  If you are experiencing problems with the game, please use the 'Petition for Help' link instead of contacting an admin directly.");
 
 $op = Http::httpget('op');
 $id = (int)Http::httpget('id');

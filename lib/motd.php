@@ -139,9 +139,9 @@ function motd_form($id) {
 					$row['motdauthorname'],$row['motddate'], "");
 		}
 		OutputClass::output("Subject: ");
-		rawoutput("<input type='text' size='50' name='subject' value=\"".HTMLEntities(stripslashes($row['motdtitle']), ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\"><br/>");
+		rawoutput("<input type='text' size='50' name='subject' value=\"".HTMLEntities(stripslashes($row['motdtitle']), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"><br/>");
 		OutputClass::output("Body:`n");
-		rawoutput("<textarea align='right' class='input' name='body' cols='37' rows='5'>".HTMLEntities(stripslashes($row['motdbody']), ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
+		rawoutput("<textarea align='right' class='input' name='body' cols='37' rows='5'>".HTMLEntities(stripslashes($row['motdbody']), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
 		if ($row['motditem']>0){
 			OutputClass::output("Options:`n");
 			rawoutput("<input type='checkbox' value='1' name='changeauthor'".(httppost('changeauthor')?" checked":"").">");
@@ -196,9 +196,9 @@ function motd_poll_form() {
 		rawoutput("<form action='motd.php?op=addpoll' method='POST'>");
 		addnav("","motd.php?op=add");
 		OutputClass::output("Subject: ");
-		rawoutput("<input type='text' size='50' name='subject' value=\"".HTMLEntities(stripslashes($subject), ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\"><br/>");
+		rawoutput("<input type='text' size='50' name='subject' value=\"".HTMLEntities(stripslashes($subject), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"><br/>");
 		OutputClass::output("Body:`n");
-		rawoutput("<textarea class='input' name='body' cols='37' rows='5'>".HTMLEntities(stripslashes($body), ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
+		rawoutput("<textarea class='input' name='body' cols='37' rows='5'>".HTMLEntities(stripslashes($body), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
 		$option = translate_inline("Option");
 		OutputClass::output("Choices:`n");
 		$pollitem = "$option <input name='opt[]'><br/>";

@@ -27,11 +27,11 @@ if (count($post)>0){
 			// Fix the counter
 			invalidatedatacache("petitioncounts");
 			// If the admin wants it, email the petitions to them.
-			if (getsetting("emailpetitions", 0)) {
+			if (Settings::getsetting("emailpetitions", 0)) {
 				// Yeah, the format of this is ugly.
 				require_once("lib/sanitize.php");
 				$name = color_sanitize($session['user']['name']);
-				$url = getsetting("serverurl",
+				$url = Settings::getsetting("serverurl",
 					"http://".$_SERVER['SERVER_NAME'] .
 					($_SERVER['SERVER_PORT']==80?"":":".$_SERVER['SERVER_PORT']) .
 					dirname($_SERVER['REQUEST_URI']));
@@ -49,7 +49,7 @@ if (count($post)>0){
 				$msg .= "$tl_author: $name\n";
 				$msg .= "$tl_date : $date\n";
 				$msg .= "$tl_body :\n".output_array($post)."\n";
-				mail(getsetting("gameadminemail","postmaster@localhost.com"),$tl_subject, $msg);
+				mail(Settings::getsetting("gameadminemail","postmaster@localhost.com"),$tl_subject, $msg);
 			}
 			$session['user']['password']=$p;
 			OutputClass::output("Your petition has been sent to the server admin.");
@@ -72,15 +72,15 @@ if (count($post)>0){
 	if ($session['user']['loggedin']) {
 		OutputClass::output("Your Character's Name: ");
 		output_notl("%s", $session['user']['name']);
-		rawoutput("<input type='hidden' name='charname' value=\"".htmlentities($session['user']['name'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\">");
+		rawoutput("<input type='hidden' name='charname' value=\"".htmlentities($session['user']['name'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
 		OutputClass::output("`nYour email address: ");
 		output_notl("%s", htmlentities($session['user']['emailaddress']));
-		rawoutput("<input type='hidden' name='email' value=\"".htmlentities($session['user']['emailaddress'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\">");
+		rawoutput("<input type='hidden' name='email' value=\"".htmlentities($session['user']['emailaddress'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
 	} else {
 		OutputClass::output("Your Character's Name: ");
-		rawoutput("<input name='charname' value=\"".htmlentities($session['user']['name'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\" size='46'>");
+		rawoutput("<input name='charname' value=\"".htmlentities($session['user']['name'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='46'>");
 		OutputClass::output("`nYour email address: ");
-		rawoutput("<input name='email' value=\"".htmlentities($session['user']['emailaddress'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\" size='50'>");
+		rawoutput("<input name='email' value=\"".htmlentities($session['user']['emailaddress'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'>");
 		$nolog = translate_inline("Character is not logged in!!");
 		rawoutput("<input name='unverified' type='hidden' value='$nolog'>");
 	}
@@ -88,9 +88,9 @@ if (count($post)>0){
 	$abuse = Http::httpget("abuse");
 	if ($abuse == "yes") {
 		rawoutput("<textarea name='description' cols='55' rows='7' class='input'></textarea>");
-		rawoutput("<input type='hidden' name='abuse' value=\"".stripslashes_deep(htmlentities(Http::httpget("problem"), ENT_COMPAT, getsetting("charset", "ISO-8859-1")))."\"><br><hr><pre>".stripslashes(htmlentities(Http::httpget("problem")))."</pre><hr><br>");
+		rawoutput("<input type='hidden' name='abuse' value=\"".stripslashes_deep(htmlentities(Http::httpget("problem"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")))."\"><br><hr><pre>".stripslashes(htmlentities(Http::httpget("problem")))."</pre><hr><br>");
 	} else {
-		rawoutput("<textarea name='description' cols='55' rows='7' class='input'>".stripslashes_deep(htmlentities(Http::httpget("problem"), ENT_COMPAT, getsetting("charset", "ISO-8859-1")))."</textarea>");
+		rawoutput("<textarea name='description' cols='55' rows='7' class='input'>".stripslashes_deep(htmlentities(Http::httpget("problem"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")))."</textarea>");
 	}
 	modulehook("petitionform",array());
 	$submit = translate_inline("Submit");

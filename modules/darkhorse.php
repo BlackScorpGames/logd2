@@ -119,7 +119,7 @@ function darkhorse_bartender($from){
 		addnav("",$from."op=bartender&what=colors");
 		rawoutput("<script language='JavaScript'>document.getElementById('testtext').focus();</script>");
 		if ($testtext) {
-			OutputClass::output("`0You entered %s`n", prevent_colors(HTMLEntities($testtext, ENT_COMPAT, getsetting("charset", "ISO-8859-1"))),true);
+			OutputClass::output("`0You entered %s`n", prevent_colors(HTMLEntities($testtext, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))),true);
 			OutputClass::output("It looks like %s`n", $testtext);
 		}
 		OutputClass::output("`0`n`nThese colors can be used in your name, and in any conversations you have.");

@@ -22,7 +22,7 @@ function translator_setup(){
 		$language = $_COOKIE['language'];
 	}
 	if ($language=="") {
-		$language=getsetting("defaultlanguage","en");
+		$language=Settings::getsetting("defaultlanguage","en");
 	}
 
 	define("LANGUAGE",preg_replace("/[^a-z]/i","",$language));
@@ -30,7 +30,7 @@ function translator_setup(){
 
 $translation_table = array();
 function translate($indata,$namespace=FALSE){
-	if (getsetting("enabletranslation", true) == false) return $indata;
+	if (Settings::getsetting("enabletranslation", true) == false) return $indata;
 	global $session,$translation_table,$translation_namespace;
 	if (!$namespace) $namespace=$translation_namespace;
 	$outdata = $indata;
@@ -63,14 +63,14 @@ function translate($indata,$namespace=FALSE){
 				// This delete is horrible on very heavily translated games.
 				// It has been requested to be removed.
 				/*
-				if (getsetting("collecttexts", false)) {
+				if (Settings::getsetting("collecttexts", false)) {
 					$sql = "DELETE FROM " . db_prefix("untranslated") .
 						" WHERE intext='" . addslashes($indata) .
 						"' AND language='" . LANGUAGE . "'";
 					db_query($sql);
 				}
 				*/
-			} elseif (getsetting("collecttexts", false)) {
+			} elseif (Settings::getsetting("collecttexts", false)) {
 				$sql = "INSERT IGNORE INTO " .  db_prefix("untranslated") .  " (intext,language,namespace) VALUES ('" .  addslashes($indata) . "', '" . LANGUAGE . "', " .  "'$namespace')";
 				db_query($sql,false);
 			}
@@ -135,7 +135,7 @@ function translate_mail($in,$to=0){
 	if ($to>0){
 		$language = db_fetch_assoc(db_query("SELECT prefs FROM ".db_prefix("accounts")." WHERE acctid=$to"));
 		$language['prefs'] = unserialize($language['prefs']);
-		$session['tlanguage'] = $language['prefs']['language']?$language['prefs']['language']:getsetting("defaultlanguage","en");
+		$session['tlanguage'] = $language['prefs']['language']?$language['prefs']['language']:Settings::getsetting("defaultlanguage","en");
 	}
 	reset($in);
 	// translation offered within translation tool here is in language
@@ -168,8 +168,8 @@ function translate_loadnamespace($namespace,$language=false){
 		FROM ".db_prefix("translations")."
 		WHERE language='$language'
 			AND $where";
-/*	debug(nl2br(htmlentities($sql, ENT_COMPAT, getsetting("charset", "ISO-8859-1")))); */
-	if (!getsetting("cachetranslations",0)) {
+/*	debug(nl2br(htmlentities($sql, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")))); */
+	if (!Settings::getsetting("cachetranslations",0)) {
 		$result = db_query($sql);
 	} else {
 		$result = db_query_cached($sql,"translations-".$namespace."-".$language,600);
@@ -257,11 +257,11 @@ public static function tlschema($schema=false){
 }
 function translator_check_collect_texts()
 {
-	$tlmax = getsetting("tl_maxallowed",0);
+	$tlmax = Settings::getsetting("tl_maxallowed",0);
 
-	if (getsetting("permacollect", 0)) {
+	if (Settings::getsetting("permacollect", 0)) {
 		savesetting("collecttexts", 1);
-	} elseif ($tlmax && getsetting("OnlineCount", 0) <= $tlmax) {
+	} elseif ($tlmax && Settings::getsetting("OnlineCount", 0) <= $tlmax) {
 		savesetting("collecttexts", 1);
 	} else {
 		savesetting("collecttexts", 0);

@@ -1,10 +1,10 @@
 <?php
 function drinks_gettexts() {
 	global $session;
-	$iname = getsetting("innname", LOCATION_INN);
+	$iname = Settings::getsetting("innname", LOCATION_INN);
 	$drinktext = array(
 			"title"=>"$iname",
-			"barkeep"=>getsetting("barkeep", "`tCedrik"),
+			"barkeep"=>Settings::getsetting("barkeep", "`tCedrik"),
 			"return"=>"",
 			"demand"=>"Pounding your fist on the bar, you demand another drink",
 			"toodrunk"=>" but {barkeep} continues to clean the glass he was working on.  \"`%You've had enough ".($session['user']['sex']?"lass":"lad").",`0\" he declares.",

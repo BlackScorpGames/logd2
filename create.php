@@ -10,9 +10,9 @@ require_once("lib/http.php");
 
 Translator::tlschema("create");
 
-$trash = getsetting("expiretrashacct",1);
-$new = getsetting("expirenewacct",10);
-$old = getsetting("expireoldacct",45);
+$trash = Settings::getsetting("expiretrashacct",1);
+$new = Settings::getsetting("expirenewacct",10);
+$old = Settings::getsetting("expireoldacct",45);
 
 checkban();
 $op = Http::httpget('op');
@@ -77,7 +77,7 @@ if ($op=="forgot"){
 						($_SERVER['SERVER_NAME'].($_SERVER['SERVER_PORT'] == 80?"":":".$_SERVER['SERVER_PORT']).$_SERVER['SCRIPT_NAME']),
 						$row['emailvalidation']
 						),$row['acctid']);
-				mail($row['emailaddress'],$subj,str_replace("`n","\n",$msg),translate_inline("From:").getsetting("gameadminemail","postmaster@localhost.com"));
+				mail($row['emailaddress'],$subj,str_replace("`n","\n",$msg),translate_inline("From:").Settings::getsetting("gameadminemail","postmaster@localhost.com"));
 				OutputClass::output("`#Sent a new validation email to the address on file for that account.");
 				OutputClass::output("You may use the validation email to log in and change your password.");
 			}else{
@@ -100,13 +100,13 @@ if ($op=="forgot"){
 	}
 }
 PageParts::page_header("Create A Character");
-if (getsetting("allowcreation",1)==0){
+if (Settings::getsetting("allowcreation",1)==0){
 	OutputClass::output("`\$Creation of new accounts is disabled on this server.");
 	OutputClass::output("You may try it again another day or contact an administrator.");
 }else{
 	if ($op=="create"){
 		$emailverification="";
-		$shortname = sanitize_name(getsetting("spaceinname", 0), httppost('name'));
+		$shortname = sanitize_name(Settings::getsetting("spaceinname", 0), httppost('name'));
 
 		if (soap($shortname)!=$shortname){
 			OutputClass::output("`\$Error`^: Bad language was found in your name, please consider revising it.`n");
@@ -116,7 +116,7 @@ if (getsetting("allowcreation",1)==0){
 			$email = httppost('email');
 			$pass1= httppost('pass1');
 			$pass2= httppost('pass2');
-			if (getsetting("blockdupeemail",0)==1 && getsetting("requireemail",0)==1){
+			if (Settings::getsetting("blockdupeemail",0)==1 && Settings::getsetting("requireemail",0)==1){
 				$sql = "SELECT login FROM " . db_prefix("accounts") . " WHERE emailaddress='$email'";
 				$result = db_query($sql);
 				if (db_num_rows($result)>0){
@@ -146,7 +146,7 @@ if (getsetting("allowcreation",1)==0){
 				$msg.=translate_inline("Your character's name cannot exceed 25 characters.`n");
 				$blockaccount=true;
 			}
-			if (getsetting("requireemail",0)==1 && is_email($email) || getsetting("requireemail",0)==0){
+			if (Settings::getsetting("requireemail",0)==1 && is_email($email) || Settings::getsetting("requireemail",0)==0){
 			}else{
 				$msg.=translate_inline("You must enter a valid email address.`n");
 				$blockaccount=true;
@@ -170,7 +170,7 @@ if (getsetting("allowcreation",1)==0){
 					if ($sex <> SEX_MALE) $sex = SEX_FEMALE;
 					require_once("lib/titles.php");
 					$title = get_dk_title(0, $sex);
-					if (getsetting("requirevalidemail",0)){
+					if (Settings::getsetting("requirevalidemail",0)){
 						$emailverification=md5(date("Y-m-d H:i:s").$email);
 					}
 					$refer = Http::httpget('r');
@@ -191,7 +191,7 @@ if (getsetting("allowcreation",1)==0){
 					$sql = "INSERT INTO " . db_prefix("accounts") . "
 						(name, superuser, title, password, sex, login, laston, uniqueid, lastip, gold, emailaddress, emailvalidation, referer, regdate)
 						VALUES
-						('$title $shortname', '".getsetting("defaultsuperuser",0)."', '$title', '$dbpass', '$sex', '$shortname', '".date("Y-m-d H:i:s",strtotime("-1 day"))."', '".$_COOKIE['lgi']."', '".$_SERVER['REMOTE_ADDR']."', ".getsetting("newplayerstartgold",50).", '$email', '$emailverification', '$referer', NOW())";
+						('$title $shortname', '".Settings::getsetting("defaultsuperuser",0)."', '$title', '$dbpass', '$sex', '$shortname', '".date("Y-m-d H:i:s",strtotime("-1 day"))."', '".$_COOKIE['lgi']."', '".$_SERVER['REMOTE_ADDR']."', ".Settings::getsetting("newplayerstartgold",50).", '$email', '$emailverification', '$referer', NOW())";
 					db_query($sql);
 					if (db_affected_rows(LINK)<=0){
 						OutputClass::output("`\$Error`^: Your account was not created for an unknown reason, please try again. ");
@@ -212,7 +212,7 @@ if (getsetting("allowcreation",1)==0){
 								($_SERVER['SERVER_NAME'].($_SERVER['SERVER_PORT'] == 80?"":":".$_SERVER['SERVER_PORT']).$_SERVER['SCRIPT_NAME']),
 								$emailverification),
 								0);
-							mail($email,$subj,str_replace("`n","\n",$msg),"From: ".getsetting("gameadminemail","postmaster@localhost.com"));
+							mail($email,$subj,str_replace("`n","\n",$msg),"From: ".Settings::getsetting("gameadminemail","postmaster@localhost.com"));
 							OutputClass::output("`4An email was sent to `\$%s`4 to validate your address.  Click the link in the email to activate your account.`0`n`n", $email);
 						}else{
 							rawoutput("<form action='login.php' method='POST'>");
@@ -245,7 +245,7 @@ if (getsetting("allowcreation",1)==0){
 	if ($op==""){
 		OutputClass::output("`&`c`bCreate a Character`b`c`0");
 		$refer=Http::httpget('r');
-		if ($refer) $refer = "&r=".htmlentities($refer, ENT_COMPAT, getsetting("charset", "ISO-8859-1"));
+		if ($refer) $refer = "&r=".htmlentities($refer, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
 
 		rawoutput("<script language='JavaScript' src='lib/md5.js'></script>");
 		rawoutput("<script language='JavaScript'>
@@ -282,9 +282,9 @@ if (getsetting("allowcreation",1)==0){
 		$r1 = translate_inline("`^(optional -- however, if you choose not to enter one, there will be no way that you can reset your password if you forget it!)`0");
 		$r2 = translate_inline("`\$(required)`0");
 		$r3 = translate_inline("`\$(required, an email will be sent to this address to verify it before you can log in)`0");
-		if (getsetting("requireemail", 0) == 0) {
+		if (Settings::getsetting("requireemail", 0) == 0) {
 			$req = $r1;
-		} elseif (getsetting("requirevalidemail", 0) == 0) {
+		} elseif (Settings::getsetting("requirevalidemail", 0) == 0) {
 			$req = $r2;
 		} else {
 			$req = $r3;

@@ -10,7 +10,7 @@ Translator::tlschema("referers");
 
 check_su_access(SU_EDIT_CONFIG);
 
-$expire = getsetting("expirecontent",180);
+$expire = Settings::getsetting("expirecontent",180);
 if($expire > 0) $sql = "DELETE FROM " . db_prefix("referers") . " WHERE last<'".date("Y-m-d H:i:s",strtotime("-".$expire." days"))."'";
 db_query($sql);
 $op = Http::httpget('op');
@@ -81,7 +81,7 @@ for ($i=0;$i<$number;$i++){
 			output_notl(dhms($diffsecs));
 			rawoutput("</td><td valign='top'>");
 			if ($row1['uri']>"")
-				rawoutput("<a href='".HTMLEntities($row1['uri'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."' target='_blank'>".HTMLEntities(substr($row1['uri'],0,100))."</a>");
+				rawoutput("<a href='".HTMLEntities($row1['uri'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."' target='_blank'>".HTMLEntities(substr($row1['uri'],0,100))."</a>");
 			else
 				output_notl($none);
 			output_notl("`n");

@@ -28,20 +28,20 @@ $op = Http::httpget('op');
 PageParts::page_header();
 OutputClass::output("`cWelcome to Legend of the Green Dragon, a browser based role playing game, based on Seth Able's Legend of the Red Dragon.`n");
 
-if (getsetting("homecurtime", 1)) {
-	OutputClass::output("`@The current time in %s is `%%s`@.`0`n", getsetting("villagename", LOCATION_FIELDS), getgametime());
+if (Settings::getsetting("homecurtime", 1)) {
+	OutputClass::output("`@The current time in %s is `%%s`@.`0`n", Settings::getsetting("villagename", LOCATION_FIELDS), getgametime());
 }
 
-if (getsetting("homenewdaytime", 1)) {
+if (Settings::getsetting("homenewdaytime", 1)) {
 	$secstonewday = secondstonextgameday();
 	OutputClass::output("`@Next new game day in: `\$%s (real time)`0`n`n",
 			date("G\\".translate_inline("h","datetime").", i\\".translate_inline("m","datetime").", s\\".translate_inline("s","datetime"),
 				$secstonewday));
 }
 
-if (getsetting("homenewestplayer", 1)) {
+if (Settings::getsetting("homenewestplayer", 1)) {
 	$name = "";
-	$newplayer = getsetting("newestplayer", "");
+	$newplayer = Settings::getsetting("newestplayer", "");
 	if ($newplayer != 0) {
 		$sql = "SELECT name FROM " . db_prefix("accounts") . " WHERE acctid='$newplayer'";
 		$result = db_query_cached($sql, "newest");
@@ -69,17 +69,17 @@ addnav("LoGD Net","logdnet.php?op=list");
 
 modulehook("index", array());
 
-if (abs(getsetting("OnlineCountLast",0) - strtotime("now")) > 60){
-	$sql="SELECT count(acctid) as onlinecount FROM " . db_prefix("accounts") . " WHERE locked=0 AND loggedin=1 AND laston>'".date("Y-m-d H:i:s",strtotime("-".getsetting("LOGINTIMEOUT",900)." seconds"))."'";
+if (abs(Settings::getsetting("OnlineCountLast",0) - strtotime("now")) > 60){
+	$sql="SELECT count(acctid) as onlinecount FROM " . db_prefix("accounts") . " WHERE locked=0 AND loggedin=1 AND laston>'".date("Y-m-d H:i:s",strtotime("-".Settings::getsetting("LOGINTIMEOUT",900)." seconds"))."'";
 	$result = db_query($sql);
 	$onlinecount = db_fetch_assoc($result);
 	$onlinecount = $onlinecount ['onlinecount'];
 	savesetting("OnlineCount",$onlinecount);
 	savesetting("OnlineCountLast",strtotime("now"));
 }else{
-	$onlinecount = getsetting("OnlineCount",0);
+	$onlinecount = Settings::getsetting("OnlineCount",0);
 }
-if ($onlinecount<getsetting("maxonline",0) || getsetting("maxonline",0)==0){
+if ($onlinecount<Settings::getsetting("maxonline",0) || Settings::getsetting("maxonline",0)==0){
 	OutputClass::output("Enter your name and password to enter the realm.`n");
 	if ($op=="timeout"){
 		$session['message'].= translate_inline(" Your session has timed out, you must log in again.`n");
@@ -122,18 +122,18 @@ if ($onlinecount<getsetting("maxonline",0) || getsetting("maxonline",0)==0){
 	output_notl("`c");
 }
 
-$msg = getsetting("loginbanner","*BETA* This is a BETA of this website, things are likely to change now and again, as it is under active development *BETA*");
+$msg = Settings::getsetting("loginbanner","*BETA* This is a BETA of this website, things are likely to change now and again, as it is under active development *BETA*");
 output_notl("`n`c`b`&%s`0`b`c`n", $msg);
 $session['message']="";
 OutputClass::output("`c`2Game server running version: `@%s`0`c", $logd_version);
 
-if (getsetting("homeskinselect", 1)) {
+if (Settings::getsetting("homeskinselect", 1)) {
 	rawoutput("<form action='home.php' method='POST'>");
 	rawoutput("<table align='center'><tr><td>");
 	$form = array("template"=>"Choose a different display skin:,theme");
 	$prefs['template'] = $_COOKIE['template'];
 	if ($prefs['template'] == "")
-		$prefs['template'] = getsetting("defaultskin", "jade.htm");
+		$prefs['template'] = Settings::getsetting("defaultskin", "jade.htm");
 	require_once("lib/showform.php");
 	showform($form, $prefs, true);
 	$submit = translate_inline("Choose");

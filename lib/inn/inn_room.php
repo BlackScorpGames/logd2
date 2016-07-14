@@ -8,7 +8,7 @@ if ($pay){
 		if ($session['user']['loggedin']){
 			if (!$session['user']['boughtroomtoday']) {
 				if ($pay == 2) {
-					$fee = getsetting("innfee", "5%");
+					$fee = Settings::getsetting("innfee", "5%");
 					if (strpos($fee, "%"))
 						$expense += round($expense * $fee / 100,0);
 					else
@@ -39,7 +39,7 @@ if ($pay){
 		modulehook("innrooms");
 		OutputClass::output("You stroll over to the bartender and request a room.");
 		OutputClass::output("He eyes you up and says, \"It will cost `\$%s`0 gold for the night in a standard room.", $expense);
-		$fee = getsetting("innfee", "5%");
+		$fee = Settings::getsetting("innfee", "5%");
 		if (strpos($fee, "%")) {
 			$bankexpense = $expense + round($expense * $fee / 100,0);
 		} else {

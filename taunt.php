@@ -32,7 +32,7 @@ if ($op=="edit"){
 		$row = array('tauntid'=>0, 'taunt'=>"");
 	}
 	OutputClass::output("Taunt: ");
-	rawoutput("<input name='taunt' value=\"".HTMLEntities($row['taunt'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\" size='70'><br>");
+	rawoutput("<input name='taunt' value=\"".HTMLEntities($row['taunt'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='70'><br>");
 	OutputClass::output("The following codes are supported (case matters):`n");
 	OutputClass::output("%w = The player's name (also can be specified as {goodguy}`n");
 	OutputClass::output("%x = The player's weapon (also can be specified as {weapon}`n");

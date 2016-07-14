@@ -47,8 +47,8 @@ if ($op==""){
 		addnav("Use Points");
 		modulehook("lodge");
 	}else{
-		$iname = getsetting("innname", LOCATION_INN);
-		OutputClass::output("You pull out your Frequent Boozer Card from %s, with 9 out of the 10 slots punched out with a small profile of %s`0's Head.`n`n", $iname,getsetting('barkeep','`tCedrik'));
+		$iname = Settings::getsetting("innname", LOCATION_INN);
+		OutputClass::output("You pull out your Frequent Boozer Card from %s, with 9 out of the 10 slots punched out with a small profile of %s`0's Head.`n`n", $iname,Settings::getsetting('barkeep','`tCedrik'));
 		OutputClass::output("The guard glances at it, advises you not to drink so much, and directs you down the path.");
 	}
 }else if ($op=="points"){
@@ -72,10 +72,10 @@ if ($op==""){
 	OutputClass::output("Donations are accepted in whole dollar increments only.`n`n");
 	OutputClass::output("\"`&But I don't have access to a PayPal account, or I otherwise can't donate to your very wonderful project!`7\"`n");
            // yes, "referer" is misspelt here, but the game setting was also misspelt
-	if (getsetting("refereraward", 25)) {
+	if (Settings::getsetting("refereraward", 25)) {
 		OutputClass::output("Well, there is another way that you can obtain points: by referring other people to our site!");
-		OutputClass::output("You'll get %s points for each person whom you've referred who makes it to level %s.", getsetting("refereraward", 25), getsetting("referminlevel", 4));
-		OutputClass::output("Even one person making it to level %s will gain you access to the Hunter's Lodge.`n`n", getsetting("referminlevel", 4));
+		OutputClass::output("You'll get %s points for each person whom you've referred who makes it to level %s.", Settings::getsetting("refereraward", 25), Settings::getsetting("referminlevel", 4));
+		OutputClass::output("Even one person making it to level %s will gain you access to the Hunter's Lodge.`n`n", Settings::getsetting("referminlevel", 4));
 	}
 	OutputClass::output("You can also gain contributor points for contributing in other ways that the administration may specify.");
 	OutputClass::output("So, don't despair if you cannot send cash, there will always be non-cash ways of gaining contributor points.`n`n");

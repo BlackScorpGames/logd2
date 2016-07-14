@@ -16,9 +16,9 @@ if ($session['user']['loggedin']){
 		require_once("lib/villagenav.php");
 		villagenav();
 	}
-	OutputClass::output("You will automatically receive %s points for each person that you refer to this website who makes it to level %s.`n`n", getsetting("refereraward", 25), getsetting("referminlevel", 4));
+	OutputClass::output("You will automatically receive %s points for each person that you refer to this website who makes it to level %s.`n`n", Settings::getsetting("refereraward", 25), Settings::getsetting("referminlevel", 4));
 
-	$url = getsetting("serverurl",
+	$url = Settings::getsetting("serverurl",
 			"http://".$_SERVER['SERVER_NAME'] .
 			($_SERVER['SERVER_PORT']==80?"":":".$_SERVER['SERVER_PORT']) .
 			dirname($_SERVER['REQUEST_URI']));
@@ -31,7 +31,7 @@ if ($session['user']['loggedin']){
 	OutputClass::output("Easy!  When you tell your friends about this site, give out the following link:`n`n");
 	output_notl("%sreferral.php?r=%s`n`n",$url,rawurlencode($session['user']['login']));
 	OutputClass::output("If you do, the site will know that you were the one who sent them here.");
-	OutputClass::output("When they reach level %s for the first time, you'll get your points!", getsetting("referminlevel", 4));
+	OutputClass::output("When they reach level %s for the first time, you'll get your points!", Settings::getsetting("referminlevel", 4));
 
 	$sql = "SELECT name,level,refererawarded FROM " . db_prefix("accounts") . " WHERE referer={$session['user']['acctid']} ORDER BY dragonkills,level";
 	$result = db_query($sql);
@@ -65,7 +65,7 @@ if ($session['user']['loggedin']){
 	PageParts::page_header("Welcome to Legend of the Green Dragon");
 	OutputClass::output("`@Legend of the Green Dragon is a remake of the classic BBS Door Game Legend of the Red Dragon.");
 	OutputClass::output("Adventure into the classic realm that was one of the world's very first multiplayer roleplaying games!");
-	addnav("Create a character","create.php?r=".HTMLEntities(Http::httpget('r'), ENT_COMPAT, getsetting("charset", "ISO-8859-1")));
+	addnav("Create a character","create.php?r=".HTMLEntities(Http::httpget('r'), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
 	addnav("Login Page","index.php");
 	page_footer();
 }

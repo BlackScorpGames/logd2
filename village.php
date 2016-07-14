@@ -13,8 +13,8 @@ Translator::tlschema('village');
 // See if the user is in a valid location and if not, put them back to
 // a place which is valid
 $valid_loc = array();
-$vname = getsetting("villagename", LOCATION_FIELDS);
-$iname = getsetting("innname", LOCATION_INN);
+$vname = Settings::getsetting("villagename", LOCATION_FIELDS);
+$iname = Settings::getsetting("innname", LOCATION_INN);
 $valid_loc[$vname]="village";
 $valid_loc = modulehook("validlocation", $valid_loc);
 if (!isset($valid_loc[$session['user']['location']])) {
@@ -22,7 +22,7 @@ if (!isset($valid_loc[$session['user']['location']])) {
 }
 
 $newestname = "";
-$newestplayer = getsetting("newestplayer", "");
+$newestplayer = Settings::getsetting("newestplayer", "");
 if ($newestplayer == $session['user']['acctid']) {
 	$newtext = "`nYou're the newest member of the village.  As such, you wander around, gaping at the sights, and generally looking lost.";
 	$newestname = $session['user']['name'];
@@ -124,7 +124,7 @@ if ($session['user']['alive']){ }else{
 	redirect("shades.php");
 }
 
-if (getsetting("automaster",1) && $session['user']['seenmaster']!=1){
+if (Settings::getsetting("automaster",1) && $session['user']['seenmaster']!=1){
 	//masters hunt down truant students
 	$level = $session['user']['level']+1;
 	$dks = $session['user']['dragonkills'];
@@ -144,7 +144,7 @@ $comment = httppost('insertcommentary');
 // the commentary (or talking) or dealing with any of the hooks in the village.
 if (!$op && $com=="" && !$comment && !$refresh && !$commenting) {
 	// The '1' should really be sysadmin customizable.
-	if (module_events("village", getsetting("villagechance", 0)) != 0) {
+	if (module_events("village", Settings::getsetting("villagechance", 0)) != 0) {
 		if (checknavs()) {
 			page_footer();
 		} else {
@@ -163,11 +163,11 @@ addnav($texts['gatenav']);
 Translator::tlschema();
 
 addnav("F?Forest","forest.php");
-if (getsetting("pvp",1)){
+if (Settings::getsetting("pvp",1)){
 	addnav("S?Slay Other Players","pvp.php");
 }
 addnav("Q?`%Quit`0 to the fields","login.php?op=logout",true);
-if (getsetting("enablecompanions",true)) {
+if (Settings::getsetting("enablecompanions",true)) {
 	Translator::tlschema($schemas['mercenarycamp']);
 	addnav($texts['mercenarycamp'], "mercenarycamp.php");
 	Translator::tlschema();
@@ -192,7 +192,7 @@ addnav("A?".$texts['armorshop'],"armor.php");
 Translator::tlschema();
 addnav("B?Ye Olde Bank","bank.php");
 addnav("Z?Ze Gypsy Tent","gypsy.php");
-if (getsetting("betaperplayer", 1) == 1 && @file_exists("pavilion.php")) {
+if (Settings::getsetting("betaperplayer", 1) == 1 && @file_exists("pavilion.php")) {
 	addnav("E?Eye-catching Pavilion","pavilion.php");
 }
 
@@ -208,7 +208,7 @@ Translator::tlschema();
 
 addnav("G?The Gardens", "gardens.php");
 addnav("R?Curious Looking Rock", "rock.php");
-if (getsetting("allowclans",1)) addnav("C?Clan Halls","clan.php");
+if (Settings::getsetting("allowclans",1)) addnav("C?Clan Halls","clan.php");
 
 Translator::tlschema($schemas['infonav']);
 addnav($texts['infonav']);

@@ -52,21 +52,28 @@ function clearsettings(){
 	unset($settings);
 }
 
-function getsetting($settingname,$default){
-	global $settings;
-	global $DB_USEDATACACHE,$DB_DATACACHEPATH;
-	if ($settingname=="usedatacache") return $DB_USEDATACACHE;
-		elseif ($settingname=="datacachepath") return $DB_DATACACHEPATH;
-	if (!isset($settings[$settingname])) {
-		loadsettings();
-	}else {
-		return $settings[$settingname];
-	}
-	if (!isset($settings[$settingname])){
-		savesetting($settingname,$default);
-		return $default;
-	}else{
-		return $settings[$settingname];
-	}
+class Settings
+{
+    public static function getsetting($settingname, $default)
+    {
+        global $settings;
+        global $DB_USEDATACACHE, $DB_DATACACHEPATH;
+        if ($settingname == "usedatacache") {
+            return $DB_USEDATACACHE;
+        } elseif ($settingname == "datacachepath") {
+            return $DB_DATACACHEPATH;
+        }
+        if (!isset($settings[$settingname])) {
+            loadsettings();
+        } else {
+            return $settings[$settingname];
+        }
+        if (!isset($settings[$settingname])) {
+            savesetting($settingname, $default);
+            return $default;
+        } else {
+            return $settings[$settingname];
+        }
+    }
 }
 ?>

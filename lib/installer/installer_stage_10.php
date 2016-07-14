@@ -39,7 +39,7 @@ if (db_num_rows($result)==0){
 	if ($showform){
 		rawoutput("<form action='installer.php?stage=$stage' method='POST'>");
 		OutputClass::output("Enter a name for your superuser account:");
-		rawoutput("<input name='name' value=\"".htmlentities(httppost("name"), ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\">");
+		rawoutput("<input name='name' value=\"".htmlentities(httppost("name"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
 		OutputClass::output("`nEnter a password: ");
 		rawoutput("<input name='pass1' type='password'>");
 		OutputClass::output("`nConfirm your password: ");

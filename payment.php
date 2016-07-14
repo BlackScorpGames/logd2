@@ -68,7 +68,7 @@ if (!$fp) {
 					payment_error(E_ERROR,$emsg,__FILE__,__LINE__);
 				}
 				if (($receiver_email != "logd@mightye.org") &&
-					($receiver_email != getsetting("paypalemail", ""))) {
+					($receiver_email != Settings::getsetting("paypalemail", ""))) {
 					$emsg = "This payment isn't to me!  It's to $receiver_email.\n";
 					payment_error(E_WARNING,$emsg,__FILE__,__LINE__);
 				}
@@ -162,7 +162,7 @@ function payment_error($errno, $errstr, $errfile, $errline){
 	}
 }
 
-$adminEmail = getsetting("gameadminemail", "postmaster@localhost.com");
+$adminEmail = Settings::getsetting("gameadminemail", "postmaster@localhost.com");
 if ($payment_errors>"") {
 	$subj = translate_mail("Payment Error",0);
 	// $payment_errors not translated
@@ -181,7 +181,7 @@ if ($payment_errors>"") {
 	ob_end_clean();
 	$payment_errors .= "<hr>".$contents;
 
-	mail($adminEmail,$subj,$payment_errors."<hr>","From: " . getsetting("gameadminemail", "postmaster@localhost.com"));
+	mail($adminEmail,$subj,$payment_errors."<hr>","From: " . Settings::getsetting("gameadminemail", "postmaster@localhost.com"));
 }
 $output = ob_get_contents();
 if ($output > ""){

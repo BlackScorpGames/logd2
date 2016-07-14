@@ -52,7 +52,7 @@ if ($op == "add" || $op == "addpoll" || $op == "del")  {
 	}
 }
 if ($op=="") {
-	$count = getsetting("motditems", 5);
+	$count = Settings::getsetting("motditems", 5);
 	$newcount = Http::httpget("newcount");
 	if (!$newcount || !httppost('proceed')) $newcount=0;
 	/*

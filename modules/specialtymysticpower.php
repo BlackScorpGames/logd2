@@ -130,7 +130,7 @@ function specialtymysticpower_dohook($hookname,$args){
 		}
 		break;
 	case "newday":
-		$bonus = getsetting("specialtybonus", 1);
+		$bonus = Settings::getsetting("specialtybonus", 1);
 		if($session['user']['specialty'] == $spec) {
 			$name = translate_inline($name);
 			if ($bonus == 1) {

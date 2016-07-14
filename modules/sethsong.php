@@ -81,7 +81,7 @@ function sethsong_dohook($hookname,$args){
 		$op = Http::httpget("op");
 		if ($op == "" || $op == "strolldown" || $op == "fleedragon") {
 			addnav("Things to do");
-			addnav(array("L?Listen to %s`0 the Bard", getsetting("bard", "`^Seth")),"runmodule.php?module=sethsong");
+			addnav(array("L?Listen to %s`0 the Bard", Settings::getsetting("bard", "`^Seth")),"runmodule.php?module=sethsong");
 		}
 		break;
 	case "newday":
@@ -95,7 +95,7 @@ function sethsong_run(){
 	$op=Http::httpget('op');
 	$visits=get_module_setting("visits");
 	$been=get_module_pref("been");
-	$iname = getsetting("innname", LOCATION_INN);
+	$iname = Settings::getsetting("innname", LOCATION_INN);
 	Translator::tlschema("inn");
 	PageParts::page_header($iname);
 
@@ -107,7 +107,7 @@ function sethsong_run(){
 
 	// Short circuit out if we've heard enough
 	if ($been >= $visits) {
-		OutputClass::output("%s`0 clears his throat and drinks some water.", getsetting("bard", "`^Seth"));
+		OutputClass::output("%s`0 clears his throat and drinks some water.", Settings::getsetting("bard", "`^Seth"));
 		OutputClass::output("\"I'm sorry, my throat is just too dry.\"");
 	} else {
 		sethsong_sing();
@@ -137,7 +137,7 @@ function sethsong_sing()
 	$been++;
 	set_module_pref("been",$been);
 	$rnd = e_rand(0,18);
-	OutputClass::output("%s`0 clears his throat and begins:`n`n`^", getsetting("bard", "`^Seth"));
+	OutputClass::output("%s`0 clears his throat and begins:`n`n`^", Settings::getsetting("bard", "`^Seth"));
 	switch ($rnd){
 	case 0:
 		OutputClass::output("`@Green Dragon`^ is green,`n`@Green Dragon`^ is fierce.`n");
@@ -166,15 +166,15 @@ function sethsong_sing()
 		OutputClass::output("They have a fight, Membrane wins.`n");
 		OutputClass::output("Membrane Man.`n`n");
 		OutputClass::output("`0You're not quite sure what to make of this.");
-		OutputClass::output("You merely back away, and think you'll visit %s`0 when he's feeling better.", getsetting("bard", "`^Seth"));
+		OutputClass::output("You merely back away, and think you'll visit %s`0 when he's feeling better.", Settings::getsetting("bard", "`^Seth"));
 		OutputClass::output("Having rested a while though, you think you could face another forest creature.");
 		$session['user']['turns']++;
 		break;
 	case 3:
-		OutputClass::output("Gather 'round and I'll tell you a tale`nmost terrible and dark`nof %s`^ and his unclean beer`nand how he hates this bard!`n`n", getsetting('barkeep', '`tCedrik'));
-		OutputClass::output("`0You realize he's right, %s`0's beer really is nasty.", getsetting('barkeep', '`tCedrik'));
+		OutputClass::output("Gather 'round and I'll tell you a tale`nmost terrible and dark`nof %s`^ and his unclean beer`nand how he hates this bard!`n`n", Settings::getsetting('barkeep', '`tCedrik'));
+		OutputClass::output("`0You realize he's right, %s`0's beer really is nasty.", Settings::getsetting('barkeep', '`tCedrik'));
 		OutputClass::output("That's why most patrons prefer his ale.");
-		OutputClass::output("Though you don't really gain anything from the tale from %s`0, you do happen to notice a few gold on the ground!", getsetting("bard", "`^Seth"));
+		OutputClass::output("Though you don't really gain anything from the tale from %s`0, you do happen to notice a few gold on the ground!", Settings::getsetting("bard", "`^Seth"));
 		$gain = e_rand($leastgold,$mostgold);
 		$session['user']['gold']+=$gain;
 		debuglog("found $gain gold near Seth");
@@ -195,13 +195,13 @@ function sethsong_sing()
 		break;
 	case 6:
 		OutputClass::output("I love MightyE, MightyE weaponry, I love MightyE, MightyE weaponry, I love MightyE, MightyE weaponry, nothing kills as good as MightyE... WEAPONRY!`n`n");
-		OutputClass::output("`0You think %s`0 is quite correct.`n", getsetting("bard", "`^Seth"));
+		OutputClass::output("`0You think %s`0 is quite correct.`n", Settings::getsetting("bard", "`^Seth"));
 		OutputClass::output("You want to go out and kill something.");
 		OutputClass::output("You leave and think about bees and fish for some reason.");
 		$session['user']['turns']++;
 		break;
 	case 7:
-		OutputClass::output("%s`0 seems to sit up and prepare himself for something impressive.",getsetting("bard","`^Seth"));
+		OutputClass::output("%s`0 seems to sit up and prepare himself for something impressive.",Settings::getsetting("bard","`^Seth"));
 		OutputClass::output("He then burps loudly in your face.");
 		OutputClass::output("\"`^Was that entertaining enough?`0\"`n`n");
 		OutputClass::output("`0The smell is overwhelming.");
@@ -211,21 +211,21 @@ function sethsong_sing()
 			$session['user']['hitpoints']=1;
 		break;
 	case 8:
-		OutputClass::output("`0\"`^What is the sound of one hand clapping?`0\" asks %s`0.", getsetting("bard", "`^Seth"));
+		OutputClass::output("`0\"`^What is the sound of one hand clapping?`0\" asks %s`0.", Settings::getsetting("bard", "`^Seth"));
 		if ($session['user']['gold'] >=$gold ) {
-			OutputClass::output("While you ponder this conundrum, %s`0 \"liberates\" a small entertainment fee from your purse.`n`n", getsetting("bard", "`^Seth"));
+			OutputClass::output("While you ponder this conundrum, %s`0 \"liberates\" a small entertainment fee from your purse.`n`n", Settings::getsetting("bard", "`^Seth"));
 			OutputClass::output("You lose %s gold!",$gold);
 			$session['user']['gold']-=$gold;
 			debuglog("lost $gold gold to Seth");
 		} else {
-			OutputClass::output("While you ponder this conundrum, %s`0 attempts to \"liberate\" a small entertainment fee from your purse, but doesn't find enough to bother with.", getsetting("bard", "`^Seth"));
+			OutputClass::output("While you ponder this conundrum, %s`0 attempts to \"liberate\" a small entertainment fee from your purse, but doesn't find enough to bother with.", Settings::getsetting("bard", "`^Seth"));
 		}
 		break;
 	case 9:
 		$gems=e_rand($leastgems,$mostgems);
 		OutputClass::output("What do you call a fish with no eyes?`n`n");
 		OutputClass::output("A fsshh.`n`n");
-		OutputClass::output("`0You groan as %s`0 laughs heartily.", getsetting("bard", "`^Seth"));
+		OutputClass::output("`0You groan as %s`0 laughs heartily.", Settings::getsetting("bard", "`^Seth"));
 		if($gems==0){
 			OutputClass::output("Shaking your head, you turn to go back to the inn.");
 		}
@@ -239,13 +239,13 @@ function sethsong_sing()
 		debuglog("got $gems gem\\(s\\) from Seth");
 		break;
 	case 10:
-		OutputClass::output("%s`0 plays a soft but haunting melody.`n`n", getsetting("bard", "`^Seth"));
+		OutputClass::output("%s`0 plays a soft but haunting melody.`n`n", Settings::getsetting("bard", "`^Seth"));
 		OutputClass::output("You feel relaxed, and your wounds seem to fade away.");
 		if ($session['user']['hitpoints'] < $session['user']['maxhitpoints'])
 			$session['user']['hitpoints'] = $session['user']['maxhitpoints'];
 		break;
 	case 11:
-		OutputClass::output("%s`0 plays a melancholy dirge for you.`n`n", getsetting("bard", "`^Seth"));
+		OutputClass::output("%s`0 plays a melancholy dirge for you.`n`n", Settings::getsetting("bard", "`^Seth"));
 		OutputClass::output("You feel lower in spirits, you may not be able to face as many villains today.");
 		$session['user']['turns']--;
 		if ($session['user']['turns']<0)
@@ -257,7 +257,7 @@ function sethsong_sing()
 		OutputClass::output("The ants go marching one by one and the littlest one stops to suck his thumb, and they all go marching down, to the ground, to get out of the rain...`n");
 		OutputClass::output("bum bum bum`n");
 		OutputClass::output("The ants go marching two by two, hoorah, hoorah!....`n`n");
-		OutputClass::output("%s`0 continues to sing, but not wishing to learn how high he can count, you quietly leave.`n`n", getsetting("bard", "`^Seth"));
+		OutputClass::output("%s`0 continues to sing, but not wishing to learn how high he can count, you quietly leave.`n`n", Settings::getsetting("bard", "`^Seth"));
 		OutputClass::output("Having rested a while, you feel refreshed.");
 		if($session['user']['hitpoints'] < $session['user']['maxhitpoints'])
 			$session['user']['hitpoints'] = $session['user']['maxhitpoints'];
@@ -265,21 +265,21 @@ function sethsong_sing()
 	case 13:
 		OutputClass::output("There once was a lady from Venus, her body was shaped like a ...`n`n");
 		if ($session['user']['sex']==SEX_FEMALE){
-			OutputClass::output("%s`0 is cut short by a curt slap across his face!", getsetting("bard", "`^Seth"));
+			OutputClass::output("%s`0 is cut short by a curt slap across his face!", Settings::getsetting("bard", "`^Seth"));
 			OutputClass::output("Feeling rowdy, you gain a forest fight.");
 		}else{
-			OutputClass::output("%s`0 is cut short as you burst out in laughter, not even having to hear the end of the rhyme.", getsetting("bard", "`^Seth"));
+			OutputClass::output("%s`0 is cut short as you burst out in laughter, not even having to hear the end of the rhyme.", Settings::getsetting("bard", "`^Seth"));
 			OutputClass::output("Feeling inspired, you gain a forest fight.");
 		}
 		$session['user']['turns']++;
 		break;
 	case 14:
-		OutputClass::output("%s`0 plays a rousing call-to-battle that wakes the warrior spirit inside of you.`n`n", getsetting("bard", "`^Seth"));
+		OutputClass::output("%s`0 plays a rousing call-to-battle that wakes the warrior spirit inside of you.`n`n", Settings::getsetting("bard", "`^Seth"));
 		OutputClass::output("`0You gain a forest fight!");
 		$session['user']['turns']++;
 		break;
 	case 15:
-		OutputClass::output("%s`0 seems preoccupied with your... eyes.`n`n", getsetting("bard", "`^Seth"));
+		OutputClass::output("%s`0 seems preoccupied with your... eyes.`n`n", Settings::getsetting("bard", "`^Seth"));
 		if ($session['user']['sex']==SEX_FEMALE){
 			OutputClass::output("`0You receive one charm point!");
 			$session['user']['charm']++;
@@ -290,7 +290,7 @@ function sethsong_sing()
 		}
 		break;
 	case 16:
-		OutputClass::output("%s`0 begins to play, but a lute string snaps, striking you square in the eye.`n`n", getsetting("bard", "`^Seth"));
+		OutputClass::output("%s`0 begins to play, but a lute string snaps, striking you square in the eye.`n`n", Settings::getsetting("bard", "`^Seth"));
 		OutputClass::output("`0\"`^Whoops, careful, you'll shoot your eye out kid!`0\"`n`n");
 		OutputClass::output("You lose some hitpoints!");
 		$session['user']['hitpoints']-=round($session['user']['maxhitpoints']*($sloss/100),0);
@@ -298,15 +298,15 @@ function sethsong_sing()
 			$session['user']['hitpoints']=1;
 		break;
 	case 17:
-		OutputClass::output("%s`0 begins to play, but a rowdy patron stumbles past, spilling beer on you.", getsetting("bard", "`^Seth"));
+		OutputClass::output("%s`0 begins to play, but a rowdy patron stumbles past, spilling beer on you.", Settings::getsetting("bard", "`^Seth"));
 		OutputClass::output("You miss the performance as you wipe the swill from your %s.", $session['user']['armor']);
 		break;
 	case 18:
-		OutputClass::output("%s`0 stares at you thoughtfully, obviously rapidly composing an epic poem...`n`n", getsetting("bard", "`^Seth"));
+		OutputClass::output("%s`0 stares at you thoughtfully, obviously rapidly composing an epic poem...`n`n", Settings::getsetting("bard", "`^Seth"));
 		OutputClass::output("`^U-G-L-Y, You ain't got no alibi -- you ugly, yeah yeah, you ugly!`n`n");
 		$session['user']['charm']--;
 		if ($session['user']['charm']<0){
-			OutputClass::output("`0If you had any charm, you'd have been offended, instead, %s`0 breaks a lute string.", getsetting("bard", "`^Seth"));
+			OutputClass::output("`0If you had any charm, you'd have been offended, instead, %s`0 breaks a lute string.", Settings::getsetting("bard", "`^Seth"));
 		}else{
 			OutputClass::output("`n`n`0Depressed, you lose a charm point.");
 		}

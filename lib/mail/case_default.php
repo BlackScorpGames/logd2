@@ -39,22 +39,22 @@ if ($db_num_rows>0){
 		rawoutput("</tr>");
 	}
 	rawoutput("</table>");
-	$checkall = htmlentities(translate_inline("Check All"), ENT_COMPAT, getsetting("charset", "ISO-8859-1"));
+	$checkall = htmlentities(translate_inline("Check All"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
 	rawoutput("<input type='button' value=\"$checkall\" class='button' onClick='
 		var elements = document.getElementsByName(\"msg[]\");
 		for(i = 0; i < elements.length; i++) {
 			elements[i].checked = true;
 		}
 	'>");
-	$delchecked = htmlentities(translate_inline("Delete Checked"), ENT_COMPAT, getsetting("charset", "ISO-8859-1"));
+	$delchecked = htmlentities(translate_inline("Delete Checked"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
 	rawoutput("<input type='submit' class='button' value=\"$delchecked\">");
 	rawoutput("</form>");
 }else{
 	OutputClass::output("`iAww, you have no mail, how sad.`i");
 }
 if (db_num_rows($result) == 1) {
-	OutputClass::output("`n`n`iYou currently have 1 message in your inbox.`nYou will no longer be able to receive messages from players if you have more than %s unread messages in your inbox.  `nMessages are automatically deleted (read or unread) after %s days.",getsetting('inboxlimit',50),getsetting("oldmail",14));
+	OutputClass::output("`n`n`iYou currently have 1 message in your inbox.`nYou will no longer be able to receive messages from players if you have more than %s unread messages in your inbox.  `nMessages are automatically deleted (read or unread) after %s days.",Settings::getsetting('inboxlimit',50),Settings::getsetting("oldmail",14));
 } else {
-	OutputClass::output("`n`n`iYou currently have %s messages in your inbox.`nYou will no longer be able to receive messages from players if you have more than %s unread messages in your inbox.  `nMessages are automatically deleted (read or unread) after %s days.",db_num_rows($result),getsetting('inboxlimit',50),getsetting("oldmail",14));
+	OutputClass::output("`n`n`iYou currently have %s messages in your inbox.`nYou will no longer be able to receive messages from players if you have more than %s unread messages in your inbox.  `nMessages are automatically deleted (read or unread) after %s days.",db_num_rows($result),Settings::getsetting('inboxlimit',50),Settings::getsetting("oldmail",14));
 }
 ?>

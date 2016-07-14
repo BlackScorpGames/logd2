@@ -1,6 +1,6 @@
 <?php
 	PageParts::page_header("Clan Halls");
-	$registrar=getsetting('clanregistrar','`%Karissa');
+	$registrar=Settings::getsetting('clanregistrar','`%Karissa');
 	addnav("Clan Options");
 	OutputClass::output("`b`c`&Clan Halls`c`b");
 	if ($op=="apply"){

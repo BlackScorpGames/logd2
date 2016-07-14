@@ -36,7 +36,7 @@ OutputClass::output("When the clock strikes midnight, expect a new day to begin.
 OutputClass::output("The number of times a clock in LotGD strikes midnight per calendar day may vary by server.");
 OutputClass::output("Beta server has 4 play days per calendar day, main server at LotGD.net has 2.");
 OutputClass::output("Other servers depend on the admin.`n");
-OutputClass::output("This server has %s days per calendar day.`n`n", getsetting("daysperday", 2));
+OutputClass::output("This server has %s days per calendar day.`n`n", Settings::getsetting("daysperday", 2));
 OutputClass::output("`^8. Something's gone wrong!!!  How do I let you know?`n");
 OutputClass::output("`@Send money.");
 OutputClass::output("Better yet, send a petition.");

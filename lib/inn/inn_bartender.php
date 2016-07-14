@@ -54,11 +54,11 @@ if ($act==""){
 			if (e_rand(0,100)<$chance){
 				OutputClass::output("%s`0 leans over the counter toward you.  \"`%What can I do for you, kid?`0\" he asks.",$barkeep);
 				addnav("What do you want?");
-				if (getsetting("pvp",1)) {
+				if (Settings::getsetting("pvp",1)) {
 					addnav("Who's upstairs?","inn.php?op=bartender&act=listupstairs");
 				}
 				addnav("Tell me about colors","inn.php?op=bartender&act=colors");
-				if (getsetting("allowspecialswitch", true))
+				if (Settings::getsetting("allowspecialswitch", true))
 					addnav("Switch specialty","inn.php?op=bartender&act=specialty");
 			}else{
 				OutputClass::output("%s`0 begins to wipe down the counter top, an act that really needed doing a long time ago.",$barkeep);
@@ -94,7 +94,7 @@ if ($act==""){
 	OutputClass::output("`% Got it?`0\"  You can practice below:");
 	rawoutput("<form action=\"$REQUEST_URI\" method='POST'>",true);
 	$testtext = httppost('testtext');
-	OutputClass::output("You entered %s`n", prevent_colors(HTMLEntities($testtext, ENT_COMPAT, getsetting("charset", "ISO-8859-1"))), true);
+	OutputClass::output("You entered %s`n", prevent_colors(HTMLEntities($testtext, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))), true);
 	OutputClass::output("It looks like %s`n", $testtext);
 	$try = translate_inline("Try");
 	rawoutput("<input name='testtext' id='input'>");
