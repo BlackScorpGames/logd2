@@ -53,7 +53,7 @@ if ($dkills-$dp > 1) {
 		if (isset($canbuy[$type]) && $canbuy[$type]) {
 			rawoutput("<tr><td nowrap>");
 			OutputClass::output($label);
-			output_notl(":");
+			OutputClass::output_notl(":");
 			rawoutput("</td><td>");
 			rawoutput("<input id='$type' name='$type' size='4' maxlength='4' value='{$pdks[$type]}' onKeyUp='pointsLeft();' onBlur='pointsLeft();' onFocus='pointsLeft();'>");
 			rawoutput("</td></tr>");
@@ -107,9 +107,9 @@ if ($dkills-$dp > 1) {
 		if ($type == 'unknown' && $dist[$type] == 0) continue;
 		rawoutput("<tr><td nowrap>");
 		OutputClass::output($label);
-		output_notl(":");
+		OutputClass::output_notl(":");
 		rawoutput("</td><td>&nbsp;&nbsp;</td><td>");
-		output_notl("`@%s", $dist[$type]);
+		OutputClass::output_notl("`@%s", $dist[$type]);
 		rawoutput("</td></tr>");
 	}
 	rawoutput("</table>");

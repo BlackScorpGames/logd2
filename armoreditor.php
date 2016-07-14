@@ -93,13 +93,13 @@ if ($op==""){
 		OutputClass::addnav("","armoreditor.php?op=edit&id={$row['armorid']}&level=$armorlevel");
 		OutputClass::addnav("","armoreditor.php?op=del&id={$row['armorid']}&level=$armorlevel");
 		rawoutput("<td>");
-		output_notl($row['armorname']);
+		OutputClass::output_notl($row['armorname']);
 		rawoutput("</td><td>");
-		output_notl($row['value']);
+		OutputClass::output_notl($row['value']);
 		rawoutput("</td><td>");
-		output_notl($row['defense']);
+		OutputClass::output_notl($row['defense']);
 		rawoutput("</td><td>");
-		output_notl($row['level']);
+		OutputClass::output_notl($row['level']);
 		rawoutput("</td>");
 		rawoutput("</tr>");
 	}

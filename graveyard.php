@@ -74,7 +74,7 @@ if ($battle){
 		Translator::tlschema("battle");
 		$msg = Translator::translate_inline($badguy['creaturelose']);
 		Translator::tlschema();
-		output_notl("`b`&%s`0`b`n", $msg);
+		OutputClass::output_notl("`b`&%s`0`b`n", $msg);
 		OutputClass::output("`b`\$You have tormented %s!`0`b`n", $badguy['creaturename']);
 		OutputClass::output("`#You receive `^%s`# favor with `\$%s`#!`n`0", $badguy['creatureexp'],$deathoverlord);
 		$session['user']['deathpower']+=$badguy['creatureexp'];

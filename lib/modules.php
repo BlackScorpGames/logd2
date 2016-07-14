@@ -30,7 +30,7 @@ function injectmodule($modulename,$force=false){
 			//or doesn't meet the prerequisites.
 			if (db_num_rows($result)==0) {
 				Translator::tlschema();
-			 	output_notl("`n`3Module `#%s`3 is not installed, but was attempted to be injected.`n",$modulename);
+			 	OutputClass::output_notl("`n`3Module `#%s`3 is not installed, but was attempted to be injected.`n",$modulename);
 				$injected_modules[$force][$modulename]=false;
 				return false;
 			}

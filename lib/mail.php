@@ -63,7 +63,7 @@ array_push($args, array("mail.php?op=address",$write));
 // and "functionname" is the name of the mail function to add
 $mailfunctions = Modules::modulehook("mailfunctions", $args);
 
-//output_notl("<table width='25%' border='0' cellpadding='0' cellspacing='2'><tr><td><a href='mail.php' class='motd'>$inbox</a></td><td><a href='mail.php?op=address' class='motd'>$write</a></td>", true);
+//OutputClass::output_notl("<table width='25%' border='0' cellpadding='0' cellspacing='2'><tr><td><a href='mail.php' class='motd'>$inbox</a></td><td><a href='mail.php?op=address' class='motd'>$write</a></td>", true);
 rawoutput("<table width='50%' border='0' cellpadding='0' cellspacing='2'>");
 rawoutput("<tr>");
 for($i=0;$i<count($mailfunctions);$i++) {
@@ -79,7 +79,7 @@ for($i=0;$i<count($mailfunctions);$i++) {
 	}
 }
 rawoutput("</tr></table>");
-output_notl("`n`n");
+OutputClass::output_notl("`n`n");
 
 if($op=="send"){
 	$to = httppost('to');
@@ -125,7 +125,7 @@ if ($op==""){
 	$sql = "SELECT subject,messageid," . db_prefix("accounts") . ".name,msgfrom,seen,sent FROM " . db_prefix("mail") . " LEFT JOIN " . db_prefix("accounts") . " ON " . db_prefix("accounts") . ".acctid=" . db_prefix("mail") . ".msgfrom WHERE msgto=\"".$session['user']['acctid']."\" ORDER BY sent DESC";
 	$result = db_query($sql);
 	if (db_num_rows($result)>0){
-		output_notl("<form action='mail.php?op=process' method='POST'><table>",true);
+		OutputClass::output_notl("<form action='mail.php?op=process' method='POST'><table>",true);
 		for ($i=0;$i<db_num_rows($result);$i++){
 			$row = db_fetch_assoc($result);
 			if ((int)$row['msgfrom']==0){
@@ -139,29 +139,29 @@ if ($op==""){
 								$row['subject']);
 				}
 			}
-			output_notl("<tr>",true);
-			output_notl("<td nowrap><input id='checkbox$i' type='checkbox' name='msg[]' value='{$row['messageid']}'><img src='images/".($row['seen']?"old":"new")."scroll.GIF' width='16' height='16' alt='".($row['seen']?"Old":"New")."'></td>",true);
-			output_notl("<td><a href='mail.php?op=read&id={$row['messageid']}'>",true);
+			OutputClass::output_notl("<tr>",true);
+			OutputClass::output_notl("<td nowrap><input id='checkbox$i' type='checkbox' name='msg[]' value='{$row['messageid']}'><img src='images/".($row['seen']?"old":"new")."scroll.GIF' width='16' height='16' alt='".($row['seen']?"Old":"New")."'></td>",true);
+			OutputClass::output_notl("<td><a href='mail.php?op=read&id={$row['messageid']}'>",true);
 			if (trim($row['subject'])=="")
 				OutputClass::output("`i(No Subject)`i");
 			else
-				output_notl($row['subject']);
-			output_notl("</a></td><td><a href='mail.php?op=read&id={$row['messageid']}'>",true);
-			output_notl($row['name']);
-			output_notl("</a></td><td><a href='mail.php?op=read&id={$row['messageid']}'>".date("M d, h:i a",strtotime($row['sent']))."</a></td>",true);
-			output_notl("</tr>",true);
+				OutputClass::output_notl($row['subject']);
+			OutputClass::output_notl("</a></td><td><a href='mail.php?op=read&id={$row['messageid']}'>",true);
+			OutputClass::output_notl($row['name']);
+			OutputClass::output_notl("</a></td><td><a href='mail.php?op=read&id={$row['messageid']}'>".date("M d, h:i a",strtotime($row['sent']))."</a></td>",true);
+			OutputClass::output_notl("</tr>",true);
 		}
-		output_notl("</table>",true);
+		OutputClass::output_notl("</table>",true);
 		$checkall = htmlentities(Translator::translate_inline("Check All"));
 		$out="<input type='button' value=\"$checkall\" class='button' onClick='";
 		for ($i=$i-1;$i>=0;$i--){
 			$out.="document.getElementById(\"checkbox$i\").checked=true;";
 		}
 		$out.="'>";
-		output_notl($out,true);
+		OutputClass::output_notl($out,true);
 		$delchecked = htmlentities(Translator::translate_inline("Delete Checked"));
-		output_notl("<input type='submit' class='button' value=\"$delchecked\">",true);
-		output_notl("</form>",true);
+		OutputClass::output_notl("<input type='submit' class='button' value=\"$delchecked\">",true);
+		OutputClass::output_notl("</form>",true);
 	}else{
 		OutputClass::output("`iAww, you have no mail, how sad.`i");
 	}
@@ -191,9 +191,9 @@ if ($op==""){
 		OutputClass::output("`b`2From:`b `^%s`n",$row['name']);
 		OutputClass::output("`b`2Subject:`b `^%s`n",$row['subject']);
 		OutputClass::output("`b`2Sent:`b `^%s`n",$row['sent']);
-		output_notl("<img src='images/uscroll.GIF' width='182' height='11' alt='' align='center'>`n",true);
-		output_notl(str_replace("\n","`n",$row['body']));
-		output_notl("`n<img src='images/lscroll.GIF' width='182' height='11' alt='' align='center'>`n",true);
+		OutputClass::output_notl("<img src='images/uscroll.GIF' width='182' height='11' alt='' align='center'>`n",true);
+		OutputClass::output_notl(str_replace("\n","`n",$row['body']));
+		OutputClass::output_notl("`n<img src='images/lscroll.GIF' width='182' height='11' alt='' align='center'>`n",true);
 
 		$sql = "UPDATE " . db_prefix("mail") . " SET seen=1 WHERE  msgto=\"".$session['user']['acctid']."\" AND messageid=\"".$id."\"";
 		db_query($sql);
@@ -245,16 +245,16 @@ if ($op==""){
 		OutputClass::output("Eek, no such message was found!");
 	}
 }elseif($op=="address"){
-	output_notl("<form action='mail.php?op=write' method='POST'>",true);
+	OutputClass::output_notl("<form action='mail.php?op=write' method='POST'>",true);
 	OutputClass::output("`b`2Address:`b`n");
 	$to = Translator::translate_inline("To: ");
 	$search = htmlentities(Translator::translate_inline("Search"));
-	output_notl("`2$to <input name='to' value=\"".htmlentities(stripslashes(Http::httpget('prepop')))."\"> <input type='submit' class='button' value=\"$search\"></form>",true);
+	OutputClass::output_notl("`2$to <input name='to' value=\"".htmlentities(stripslashes(Http::httpget('prepop')))."\"> <input type='submit' class='button' value=\"$search\"></form>",true);
 }elseif($op=="write"){
 	$subject=httppost('subject');
 	$body="";
 	$row = "";
-	output_notl("<form action='mail.php?op=send' method='POST'>",true);
+	OutputClass::output_notl("<form action='mail.php?op=send' method='POST'>",true);
 	$replyto = Http::httpget('replyto');
 	if ($replyto!=""){
 		$sql = "SELECT ". db_prefix("mail") . ".body," . db_prefix("mail") . ".msgfrom, " . db_prefix("mail") . ".subject,". db_prefix("accounts") . ".login, superuser, " . db_prefix("accounts"). ".name FROM " . db_prefix("mail") . " LEFT JOIN " . db_prefix("accounts") . " ON " . db_prefix("accounts") . ".acctid=" . db_prefix("mail") . ".msgfrom WHERE msgto=\"".$session['user']['acctid']."\" AND messageid=\"".$replyto."\"";
@@ -308,7 +308,7 @@ if ($op==""){
 	rawoutput("<input type='hidden' name='returnto' value=\"".htmlentities(stripslashes(Http::httpget("replyto")))."\">");
 	$superusers = array();
 	if (isset($row['login']) && $row['login']!=""){
-		output_notl("<input type='hidden' name='to' id='to' value=\"".htmlentities($row['login'])."\">",true);
+		OutputClass::output_notl("<input type='hidden' name='to' id='to' value=\"".htmlentities($row['login'])."\">",true);
 		OutputClass::output("`2To: `^%s`n",$row['name']);
 		if (($row['superuser'] & SU_GIVES_YOM_WARNING) &&
                 !($row['superuser'] & SU_OVERRIDE_YOM_WARNING)) {
@@ -325,8 +325,8 @@ if ($op==""){
 		$result = db_query($sql);
 		if (db_num_rows($result)==1){
 			$row = db_fetch_assoc($result);
-			output_notl("<input type='hidden' id='to' name='to' value=\"".htmlentities($row['login'])."\">",true);
-			output_notl("`^{$row['name']}`n");
+			OutputClass::output_notl("<input type='hidden' id='to' name='to' value=\"".htmlentities($row['login'])."\">",true);
+			OutputClass::output_notl("`^{$row['name']}`n");
 			if (($row['superuser'] & SU_GIVES_YOM_WARNING) &&
                     !($row['superuser'] & SU_OVERRIDE_YOM_WARNING)) {
 				array_push($superusers,$row['login']);
@@ -334,22 +334,22 @@ if ($op==""){
 		}elseif (db_num_rows($result)==0){
 			OutputClass::output("`@No one was found who matches \"%s\".  ",stripslashes($to));
 			$try = Translator::translate_inline("Please try again");
-			output_notl("<a href=\"mail.php?op=address&prepop=".rawurlencode(stripslashes(htmlentities($to)))."\">$try</a>.",true);
+			OutputClass::output_notl("<a href=\"mail.php?op=address&prepop=".rawurlencode(stripslashes(htmlentities($to)))."\">$try</a>.",true);
 			popup_footer();
 			exit();
 		}else{
-			output_notl("<select name='to' id='to' onChange='check_su_warning();'>",true);
+			OutputClass::output_notl("<select name='to' id='to' onChange='check_su_warning();'>",true);
 			$superusers = array();
 			for ($i=0;$i<db_num_rows($result);$i++){
 				$row = db_fetch_assoc($result);
-				output_notl("<option value=\"".HTMLEntities($row['login'])."\">",true);
-				output_notl("%s", full_sanitize($row['name']));
+				OutputClass::output_notl("<option value=\"".HTMLEntities($row['login'])."\">",true);
+				OutputClass::output_notl("%s", full_sanitize($row['name']));
 				if (($row['superuser'] & SU_GIVES_YOM_WARNING) &&
                         !($row['superuser'] & SU_OVERRIDE_YOM_WARNING)) {
 					array_push($superusers,$row['login']);
                 }
 			}
-			output_notl("</select>`n",true);
+			OutputClass::output_notl("</select>`n",true);
 		}
 	}
 	rawoutput("<script language='JavaScript'>
@@ -367,7 +367,7 @@ if ($op==""){
 	rawoutput("<textarea name='body' id='textarea' class='input' cols='60' rows='9' onKeyUp='sizeCount(this);'>".HTMLEntities($body).HTMLEntities(stripslashes(Http::httpget('body')))."</textarea><br>");
 	$send = Translator::translate_inline("Send");
 	rawoutput("<table border='0' cellpadding='0' cellspacing='0' width='100%'><tr><td><input type='submit' class='button' value='$send'></td><td align='right'><div id='sizemsg'></div></td></tr></table>");
-	output_notl("</form>",true);
+	OutputClass::output_notl("</form>",true);
 	$sizemsg = "`#Max message size is `@%s`#, you have `^XX`# characters left.";
 	$sizemsg = Translator::translate_inline($sizemsg);
 	$sizemsg = sprintf($sizemsg,Settings::getsetting("mailsizelimit",1024));

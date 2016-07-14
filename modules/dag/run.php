@@ -73,11 +73,11 @@ function dag_run_private(){
 			usort($listing, 'dag_sortbountieslevel');
 		for($i=0;$i<$totlist;$i++) {
 			rawoutput("<tr class='".($i%2?"trdark":"trlight")."'><td>");
-			output_notl("`^%s`0", $listing[$i]['Amount']);
+			OutputClass::output_notl("`^%s`0", $listing[$i]['Amount']);
 			rawoutput("</td><td>");
-			output_notl("`^%s`0", $listing[$i]['Level']);
+			OutputClass::output_notl("`^%s`0", $listing[$i]['Level']);
 			rawoutput("</td><td>");
-			output_notl("`^%s`0", $listing[$i]['Name']);
+			OutputClass::output_notl("`^%s`0", $listing[$i]['Name']);
 			rawoutput("</td><td>");
 			OutputClass::output($listing[$i]['LoggedIn']?"`#Online`0":$listing[$i]['Location']);
 			rawoutput("</td><td>");
@@ -86,7 +86,7 @@ function dag_run_private(){
 			OutputClass::output($listing[$i]['Alive']?"`1Yes`0":"`4No`0");
 			rawoutput("</td><td>");
 			$laston = relativedate($listing[$i]['LastOn']);
-			output_notl("%s", $laston);
+			OutputClass::output_notl("%s", $laston);
 			rawoutput("</td></tr>");
 		}
 		rawoutput("</table>");
@@ -108,10 +108,10 @@ function dag_run_private(){
 			rawoutput("<form action='runmodule.php?module=dag&op=finalize' method='POST'>");
 			OutputClass::output("`2Target: ");
 			rawoutput("<input name='contractname'>");
-			output_notl("`n");
+			OutputClass::output_notl("`n");
 			OutputClass::output("`2Amount to Place: ");
 			rawoutput("<input name='amount' id='amount' width='5'>");
-			output_notl("`n`n");
+			OutputClass::output_notl("`n`n");
 			$final = Translator::translate_inline("Finalize Contract");
 			rawoutput("<input type='submit' class='button' value='$final'>");
 			rawoutput("</form>");
@@ -143,11 +143,11 @@ function dag_run_private(){
 				rawoutput("<option value=\"".rawurlencode($row['name'])."\">".full_sanitize($row['name'])."</option>");
 			}
 			rawoutput("</select>");
-			output_notl("`n`n");
+			OutputClass::output_notl("`n`n");
 			$amount = httppost('amount');
 			OutputClass::output("`2Amount to Place: ");
 			rawoutput("<input name='amount' id='amount' width='5' value='$amount'>");
-			output_notl("`n`n");
+			OutputClass::output_notl("`n`n");
 			$final = Translator::translate_inline("Finalize Contract");
 			rawoutput("<input type='submit' class='button' value='$final'>");
 			rawoutput("</form>");

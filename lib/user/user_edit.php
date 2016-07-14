@@ -34,7 +34,7 @@ if (Http::httpget("subop")==""){
 	$save = Translator::translate_inline("Save");
 	rawoutput("<input type='submit' class='button' value='$save'>");
 	if ($row['loggedin']==1 && $row['laston']>date("Y-m-d H:i:s",strtotime("-".Settings::getsetting("LOGINTIMEOUT",900)." seconds"))){
-		output_notl("`\$");
+		OutputClass::output_notl("`\$");
 		rawoutput("<span style='font-size: 20px'>");
 		OutputClass::output("`\$Warning:`0");
 		rawoutput("</span>");

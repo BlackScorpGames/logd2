@@ -16,9 +16,9 @@
 		if ($claninfo['clanmotd'] != '') {
 			rawoutput("<div style='margin-left: 15px; padding-left: 15px;'>");
 			OutputClass::output("`&`bCurrent MoTD:`b `#by %s`2`n",$motdauthname);
-			output_notl(nltoappon($claninfo['clanmotd'])."`n");
+			OutputClass::output_notl(nltoappon($claninfo['clanmotd'])."`n");
 			rawoutput("</div>");
-			output_notl("`n");
+			OutputClass::output_notl("`n");
 		}
 
 		commentdisplay("", "clan-{$claninfo['clanid']}","Speak",25,($claninfo['customsay']>''?$claninfo['customsay']:"says"));
@@ -28,7 +28,7 @@
 		if ($claninfo['clandesc'] != '') {
 			Modules::modulehook("collapse{", array("name"=>"collapsedesc"));
 			OutputClass::output("`n`n`&`bCurrent Description:`b `#by %s`2`n",$descauthname);
-			output_notl(nltoappon($claninfo['clandesc']));
+			OutputClass::output_notl(nltoappon($claninfo['clandesc']));
 			Modules::modulehook("}collapse");
 		}
 		$sql = "SELECT count(*) AS c, clanrank FROM " . db_prefix("accounts") . " WHERE clanid={$claninfo['clanid']} GROUP BY clanrank DESC";
@@ -38,7 +38,7 @@
 		OutputClass::output("`n`n`bMembership Details:`b`n");
 		$leaders = 0;
 		while ($row = db_fetch_assoc($result)){
-			output_notl($ranks[$row['clanrank']].": `0".$row['c']."`n");
+			OutputClass::output_notl($ranks[$row['clanrank']].": `0".$row['c']."`n");
 			if ($row['clanrank']>CLAN_OFFICER) $leaders += $row['c'];
 		}
 		OutputClass::output("`n");
@@ -52,7 +52,7 @@
 				$row = db_fetch_assoc($result);
 				$sql = "UPDATE " . db_prefix("accounts") . " SET clanrank=".CLAN_LEADER." WHERE acctid={$row['acctid']}";
 				db_query($sql);
-				output_notl($noleader,$row['name']);
+				OutputClass::output_notl($noleader,$row['name']);
 				if ($row['acctid']==$session['user']['acctid']){
 					//if it's the current user, we'll need to update their
 					//session in order for the db write to take effect.

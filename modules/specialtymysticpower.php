@@ -126,7 +126,7 @@ function specialtymysticpower_dohook($hookname,$args){
 					OutputClass::output("`n`^Only %s more skill levels until you gain an extra use point!`n", (3-$x));
 				}
 			}
-			output_notl("`0");
+			OutputClass::output_notl("`0");
 		}
 		break;
 	case "newday":

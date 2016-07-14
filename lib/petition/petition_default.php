@@ -71,10 +71,10 @@ if (count($post)>0){
 	rawoutput("<form action='petition.php?op=submit' method='POST'>");
 	if ($session['user']['loggedin']) {
 		OutputClass::output("Your Character's Name: ");
-		output_notl("%s", $session['user']['name']);
+		OutputClass::output_notl("%s", $session['user']['name']);
 		rawoutput("<input type='hidden' name='charname' value=\"".htmlentities($session['user']['name'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
 		OutputClass::output("`nYour email address: ");
-		output_notl("%s", htmlentities($session['user']['emailaddress']));
+		OutputClass::output_notl("%s", htmlentities($session['user']['emailaddress']));
 		rawoutput("<input type='hidden' name='email' value=\"".htmlentities($session['user']['emailaddress'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
 	} else {
 		OutputClass::output("Your Character's Name: ");

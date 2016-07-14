@@ -71,7 +71,7 @@ if ($op=="fight"){
 				if (is_array($badguy['cannotbetarget'])) {
 					$msg = sprintf_translate($badguy['cannotbetarget']);
 					$msg = substitute($msg);
-					output_notl($msg); //Here it's already translated
+					OutputClass::output_notl($msg); //Here it's already translated
 				}else{
 					if ($badguy['cannotbetarget'] === true) {
 						$msg = "{badguy} cannot be selected as target.";
@@ -99,7 +99,7 @@ if ($enemycounter > 0) {
 			OutputClass::output("`@You have encountered `^%s`@ which lunges at you with `%%s`@!`0`n",$badguy['creaturename'],$badguy['creatureweapon']);
 		}
 	}
-	output_notl("`n");
+	OutputClass::output_notl("`n");
 	show_enemies($enemies);
 }
 
@@ -433,7 +433,7 @@ if ($op != "newtarget") {
 					if (is_array($badguy['fleesifalone'])) {
 						$msg = sprintf_translate($badguy['fleesifalone']);
 						$msg = substitute($msg);
-						output_notl($msg); //Here it's already translated
+						OutputClass::output_notl($msg); //Here it's already translated
 					}else{
 						if ($badguy['fleesifalone'] === true) {
 							$msg = "{badguy} flees in panic.";
@@ -451,7 +451,7 @@ if ($op != "newtarget") {
 			if (is_array($badguy['essentialleader'])) {
 				$msg = sprintf_translate($badguy['essentialleader']);
 				$msg = substitute($msg);
-				output_notl($msg); //Here it's already translated
+				OutputClass::output_notl($msg); //Here it's already translated
 			}else{
 				if ($badguy['essentialleader'] === true) {
 					$msg = "All other other enemies flee in panic as `^{badguy}`5 falls to the ground.";

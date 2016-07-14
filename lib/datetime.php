@@ -70,7 +70,7 @@ function relativedate($indate){
 function checkday() {
 	global $session,$revertsession,$REQUEST_URI;
 	if ($session['user']['loggedin']){
-		output_notl("<!--CheckNewDay()-->",true);
+		OutputClass::output_notl("<!--CheckNewDay()-->",true);
 		if(is_new_day()){
 			$session=$revertsession;
 			$session['user']['restorepage']=$REQUEST_URI;

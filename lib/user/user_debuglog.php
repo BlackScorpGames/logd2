@@ -59,14 +59,14 @@ $odate = "";
 while ($row = db_fetch_assoc($result)) {
 	$dom = date("D, M d",strtotime($row['date']));
 	if ($odate != $dom){
-		output_notl("`n`b`@%s`0`b`n", $dom);
+		OutputClass::output_notl("`n`b`@%s`0`b`n", $dom);
 		$odate = $dom;
 	}
 	$time = date("H:i:s", strtotime($row['date']))." (".reltime(strtotime($row['date'])).")";
-	output_notl("`#%s (%s) `^%s - `&%s`7 %s`0", $row['field'], $row['value'], $time, $row['actorname'], $row['message']);
+	OutputClass::output_notl("`#%s (%s) `^%s - `&%s`7 %s`0", $row['field'], $row['value'], $time, $row['actorname'], $row['message']);
 	if ($row['target']) {
 		OutputClass::output(" \\-- Recipient = `\$%s`0", $row['targetname']);
 	}
-	output_notl("`n");
+	OutputClass::output_notl("`n");
 }
 ?>

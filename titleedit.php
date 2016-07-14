@@ -87,14 +87,14 @@ if ($op == ""){
 		OutputClass::addnav("","titleedit.php?op=edit&id=$id");
 		OutputClass::addnav("","titleedit.php?op=delete&id=$id");
 		rawoutput("<td>");
-		output_notl("`&%s`0",$row['dk']);
+		OutputClass::output_notl("`&%s`0",$row['dk']);
 		rawoutput("</td><td>");
 		// reftag is currently unused
 		// OutputClass::output("`^%s`0", $row['ref']);
 		// OutputClass::output("</td><td>");
-		output_notl("`2%s`0",$row['male']);
+		OutputClass::output_notl("`2%s`0",$row['male']);
 		rawoutput("</td><td>");
-		output_notl("`6%s`0",$row['female']);
+		OutputClass::output_notl("`6%s`0",$row['female']);
 		rawoutput("</td></tr>");
 		$i++;
 	}

@@ -62,7 +62,7 @@ if ($op==""){
 		)
 	);
 	foreach($points_messages['messages'] as $id => $message){
-		output_notl($message, true);
+		OutputClass::output_notl($message, true);
 	}
 	OutputClass::output("\"`&But what are points,`7\" you ask?");
 	OutputClass::output("Points can be redeemed for various advantages in the game.");

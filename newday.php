@@ -157,7 +157,7 @@ if ($dp < $dkills) {
 			if (array_key_exists('newdaymessage', $val) &&
 					$val['newdaymessage']) {
 				OutputClass::output($val['newdaymessage']);
-				output_notl("`n");
+				OutputClass::output_notl("`n");
 			}
 			if (array_key_exists('schema', $val) && $val['schema'])
 				Translator::tlschema();

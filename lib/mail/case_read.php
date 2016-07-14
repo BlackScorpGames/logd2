@@ -30,9 +30,9 @@ if (db_num_rows($result)>0){
 	OutputClass::output("`b`2From:`b `^%s`n",$row['name']);
 	OutputClass::output("`b`2Subject:`b `^%s`n",$row['subject']);
 	OutputClass::output("`b`2Sent:`b `^%s`n",$row['sent']);
-	output_notl("<img src='images/uscroll.GIF' width='182px' height='11px' alt='' align='center'>`n",true);
-	output_notl(str_replace("\n","`n",$row['body']));
-	output_notl("`n<img src='images/lscroll.GIF' width='182px' height='11px' alt='' align='center'>`n",true);
+	OutputClass::output_notl("<img src='images/uscroll.GIF' width='182px' height='11px' alt='' align='center'>`n",true);
+	OutputClass::output_notl(str_replace("\n","`n",$row['body']));
+	OutputClass::output_notl("`n<img src='images/lscroll.GIF' width='182px' height='11px' alt='' align='center'>`n",true);
 	$sql = "UPDATE " . db_prefix("mail") . " SET seen=1 WHERE  msgto=\"".$session['user']['acctid']."\" AND messageid=\"".$id."\"";
 	db_query($sql);
 	invalidatedatacache("mail-{$session['user']['acctid']}");

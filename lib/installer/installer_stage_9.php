@@ -44,7 +44,7 @@ while (list($key,$val)=each($sql_upgrade_statements)){
 				}
 				$count++;
 				if ($count%10==0 && $count!=count($val))
-				output_notl("`6$count...");
+				OutputClass::output_notl("`6$count...");
 				if (!db_query($sql)) {
 					OutputClass::output("`n`\$Error: `^'%s'`7 executing `#'%s'`7.`n",
 					db_error(), $sql);
@@ -66,7 +66,7 @@ foreach ($default_settings as $setting_name=>$setting_value) {
 		}elseif ($setting_value === false) {
 			$setting_value = "false";
 		}
-		output_notl("Setting $setting_name to default value of $setting_value`n");
+		OutputClass::output_notl("Setting $setting_name to default value of $setting_value`n");
 	}
 }
 rawoutput("</div>");

@@ -26,7 +26,7 @@ while (list($key,$val)=each($order)){
 		$impressum = Settings::getsetting("impressum", "");
 		if ($impressum > "") {
 			require_once("lib/nltoappon.php");
-			output_notl("%s", nltoappon($impressum));
+			OutputClass::output_notl("%s", nltoappon($impressum));
 		}
 		break;
 	case "1":
@@ -37,7 +37,7 @@ while (list($key,$val)=each($order)){
 		 */
 		OutputClass::output("`@Legend of the Green Dragon`nBy Eric Stevens & JT Traub`n`n");
 		OutputClass::output("`cLoGD version ");
-		output_notl("$logd_version`c");
+		OutputClass::output_notl("$logd_version`c");
 		/*
 		 * This section may not be modified, please modify the Server
 		 * Specific section above.

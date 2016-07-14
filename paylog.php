@@ -63,23 +63,23 @@ if ($op==""){
 		$row = db_fetch_assoc($result);
 		$info = unserialize($row['info']);
 		rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td nowrap>");
-		output_notl(date("m/d H:i",strtotime($info['payment_date'])));
+		OutputClass::output_notl(date("m/d H:i",strtotime($info['payment_date'])));
 		rawoutput("</td><td>");
-		output_notl("%s",$row['txnid']);
+		OutputClass::output_notl("%s",$row['txnid']);
 		rawoutput("</td><td>");
-		output_notl("%s", $info['txn_type']);
+		OutputClass::output_notl("%s", $info['txn_type']);
 		rawoutput("</td><td nowrap>");
-		output_notl("%.2f %s", $info['mc_gross'], $info['mc_currency']);
+		OutputClass::output_notl("%.2f %s", $info['mc_gross'], $info['mc_currency']);
 		rawoutput("</td><td>");
-		output_notl("%s", $info['mc_fee']);
+		OutputClass::output_notl("%s", $info['mc_fee']);
 		rawoutput("</td><td>");
-		output_notl("%.2f", (float)$info['mc_gross'] - (float)$info['mc_fee']);
+		OutputClass::output_notl("%.2f", (float)$info['mc_gross'] - (float)$info['mc_fee']);
 		rawoutput("</td><td>");
-		output_notl("%s", Translator::translate_inline($row['processed']?"`@Yes`0":"`\$No`0"));
+		OutputClass::output_notl("%s", Translator::translate_inline($row['processed']?"`@Yes`0":"`\$No`0"));
 		rawoutput("</td><td nowrap>");
 		if ($row['name']>"") {
 			rawoutput("<a href='user.php?op=edit&userid={$row['acctid']}'>");
-			output_notl("`&%s`0 (%d/%d)", $row['name'],  $row['donationspent'],
+			OutputClass::output_notl("`&%s`0 (%d/%d)", $row['name'],  $row['donationspent'],
 					$row['donation']);
 			rawoutput("</a>");
 			OutputClass::addnav("","user.php?op=edit&userid={$row['acctid']}");

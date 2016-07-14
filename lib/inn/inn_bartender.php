@@ -89,8 +89,8 @@ if ($act==""){
 	OutputClass::output("%s`0 continues, \"`%To do colors, here's what you need to do.",$barkeep);
 	OutputClass::output(" First, you use a &#0096; mark (found right above the tab key) followed by 1, 2, 3, 4, 5, 6, 7, !, @, #, $, %, ^, &.", true);
 	OutputClass::output("Each of those corresponds with a color to look like this:");
-	output_notl("`n`1&#0096;1 `2&#0096;2 `3&#0096;3 `4&#0096;4 `5&#0096;5 `6&#0096;6 `7&#0096;7 ",true);
-	output_notl("`n`!&#0096;! `@&#0096;@ `#&#0096;# `\$&#0096;\$ `%&#0096;% `^&#0096;^ `&&#0096;& `n",true);
+	OutputClass::output_notl("`n`1&#0096;1 `2&#0096;2 `3&#0096;3 `4&#0096;4 `5&#0096;5 `6&#0096;6 `7&#0096;7 ",true);
+	OutputClass::output_notl("`n`!&#0096;! `@&#0096;@ `#&#0096;# `\$&#0096;\$ `%&#0096;% `^&#0096;^ `&&#0096;& `n",true);
 	OutputClass::output("`% Got it?`0\"  You can practice below:");
 	rawoutput("<form action=\"$REQUEST_URI\" method='POST'>",true);
 	$testtext = httppost('testtext');

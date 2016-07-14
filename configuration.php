@@ -150,14 +150,14 @@ if ($op=="save"){
 					OutputClass::output("This module is currently active: ");
 					$deactivate = Translator::translate_inline("Deactivate");
 					rawoutput("<a href='modules.php?op=deactivate&module={$module}&cat={$info['category']}'>");
-					output_notl($deactivate);
+					OutputClass::output_notl($deactivate);
 					rawoutput("</a>");
 					OutputClass::addnav("","modules.php?op=deactivate&module={$module}&cat={$info['category']}");
 				}else{
 					OutputClass::output("This module is currently deactivated: ");
 					$deactivate = Translator::translate_inline("Activate");
 					rawoutput("<a href='modules.php?op=activate&module={$module}&cat={$info['category']}'>");
-					output_notl($deactivate);
+					OutputClass::output_notl($deactivate);
 					rawoutput("</a>");
 					OutputClass::addnav("","modules.php?op=activate&module={$module}&cat={$info['category']}");
 				}

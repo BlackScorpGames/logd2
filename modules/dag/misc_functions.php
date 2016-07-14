@@ -42,7 +42,7 @@ function dag_manage(){
 	rawoutput("<input name='getter' value=\"".htmlentities(stripslashes(httppost('getter')))."\">");
 	OutputClass::output(" Target: ");
 	rawoutput("<input name='target' value=\"".htmlentities(stripslashes(httppost('target')))."\">");
-	output_notl("`n");
+	OutputClass::output_notl("`n");
 	OutputClass::output("Order by: ");
 	$id = Translator::translate_inline("ID");
 	$amt = Translator::translate_inline("Amount");
@@ -67,7 +67,7 @@ function dag_manage(){
 		</select>");
 	rawoutput("<input type='radio' name='d' value='1'".(httppost('d')==1?" checked":"")."> $desc");
 	rawoutput("<input type='radio' name='d' value='2'".(httppost('d')==1?"":" checked")."> $asc");
-	output_notl("`n");
+	OutputClass::output_notl("`n");
 	rawoutput("<input type='submit' class='button' value='$search'>");
 	rawoutput("</form>");
 
@@ -76,7 +76,7 @@ function dag_manage(){
 		// ***ADDED***
 		// By Andrew Senger
 		// Adding for new Bounty Code
-		output_notl("`n`n");
+		OutputClass::output_notl("`n`n");
 		OutputClass::output("`c`bThe Bounty List`b`c`n");
 		$sql = "SELECT bountyid,amount,target,setter,setdate FROM " . db_prefix("bounty") . " WHERE status=0 ORDER BY bountyid ASC";
 		$result = db_query($sql);
@@ -118,11 +118,11 @@ function dag_manage(){
 		usort($listing, 'dag_sortbounties');
 		for($i=0;$i<$totlist;$i++) {
 			rawoutput("<tr class='".($i%2?"trdark":"trlight")."'><td>");
-			output_notl("`^%s`0", $listing[$i]['Amount']);
+			OutputClass::output_notl("`^%s`0", $listing[$i]['Amount']);
 			rawoutput("</td><td>");
-			output_notl("`^%s`0", $listing[$i]['Level']);
+			OutputClass::output_notl("`^%s`0", $listing[$i]['Level']);
 			rawoutput("</td><td>");
-			output_notl("`^%s`0", $listing[$i]['Name']);
+			OutputClass::output_notl("`^%s`0", $listing[$i]['Name']);
 			rawoutput("</td><td>");
 			OutputClass::output($loggedin ? "`#Online`0" : $listing[$i]['Location']);
 			rawoutput("</td><td>");
@@ -132,7 +132,7 @@ function dag_manage(){
 			rawoutput("</td><td>");
 			$laston= relativedate($listing[$i]['LastOn']);
 			if ($loggedin) $laston=Translator::translate_inline("Now");
-			output_notl("%s", $laston);
+			OutputClass::output_notl("%s", $laston);
 			rawoutput("</td></tr>");
 		}
 		rawoutput("</table>");
@@ -140,10 +140,10 @@ function dag_manage(){
 		rawoutput("<form action='runmodule.php?module=dag&manage=true&op=addbounty&admin=true' method='POST'>");
 		OutputClass::output("`2Target: ");
 		rawoutput("<input name='contractname'>");
-		output_notl("`n");
+		OutputClass::output_notl("`n");
 		OutputClass::output("`2Amount to Place: ");
 		rawoutput("<input name='amount' id='amount' width='5'>");
-		output_notl("`n`n");
+		OutputClass::output_notl("`n`n");
 		$final = Translator::translate_inline("Finalize Contract");
 		rawoutput("<input type='submit' class='button' value='$final'>");
 		rawoutput("</form>");
@@ -174,11 +174,11 @@ function dag_manage(){
 				rawoutput("<option value=\"".rawurlencode($row['name'])."\">".full_sanitize($row['name'])."</option>");
 			}
 			rawoutput("</select>");
-			output_notl("`n`n");
+			OutputClass::output_notl("`n`n");
 			$amount = httppost('amount');
 			OutputClass::output("`2Amount to Place: ");
 			rawoutput("<input name='amount' id='amount' width='5' value='$amount'>");
-			output_notl("`n`n");
+			OutputClass::output_notl("`n`n");
 			$final = Translator::translate_inline("Finalize Contract");
 			rawoutput("<input type='submit' class='button' value='$final'>");
 			rawoutput("</form>");
@@ -454,21 +454,21 @@ function dag_manage(){
 				}
 			}
 			rawoutput("<tr class='".($i%2?"trdark":"trlight")."'><td>");
-			output_notl("`^%s`0", $row['bountyid']);
+			OutputClass::output_notl("`^%s`0", $row['bountyid']);
 			rawoutput("</td><td>");
-			output_notl("`^%s`0", $row['amount']);
+			OutputClass::output_notl("`^%s`0", $row['amount']);
 			rawoutput("</td><td>");
-			output_notl("`&%s`0", $target['name']);
+			OutputClass::output_notl("`&%s`0", $target['name']);
 			rawoutput("</td><td>");
-			output_notl("`^%s`0", $setter['name']);
+			OutputClass::output_notl("`^%s`0", $setter['name']);
 			rawoutput("</td><td>");
-			output_notl("`^%s`0", $row['setdate']);
+			OutputClass::output_notl("`^%s`0", $row['setdate']);
 			rawoutput("</td><td>");
 			OutputClass::output($row['status']==0?"`^Open`0":"`^Closed`0");
 			rawoutput("</td><td>");
-			output_notl("`^%s`0", $winner['name']);
+			OutputClass::output_notl("`^%s`0", $winner['name']);
 			rawoutput("</td><td>");
-			output_notl("`^%s`0", $row['status']?$row['windate']:"");
+			OutputClass::output_notl("`^%s`0", $row['status']?$row['windate']:"");
 			rawoutput("</td><td>");
 			if ($row['status'] == 0) {
 				$link = "runmodule.php?module=dag&manage=true&op=closebounty&id={$row['bountyid']}&admin=true";

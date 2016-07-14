@@ -134,51 +134,51 @@ if ($op==""){
 			rawoutput("</td><td valign='top' nowrap>[ ");
 			if ($row['active']){
 				rawoutput("<a href='modules.php?op=deactivate&module={$row['modulename']}&cat=$cat'>");
-				output_notl($deactivate);
+				OutputClass::output_notl($deactivate);
 				rawoutput("</a>");
 				OutputClass::addnav("","modules.php?op=deactivate&module={$row['modulename']}&cat=$cat");
 			}else{
 				rawoutput("<a href='modules.php?op=activate&module={$row['modulename']}&cat=$cat'>");
-				output_notl($activate);
+				OutputClass::output_notl($activate);
 				rawoutput("</a>");
 				OutputClass::addnav("","modules.php?op=activate&module={$row['modulename']}&cat=$cat");
 			}
 			rawoutput(" |<a href='modules.php?op=uninstall&module={$row['modulename']}&cat=$cat' onClick='return confirm(\"$uninstallconfirm\");'>");
-			output_notl($uninstall);
+			OutputClass::output_notl($uninstall);
 			rawoutput("</a>");
 			OutputClass::addnav("","modules.php?op=uninstall&module={$row['modulename']}&cat=$cat");
 			rawoutput(" | <a href='modules.php?op=reinstall&module={$row['modulename']}&cat=$cat'>");
-			output_notl($reinstall);
+			OutputClass::output_notl($reinstall);
 			rawoutput("</a>");
 			OutputClass::addnav("","modules.php?op=reinstall&module={$row['modulename']}&cat=$cat");
 
 			if ($session['user']['superuser'] & SU_EDIT_CONFIG) {
 				if (strstr($row['infokeys'], "|settings|")) {
 					rawoutput(" | <a href='configuration.php?op=modulesettings&module={$row['modulename']}'>");
-					output_notl($strsettings);
+					OutputClass::output_notl($strsettings);
 					rawoutput("</a>");
 					OutputClass::addnav("","configuration.php?op=modulesettings&module={$row['modulename']}");
 				} else {
-					output_notl(" | %s", $strnosettings);
+					OutputClass::output_notl(" | %s", $strnosettings);
 				}
 			}
 
 			rawoutput(" ]</td><td valign='top'>");
-			output_notl($row['active']?$active:$inactive);
+			OutputClass::output_notl($row['active']?$active:$inactive);
 			require_once("lib/sanitize.php");
 			rawoutput("</td><td nowrap valign='top'><span title=\"".
 					(isset($row['description'])&&$row['description']?
 					 $row['description']:sanitize($row['formalname']))."\">");
-			output_notl("%s %s", $row['formalname'], $row['version']);
+			OutputClass::output_notl("%s %s", $row['formalname'], $row['version']);
 			rawoutput("<br>");
-			output_notl("(%s) ", $row['modulename'], $row['version']);
+			OutputClass::output_notl("(%s) ", $row['modulename'], $row['version']);
 			rawoutput("</span></td><td valign='top'>");
-			output_notl("`#%s`0", $row['moduleauthor'], true);
+			OutputClass::output_notl("`#%s`0", $row['moduleauthor'], true);
 			rawoutput("</td><td nowrap valign='top'>");
 			$line = sprintf($installstr, $row['installedby']);
-			output_notl("%s", $row['installdate']);
+			OutputClass::output_notl("%s", $row['installdate']);
 			rawoutput("<br>");
-			output_notl("%s", $line);
+			OutputClass::output_notl("%s", $line);
 			rawoutput("</td></tr>");
 		}
 		rawoutput("</table><br />");
@@ -256,7 +256,7 @@ if ($op==""){
 					rawoutput("<td><input type='checkbox' name='module[]' value='{$moduleinfo[$i]['shortname']}'></td>");
 					rawoutput("<td nowrap valign='top'>");
 					rawoutput("[ <a href='modules.php?op=install&module={$moduleinfo[$i]['shortname']}&cat={$moduleinfo[$i]['category']}'>");
-					output_notl($install);
+					OutputClass::output_notl($install);
 					rawoutput("</a>]</td>");
 					OutputClass::addnav("","modules.php?op=install&module={$moduleinfo[$i]['shortname']}&cat={$moduleinfo[$i]['category']}");
 				}
@@ -267,7 +267,7 @@ if ($op==""){
 					 sanitize($moduleinfo[$i]['name']))."\">");
 				rawoutput($moduleinfo[$i]['name']." ".$moduleinfo[$i]['version']);
 				rawoutput("</span></td><td valign='top'>");
-				output_notl("`#%s`0", $moduleinfo[$i]['author'], true);
+				OutputClass::output_notl("`#%s`0", $moduleinfo[$i]['author'], true);
 				rawoutput("</td><td valign='top'>");
 				rawoutput($moduleinfo[$i]['category']);
 				rawoutput("</td><td valign='top'>");
@@ -283,12 +283,12 @@ if ($op==""){
 					while (list($key,$val)=each($moduleinfo[$i]['requires'])){
 						$info = explode("|",$val);
 						if (module_check_requirements(array($key=>$val))){
-							output_notl("`@");
+							OutputClass::output_notl("`@");
 						}else{
-							output_notl("`\$");
+							OutputClass::output_notl("`\$");
 						}
-						if(isset($info[1])) output_notl("$key {$info[0]} -- {$info[1]}`n");
-						else output_notl("$key {$info[0]}`n");
+						if(isset($info[1])) OutputClass::output_notl("$key {$info[0]} -- {$info[1]}`n");
+						else OutputClass::output_notl("$key {$info[0]}`n");
 					}
 					rawoutput("</td>");
 					rawoutput("</tr>");

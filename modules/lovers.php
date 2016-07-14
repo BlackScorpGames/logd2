@@ -104,9 +104,9 @@ function lovers_run(){
 	$iname = Settings::getsetting("innname", LOCATION_INN);
 	PageParts::page_header($iname);
 	rawoutput("<span style='color: #9900FF'>");
-	output_notl("`c`b");
+	OutputClass::output_notl("`c`b");
 	OutputClass::output($iname);
-	output_notl("`b`c");
+	OutputClass::output_notl("`b`c");
 	switch(Http::httpget('op')){
 	case "flirt":
 		if ($session['user']['sex']==SEX_MALE) {

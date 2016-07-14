@@ -35,7 +35,7 @@
 		rawoutput("<input name='clanname' value=\"".htmlentities($row1['clanname'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" maxlength=50 size=50>");
 		OutputClass::output("`nShort Name: ");
 		rawoutput("<input name='clanshort' value=\"".htmlentities($row1['clanshort'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" maxlength=5 size=5>");
-		output_notl("`n");
+		OutputClass::output_notl("`n");
 		$save = Translator::translate_inline("Save");
 		rawoutput("<input type='submit' class='button' value=\"$save\">");
 		$snu = htmlentities(Translator::translate_inline("Save & UNblock public description"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
@@ -49,10 +49,10 @@
 		rawoutput("<script language='JavaScript'>var hidearea = document.getElementById('hidearea');hidearea.style.visibility='hidden';hidearea.style.display='none';</script>",true);
 		$e = Translator::translate_inline("Edit Clan Info");
 		rawoutput("<a href='#' onClick='hidearea.style.visibility=\"visible\"; hidearea.style.display=\"inline\"; return false;'>$e</a>",true);
-		output_notl("`n");
+		OutputClass::output_notl("`n");
 	}
 
-	output_notl(nltoappon($row1['clandesc']));
+	OutputClass::output_notl(nltoappon($row1['clandesc']));
 	if ( nltoappon($row1['clandesc']) != "" ) OutputClass::output ("`n`n");
 	OutputClass::output("`0This is the current clan membership of %s < %s >:`n",$row1['clanname'],$row1['clanshort']);
 	PageParts::page_header("Clan Membership for %s &lt;%s&gt;", full_sanitize($row1['clanname']), full_sanitize($row1['clanshort']));
@@ -77,17 +77,17 @@
 		$tot += $row['dragonkills'];
 		rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
 		rawoutput("<td>");
-		output_notl($ranks[$row['clanrank']]); //translated earlier
+		OutputClass::output_notl($ranks[$row['clanrank']]); //translated earlier
 		rawoutput("</td><td>");
 		$link = "bio.php?char=".$row['acctid']."&ret=".urlencode($_SERVER['REQUEST_URI']);
 		rawoutput("<a href='$link'>");
 		OutputClass::addnav("", $link);
-		output_notl("`&%s`0", $row['name']);
+		OutputClass::output_notl("`&%s`0", $row['name']);
 		rawoutput("</a>");
 		rawoutput("</td><td align='center'>");
-		output_notl("`\$%s`0", $row['dragonkills']);
+		OutputClass::output_notl("`\$%s`0", $row['dragonkills']);
 		rawoutput("</td><td>");
-		output_notl("`3%s`0", $row['clanjoindate']);
+		OutputClass::output_notl("`3%s`0", $row['clanjoindate']);
 		rawoutput("</td></tr>");
 	}
 	rawoutput("</table>");

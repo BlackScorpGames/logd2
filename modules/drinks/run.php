@@ -15,9 +15,9 @@ function drinks_run_private(){
 		Translator::tlschema($drinktext['schemas']['title']);
 		PageParts::page_header($drinktext['title']);
 		rawoutput("<span style='color: #9900FF'>");
-		output_notl("`c`b");
+		OutputClass::output_notl("`c`b");
 		OutputClass::output($drinktext['title']);
-		output_notl("`b`c");
+		OutputClass::output_notl("`b`c");
 		Translator::tlschema();
 		$drunk = get_module_pref("drunkeness");
 		$end = ".";
@@ -28,7 +28,7 @@ function drinks_run_private(){
 		$remark = str_replace("{lover}",$partner."`0", $remark);
 		$remark = str_replace("{barkeep}", $drinktext['barkeep']."`0", $remark);
 		Translator::tlschema();
-		output_notl("%s$end", $remark);
+		OutputClass::output_notl("%s$end", $remark);
 		$drunk = get_module_pref("drunkeness");
 		if ($drunk > get_module_setting("maxdrunk")) {
 			Translator::tlschema($drinktext['schemas']['toodrunk']);
@@ -57,7 +57,7 @@ function drinks_run_private(){
 					$remark = preg_replace($keys, $vals, $remark);
 				}
 				OutputClass::output($remark);
-				output_notl("`n`n");
+				OutputClass::output_notl("`n`n");
 				if ($row['harddrink']) {
 					$drinks = get_module_pref("harddrinks");
 					set_module_pref("harddrinks", $drinks+1);

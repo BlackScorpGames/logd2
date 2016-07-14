@@ -105,7 +105,7 @@ if ($max>Settings::getsetting("maxlistsize", 100)) {
 if ($page=="" && $op==""){
 	$title .= sprintf_translate(" (%s warriors)", $max);
 }
-output_notl("`c`b".$title."`b");
+OutputClass::output_notl("`c`b".$title."`b");
 
 $alive = Translator::translate_inline("Alive");
 $level = Translator::translate_inline("Level");
@@ -132,9 +132,9 @@ for($i=0;$i<$max;$i++){
 		$a = $dead;
 	}
 	//$a = Translator::translate_inline($row['alive']?"`1Yes`0":"`4No`0");
-	output_notl("%s", $a);
+	OutputClass::output_notl("%s", $a);
 	rawoutput("</td><td>");
-	output_notl("`^%s`0", $row['level']);
+	OutputClass::output_notl("`^%s`0", $row['level']);
 	rawoutput("</td><td>");
 	if ($session['user']['loggedin']) {
 		rawoutput("<a href=\"mail.php?op=write&to=".rawurlencode($row['login'])."\" target=\"_blank\" onClick=\"".popup("mail.php?op=write&to=".rawurlencode($row['login'])."").";return false;\">");
@@ -142,15 +142,15 @@ for($i=0;$i<$max;$i++){
 		rawoutput("<a href='bio.php?char=".$row['acctid']."'>");
 		OutputClass::addnav("","bio.php?char=".$row['acctid']."");
 	}
-	output_notl("`&%s`0", $row['name']);
+	OutputClass::output_notl("`&%s`0", $row['name']);
 	if ($session['user']['loggedin'])
 		rawoutput("</a>");
 	rawoutput("</td><td>");
 	$loggedin=(date("U") - strtotime($row['laston']) < Settings::getsetting("LOGINTIMEOUT",900) && $row['loggedin']);
-	output_notl("`&%s`0", $row['location']);
+	OutputClass::output_notl("`&%s`0", $row['location']);
 	if ($loggedin) {
 		$online = Translator::translate_inline("`#(Online)");
-		output_notl("%s", $online);
+		OutputClass::output_notl("%s", $online);
 	}
 	rawoutput("</td><td>");
 	if (!$row['race']) $row['race'] = RACE_UNKNOWN;
@@ -159,13 +159,13 @@ for($i=0;$i<$max;$i++){
 	Translator::tlschema();
 	rawoutput("</td><td>");
 	$sex = Translator::translate_inline($row['sex']?"`%Female`0":"`!Male`0");
-	output_notl("%s", $sex);
+	OutputClass::output_notl("%s", $sex);
 	rawoutput("</td><td>");
 	$laston = relativedate($row['laston']);
-	output_notl("%s", $laston);
+	OutputClass::output_notl("%s", $laston);
 	rawoutput("</td></tr>");
 }
 rawoutput("</table>");
-output_notl("`c");
+OutputClass::output_notl("`c");
 page_footer();
 ?>

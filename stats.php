@@ -43,16 +43,16 @@ if ($op=="stats" || $op==""){
 	for ($i=0;$i<$number;$i++){
 		$row = db_fetch_assoc($result);
 		rawoutput("<tr class='".($i%2?"trdark":"trlight")."'><td>");
-		output_notl("`@{$row['referer']}`0");
+		OutputClass::output_notl("`@{$row['referer']}`0");
 		rawoutput("</td><td>");
-		output_notl("`^{$row['c']}:`0  ");
+		OutputClass::output_notl("`^{$row['c']}:`0  ");
 		$sql = "SELECT name,refererawarded FROM " . db_prefix("accounts") . " WHERE referer = ${row['acctid']} ORDER BY acctid ASC";
 		$res2 = db_query($sql);
 		$number2=db_num_rows($res2);
 		for ($j = 0; $j < $number2; $j++) {
 			$r = db_fetch_assoc($res2);
-			output_notl(($r['refererawarded']?"`&":"`$") . $r['name'] . "`0");
-			if ($j != $number2-1) output_notl(",");
+			OutputClass::output_notl(($r['refererawarded']?"`&":"`$") . $r['name'] . "`0");
+			if ($j != $number2-1) OutputClass::output_notl(",");
 		}
 		rawoutput("</td></tr>");
 	}

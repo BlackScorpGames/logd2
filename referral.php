@@ -29,7 +29,7 @@ if ($session['user']['loggedin']){
 
 	OutputClass::output("How does the site know that I referred a person?`n");
 	OutputClass::output("Easy!  When you tell your friends about this site, give out the following link:`n`n");
-	output_notl("%sreferral.php?r=%s`n`n",$url,rawurlencode($session['user']['login']));
+	OutputClass::output_notl("%sreferral.php?r=%s`n`n",$url,rawurlencode($session['user']['login']));
 	OutputClass::output("If you do, the site will know that you were the one who sent them here.");
 	OutputClass::output("When they reach level %s for the first time, you'll get your points!", Settings::getsetting("referminlevel", 4));
 
@@ -47,16 +47,16 @@ if ($session['user']['loggedin']){
 	for ($i=0;$i<$number;$i++){
 		$row = db_fetch_assoc($result);
 		rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td>");
-		output_notl($row['name']);
+		OutputClass::output_notl($row['name']);
 		rawoutput("</td><td>");
-		output_notl($row['level']);
+		OutputClass::output_notl($row['level']);
 		rawoutput("</td><td>");
-		output_notl($row['refererawarded']?$yes:$no);
+		OutputClass::output_notl($row['refererawarded']?$yes:$no);
 		rawoutput("</td></tr>");
 	}
 	if (db_num_rows($result)==0){
 		rawoutput("<tr><td colspan='3' align='center'>");
-		output_notl($none);
+		OutputClass::output_notl($none);
 		rawoutput("</td></tr>");
 	}
 	rawoutput("</table>",true);

@@ -89,7 +89,7 @@ if ($onlinecount<Settings::getsetting("maxonline",0) || Settings::getsetting("ma
 		$session['message'].=Translator::translate_inline("`b`#If you are not sure what cookies are, please <a href='http://en.wikipedia.org/wiki/WWW_browser_cookie'>read this article</a> about them, and how to enable them.`b`n");
 	}
 	if (isset($session['message']) && $session['message']>"")
-		output_notl("`b`\$%s`b`n", $session['message'],true);
+		OutputClass::output_notl("`b`\$%s`b`n", $session['message'],true);
 	rawoutput("<script language='JavaScript' src='lib/md5.js'></script>");
 	rawoutput("<script language='JavaScript'>
 	<!--
@@ -106,7 +106,7 @@ if ($onlinecount<Settings::getsetting("maxonline",0) || Settings::getsetting("ma
 	$pass = Translator::translate_inline("<u>P</u>assword");
 	$butt = Translator::translate_inline("Log in");
 	rawoutput("<form action='login.php' method='POST' onSubmit=\"md5pass();\">".templatereplace("login",array("username"=>$uname,"password"=>$pass,"button"=>$butt))."</form>");
-	output_notl("`c");
+	OutputClass::output_notl("`c");
 	OutputClass::addnav("","login.php");
 } else {
 	OutputClass::output("`\$`bServer full!`b`n`^Please wait until some users have logged out.`n`n`0");
@@ -119,11 +119,11 @@ if ($onlinecount<Settings::getsetting("maxonline",0) || Settings::getsetting("ma
 	}
 	if ($session['message']>"") OutputClass::output("`b`\$%s`b`n", $session['message'],true);
 	rawoutput(templatereplace("loginfull",array()));
-	output_notl("`c");
+	OutputClass::output_notl("`c");
 }
 
 $msg = Settings::getsetting("loginbanner","*BETA* This is a BETA of this website, things are likely to change now and again, as it is under active development *BETA*");
-output_notl("`n`c`b`&%s`0`b`c`n", $msg);
+OutputClass::output_notl("`n`c`b`&%s`0`b`c`n", $msg);
 $session['message']="";
 OutputClass::output("`c`2Game server running version: `@%s`0`c", $logd_version);
 

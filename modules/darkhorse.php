@@ -153,7 +153,7 @@ function darkhorse_bartender($from){
 				for ($i=0;$i<$max;$i++){
 					$row = db_fetch_assoc($result);
 					rawoutput("<tr><td><a href='".$from."op=bartender&what=enemies&who=".rawurlencode($row['login'])."'>");
-					output_notl("%s", $row['name']);
+					OutputClass::output_notl("%s", $row['name']);
 					rawoutput("</a></td><td>{$row['level']}</td></tr>");
 					OutputClass::addnav("",$from."op=bartender&what=enemies&who=".rawurlencode($row['login']));
 				}
@@ -223,7 +223,7 @@ function darkhorse_runevent($type, $link){
 	$iname = get_module_setting("tavernname");
 
 	rawoutput("<span style='color: #787878'>");
-	output_notl("`c`b%s`b`c",$iname);
+	OutputClass::output_notl("`c`b%s`b`c",$iname);
 	$op = Http::httpget('op');
 	switch($op){
 	case "":

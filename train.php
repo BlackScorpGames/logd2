@@ -169,9 +169,9 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 		}
 		if ($victory){
 			$badguy['creaturelose']=substitute_array($badguy['creaturelose']);
-			output_notl("`b`&");
+			OutputClass::output_notl("`b`&");
  	 	 	OutputClass::output($badguy['creaturelose']);
- 	 	 	output_notl("`0`b`n");
+ 	 	 	OutputClass::output_notl("`0`b`n");
  	 	 	OutputClass::output("`b`\$You have defeated %s!`0`b`n",$badguy['creaturename']);
 
 			$session['user']['level']++;
@@ -242,9 +242,9 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 			OutputClass::output("`&`bYou have been defeated by `%%s`&!`b`n",$badguy['creaturename']);
 			OutputClass::output("`%%s`\$ halts just before delivering the final blow, and instead extends a hand to help you to your feet, and hands you a complementary healing potion.`n",$badguy['creaturename']);
 			$badguy['creaturewin']=substitute_array($badguy['creaturewin']);
-			output_notl("`^`b");
+			OutputClass::output_notl("`^`b");
 			OutputClass::output($badguy['creaturewin']);
-			output_notl("`b`0`n");
+			OutputClass::output_notl("`b`0`n");
 			OutputClass::addnav("Question Master","train.php?op=question&master=$mid");
 			OutputClass::addnav("M?Challenge Master","train.php?op=challenge&master=$mid");
 			if ($session['user']['superuser'] & SU_DEVELOPER) {

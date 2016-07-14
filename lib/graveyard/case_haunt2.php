@@ -27,9 +27,9 @@ if (db_num_rows($result)<=0){
 	for ($i=0;$i<db_num_rows($result);$i++){
 		$row = db_fetch_assoc($result);
 		rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td><a href='graveyard.php?op=haunt3&name=".HTMLEntities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."'>");
-		output_notl("%s", $row['name']);
+		OutputClass::output_notl("%s", $row['name']);
 		rawoutput("</a></td><td>");
-		output_notl("%s", $row['level']);
+		OutputClass::output_notl("%s", $row['level']);
 		rawoutput("</td></tr>",true);
 		OutputClass::addnav("","graveyard.php?op=haunt3&name=".HTMLEntities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
 	}

@@ -44,7 +44,7 @@ rawoutput("<input name='amt' size='3' value=\"".htmlentities($amt, ENT_COMPAT, S
 OutputClass::output("`nReason: ");
 rawoutput("<input name='reason' size='30' value=\"".htmlentities($reason, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
 rawoutput("<input type='hidden' name='txnid' value=\"".htmlentities($txnid, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
-output_notl("`n");
+OutputClass::output_notl("`n");
 if ($txnid>"") OutputClass::output("For transaction: %s`n",$txnid);
 rawoutput("<input type='submit' class='button' value='$add'>");
 rawoutput("</form>");
@@ -121,11 +121,11 @@ if ($op==""){
 		$row = db_fetch_assoc($result);
 		rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
 		rawoutput("<td>");
-		output_notl("`^%s`0",$row['name']);
+		OutputClass::output_notl("`^%s`0",$row['name']);
 		rawoutput("</td><td>");
-		output_notl("`@%s`0", number_format($row['donation']));
+		OutputClass::output_notl("`@%s`0", number_format($row['donation']));
 		rawoutput("</td><td>");
-		output_notl("`%%s`0", number_format($row['donationspent']));
+		OutputClass::output_notl("`%%s`0", number_format($row['donationspent']));
 		rawoutput("</td>");
 		rawoutput("</tr>");
 	}
@@ -158,9 +158,9 @@ if ($op==""){
 		}else{
 			rawoutput("<a href='donators.php?op=add2&id={$row['acctid']}&amt=$amt&reason=".rawurlencode($reason)."&txnid=$txnid'>");
 		}
-		output_notl("%s (%s/%s)", $row['name'], $row['donation'], $row['donationspent']);
+		OutputClass::output_notl("%s (%s/%s)", $row['name'], $row['donation'], $row['donationspent']);
 		rawoutput("</a>");
-		output_notl("`n");
+		OutputClass::output_notl("`n");
 		if ($ret!=""){
 			OutputClass::addnav("","donators.php?op=add2&id={$row['acctid']}&amt=$amt&ret=".rawurlencode($ret)."&reason=".rawurlencode($reason));
 		}else{

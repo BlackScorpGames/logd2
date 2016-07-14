@@ -94,7 +94,7 @@ if (return_bytes($phpram) < 12582912 && $phpram!=-1 && !$session['overridememory
 		header("Location: installer.php?stage=".($stage+1));
 		exit();
 	}
-	output_notl("`0");
+	OutputClass::output_notl("`0");
 	rawoutput("<form action='installer.php?stage=".$stage."' method='POST'>");
 	rawoutput("<input type='submit' value='$submit' class='button'>");
 	rawoutput("<input type='button' onClick='chooseRecommendedModules();' class='button' value='$install' class='button'>");
@@ -173,22 +173,22 @@ if (return_bytes($phpram) < 12582912 && $phpram!=-1 && !$session['overridememory
 				rawoutput("<td><input type='radio' name='modules[$modulename]' id='install-$modulename' value='$installop'".($installcheck?" checked":"")."></td>");
 				rawoutput("<td><input type='radio' name='modules[$modulename]' id='activate-$modulename' value='$activateop'".($activatecheck?" checked":"")."></td>");
 			}
-			output_notl("<td>".(in_array($modulename,$recommended_modules)?tl("`^Yes`0"):tl("`\$No`0"))."</td>",true);
+			OutputClass::output_notl("<td>".(in_array($modulename,$recommended_modules)?tl("`^Yes`0"):tl("`\$No`0"))."</td>",true);
 			require_once("lib/sanitize.php");
 			rawoutput("<td><span title=\"" .
 			(isset($moduleinfo['description']) &&
 			$moduleinfo['description'] ?
 			$moduleinfo['description'] :
 			sanitize($moduleinfo['formalname'])). "\">");
-			output_notl("`@");
+			OutputClass::output_notl("`@");
 			if (isset($moduleinfo['invalid']) && $moduleinfo['invalid'] == true) {
 				rawoutput($moduleinfo['formalname']);
 			} else {
 				OutputClass::output($moduleinfo['formalname']);
 			}
-			output_notl(" [`%$modulename`@]`0");
+			OutputClass::output_notl(" [`%$modulename`@]`0");
 			rawoutput("</span></td><td>");
-			output_notl("`#{$moduleinfo['moduleauthor']}`0", true);
+			OutputClass::output_notl("`#{$moduleinfo['moduleauthor']}`0", true);
 			rawoutput("</td>");
 			rawoutput("</tr>");
 		}

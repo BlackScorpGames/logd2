@@ -280,7 +280,7 @@ if (!$skipvillagedesc) {
 			rawoutput(" [<a href='user.php?op=edit&userid=$id'>$edit</a>]");
 			OutputClass::addnav("","user.php?op=edit&userid=$id");
 		}
-		output_notl("`n");
+		OutputClass::output_notl("`n");
 		Modules::modulehook("}collapse");
 	}
 }

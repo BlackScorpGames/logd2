@@ -56,13 +56,13 @@ for ($i=0;$i<$number;$i++){
 	$row = db_fetch_assoc($result);
 
 	rawoutput("<tr class='trdark'><td valign='top'>");
-	output_notl("`b".$row['count']."`b");
+	OutputClass::output_notl("`b".$row['count']."`b");
 	rawoutput("</td><td valign='top'>");
 	$diffsecs = strtotime("now")-strtotime($row['last']);
 	//OutputClass::output((int)($diffsecs/86400)."d ".(int)($diffsecs/3600%3600)."h ".(int)($diffsecs/60%60)."m ".(int)($diffsecs%60)."s");
-	output_notl("`b".dhms($diffsecs)."`b");
+	OutputClass::output_notl("`b".dhms($diffsecs)."`b");
 	rawoutput("</td><td valign='top' colspan='3'>");
-	output_notl("`b".($row['site']==""?$none:$row['site'])."`b");
+	OutputClass::output_notl("`b".($row['site']==""?$none:$row['site'])."`b");
 	rawoutput("</td></tr>");
 
 	$sql = "SELECT count,last,uri,dest,ip FROM " . db_prefix("referers") . " WHERE site='".addslashes($row['site'])."' ORDER BY {$order} LIMIT 25";
@@ -75,20 +75,20 @@ for ($i=0;$i<$number;$i++){
 		$diffsecs = strtotime("now")-strtotime($row1['last']);
 		if ($diffsecs<=604800){
 			rawoutput("<tr class='trlight'><td>");
-			output_notl($row1['count']);
+			OutputClass::output_notl($row1['count']);
 			rawoutput("</td><td valign='top'>");
 			//OutputClass::output((int)($diffsecs/86400)."d".(int)($diffsecs/3600%3600)."h".(int)($diffsecs/60%60)."m".(int)($diffsecs%60)."s");
-			output_notl(dhms($diffsecs));
+			OutputClass::output_notl(dhms($diffsecs));
 			rawoutput("</td><td valign='top'>");
 			if ($row1['uri']>"")
 				rawoutput("<a href='".HTMLEntities($row1['uri'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."' target='_blank'>".HTMLEntities(substr($row1['uri'],0,100))."</a>");
 			else
-				output_notl($none);
-			output_notl("`n");
+				OutputClass::output_notl($none);
+			OutputClass::output_notl("`n");
 			rawoutput("</td><td valign='top'>");
-			output_notl($row1['dest']==''?$notset:$row1['dest']);
+			OutputClass::output_notl($row1['dest']==''?$notset:$row1['dest']);
 			rawoutput("</td><td valign='top'>");
-			output_notl($row1['ip']==''?$notset:$row1['ip']);
+			OutputClass::output_notl($row1['ip']==''?$notset:$row1['ip']);
 			rawoutput("</td></tr>");
 		}else{
 			$skippedcount++;
@@ -97,7 +97,7 @@ for ($i=0;$i<$number;$i++){
 	}
 	if ($skippedcount>0){
 		rawoutput("<tr class='trlight'><td>$skippedtotal</td><td valign='top' colspan='4'>");
-		output_notl(sprintf($skipped,$skippedcount));
+		OutputClass::output_notl(sprintf($skipped,$skippedcount));
 		rawoutput("</td></tr>");
 	}
 	//OutputClass::output("</td></tr>",true);

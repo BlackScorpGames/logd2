@@ -9,7 +9,7 @@ OutputClass::output("Set up a new ban by IP or by ID (recommended IP, though if 
 rawoutput("<input type='radio' value='ip' id='ipradio' name='type' checked>");
 OutputClass::output("IP: ");
 rawoutput("<input name='ip' id='ip' value=\"".HTMLEntities($row['lastip'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
-output_notl("`n");
+OutputClass::output_notl("`n");
 rawoutput("<input type='radio' value='id' name='type'>");
 OutputClass::output("ID: ");
 rawoutput("<input name='id' value=\"".HTMLEntities($row['uniqueid'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
@@ -21,7 +21,7 @@ if ($reason == "")
 	$reason=Translator::translate_inline("Don't mess with me.");
 OutputClass::output("Reason for the ban: ");
 rawoutput("<input name='reason' size=50 value=\"$reason\">");
-output_notl("`n");
+OutputClass::output_notl("`n");
 $pban = Translator::translate_inline("Post ban");
 $conf = Translator::translate_inline("Are you sure you wish to issue a permanent ban?");
 rawoutput("<input type='submit' class='button' value='$pban' onClick='if (document.getElementById(\"duration\").value==0) {return confirm(\"$conf\");} else {return true;}'>");
@@ -41,7 +41,7 @@ if ($row['name']!=""){
 				$row['name'], $row['gentimecount'],
 				reltime(strtotime($row['laston'])));
 	}
-	output_notl("`n");
+	OutputClass::output_notl("`n");
 		$oip = "";
 	$dots = 0;
 	OutputClass::output("`bSimilar IP's`b`n");
@@ -56,7 +56,7 @@ if ($row['name']!=""){
 			rawoutput("<a href='#' onClick=\"document.getElementById('ip').value='$thisip'; document.getElementById('ipradio').checked = true; return false\">");
 			OutputClass::output("Use this filter");
 			rawoutput("</a>");
-			output_notl("`n");
+			OutputClass::output_notl("`n");
 			while ($row=db_fetch_assoc($result)){
 				OutputClass::output("&nbsp;&nbsp;",true);
 				OutputClass::output("� (%s) [%s] `%%s`0 - %s hits, last: %s`n",
@@ -64,7 +64,7 @@ if ($row['name']!=""){
 						$row['gentimecount'],
 						reltime(strtotime($row['laston'])));
 			}
-			output_notl("`n");
+			OutputClass::output_notl("`n");
 		}
 		if (substr($ip,$x-1,1)==".") {
 			$x--;

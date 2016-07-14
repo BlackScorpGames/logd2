@@ -130,6 +130,6 @@ if ($return==""){
 	OutputClass::addnav("R?Return whence you came",$return);
 }
 Translator::tlschema();
-output_notl("`0");
+OutputClass::output_notl("`0");
 page_footer();
 ?>

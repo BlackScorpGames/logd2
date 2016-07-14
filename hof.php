@@ -96,16 +96,16 @@ function display_table($title, $sql, $none=false, $foot=false,
 	}
 	rawoutput("<table cellspacing='0' cellpadding='2' align='center'>");
 	rawoutput("<tr class='trhead'>");
-	output_notl("<td>`b$rank`b</td><td>`b$name`b</td>", true);
+	OutputClass::output_notl("<td>`b$rank`b</td><td>`b$name`b</td>", true);
 	if ($data_header !== false) {
 		for ($i = 0; $i < count($data_header); $i++) {
-			output_notl("<td>`b{$data_header[$i]}`b</td>", true);
+			OutputClass::output_notl("<td>`b{$data_header[$i]}`b</td>", true);
 		}
 	}
 	$result = db_query($sql);
 	if (db_num_rows($result)==0){
 		$size = ($data_header === false) ? 2 : 2+count($data_header);
-		output_notl("<tr class='trlight'><td colspan='$size' align='center'>`&$none`0</td></tr>",true);
+		OutputClass::output_notl("<tr class='trlight'><td colspan='$size' align='center'>`&$none`0</td></tr>",true);
 	} else {
 		$i=-1;
 		while ($row = db_fetch_assoc($result)) {
@@ -115,7 +115,7 @@ function display_table($title, $sql, $none=false, $foot=false,
 			} else {
 				rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
 			}
-			output_notl("<td>%s</td><td>`&%s`0</td>",($i+$from), $row['name'], true);
+			OutputClass::output_notl("<td>%s</td><td>`&%s`0</td>",($i+$from), $row['name'], true);
 			if ($data_header !== false) {
 				for ($j = 0; $j < count($data_header); $j++) {
 					$id = "data" . ($j+1);
@@ -125,14 +125,14 @@ function display_table($title, $sql, $none=false, $foot=false,
 						$val = Translator::translate_inline($val);
 					}
 					if ($tag !== false) $val = $val . " " . $tag[$j];
-					output_notl("<td align='right'>%s</td>", $val, true);
+					OutputClass::output_notl("<td align='right'>%s</td>", $val, true);
 				}
 			}
 			rawoutput("</tr>");
 		}
 	}
 	rawoutput("</table>");
-	if ($foot !== false) output_notl("`n`c%s`c", $foot);
+	if ($foot !== false) OutputClass::output_notl("`n`c%s`c", $foot);
 }
 
 if ($op=="days") {

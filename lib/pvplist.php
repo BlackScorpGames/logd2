@@ -82,17 +82,17 @@ function pvplist($location=false,$link=false,$extra=false,$sql=false){
 		rawoutput("<tr class='".($j%2?"trlight":"trdark")."'>");
 		rawoutput("<td>");
 		if ($row['clanshort']>"" && $row['clanrank'] > CLAN_APPLICANT) {
-			output_notl("%s&lt;`2%s%s&gt;`0 ",
+			OutputClass::output_notl("%s&lt;`2%s%s&gt;`0 ",
 					$clanrankcolors[$row['clanrank']], $row['clanshort'],
 					$clanrankcolors[$row['clanrank']], true);
 		}
-		output_notl("`@%s`0", $row['name']);
+		OutputClass::output_notl("`@%s`0", $row['name']);
 		rawoutput("</td>");
 		rawoutput("<td>");
-		output_notl("%s", $row['level']);
+		OutputClass::output_notl("%s", $row['level']);
 		rawoutput("</td>");
 		rawoutput("<td>");
-		output_notl("%s", $row['location']);
+		OutputClass::output_notl("%s", $row['location']);
 		rawoutput("</td>");
 		rawoutput("<td>[ <a href='$biolink'>$bio</a> | ");
 		if($row['pvpflag']>$pvptimeout){
@@ -109,7 +109,7 @@ function pvplist($location=false,$link=false,$extra=false,$sql=false){
 
 	if (!isset($loc_counts[$location]) || $loc_counts[$location]==0){
 		$noone = Translator::translate_inline("`iThere are no available targets.`i");
-		output_notl("<tr><td align='center' colspan='4'>$noone</td></tr>", true);
+		OutputClass::output_notl("<tr><td align='center' colspan='4'>$noone</td></tr>", true);
 	}
 	rawoutput("</table>",true);
 

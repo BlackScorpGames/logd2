@@ -34,7 +34,7 @@ if ($op=="test"){
 		OutputClass::output("`7%s`0`n`n", $return);
 }
 
-output_notl("<font size='+1'>", true);
+OutputClass::output_notl("<font size='+1'>", true);
 OutputClass::output("`7`bGood Words`b`0");
 rawoutput("</font>");
 OutputClass::output("`7 (bad word exceptions)`0`n");
@@ -96,11 +96,11 @@ if ($op=="addgood" || $op=="removegood"){
 	invalidatedatacache("goodwordlist");
 }
 
-output_notl("`0`n`n");
+OutputClass::output_notl("`0`n`n");
 rawoutput("<font size='+1'>");
 OutputClass::output("`7`bNasty Words`b`0");
 rawoutput("</font>");
-output_notl("`n");
+OutputClass::output_notl("`n");
 
 rawoutput("<form action='badword.php?op=add' method='POST'>");
 OutputClass::addnav("","badword.php?op=add");
@@ -143,7 +143,7 @@ if ($op=="remove"){
 	//unset($words[array_search(stripslashes(httppost('word')),$words)]);
 }
 show_word_list($words);
-output_notl("`0");
+OutputClass::output_notl("`0");
 
 if ($op=="add" || $op=="remove"){
 	$sql = "DELETE FROM " . db_prefix("nastywords") . " WHERE type='nasty'";
@@ -163,9 +163,9 @@ function show_word_list($words){
 		}else{
 			if (substr($val,0,1)!=$lastletter){
 				$lastletter = substr($val,0,1);
-				output_notl("`n`n`^`b%s`b`@`n", strtoupper($lastletter));
+				OutputClass::output_notl("`n`n`^`b%s`b`@`n", strtoupper($lastletter));
 			}
-			output_notl("%s ", $val);
+			OutputClass::output_notl("%s ", $val);
 		}
 	}
 }

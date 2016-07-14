@@ -9,7 +9,7 @@ function motd_admin($id, $poll=false) {
 		$ed = Translator::translate_inline("Edit");
 		$del = Translator::translate_inline("Del");
 		$confirm = Translator::translate_inline("Are you sure you want to delete this item?");
-		output_notl("[ ");
+		OutputClass::output_notl("[ ");
 		if (!$poll) {
 			rawoutput("<a href='motd.php?op=add".($poll?"poll":"")."&id=$id'>$ed</a> | ");
 		}
@@ -20,19 +20,19 @@ function motd_admin($id, $poll=false) {
 function motditem($subject,$body,$author,$date,$id){
 	if ($date)
 		rawoutput("<a name='motd".date("YmdHis",strtotime($date))."'>");
-	output_notl("`b`^%s`0`b", $subject);
+	OutputClass::output_notl("`b`^%s`0`b", $subject);
 	if ($id > "") {
 		motd_admin($id);
 	}
-	if ($date || $author) output_notl("`n");
+	if ($date || $author) OutputClass::output_notl("`n");
 	if ($author > "") {
-		output_notl("`3%s`0", $author);
+		OutputClass::output_notl("`3%s`0", $author);
 	}
 	if ($date>"")
-		output_notl("`0 &#150; `#%s`0", $date, true);
-	if ($date || $author) output_notl("`n");
+		OutputClass::output_notl("`0 &#150; `#%s`0", $date, true);
+	if ($date || $author) OutputClass::output_notl("`n");
 
-	output_notl("`2%s`0", nltoappon($body), true);
+	OutputClass::output_notl("`2%s`0", nltoappon($body), true);
 	if ($date) rawoutput("</a>");
 	rawoutput("<hr>");
 }
@@ -50,10 +50,10 @@ function pollitem($id,$subject,$body,$author,$date,$showpoll=true){
 		rawoutput("<form action='motd.php?op=vote' method='POST'>");
 		rawoutput("<input type='hidden' name='motditem' value='$id'>",true);
 	}
-	output_notl("`b`&%s `^%s`0`b", $poll, $subject);
+	OutputClass::output_notl("`b`&%s `^%s`0`b", $poll, $subject);
 	if ($showpoll) motd_admin($id, true);
-	output_notl("`n`3%s`0 &#150; `#%s`0`n", $author, $date, true);
-	output_notl("`2%s`0`n", stripslashes($body['body']));
+	OutputClass::output_notl("`n`3%s`0 &#150; `#%s`0`n", $author, $date, true);
+	OutputClass::output_notl("`2%s`0`n", stripslashes($body['body']));
 	$sql = "SELECT count(resultid) AS c, choice FROM " . db_prefix("pollresults") . " WHERE motditem='$id' GROUP BY choice ORDER BY choice";
 	$result = db_query_cached($sql,"poll-$id");
 	$choices=array();
@@ -74,7 +74,7 @@ function pollitem($id,$subject,$body,$author,$date,$showpoll=true){
 			if ($session['user']['loggedin'] && $showpoll) {
 				rawoutput("<input type='radio' name='choice' value='$key'".($choice==$key?" checked":"").">");
 			}
-			output_notl("%s (%s - %s%%)`n", stripslashes($val),
+			OutputClass::output_notl("%s (%s - %s%%)`n", stripslashes($val),
 					(isset($choices[$key])?(int)$choices[$key]:0), $percent);
 			if ($maxitem==0 || !isset($choices[$key])){
 				$width=1;
@@ -120,7 +120,7 @@ function motd_form($id) {
 		}else{
 			$msg = $add;
 		}
-		output_notl("`b%s`b", $msg);
+		OutputClass::output_notl("`b%s`b", $msg);
 		rawoutput("[ <a href='motd.php'>$ret</a> ]<br>");
 
 		rawoutput("<form action='motd.php?op=add&id={$row['motditem']}' method='POST'>");

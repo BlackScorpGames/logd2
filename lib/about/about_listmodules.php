@@ -44,11 +44,11 @@ while ($row = db_fetch_assoc($result)) {
 
 	rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
 	rawoutput("<td valign='top'>");
-	output_notl("`&%s`0", $row['formalname']);
+	OutputClass::output_notl("`&%s`0", $row['formalname']);
 	rawoutput("<td valign='top'>",true);
-	output_notl("`^%s`0", $row['version']);
+	OutputClass::output_notl("`^%s`0", $row['version']);
 	rawoutput("</td><td valign='top'>");
-	output_notl("`^%s`0", $row['moduleauthor'], true);
+	OutputClass::output_notl("`^%s`0", $row['moduleauthor'], true);
 	rawoutput("</td><td nowrap valign='top'>");
 	if ($row['download'] == "core_module") {
 		rawoutput("<a href='http://dragonprime.net/index.php?module=Downloads;catd=4' target='_blank'>");

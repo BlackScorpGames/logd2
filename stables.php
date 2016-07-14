@@ -95,7 +95,7 @@ if ($op==""){
 	Translator::tlschema($schemas['desc']);
   	if (is_array($texts['desc'])) {
   		foreach ($texts['desc'] as $description) {
-  			output_notl(sprintf_translate($description));
+  			OutputClass::output_notl(sprintf_translate($description));
   		}
   	} else {
   		OutputClass::output($texts['desc']);

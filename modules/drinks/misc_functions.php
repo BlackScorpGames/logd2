@@ -48,7 +48,7 @@ function drinks_editor(){
 	} else {
 		$header = Translator::translate_inline("Current drinks");
 	}
-	output_notl("`&<h3>$header`0</h3>", true);
+	OutputClass::output_notl("`&<h3>$header`0</h3>", true);
 	$drinksarray=array(
 		"Drink,title",
 		"drinkid"=>"Drink ID,hidden",
@@ -174,12 +174,12 @@ function drinks_editor(){
 
 			rawoutput(" | <a href='runmodule.php?module=drinks&act=editor&op=del&drinkid=$id&admin=true' onClick='return confirm(\"$conf\");'>$del</a> ]</td>");
 			OutputClass::addnav("","runmodule.php?module=drinks&act=editor&op=del&drinkid=$id&admin=true");
-			output_notl("<td>`^%s</td>`0", $id, true);
-			output_notl("<td>`&%s`0</td>", $row['name'], true);
-			output_notl("<td>`^%s`0</td>", $row['drunkeness'], true);
+			OutputClass::output_notl("<td>`^%s</td>`0", $id, true);
+			OutputClass::output_notl("<td>`&%s`0</td>", $row['name'], true);
+			OutputClass::output_notl("<td>`^%s`0</td>", $row['drunkeness'], true);
 			$hard = Translator::translate_inline("`^No");
 			if ($row['harddrink']) $hard = Translator::translate_inline("`\$Yes");
-			output_notl("<td>%s`0</td>", $hard, true);
+			OutputClass::output_notl("<td>%s`0</td>", $hard, true);
 			rawoutput("</tr>");
 		}
 		rawoutput("</table>");

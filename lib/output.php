@@ -37,54 +37,60 @@ function rawoutput($indata) {
 	$output .= $indata . "\n";
 }
 
-/**
- * Handles color and style encoding, and appends to the OutputClass::output buffer ($output)
- *
- * @param string|array $indata If an array is passed then the format for sprintf is assumed otherwise a simple string is assumed
- *
- * @see sprintf, apponencode
- */
-function output_notl($indata){
-	global $output, $block_new_output;
 
-	if ($block_new_output) return;
-
-	$args = func_get_args();
-	//pop true off the end if we have it
-	$last = array_pop($args);
-	if ($last!==true){
-		array_push($args,$last);
-		$priv = false;
-	}else{
-		$priv = true;
-	}
-	$out = $indata;
-	$args[0]=&$out;
-	//apply variables
-	if (count($args)>1){
-		//special case since we use `% as a color code so often.
-		$out = str_replace("`%","`%%",$out);
-		$out = call_user_func_array("sprintf",$args);
-	}
-	//holiday text
-	if ($priv==false) $out = holidayize($out,'OutputClass::output');
-	//`1`2 etc color & formatting
-	$out = appoencode($out,$priv);
-	//apply to the page.
-	$output.=tlbutton_pop().$out;
-	$output.="\n";
-}
-
-/**
- * Outputs a translated, color/style encoded string to the browser.
- *
- * @param string|array What to OutputClass::output. If an array is passed then the format used by sprintf is assumed
- *
- * @see output_notl
- *
- */
 class OutputClass
 {
+    /**
+     * Handles color and style encoding, and appends to the OutputClass::output buffer ($output)
+     *
+     * @param string|array $indata If an array is passed then the format for sprintf is assumed otherwise a simple string is assumed
+     *
+     * @see sprintf, apponencode
+     */
+    public static function output_notl($indata)
+    {
+        global $output, $block_new_output;
+
+        if ($block_new_output) {
+            return;
+        }
+
+        $args = func_get_args();
+        //pop true off the end if we have it
+        $last = array_pop($args);
+        if ($last !== true) {
+            array_push($args, $last);
+            $priv = false;
+        } else {
+            $priv = true;
+        }
+        $out = $indata;
+        $args[0] =& $out;
+        //apply variables
+        if (count($args) > 1) {
+            //special case since we use `% as a color code so often.
+            $out = str_replace("`%", "`%%", $out);
+            $out = call_user_func_array("sprintf", $args);
+        }
+        //holiday text
+        if ($priv == false) {
+            $out = holidayize($out, 'OutputClass::output');
+        }
+        //`1`2 etc color & formatting
+        $out = appoencode($out, $priv);
+        //apply to the page.
+        $output .= tlbutton_pop() . $out;
+        $output .= "\n";
+    }
+
+    /**
+     * Outputs a translated, color/style encoded string to the browser.
+     *
+     * @param string|array What to OutputClass::output. If an array is passed then the format used by sprintf is assumed
+     *
+     * @see OutputClass::output_notl
+     *
+     */
     public static function output()
     {
         global $block_new_output;
@@ -102,15 +108,16 @@ class OutputClass
         } else {
             $args[0] = translate($args[0]);
         }
-        call_user_func_array("output_notl", $args);
+        call_user_func_array("OutputClass::output_notl", $args);
     }
 
     /**
      * Reset and wipe the navs
      *
      */
-    public static function clearnav(){
-        $session['allowednavs']=array();
+    public static function clearnav()
+    {
+        $session['allowednavs'] = array();
     }
 
     public static function addnav($text, $link = false, $priv = false, $pop = false, $popsize = "500x300")

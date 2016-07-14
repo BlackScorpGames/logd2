@@ -42,9 +42,9 @@
 			$descauthname = $row['name'];
 
 			OutputClass::output("`&`bCurrent MoTD:`b `#by %s`2`n",$motdauthname);
-			output_notl(nltoappon($claninfo['clanmotd'])."`n");
+			OutputClass::output_notl(nltoappon($claninfo['clanmotd'])."`n");
 			OutputClass::output("`&`bCurrent Description:`b `#by %s`2`n",$descauthname);
-			output_notl(nltoappon($claninfo['clandesc'])."`n");
+			OutputClass::output_notl(nltoappon($claninfo['clandesc'])."`n");
 
 			rawoutput("<form action='clan.php?op=motd' method='POST'>");
 			OutputClass::addnav("","clan.php?op=motd");
@@ -53,7 +53,7 @@
 			OutputClass::output("`n`&`bDescription:`b `7(4096 chars)`n");
 			$blocked = Translator::translate_inline("Your clan has been blocked from posting a description.`n");
 			if ($claninfo['descauthor']==INT_MAX){
-				output_notl($blocked);
+				OutputClass::output_notl($blocked);
 			}else{
 				rawoutput("<textarea name='clandesc' cols='50' rows='10' class='input' style='width: 66%'>".htmlentities($claninfo['clandesc'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br>");
 			}

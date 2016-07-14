@@ -53,17 +53,17 @@ $i=0;
 while ($row = db_fetch_assoc($result)) {
 	$dom = date("D, M d",strtotime($row['date']));
 	if ($odate != $dom){
-		output_notl("`n`b`@%s`0`b`n", $dom);
+		OutputClass::output_notl("`n`b`@%s`0`b`n", $dom);
 		$odate = $dom;
 	}
 	$time = date("H:i:s", strtotime($row['date']))." (".reltime(strtotime($row['date'])).")";
-	output_notl("`7(%s) %s `7(`&%s`7)", $row['category'], $row['message'], $row['name']);
+	OutputClass::output_notl("`7(%s) %s `7(`&%s`7)", $row['category'], $row['message'], $row['name']);
 	if (!isset($categories[$row['category']]) && $category == "") {
 		OutputClass::addnav("Operations");
 		OutputClass::addnav(array("View by `i%s`i", $row['category']), "gamelog.php?cat=".$row['category']);
 		$categories[$row['category']] = 1;
 	}
-	output_notl("`n");
+	OutputClass::output_notl("`n");
 }
 
 page_footer();

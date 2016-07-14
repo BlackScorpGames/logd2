@@ -31,13 +31,13 @@ function drinks_dohook_private($hookname,$args) {
 		$hard = "";
 		if (get_module_pref('harddrinks')>=get_module_setting('hardlimit')) {
 			Translator::tlschema($drinktexts['schemas']['toomany']);
-			output_notl("`n`n");
+			OutputClass::output_notl("`n`n");
 			$remark = Translator::translate_inline($drinktexts['toomany']);
 			$remark = str_replace("{lover}",$partner."`0", $remark);
 			$remark = str_replace("{barkeep}", $drinktext['barkeep']."`0", $remark);
-			output_notl("%s`n", $remark);
+			OutputClass::output_notl("%s`n", $remark);
 			OutputClass::output($drinktexts['toomany']);
-			output_notl("`n");
+			OutputClass::output_notl("`n");
 			$hard = "AND harddrink=0";
 		}
 		OutputClass::output("`n`n`7You now feel %s.`n`n", $drunklist[$drunk]);

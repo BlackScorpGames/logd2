@@ -24,40 +24,40 @@
 				Translator::translate_inline("She takes your application, and stamps it \"`\$DENIED`7\"."),
 			);
 			if ($clanname!=$ocn || $clanshort!=$ocs){
-				output_notl($e[0],$registrar);
+				OutputClass::output_notl($e[0],$registrar);
 				clanform();
 				OutputClass::addnav("Return to the Lobby","clan.php");
 			}elseif (strlen($clanname)<5 || strlen($clanname)>50){
-				output_notl($e[1],$registrar);
+				OutputClass::output_notl($e[1],$registrar);
 				clanform();
 				OutputClass::addnav("Return to the Lobby","clan.php");
 			}elseif (strlen($clanshort)<2 || strlen($clanshort)>5){
-				output_notl($e[2],$registrar);
+				OutputClass::output_notl($e[2],$registrar);
 				clanform();
 				OutputClass::addnav("Return to the Lobby","clan.php");
 			}elseif (db_num_rows($result)>0){
-				output_notl($e[3],$registrar,stripslashes($clanname));
+				OutputClass::output_notl($e[3],$registrar,stripslashes($clanname));
 				clanform();
 				OutputClass::addnav("Return to the Lobby","clan.php");
 			}else{
 				$sql = "SELECT * FROM " . db_prefix("clans") . " WHERE clanshort='$clanshort'";
 				$result = db_query($sql);
 				if (db_num_rows($result)>0){
-					output_notl($e[4],$registrar,stripslashes($clanshort));
+					OutputClass::output_notl($e[4],$registrar,stripslashes($clanshort));
 					clanform();
 					OutputClass::addnav("Return to the Lobby","clan.php");
 				}else{
 					if ($session['user']['gold']<$gold || $session['user']['gems']<$gems){
-						if ($gold>0 && $gems<=0) output_notl($e[5],$registrar,$gold);
-						elseif ($gems>0 && $gold<=0) output_notl($e[7],$registrar,$gems);
-						else output_notl($e[6],$registrar,$gold,$gems);
-						output_notl($e[8],$registrar);
+						if ($gold>0 && $gems<=0) OutputClass::output_notl($e[5],$registrar,$gold);
+						elseif ($gems>0 && $gold<=0) OutputClass::output_notl($e[7],$registrar,$gems);
+						else OutputClass::output_notl($e[6],$registrar,$gold,$gems);
+						OutputClass::output_notl($e[8],$registrar);
 						OutputClass::addnav("Return to the Lobby","clan.php");
 					}else{
 /*//*/						$args = array("ocn"=>$ocn, "ocs"=>$ocs, "clanname"=>$clanname, "clanshort"=>$clanshort);
 /*//*/						$args = Modules::modulehook("process-createclan", $args);
 /*//*/						if (isset($args['blocked']) && $args['blocked']){
-/*//*/							output_notl(sprintf_translate($args['blockmsg']));
+/*//*/							OutputClass::output_notl(sprintf_translate($args['blockmsg']));
 /*//*/							clanform();
 /*//*/							OutputClass::addnav("Return to the Lobby","clan.php");
 /*//*/						} else {
@@ -90,12 +90,12 @@
 			$e2 = Translator::translate_inline("`n`n\"`5Since you do not have enough gems with you, I cannot allow you to apply for a clan,`7\" she says.");
 			$e3 = Translator::translate_inline("`n`n\"`5If you're ok with these three requirements, please fill out the following form,`7\" she says, handing you a sheet of paper.");
 			if ($session['user']['gold']<$gold){
-				output_notl($e1);
+				OutputClass::output_notl($e1);
 			}else{
 				if ($session['user']['gems']<$gems){
-					output_notl($e2,$registrar);
+					OutputClass::output_notl($e2,$registrar);
 				}else{
-					output_notl($e3,$registrar);
+					OutputClass::output_notl($e3,$registrar);
 					clanform();
 				}
 			}

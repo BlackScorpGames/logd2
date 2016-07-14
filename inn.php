@@ -32,9 +32,9 @@ $skipinndesc = handle_event("inn");
 if (!$skipinndesc) {
 	checkday();
 	rawoutput("<span style='color: #9900FF'>");
-	output_notl("`c`b");
+	OutputClass::output_notl("`c`b");
 	OutputClass::output($iname);
-	output_notl("`b`c");
+	OutputClass::output_notl("`b`c");
 }
 
 $subop = Http::httpget('subop');

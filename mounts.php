@@ -209,7 +209,7 @@ if ($op==""){
 			OutputClass::addnav("","mounts.php?op=activate&id={$row['mountid']}");
 		}
 		rawoutput("<td>");
-		output_notl("`&%s`0", $row['mountname']);
+		OutputClass::output_notl("`&%s`0", $row['mountname']);
 		rawoutput("</td><td>");
 		OutputClass::output("`%%s gems`0, `^%s gold`0",$row['mountcostgems'], $row['mountcostgold']);
 		rawoutput("</td><td>");
@@ -221,13 +221,13 @@ if ($op==""){
 		$max = count($features);
 		foreach ($features as $fname=>$fval) {
 			$fname = Translator::translate_inline($fname);
-			output_notl("%s: %s%s", $fname,  $fval, ($mcount==$max?"":", "));
+			OutputClass::output_notl("%s: %s%s", $fname,  $fval, ($mcount==$max?"":", "));
 			$mcount++;
 		}
 		rawoutput("</td><td nowrap>");
 		$file = "mounts.php?op=xml&id=".$row['mountid'];
 		rawoutput("<div id='mountusers$i'><a href='$file' target='_blank' onClick=\"getUserInfo('".$row{'mountid'}."', $i); return false\">");
- 		output_notl("`#%s`0", $mounts[$row['mountid']]);
+ 		OutputClass::output_notl("`#%s`0", $mounts[$row['mountid']]);
 		OutputClass::addnav("", $file);
 		rawoutput("</a></div>");
 		rawoutput("</td></tr>");
@@ -446,14 +446,14 @@ function mountform($mount){
 	OutputClass::output("round(<maxhitpoints>/10)`n");
 	OutputClass::output("round(<level>/max(<gems>,1))`n");
 	OutputClass::output("`@Fields you might be interested in for this: `n");
-	output_notl("`3name, sex `7(0=male 1=female)`3, specialty `7(DA=darkarts MP=mystical TS=thief)`3,`n");
-	output_notl("experience, gold, weapon `7(name)`3, armor `7(name)`3, level,`n");
-	output_notl("defense, attack, alive, goldinbank,`n");
-	output_notl("spirits `7(-2 to +2 or -6 for resurrection)`3, hitpoints, maxhitpoints, gems,`n");
-	output_notl("weaponvalue `7(gold value)`3, armorvalue `7(gold value)`3, turns, title, weapondmg, armordef,`n");
-	output_notl("age `7(days since last DK)`3, charm, playerfights, dragonkills, resurrections `7(times died since last DK)`3,`n");
-	output_notl("soulpoints, gravefights, deathpower `7(%s favor)`3,`n", Settings::getsetting("deathoverlord", '`$Ramius'));
-	output_notl("race, dragonage, bestdragonage`n`n");
+	OutputClass::output_notl("`3name, sex `7(0=male 1=female)`3, specialty `7(DA=darkarts MP=mystical TS=thief)`3,`n");
+	OutputClass::output_notl("experience, gold, weapon `7(name)`3, armor `7(name)`3, level,`n");
+	OutputClass::output_notl("defense, attack, alive, goldinbank,`n");
+	OutputClass::output_notl("spirits `7(-2 to +2 or -6 for resurrection)`3, hitpoints, maxhitpoints, gems,`n");
+	OutputClass::output_notl("weaponvalue `7(gold value)`3, armorvalue `7(gold value)`3, turns, title, weapondmg, armordef,`n");
+	OutputClass::output_notl("age `7(days since last DK)`3, charm, playerfights, dragonkills, resurrections `7(times died since last DK)`3,`n");
+	OutputClass::output_notl("soulpoints, gravefights, deathpower `7(%s favor)`3,`n", Settings::getsetting("deathoverlord", '`$Ramius'));
+	OutputClass::output_notl("race, dragonage, bestdragonage`n`n");
 	OutputClass::output("You can also use module preferences by using <modulename|preference> (for instance '<specialtymystic|uses>' or '<drinks|drunkeness>'`n`n");
 	OutputClass::output("`@Finally, starting a field with 'debug:' will enable debug OutputClass::output for that field to help you locate errors in your implementation.");
 	OutputClass::output("While testing new buffs, you should be sure to debug fields before you release them on the world, as the PHP script will otherwise throw errors to the user if you have any, and this can break the site at various spots (as in places that redirects should happen).");

@@ -21,7 +21,7 @@
 				} else {
 					$memb = sprintf($memb_n, $row['c']);
 				}
-				output_notl("&#149; &#60;%s&#62; <a href='clan.php?detail=%s'>%s</a> %s`n",
+				OutputClass::output_notl("&#149; &#60;%s&#62; <a href='clan.php?detail=%s'>%s</a> %s`n",
 						$row['clanshort'],
 						$row['clanid'],
 						full_sanitize(htmlentities($row['clanname']), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")),

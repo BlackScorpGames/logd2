@@ -38,12 +38,12 @@ if ($op==""){
 		if ($session['user']['amountouttoday'] > 0) {
 			OutputClass::output("`6She scans her ledgers briefly, \"`@For your knowledge, you have already transferred `^%s`@ gold today.`6\"`n",$session['user']['amountouttoday']);
 		}
-		output_notl("`n");
+		OutputClass::output_notl("`n");
 		$preview = Translator::translate_inline("Preview Transfer");
 		rawoutput("<form action='bank.php?op=transfer2' method='POST'>");
 		OutputClass::output("Transfer how much: ");
 		rawoutput("<input name='amount' id='amount' width='5'>");
-		output_notl("`n");
+		OutputClass::output_notl("`n");
 		OutputClass::output("To: ");
 		rawoutput("<input name='to'>");
 		OutputClass::output(" (partial names are ok, you will be asked to confirm the transaction before it occurs).`n");
@@ -145,11 +145,11 @@ if ($op==""){
 	rawoutput("<form action='bank.php?op=depositfinish' method='POST'>");
 	$balance = Translator::translate_inline("`@Elessa`6 says, \"`@You have a balance of `^%s`@ gold in the bank.`6\"`n");
 	$debt = Translator::translate_inline("`@Elessa`6 says, \"`@You have a `\$debt`@ of `^%s`@ gold to the bank.`6\"`n");
-	output_notl($session['user']['goldinbank']>=0?$balance:$debt,abs($session['user']['goldinbank']));
+	OutputClass::output_notl($session['user']['goldinbank']>=0?$balance:$debt,abs($session['user']['goldinbank']));
 	OutputClass::output("`6Searching through all your pockets and pouches, you calculate that you currently have `^%s`6 gold on hand.`n`n", $session['user']['gold']);
 	$dep = Translator::translate_inline("`^Deposit how much?");
 	$pay = Translator::translate_inline("`^Pay off how much?");
-	output_notl($session['user']['goldinbank']>=0?$dep:$pay);
+	OutputClass::output_notl($session['user']['goldinbank']>=0?$dep:$pay);
 	$dep = Translator::translate_inline("Deposit");
 	rawoutput(" <input id='input' name='amount' width=5 > <input type='submit' class='button' value='$dep'>");
 	OutputClass::output("`n`iEnter 0 or nothing to deposit it all`i");
@@ -165,12 +165,12 @@ if ($op==""){
 	$depositdebt = Translator::translate_inline("`@Elessa`6 records your deposit of `^%s `6gold in her ledger. \"`@Thank you, `&%s`@.  You now have a debt of `\$%s`@ gold to the bank and `^%s`@ gold in hand.`6\"");
 	$depositbalance= Translator::translate_inline("`@Elessa`6 records your deposit of `^%s `6gold in her ledger. \"`@Thank you, `&%s`@.  You now have a balance of `^%s`@ gold in the bank and `^%s`@ gold in hand.`6\"");
 	if ($amount>$session['user']['gold']){
-		output_notl($notenough,$session['user']['gold'],$amount);
+		OutputClass::output_notl($notenough,$session['user']['gold'],$amount);
 	}else{
 		debuglog("deposited " . $amount . " gold in the bank");
 		$session['user']['goldinbank']+=$amount;
 		$session['user']['gold']-=$amount;
-		output_notl($session['user']['goldinbank']>=0?$depositbalance:$depositdebt,$amount,$session['user']['name'], abs($session['user']['goldinbank']),$session['user']['gold']);
+		OutputClass::output_notl($session['user']['goldinbank']>=0?$depositbalance:$depositdebt,$amount,$session['user']['name'], abs($session['user']['goldinbank']),$session['user']['gold']);
 	}
 }elseif($op=="borrow"){
 	$maxborrow = $session['user']['level']*Settings::getsetting("borrowperlevel",20);
@@ -178,7 +178,7 @@ if ($op==""){
 	$balance = Translator::translate_inline("`@Elessa`6 scans through her ledger, \"`@You have a balance of `^%s`@ gold in the bank.`6\"`n");
 	$debt = Translator::translate_inline("`@Elessa`6 scans through her ledger, \"`@You have a `\$debt`@ of `^%s`@ gold to the bank.`6\"`n");
 	rawoutput("<form action='bank.php?op=withdrawfinish' method='POST'>");
-	output_notl($session['user']['goldinbank']>=0?$balance:$debt,abs($session['user']['goldinbank']));
+	OutputClass::output_notl($session['user']['goldinbank']>=0?$balance:$debt,abs($session['user']['goldinbank']));
 	OutputClass::output("`6\"`@How much would you like to borrow `&%s`@?  At your level, you may borrow up to a total of `^%s`@ from the bank.`6\"`n`n",$session['user']['name'], $maxborrow);
 	rawoutput(" <input id='input' name='amount' width=5 > <input type='hidden' name='borrow' value='x'><input type='submit' class='button' value='$borrow'>");
 	OutputClass::output("`n(Money will be withdrawn until you have none left, the remainder will be borrowed)");
@@ -190,7 +190,7 @@ if ($op==""){
 	$balance = Translator::translate_inline("`@Elessa`6 scans through her ledger, \"`@You have a balance of `^%s`@ gold in the bank.`6\"`n");
 	$debt = Translator::translate_inline("`@Elessa`6 scans through her ledger, \"`@You have a `\$debt`@ of `^%s`@ gold in the bank.`6\"`n");
 	rawoutput("<form action='bank.php?op=withdrawfinish' method='POST'>");
-	output_notl($session['user']['goldinbank']>=0?$balance:$debt,abs($session['user']['goldinbank']));
+	OutputClass::output_notl($session['user']['goldinbank']>=0?$balance:$debt,abs($session['user']['goldinbank']));
 	OutputClass::output("`6\"`@How much would you like to withdraw `&%s`@?`6\"`n`n",$session['user']['name']);
 	rawoutput("<input id='input' name='amount' width=5 > <input type='submit' class='button' value='$withdraw'>");
 	OutputClass::output("`n`iEnter 0 or nothing to withdraw it all`i");

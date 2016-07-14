@@ -102,7 +102,7 @@ if ($op==""){
 		Translator::tlschema($schemas['desc']);
 	  	if (is_array($texts['desc'])) {
 	  		foreach ($texts['desc'] as $description) {
-	  			output_notl(sprintf_translate($description));
+	  			OutputClass::output_notl(sprintf_translate($description));
 	  		}
 	  	} else {
 	  		OutputClass::output($texts['desc']);
@@ -122,7 +122,7 @@ if ($op==""){
 		case 0:
 			if (is_array($texts['nocompanions'])) {
 				foreach ($texts['nocompanions'] as $description) {
-					output_notl(sprintf_translate($description));
+					OutputClass::output_notl(sprintf_translate($description));
 				}
 			} else {
 				OutputClass::output($texts['nocompanions']);
@@ -131,7 +131,7 @@ if ($op==""){
 		case 1:
 			if (is_array($texts['onecompanion'])) {
 				foreach ($texts['onecompanion'] as $description) {
-					output_notl(sprintf_translate($description));
+					OutputClass::output_notl(sprintf_translate($description));
 				}
 			} else {
 				OutputClass::output($texts['onecompanion']);
@@ -140,7 +140,7 @@ if ($op==""){
 		default:
 			if (is_array($texts['manycompanions'])) {
 				foreach ($texts['manycompanions'] as $description) {
-					output_notl(sprintf_translate($description));
+					OutputClass::output_notl(sprintf_translate($description));
 				}
 			} else {
 				OutputClass::output($texts['manycompanions']);
@@ -179,7 +179,7 @@ if ($op==""){
 		Translator::tlschema($schemas['healpaid']);
 	  	if (is_array($texts['healnotenough'])) {
 	  		foreach ($texts['healnotenough'] as $healnotenough) {
-	  			output_notl(sprintf_translate($healnotenough));
+	  			OutputClass::output_notl(sprintf_translate($healnotenough));
 	  		}
 	  	} else {
 	  		OutputClass::output($texts['healnotenough']);
@@ -192,7 +192,7 @@ if ($op==""){
 		Translator::tlschema($schemas['healpaid']);
 	  	if (is_array($texts['healpaid'])) {
 	  		foreach ($texts['healpaid'] as $healpaid) {
-	  			output_notl(sprintf_translate($healpaid));
+	  			OutputClass::output_notl(sprintf_translate($healpaid));
 	  		}
 	  	} else {
 	  		OutputClass::output($texts['healpaid']);
@@ -227,7 +227,7 @@ if ($op==""){
 			Translator::tlschema($schemas['toomanycompanions']);
 			if (is_array($texts['toomanycompanions'])) {
 				foreach ($texts['toomanycompanions'] as $toomanycompanions) {
-					output_notl(sprintf_translate($toomanycompanions));
+					OutputClass::output_notl(sprintf_translate($toomanycompanions));
 				}
 			} else {
 				OutputClass::output($texts['toomanycompanions']);
@@ -268,7 +268,7 @@ function healnav($companions, $texts, $schemas) {
 	  	Translator::tlschema($schemas['healtext']);
 	  	if (is_array($texts['healtext'])) {
 	  		foreach ($texts['healtext'] as $healtext) {
-	  			output_notl(sprintf_translate($healtext));
+	  			OutputClass::output_notl(sprintf_translate($healtext));
 	  		}
 	  	} else {
 	  		OutputClass::output($texts['healtext']);

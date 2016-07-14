@@ -181,7 +181,7 @@ if ($op==""){
 		rawoutput("<a href='companions.php?op=take&id={$row['companionid']}'>$take</a> ]</td>");
 		OutputClass::addnav("", "companions.php?op=take&id={$row['companionid']}");
 		rawoutput("<td>");
-		output_notl("`&%s`0", $row['name']);
+		OutputClass::output_notl("`&%s`0", $row['name']);
 		rawoutput("</td><td>");
 		OutputClass::output("`%%s gems`0, `^%s gold`0",$row['companioncostgems'], $row['companioncostgold']);
 		rawoutput("</td></tr>");

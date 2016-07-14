@@ -48,7 +48,7 @@ if (file_exists("dbconnect.php")){
 		tip("If this database doesn't exist, I'll try to create it for you if you like.");
 	*/
 	$submit="Test this connection information.";
-	output_notl("`n`n<input type='submit' value='$submit' class='button'>",true);
+	OutputClass::output_notl("`n`n<input type='submit' value='$submit' class='button'>",true);
 }
 rawoutput("</form>");
 ?>

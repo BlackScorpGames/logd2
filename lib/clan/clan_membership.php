@@ -59,21 +59,21 @@
 			$tot += $row['dragonkills'];
 			rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
 			rawoutput("<td>");
-			output_notl($ranks[$row['clanrank']]);
+			OutputClass::output_notl($ranks[$row['clanrank']]);
 			rawoutput("</td><td>");
 			$link = "bio.php?char=".$row['acctid']."&ret=".urlencode($_SERVER['REQUEST_URI']);
 			rawoutput("<a href='$link'>", true);
 			OutputClass::addnav("", $link);
-			output_notl("`&%s`0", $row['name']);
+			OutputClass::output_notl("`&%s`0", $row['name']);
 			rawoutput("</a>");
 			rawoutput("</td><td align='center'>");
-			output_notl("`^%s`0",$row['level']);
+			OutputClass::output_notl("`^%s`0",$row['level']);
 			rawoutput("</td><td align='center'>");
-			output_notl("`\$%s`0",$row['dragonkills']);
+			OutputClass::output_notl("`\$%s`0",$row['dragonkills']);
 			rawoutput("</td><td>");
-			output_notl("`3%s`0",$row['clanjoindate']);
+			OutputClass::output_notl("`3%s`0",$row['clanjoindate']);
 			rawoutput("</td><td>");
-			output_notl("`#%s`0",reltime(strtotime($row['laston'])));
+			OutputClass::output_notl("`#%s`0",reltime(strtotime($row['laston'])));
 			rawoutput("</td>");
 			if ($session['user']['clanrank']>CLAN_MEMBER){
 				rawoutput("<td>");
@@ -81,22 +81,22 @@
 					rawoutput("[ <a href='clan.php?op=membership&setrank=".clan_nextrank($ranks,$row['clanrank'])."&who=".rawurlencode($row['login'])."&whoname=".rawurlencode($row['name'])."&whoacctid=".$row['acctid']."'>$promote</a> | ");
 					OutputClass::addnav("","clan.php?op=membership&setrank=".clan_nextrank($ranks,$row['clanrank'])."&who=".rawurlencode($row['login'])."&whoname=".rawurlencode($row['name'])."&whoacctid=".$row['acctid']);
 				}else{
-					output_notl("[ `)%s`0 | ", $promote);
+					OutputClass::output_notl("[ `)%s`0 | ", $promote);
 				}
 				if ($row['clanrank']<=$session['user']['clanrank'] && $row['clanrank']>CLAN_APPLICANT && $row['login']!=$session['user']['login'] && clan_previousrank($ranks,$row['clanrank']) > 0){
 					rawoutput("<a href='clan.php?op=membership&setrank=".clan_previousrank($ranks,$row['clanrank'])."&whoacctid=".$row['acctid']."'>$demote</a> | ");
 					OutputClass::addnav("","clan.php?op=membership&setrank=".clan_previousrank($ranks,$row['clanrank'])."&whoacctid=".$row['acctid']);
 				}elseif ($row['clanrank']==CLAN_FOUNDER && $row['clanrank']>CLAN_APPLICANT && $row['login']==$session['user']['login']){
-					output_notl("<a href='clan.php?op=membership&setrank=".clan_previousrank($ranks,$row['clanrank'])."&whoacctid=".$row['acctid']."'>$stepdown</a> | ",true);
+					OutputClass::output_notl("<a href='clan.php?op=membership&setrank=".clan_previousrank($ranks,$row['clanrank'])."&whoacctid=".$row['acctid']."'>$stepdown</a> | ",true);
 					OutputClass::addnav("","clan.php?op=membership&setrank=".clan_previousrank($ranks,$row['clanrank'])."&whoacctid=".$row['acctid']);
 				} else {
-					output_notl("`)%s`0 | ", $demote);
+					OutputClass::output_notl("`)%s`0 | ", $demote);
 				}
 				if ($row['clanrank'] <= $session['user']['clanrank'] && $row['login']!=$session['user']['login']){
 					rawoutput("<a href='clan.php?op=membership&remove=".$row['acctid']."' onClick=\"return confirm('$confirm');\">$remove</a> ]");
 					OutputClass::addnav("","clan.php?op=membership&remove=".$row['acctid']);
 				}else{
-					output_notl("`)%s`0 ]", $remove);
+					OutputClass::output_notl("`)%s`0 ]", $remove);
 				}
 				rawoutput("</td>");
 			}

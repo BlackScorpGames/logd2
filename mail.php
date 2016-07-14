@@ -67,7 +67,7 @@ for($i=0;$i<$count_mailfunctions;++$i) {
 	}
 }
 rawoutput("</tr></table>");
-output_notl("`n`n");
+OutputClass::output_notl("`n`n");
 
 if($op=="send"){
 	require("lib/mail/case_send.php");

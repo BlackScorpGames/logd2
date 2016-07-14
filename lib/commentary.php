@@ -418,10 +418,10 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 		$mod_reason = Translator::translate_inline("Reason:");
 		$mod_reason_desc = htmlentities(Translator::translate_inline("Banned for comments you posted."), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
 
-		output_notl("<form action='$scriptname?op=commentdelete&return=".URLEncode($_SERVER['REQUEST_URI'])."' method='POST'>",true);
-		output_notl("<input type='submit' class='button' value=\"$mod_Del1\">",true);
-		output_notl("<input type='submit' class='button' name='delnban' value=\"$mod_Del2\" onClick=\"return confirm('$mod_Del_confirm');\">",true);
-		output_notl("`n$mod_reason <input name='reason0' size='40' value=\"$mod_reason_desc\" onChange=\"document.getElementById('reason').value=this.value;\">",true);
+		OutputClass::output_notl("<form action='$scriptname?op=commentdelete&return=".URLEncode($_SERVER['REQUEST_URI'])."' method='POST'>",true);
+		OutputClass::output_notl("<input type='submit' class='button' value=\"$mod_Del1\">",true);
+		OutputClass::output_notl("<input type='submit' class='button' name='delnban' value=\"$mod_Del2\" onClick=\"return confirm('$mod_Del_confirm');\">",true);
+		OutputClass::output_notl("`n$mod_reason <input name='reason0' size='40' value=\"$mod_reason_desc\" onChange=\"document.getElementById('reason').value=this.value;\">",true);
 	}
 
 
@@ -434,7 +434,7 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 	while (list($sec,$v)=each($outputcomments)){
 		if ($sec!="x") {
 			if($needclose) Modules::modulehook("}collapse");
-			output_notl("`n<hr><a href='moderate.php?area=%s'>`b`^%s`0`b</a>`n",
+			OutputClass::output_notl("`n<hr><a href='moderate.php?area=%s'>`b`^%s`0`b</a>`n",
 				$sec, isset($sections[$sec]) ? $sections[$sec] : "($sec)", true);
 			OutputClass::addnav("", "moderate.php?area=$sec");
 			Modules::modulehook("collapse{",array("name"=>"com-".$sec));
@@ -448,7 +448,7 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 			$args = array('commentline'=>$val);
 			$args = Modules::modulehook("viewcommentary", $args);
 			$val = $args['commentline'];
-			output_notl($val, true);
+			OutputClass::output_notl($val, true);
 		}
 	}
 
@@ -458,20 +458,20 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 	}
 
 	if ($moderating){
-		output_notl("`n");
+		OutputClass::output_notl("`n");
 		rawoutput("<input type='submit' class='button' value=\"$mod_Del1\">");
 		rawoutput("<input type='submit' class='button' name='delnban' value=\"$mod_Del2\" onClick=\"return confirm('$mod_Del_confirm');\">");
-		output_notl("`n%s ", $mod_reason);
+		OutputClass::output_notl("`n%s ", $mod_reason);
 		rawoutput("<input name='reason' size='40' id='reason' value=\"$mod_reason_desc\">");
 		rawoutput("</form>");
-		output_notl("`n");
+		OutputClass::output_notl("`n");
 	}
 
 	if ($session['user']['loggedin']) {
 		$args = Modules::modulehook("insertcomment", array("section"=>$section));
 		if (array_key_exists("mute",$args) && $args['mute'] &&
 				!($session['user']['superuser'] & SU_EDIT_COMMENTS)) {
-			output_notl("%s", $args['mutemsg']);
+			OutputClass::output_notl("%s", $args['mutemsg']);
 		} elseif ($counttoday<($limit/2) ||
 				($session['user']['superuser']&~SU_DOESNT_GIVE_GROTTO)
 				|| !Settings::getsetting('postinglimit',1)){
@@ -510,10 +510,10 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 			if ($jump) {
 				$first .= "#$section";
 			}
-			output_notl("<a href=\"$first\">$firstu</a>",true);
+			OutputClass::output_notl("<a href=\"$first\">$firstu</a>",true);
 			OutputClass::addnav("",$first);
 		}else{
-			output_notl($firstu,true);
+			OutputClass::output_notl($firstu,true);
 		}
 		$req = comscroll_sanitize($REQUEST_URI)."&comscroll=".($com+1);
 		$req = str_replace("?&","?",$req);
@@ -522,10 +522,10 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 		if ($jump) {
 			$req .= "#$section";
 		}
-		output_notl("<a href=\"$req\">$prev</a>",true);
+		OutputClass::output_notl("<a href=\"$req\">$prev</a>",true);
 		OutputClass::addnav("",$req);
 	}else{
-		output_notl("$firstu $prev",true);
+		OutputClass::output_notl("$firstu $prev",true);
 	}
 	$last = appendlink(comscroll_sanitize($REQUEST_URI),"refresh=1");
 
@@ -541,7 +541,7 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 	}
 	//if (!strpos($last,"?")) $last = str_replace("&","?",$last);
 	//debug($last);
-	output_notl("&nbsp;<a href=\"$last\">$ref</a>&nbsp;",true);
+	OutputClass::output_notl("&nbsp;<a href=\"$last\">$ref</a>&nbsp;",true);
 	OutputClass::addnav("",$last);
 	if ($com>0 || ($cid > 0 && $newadded > $limit)){
 		$req = comscroll_sanitize($REQUEST_URI)."&comscroll=".($com-1);
@@ -551,11 +551,11 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 		if ($jump) {
 			$req .= "#$section";
 		}
-		output_notl(" <a href=\"$req\">$next</a>",true);
+		OutputClass::output_notl(" <a href=\"$req\">$next</a>",true);
 		OutputClass::addnav("",$req);
-		output_notl(" <a href=\"$last\">$lastu</a>",true);
+		OutputClass::output_notl(" <a href=\"$last\">$lastu</a>",true);
 	}else{
-		output_notl("$next $lastu",true);
+		OutputClass::output_notl("$next $lastu",true);
 	}
 	if (!$cc) db_free_result($result);
 	Translator::tlschema();
@@ -599,7 +599,7 @@ function talkform($section,$talkline,$limit=10,$schema=false){
 		$req .= "#$section";
 	}
 	OutputClass::addnav("",$req);
-	output_notl("<form action=\"$req\" method='POST' autocomplete='false'>",true);
+	OutputClass::output_notl("<form action=\"$req\" method='POST' autocomplete='false'>",true);
 	previewfield("insertcommentary", $session['user']['name'], $talkline, true, array("size"=>"40", "maxlength"=>200-$tll));
 	rawoutput("<input type='hidden' name='talkline' value='$talkline'>");
 	rawoutput("<input type='hidden' name='schema' value='$schema'>");
@@ -610,16 +610,16 @@ function talkform($section,$talkline,$limit=10,$schema=false){
 		$iname = Settings::getsetting("innname", LOCATION_INN);
 		$sections = commentarylocs();
 		reset ($sections);
-		output_notl("<select name='section'>",true);
+		OutputClass::output_notl("<select name='section'>",true);
 		while (list($key,$val)=each($sections)){
-			output_notl("<option value='$key'>$val</option>",true);
+			OutputClass::output_notl("<option value='$key'>$val</option>",true);
 		}
-		output_notl("</select>",true);
+		OutputClass::output_notl("</select>",true);
 	}else{
-		output_notl("<input type='hidden' name='section' value='$section'>",true);
+		OutputClass::output_notl("<input type='hidden' name='section' value='$section'>",true);
 	}
 	$add = htmlentities(Translator::translate_inline("Add"), ENT_QUOTES, Settings::getsetting("charset", "ISO-8859-1"));
-	output_notl("<input type='submit' class='button' value='$add'>`n",true);
+	OutputClass::output_notl("<input type='submit' class='button' value='$add'>`n",true);
 	if (round($limit/2,0)-$counttoday < 3 && Settings::getsetting('postinglimit',1)){
 		OutputClass::output("`)(You have %s posts left today)`n`0",(round($limit/2,0)-$counttoday));
 	}

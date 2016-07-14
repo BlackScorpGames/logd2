@@ -73,7 +73,7 @@ if ($op=="" || $op=="sql"){
 		Modules::modulehook("rawsql-execphp",array("php"=>$php));
 		ob_start();
 		eval($php);
-		output_notl(ob_get_contents(),true);
+		OutputClass::output_notl(ob_get_contents(),true);
 		ob_end_clean();
 		debuglog('Ran Raw PHP: ' . $php);
 	}

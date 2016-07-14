@@ -82,9 +82,9 @@ if ($op == "") {
 		OutputClass::addnav("","taunt.php?op=edit&tauntid=$id");
 		OutputClass::addnav("","taunt.php?op=del&tauntid=$id");
 		rawoutput("</td><td>");
-		output_notl("%s", $row['taunt']);
+		OutputClass::output_notl("%s", $row['taunt']);
 		rawoutput("</td><td>");
-		output_notl("%s", $row['editor']);
+		OutputClass::output_notl("%s", $row['editor']);
 		rawoutput("</td></tr>");
 	}
 	OutputClass::addnav("","taunt.php?c=".Http::httpget('c'));

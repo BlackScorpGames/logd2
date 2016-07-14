@@ -26,7 +26,7 @@ function forestvictory($enemies,$denyflawless=false){
 		Translator::tlschema("battle");
 		if(isset($badguy['creaturelose'])) $msg = Translator::translate_inline($badguy['creaturelose']);
 		Translator::tlschema();
-		if(isset($msg)) output_notl("`b`&%s`0`b`n",$msg);
+		if(isset($msg)) OutputClass::output_notl("`b`&%s`0`b`n",$msg);
 		OutputClass::output("`b`\$You have slain %s!`0`b`n",$badguy['creaturename']);
 		$count++;
 		// If any creature did damage, we have no flawless fight. Easy as that.
@@ -135,7 +135,7 @@ function forestdefeat($enemies,$where="in the forest"){
 		if (isset($badguy['killedplayer']) && $badguy['killedplayer'] == true) $killer = $badguy;
 		if (isset($badguy['creaturewin']) && $badguy['creaturewin'] > "") {
 			$msg = Translator::translate_inline($badguy['creaturewin'],"battle");
-			output_notl("`b`&%s`0`b`n",$msg);
+			OutputClass::output_notl("`b`&%s`0`b`n",$msg);
 		}
 	}
 	if($killer) $badguy = $killer;

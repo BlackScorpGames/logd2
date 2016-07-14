@@ -101,9 +101,9 @@ function cedrikspotions_run(){
 	Translator::tlschema("inn");
 	PageParts::page_header($iname);
 	rawoutput("<span style='color: #9900FF'>");
-	output_notl("`c`b");
+	OutputClass::output_notl("`c`b");
 	OutputClass::output($iname);
-	output_notl("`b`c");
+	OutputClass::output_notl("`b`c");
 	Translator::tlschema();
 	$barkeep = Settings::getsetting("barkeep","`tCedrik");
 	$mincost = 0;
@@ -187,7 +187,7 @@ function cedrikspotions_run(){
 					$cm = get_module_setting("charmcost");
 					OutputClass::output("(%s %s for %s charm)", $cm, Translator::translate_inline($cm==1?"gem":"gems"), get_module_setting("charmgain"));
 				}
-				output_notl("`n");
+				OutputClass::output_notl("`n");
 			}
 			if (get_module_setting("ismax") == 1) {
 				rawoutput("<input type='radio' name='wish' value='2'>");
@@ -207,7 +207,7 @@ function cedrikspotions_run(){
 							$hptype,
 							Translator::translate_inline($hm==1?"hitpoint":"hitpoints"));
 				}
-				output_notl("`n");
+				OutputClass::output_notl("`n");
 			}
 			if (get_module_setting("istemp") == 1) {
 				rawoutput("<input type='radio' name='wish' value='3'>");
@@ -217,25 +217,25 @@ function cedrikspotions_run(){
 					$hm = get_module_setting("tempgain");
 					OutputClass::output("(%s %s for %s %s)", $cm, Translator::translate_inline($cm==1?"gem":"gems"), $hm, Translator::translate_inline($hm == 1? "hitpoint":"hitpoints"));
 				}
-				output_notl("`n");
+				OutputClass::output_notl("`n");
 			}
 			if (get_module_setting("isforget") == 1) {
 				rawoutput("<input type='radio' name='wish' value='4'>");
 				OutputClass::output("Forgetfulness");
 				if ($mincost != $maxcost) {
 					$cm = get_module_setting("forgcost");
-					output_notl("(%s %s)", $cm, Translator::translate_inline($cm==1?"gem":"gems"));
+					OutputClass::output_notl("(%s %s)", $cm, Translator::translate_inline($cm==1?"gem":"gems"));
 				}
-				output_notl("`n");
+				OutputClass::output_notl("`n");
 			}
 			if (get_module_setting("istrans") == 1) {
 				rawoutput("<input type='radio' name='wish' value='5'>");
 				OutputClass::output("Transmutation");
 				if ($mincost != $maxcost) {
 					$cm = get_module_setting("transcost");
-					output_notl("(%s %s)", $cm, Translator::translate_inline($cm==1?"gem":"gems"));
+					OutputClass::output_notl("(%s %s)", $cm, Translator::translate_inline($cm==1?"gem":"gems"));
 				}
-				output_notl("`n");
+				OutputClass::output_notl("`n");
 			}
 			rawoutput("</form>");
 		}else{

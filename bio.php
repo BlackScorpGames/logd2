@@ -47,7 +47,7 @@ if ($target = db_fetch_assoc($result)) {
   $write = Translator::translate_inline("Write Mail");
   if ($session['user']['loggedin'])
 	  rawoutput("<a href=\"mail.php?op=write&to={$target['login']}\" target=\"_blank\" onClick=\"".popup("mail.php?op=write&to={$target['login']}").";return false;\"><img src='images/newscroll.GIF' width='16' height='16' alt='$write' border='0'></a>");
-  output_notl("`n`n");
+  OutputClass::output_notl("`n`n");
 
   if ($target['clanname']>"" && Settings::getsetting("allowclans",false)){
 	  $ranks = array(CLAN_APPLICANT=>"`!Applicant`0",CLAN_MEMBER=>"`#Member`0",CLAN_OFFICER=>"`^Officer`0",CLAN_LEADER=>"`&Leader`0", CLAN_FOUNDER=>"`\$Founder");
@@ -131,11 +131,11 @@ if ($target = db_fetch_assoc($result)) {
 	  }
 	  Translator::tlschema();
 	  if ($odate!=$row['newsdate']){
-		  output_notl("`n`b`@%s`0`b`n",
+		  OutputClass::output_notl("`n`b`@%s`0`b`n",
 				  date("D, M d", strtotime($row['newsdate'])));
 		  $odate=$row['newsdate'];
 	  }
-	  output_notl("`@$news`0`n");
+	  OutputClass::output_notl("`@$news`0`n");
   }
   Translator::tlschema();
 

@@ -55,11 +55,11 @@ while ($row = db_fetch_assoc($result2)) {
 		pollitem($row['motditem'], $row['motdtitle'], $row['motdbody'],$row['motdauthorname'],$row['motddate'], false);
 	}
 }
-output_notl("`n");
+OutputClass::output_notl("`n");
 OutputClass::output("`c`b`!News for %s %s`0`b`c", $date, $pagestr);
 
 while ($row = db_fetch_assoc($result)) {
-	output_notl("`c`2-=-`@=-=`2-=-`@=-=`2-=-`@=-=`2-=-`0`c");
+	OutputClass::output_notl("`c`2-=-`@=-=`2-=-`@=-=`2-=-`@=-=`2-=-`0`c");
 	if ($session['user']['superuser'] & SU_EDIT_COMMENTS){
 		$del = Translator::translate_inline("Del");
 		rawoutput("[ <a href='superuser.php?op=newsdelete&newsid=".$row['newsid']."&return=".URLEncode($_SERVER['REQUEST_URI'])."'>$del</a> ]&nbsp;");
@@ -79,13 +79,13 @@ while ($row = db_fetch_assoc($result)) {
 		$news = Translator::translate_inline($row['newstext']);
 	}
 	Translator::tlschema();
-	output_notl($news."`n");
+	OutputClass::output_notl($news."`n");
 }
 if (db_num_rows($result)==0){
-	output_notl("`c`2-=-`@=-=`2-=-`@=-=`2-=-`@=-=`2-=-`0`c");
+	OutputClass::output_notl("`c`2-=-`@=-=`2-=-`@=-=`2-=-`@=-=`2-=-`0`c");
 	OutputClass::output("`1`b`c Nothing of note happened this day.  All in all a boring day. `c`b`0");
 }
-output_notl("`c`2-=-`@=-=`2-=-`@=-=`2-=-`@=-=`2-=-`0`c");
+OutputClass::output_notl("`c`2-=-`@=-=`2-=-`@=-=`2-=-`@=-=`2-=-`0`c");
 if (!$session['user']['loggedin']) {
 	OutputClass::addnav("Login Screen", "index.php");
 } else if ($session['user']['alive']){

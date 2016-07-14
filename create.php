@@ -34,7 +34,7 @@ if ($op=="val"){
 				$row['login']);
 		$click = Translator::translate_inline("Click here to log in");
 		rawoutput("<input type='submit' class='button' value='$click'></form>");
-		output_notl("`n");
+		OutputClass::output_notl("`n");
 		if ($trash > 0) {
 			OutputClass::output("`^Characters that have never been logged into will be deleted after %s day(s) of no activity.`n`0", $trash);
 		}
@@ -93,7 +93,7 @@ if ($op=="forgot"){
 		OutputClass::output("`bForgotten Passwords:`b`n`n");
 		OutputClass::output("Enter your character's name: ");
 		rawoutput("<input name='charname'>");
-		output_notl("`n");
+		OutputClass::output_notl("`n");
 		$send = Translator::translate_inline("Email me my password");
 		rawoutput("<input type='submit' class='button' value='$send'>");
 		rawoutput("</form>");
@@ -222,7 +222,7 @@ if (Settings::getsetting("allowcreation",1)==0){
 							$click = Translator::translate_inline("Click here to log in");
 							rawoutput("<input type='submit' class='button' value='$click'>");
 							rawoutput("</form>");
-							output_notl("`n");
+							OutputClass::output_notl("`n");
 							if ($trash > 0) {
 								OutputClass::output("`^Characters that have never been logged into will be deleted after %s day(s) of no activity.`n`0", $trash);
 							}
@@ -290,7 +290,7 @@ if (Settings::getsetting("allowcreation",1)==0){
 			$req = $r3;
 		}
 		rawoutput("</td><td><input name='email'>");
-		output_notl("%s", $req);
+		OutputClass::output_notl("%s", $req);
 		rawoutput("</td></tr></table>");
 		OutputClass::output("`nAnd are you a %s Female or a %s Male?`n",
 				"<input type='radio' name='sex' value='1'>",
@@ -298,7 +298,7 @@ if (Settings::getsetting("allowcreation",1)==0){
 		Modules::modulehook("create-form");
 		$createbutton = Translator::translate_inline("Create your character");
 		rawoutput("<input type='submit' class='button' value='$createbutton'>");
-		output_notl("`n`n");
+		OutputClass::output_notl("`n`n");
 		if ($trash > 0) {
 			OutputClass::output("`^Characters that have never been logged into will be deleted after %s day(s) of no activity.`n`0", $trash);
 		}

@@ -62,7 +62,7 @@ if (($session['user']['superuser'] & SU_IS_GAMEMASTER) && $from > "") {
 	OutputClass::output("`2From: `^%s`n", $from);
 }
 if (isset($row['login']) && $row['login']!=""){
-	output_notl("<input type='hidden' name='to' id='to' value=\"".htmlentities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">",true);
+	OutputClass::output_notl("<input type='hidden' name='to' id='to' value=\"".htmlentities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">",true);
 	OutputClass::output("`2To: `^%s`n",$row['name']);
 	if (($row['superuser'] & SU_GIVES_YOM_WARNING) && !($row['superuser'] & SU_OVERRIDE_YOM_WARNING)) {
 		array_push($superusers,$row['login']);
@@ -85,8 +85,8 @@ if (isset($row['login']) && $row['login']!=""){
 	}
 	if ($db_num_rows==1){
 		$row = db_fetch_assoc($result);
-		output_notl("<input type='hidden' id='to' name='to' value=\"".htmlentities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">",true);
-		output_notl("`^{$row['name']}`n");
+		OutputClass::output_notl("<input type='hidden' id='to' name='to' value=\"".htmlentities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">",true);
+		OutputClass::output_notl("`^{$row['name']}`n");
 		if (($row['superuser'] & SU_GIVES_YOM_WARNING) && !($row['superuser'] & SU_OVERRIDE_YOM_WARNING)) {
 			array_push($superusers,$row['login']);
 		}
@@ -98,17 +98,17 @@ if (isset($row['login']) && $row['login']!=""){
 		require("lib/mail/case_address.php");
 		popup_footer();
 	}else{
-		output_notl("<select name='to' id='to' onchange='check_su_warning();'>",true);
+		OutputClass::output_notl("<select name='to' id='to' onchange='check_su_warning();'>",true);
 		$superusers = array();
 		while($row = db_fetch_assoc($result)) {
-			output_notl("<option value=\"".htmlentities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">",true);
+			OutputClass::output_notl("<option value=\"".htmlentities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">",true);
 			require_once("lib/sanitize.php");
-			output_notl("%s", full_sanitize($row['name']));
+			OutputClass::output_notl("%s", full_sanitize($row['name']));
 			if (($row['superuser'] & SU_GIVES_YOM_WARNING) && !($row['superuser'] & SU_OVERRIDE_YOM_WARNING)) {
 				array_push($superusers,$row['login']);
 			}
 		}
-		output_notl("</select>`n",true);
+		OutputClass::output_notl("</select>`n",true);
 	}
 }
 rawoutput("<script type='text/javascript'>var superusers = new Array();");

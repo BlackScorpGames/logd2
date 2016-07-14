@@ -35,9 +35,9 @@ for ($i=0;$i<$number;$i++){
 	$row = db_fetch_assoc($result);
 	if ($row['biotime']>$session['user']['recentcomments'])
 		rawoutput("<img src='images/new.gif' alt='&gt;' width='3' height='5' align='absmiddle'> ");
-	output_notl("`![<a href='bios.php?op=block&userid={$row['acctid']}'>$block</a>]",true);
+	OutputClass::output_notl("`![<a href='bios.php?op=block&userid={$row['acctid']}'>$block</a>]",true);
 	OutputClass::addnav("","bios.php?op=block&userid={$row['acctid']}");
-	output_notl("`&%s`0: `^%s`0`n", $row['name'], soap($row['bio']));
+	OutputClass::output_notl("`&%s`0: `^%s`0`n", $row['name'], soap($row['bio']));
 }
 db_free_result($result);
 require_once("lib/superusernav.php");
@@ -57,9 +57,9 @@ $number=db_num_rows($result);
 for ($i=0;$i<$number;$i++){
 	$row = db_fetch_assoc($result);
 
-	output_notl("`![<a href='bios.php?op=unblock&userid={$row['acctid']}'>$unblock</a>]",true);
+	OutputClass::output_notl("`![<a href='bios.php?op=unblock&userid={$row['acctid']}'>$unblock</a>]",true);
 	OutputClass::addnav("","bios.php?op=unblock&userid={$row['acctid']}");
-	output_notl("`&%s`0: `^%s`0`n", $row['name'], soap($row['bio']));
+	OutputClass::output_notl("`&%s`0: `^%s`0`n", $row['name'], soap($row['bio']));
 }
 db_free_result($result);
 page_footer();

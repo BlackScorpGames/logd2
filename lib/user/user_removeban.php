@@ -92,14 +92,14 @@ while ($row = db_fetch_assoc($result)) {
 	$showuser = Translator::translate_inline("Click&nbsp;to&nbsp;show&nbsp;users");
 	rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
 	rawoutput("<td><a href='user.php?op=delban&ipfilter=".URLEncode($row['ipfilter'])."&uniqueid=".URLEncode($row['uniqueid'])."'>");
-	output_notl("%s", $liftban, true);
+	OutputClass::output_notl("%s", $liftban, true);
 	rawoutput("</a>");
 	OutputClass::addnav("","user.php?op=delban&ipfilter=".URLEncode($row['ipfilter'])."&uniqueid=".URLEncode($row['uniqueid']));
 	rawoutput("</td><td>");
-	output_notl("`&%s`0", $row['banner']);
+	OutputClass::output_notl("`&%s`0", $row['banner']);
 	rawoutput("</td><td>");
-	output_notl("%s", $row['ipfilter']);
-	output_notl("%s", $row['uniqueid']);
+	OutputClass::output_notl("%s", $row['ipfilter']);
+	OutputClass::output_notl("%s", $row['uniqueid']);
 	rawoutput("</td><td>");
 		// "43200" used so will basically round to nearest day rather than floor number of days
 	$expire= sprintf_translate("%s days",
@@ -113,17 +113,17 @@ while ($row = db_fetch_assoc($result)) {
 		$expire=Translator::translate_inline("Tomorrow");
 	if ($row['banexpire']=="0000-00-00")
 		$expire=Translator::translate_inline("Never");
-	output_notl("%s", $expire);
+	OutputClass::output_notl("%s", $expire);
 	rawoutput("</td><td>");
-	output_notl("%s", $row['banreason']);
+	OutputClass::output_notl("%s", $row['banreason']);
 	rawoutput("</td><td>");
 	$file = "user.php?op=removeban&subop=xml&ip={$row['ipfilter']}&id={$row['uniqueid']}";
 	rawoutput("<div id='user$i'><a href='$file' target='_blank' onClick=\"getUserInfo('{$row['ipfilter']}','{$row['uniqueid']}',$i); return false;\">");
-	output_notl("%s", $showuser, true);
+	OutputClass::output_notl("%s", $showuser, true);
 	rawoutput("</a></div>");
 	OutputClass::addnav("",$file);
 	rawoutput("</td><td>");
-	output_notl("%s", relativedate($row['lasthit']));
+	OutputClass::output_notl("%s", relativedate($row['lasthit']));
 	rawoutput("</td></tr>");
 	$i++;
 }

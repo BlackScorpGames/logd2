@@ -100,13 +100,13 @@ if ($op==""){
 		OutputClass::addnav("","weaponeditor.php?op=edit&id={$row['weaponid']}&level=$weaponlevel");
 		OutputClass::addnav("","weaponeditor.php?op=del&id={$row['weaponid']}&level=$weaponlevel");
 		rawoutput("<td>");
-		output_notl($row['weaponname']);
+		OutputClass::output_notl($row['weaponname']);
 		rawoutput("</td><td>");
-		output_notl($row['value']);
+		OutputClass::output_notl($row['value']);
 		rawoutput("</td><td>");
-		output_notl($row['damage']);
+		OutputClass::output_notl($row['damage']);
 		rawoutput("</td><td>");
-		output_notl($row['level']);
+		OutputClass::output_notl($row['level']);
 		rawoutput("</td>");
 		rawoutput("</tr>");
 	}

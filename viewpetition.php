@@ -157,26 +157,26 @@ if ($op==""){
 		if (array_key_exists('status', $row) && $row['status']!=$laststatus){
 			rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
 			rawoutput("<td colspan='7'>");
-			output_notl("%s", $statuses[$row['status']]);
+			OutputClass::output_notl("%s", $statuses[$row['status']]);
 			rawoutput("</td></tr>");
 			$i++;
 			$laststatus=$row['status'];
 		}
 		rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
 		rawoutput("<td>");
-		output_notl("%s", $row['petitionid']);
+		OutputClass::output_notl("%s", $row['petitionid']);
 		rawoutput("</td>");
 		rawoutput("<td nowrap>[ ");
 		rawoutput("<a href='viewpetition.php?op=view&id={$row['petitionid']}'>$view</a>",true);
 		rawoutput(" | <a href='viewpetition.php?setstat=2&id={$row['petitionid']}'>$close</a>");
-		output_notl(" | %s: ", $mark);
-		output_notl("<a href='viewpetition.php?setstat=0&id={$row['petitionid']}'>`b`&U`0`b</a>/",true);
-		output_notl("<a href='viewpetition.php?setstat=1&id={$row['petitionid']}'>`7P`0</a>/",true);
-		//output_notl("<a href='viewpetition.php?setstat=3&id={$row['petitionid']}'>`!I`0</a>/",true);
-		output_notl("<a href='viewpetition.php?setstat=4&id={$row['petitionid']}'>`^E`0</a>",true);
-		//output_notl("<a href='viewpetition.php?setstat=5&id={$row['petitionid']}'>`\$T`0</a>/",true);
-		//output_notl("<a href='viewpetition.php?setstat=6&id={$row['petitionid']}'>`%B`0</a>/",true);
-		//output_notl("<a href='viewpetition.php?setstat=7&id={$row['petitionid']}'>`#A`0</a>",true);
+		OutputClass::output_notl(" | %s: ", $mark);
+		OutputClass::output_notl("<a href='viewpetition.php?setstat=0&id={$row['petitionid']}'>`b`&U`0`b</a>/",true);
+		OutputClass::output_notl("<a href='viewpetition.php?setstat=1&id={$row['petitionid']}'>`7P`0</a>/",true);
+		//OutputClass::output_notl("<a href='viewpetition.php?setstat=3&id={$row['petitionid']}'>`!I`0</a>/",true);
+		OutputClass::output_notl("<a href='viewpetition.php?setstat=4&id={$row['petitionid']}'>`^E`0</a>",true);
+		//OutputClass::output_notl("<a href='viewpetition.php?setstat=5&id={$row['petitionid']}'>`\$T`0</a>/",true);
+		//OutputClass::output_notl("<a href='viewpetition.php?setstat=6&id={$row['petitionid']}'>`%B`0</a>/",true);
+		//OutputClass::output_notl("<a href='viewpetition.php?setstat=7&id={$row['petitionid']}'>`#A`0</a>",true);
 		rawoutput(" ]</td>");
 		OutputClass::addnav("","viewpetition.php?op=view&id={$row['petitionid']}");
 		OutputClass::addnav("","viewpetition.php?setstat=2&id={$row['petitionid']}");
@@ -194,22 +194,22 @@ if ($op==""){
 			$v = preg_replace("'[^a-zA-Z0-91234567890\\[\\]= @.!,?-]'","", $v);
 			// Make sure we don't get something too large.. 50 chars max
 			$v = substr($v, 0, 50);
-			output_notl("`\$%s`0", $v);
+			OutputClass::output_notl("`\$%s`0", $v);
 		}else{
-			output_notl("`&%s`0", $row['name']);
+			OutputClass::output_notl("`&%s`0", $row['name']);
 		}
 		rawoutput("</td>");
 		rawoutput("<td>");
-		output_notl("`7%s`0", reltime(strtotime($row['date'])));
+		OutputClass::output_notl("`7%s`0", reltime(strtotime($row['date'])));
 		rawoutput("</td>");
 		rawoutput("<td>");
-		output_notl("`#%s`0", $counter['c']);
+		OutputClass::output_notl("`#%s`0", $counter['c']);
 		rawoutput("</td>");
 		rawoutput("<td>");
-		output_notl("`^%s`0", $row['closer']);
+		OutputClass::output_notl("`^%s`0", $row['closer']);
 		rawoutput("</td>");
 		rawoutput("<td>");
-		if ($row['closedate'] != 0) output_notl("`7%s`0", reltime(strtotime($row['closedate'])));
+		if ($row['closedate'] != 0) OutputClass::output_notl("`7%s`0", reltime(strtotime($row['closedate'])));
 		rawoutput("</td>");
 		rawoutput("</tr>");
 	}
@@ -283,7 +283,7 @@ if ($op==""){
 	if ($row['login']>"") {
 		rawoutput("<a href=\"mail.php?op=write&to=".rawurlencode($row['login'])."&body=".rawurlencode("\n\n----- $yourpeti -----\n$reppet")."&subject=RE:+$peti\" target=\"_blank\" onClick=\"".popup("mail.php?op=write&to=".rawurlencode($row['login'])."&body=".rawurlencode("\n\n----- $yourpeti -----\n$reppet")."&subject=RE:+$peti").";return false;\"><img src='images/newscroll.GIF' width='16' height='16' alt='$write' border='0'></a>");
 	}
-	output_notl("`^`b%s`b`n", $row['name']);
+	OutputClass::output_notl("`^`b%s`b`n", $row['name']);
 	OutputClass::output("`@Date: `^`b%s`b (%s)`n", $row['date'], reltime(strtotime($row['date'])));
 	OutputClass::output("`@Status: %s`n", $statuses[$row['status']]);
 	if($row['closedate']) OutputClass::output("`@Last Update: `^%s`@ on `^%s (%s)`n", $row['closer'], $row['closedate'],  reltime(strtotime($row['closedate'])));

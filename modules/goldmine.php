@@ -262,7 +262,7 @@ function goldmine_runevent($type)
 							OutputClass::output("%s`7 managed to drag you to safety in the nick of time!`n", $mountname);
 						}
 					} elseif ($racesave) {
-						if (isset($racemsg) && $racemsg) output_notl($racemsg);
+						if (isset($racemsg) && $racemsg) OutputClass::output_notl($racemsg);
 						else {
 							OutputClass::output("Through sheer luck, you manage to escape the cave-in intact!`n");
 						}

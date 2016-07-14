@@ -251,9 +251,9 @@ if ($op==""){
 		// OutputClass::output the information we have.
 		rawoutput("<tr class='" . ($i%2==0?"trlight":"trdark") . "'>");
 		rawoutput("<td><a href=\"".HTMLEntities($row['address'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" target='_blank'>");
-		output_notl("`&%s`0",$row['description'], true);
+		OutputClass::output_notl("`&%s`0",$row['description'], true);
 		rawoutput("</a></td><td>");
-		output_notl("`^%s`0", $row['version']); // so we are able to translate "`^Unknown`0"
+		OutputClass::output_notl("`^%s`0", $row['version']); // so we are able to translate "`^Unknown`0"
 		rawoutput("</td></tr>");
 		$i++;
 	}

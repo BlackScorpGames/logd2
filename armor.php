@@ -49,7 +49,7 @@ if ($op==""){
   	Translator::tlschema($schemas['desc']);
   	if (is_array($texts['desc'])) {
   		foreach ($texts['desc'] as $description) {
-  			output_notl(sprintf_translate($description));
+  			OutputClass::output_notl(sprintf_translate($description));
   		}
   	} else {
   		OutputClass::output($texts['desc']);
@@ -66,7 +66,7 @@ if ($op==""){
  	Translator::tlschema($schemas['tradein']);
   	if (is_array($texts['tradein'])) {
   		foreach ($texts['tradein'] as $description) {
-  			output_notl(sprintf_translate($description));
+  			OutputClass::output_notl(sprintf_translate($description));
   		}
   	} else {
   		OutputClass::output($texts['tradein']);
@@ -78,11 +78,11 @@ if ($op==""){
 	$acost = Translator::translate_inline("`bCost`b");
 	rawoutput("<table border='0' cellpadding='0'>");
 	rawoutput("<tr class='trhead'><td>");
-	output_notl($aname);
+	OutputClass::output_notl($aname);
 	rawoutput("</td><td align='center'>");
-	output_notl($adef);
+	OutputClass::output_notl($adef);
 	rawoutput("</td><td align='right'>");
-	output_notl($acost);
+	OutputClass::output_notl($acost);
 	rawoutput("</td></tr>");
 	$i = 0;
 	while($row = db_fetch_assoc($result)) {
@@ -104,22 +104,22 @@ if ($op==""){
 			} else {
 				$color = "`7";
 			}
-			output_notl("%s%s`0", $color, $row['armorname']);
+			OutputClass::output_notl("%s%s`0", $color, $row['armorname']);
 			if ($link) {
 				rawoutput("</a>");
 			}
 			OutputClass::addnav("","armor.php?op=buy&id={$row['armorid']}");
 		}else{
-			output_notl("%s%s`0", $color, $row['armorname']);
+			OutputClass::output_notl("%s%s`0", $color, $row['armorname']);
 			OutputClass::addnav("","armor.php?op=buy&id={$row['armorid']}");
 		}
 		rawoutput("</td><td align='center'>");
-		output_notl("%s%s`0", $color, $row['defense']);
+		OutputClass::output_notl("%s%s`0", $color, $row['defense']);
 		rawoutput("</td><td align='right'>");
 		if (isset($row['alternatetext']) && $row['alternatetext'] > "") {
 			OutputClass::output("%s%s`0", $color, $row['alternatetext']);
 		} else {
-			output_notl("%s%s`0",$color,$row['value']);
+			OutputClass::output_notl("%s%s`0",$color,$row['value']);
 		}
 		rawoutput("</td></tr>");
 		++$i;

@@ -44,12 +44,12 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 		 	$formSections[$title_id] = $info[0];
 		 	rawoutput("<table id='showFormTable$title_id' cellpadding='2' cellspacing='0'>");
 			rawoutput("<tr><td colspan='2' class='trhead'>");
-			output_notl("`b%s`b", $info[0], true);
+			OutputClass::output_notl("`b%s`b", $info[0], true);
 			rawoutput("</td></tr>",true);
 			$i=0;
 		}elseif ($info[1]=="note"){
 			rawoutput("<tr class='".($i%2?'trlight':'trdark')."'><td colspan='2'>");
-			output_notl("`i%s`i", $info[0], true);
+			OutputClass::output_notl("`i%s`i", $info[0], true);
 			$i++;
 		}elseif($info[1]=="invisible"){
 			// Don't show
@@ -57,7 +57,7 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 			if (isset($row[$key]))
 				$returnvalues[$key] = $row[$key];
 			rawoutput("<tr class='".($i%2?'trlight':'trdark')."'><td valign='top'>");
-			output_notl("%s", $info[0],true);
+			OutputClass::output_notl("%s", $info[0],true);
 			rawoutput("</td><td valign='top'>");
 			$i++;
 		}
@@ -230,7 +230,7 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 					." value='1'> ");
 				list($k,$v)=each($info);
 				if (!$pretrans) $v = Translator::translate_inline($v);
-				output_notl("%s`n",$v,true);
+				OutputClass::output_notl("%s`n",$v,true);
 			}
 			break;
 		case "datelength":
@@ -308,7 +308,7 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 		case "viewonly":
 			unset($returnvalues[$key]);
 			if (isset($row[$key]))
-				output_notl(dump_item($row[$key]),true);
+				OutputClass::output_notl(dump_item($row[$key]),true);
 			break;
 		case "textarearesizeable":
 			$resize=true;

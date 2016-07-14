@@ -183,22 +183,22 @@ if ($op==""){
 		rawoutput("<tr class='".($i%2?'trlight':'trdark')."'>");
 		rawoutput("<td><input type='checkbox' name='mod[{$row['modid']}]' value='1'></td>");
 		rawoutput("<td>");
-		output_notl("%s", $row['name']);
+		OutputClass::output_notl("%s", $row['name']);
 		rawoutput("</td>");
 		rawoutput("<td>");
-		output_notl("%s", $row['moddate']);
+		OutputClass::output_notl("%s", $row['moddate']);
 		rawoutput("</td>");
 		rawoutput("<td>");
 		$comment = unserialize($row['comment']);
-		output_notl("`0(%s)", $comment['section']);
+		OutputClass::output_notl("`0(%s)", $comment['section']);
 
 		if ($comment['clanrank']>0)
-			output_notl("%s<%s%s>`0", $clanrankcolors[ceil($comment['clanrank']/10)],
+			OutputClass::output_notl("%s<%s%s>`0", $clanrankcolors[ceil($comment['clanrank']/10)],
 					$comment['clanshort'],
 					$clanrankcolors[ceil($comment['clanrank']/10)]);
-		output_notl("%s", $comment['name']);
-		output_notl("-");
-		output_notl("%s", comment_sanitize($comment['comment']));
+		OutputClass::output_notl("%s", $comment['name']);
+		OutputClass::output_notl("-");
+		OutputClass::output_notl("%s", comment_sanitize($comment['comment']));
 		rawoutput("</td>");
 		rawoutput("</tr>");
 	}
