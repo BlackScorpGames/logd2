@@ -161,9 +161,9 @@ function motd_form($id) {
 				$sql.=", motddate='".date("Y-m-d H:i:s")."'";
 			$sql = "UPDATE " . db_prefix("motd") . $sql . " WHERE motditem='$id'";
 			db_query($sql);
-			invalidatedatacache("motd");
-			invalidatedatacache("lastmotd");
-			invalidatedatacache("motddate");
+			DataCache::invalidatedatacache("motd");
+			DataCache::invalidatedatacache("lastmotd");
+			DataCache::invalidatedatacache("motddate");
 		}
 		if ($id=="" || db_affected_rows()==0){
 			if ($id>""){
@@ -177,9 +177,9 @@ function motd_form($id) {
 			if ($doinsert){
 				$sql = "INSERT INTO " . db_prefix("motd") . " (motdtitle,motdbody,motddate,motdauthor) VALUES (\"$subject\",\"$body\",'".date("Y-m-d H:i:s")."','{$session['user']['acctid']}')";
 				db_query($sql);
-				invalidatedatacache("motd");
-				invalidatedatacache("lastmotd");
-				invalidatedatacache("motddate");
+				DataCache::invalidatedatacache("motd");
+				DataCache::invalidatedatacache("lastmotd");
+				DataCache::invalidatedatacache("motddate");
 			}
 		}
 		header("Location: motd.php");
@@ -219,9 +219,9 @@ function motd_poll_form() {
 		$body = array("body"=>$body,"opt"=>$opt);
 		$sql = "INSERT INTO " . db_prefix("motd") . " (motdtitle,motdbody,motddate,motdtype,motdauthor) VALUES (\"$subject\",\"".addslashes(serialize($body))."\",'".date("Y-m-d H:i:s")."',1,'{$session['user']['acctid']}')";
 		db_query($sql);
-		invalidatedatacache("motd");
-		invalidatedatacache("lastmotd");
-		invalidatedatacache("motddate");
+		DataCache::invalidatedatacache("motd");
+		DataCache::invalidatedatacache("lastmotd");
+		DataCache::invalidatedatacache("motddate");
 		header("Location: motd.php");
 		exit();
 	}
@@ -230,9 +230,9 @@ function motd_poll_form() {
 function motd_del($id) {
 	$sql = "DELETE FROM " . db_prefix("motd") . " WHERE motditem=\"$id\"";
 	db_query($sql);
-	invalidatedatacache("motd");
-	invalidatedatacache("lastmotd");
-	invalidatedatacache("motddate");
+	DataCache::invalidatedatacache("motd");
+	DataCache::invalidatedatacache("lastmotd");
+	DataCache::invalidatedatacache("motddate");
 	header("Location: motd.php");
 	exit();
 }

@@ -37,8 +37,8 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 	$session['user'] = array();
 	$session['loggedin'] = false;
 	$session['user']['loggedin'] = false;
-	invalidatedatacache("charlisthomepage");
-	invalidatedatacache("list.php-warsonline");
+	DataCache::invalidatedatacache("charlisthomepage");
+	DataCache::invalidatedatacache("list.php-warsonline");
 } else {
 
 	GameDateTime::checkday();

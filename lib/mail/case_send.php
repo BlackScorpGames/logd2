@@ -31,7 +31,7 @@ if(db_num_rows($result)>0){
 		$body = addslashes(substr(stripslashes($body),0,(int)Settings::getsetting("mailsizelimit",1024)));
 		require_once("lib/systemmail.php");
 		systemmail($row1['acctid'],$subject,$body,$from);
-		invalidatedatacache("mail-{$row1['acctid']}");
+		DataCache::invalidatedatacache("mail-{$row1['acctid']}");
 		OutputClass::output("Your message was sent!`n");
 	}
 }else{

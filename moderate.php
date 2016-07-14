@@ -88,10 +88,10 @@ if ($op=="commentdelete"){
 		$return = substr($return,0,$x-1)."?".substr($return,$x+1);
 	}
 	foreach($invalsections as $key=>$dummy) {
-		invalidatedatacache("comments-$key");
+		DataCache::invalidatedatacache("comments-$key");
 	}
 	//update moderation cache
-	invalidatedatacache("comments-or11");
+	DataCache::invalidatedatacache("comments-or11");
 	RedirectClass::redirect($return);
 }
 
@@ -134,7 +134,7 @@ if ($op==""){
 				$comment = addslashes($comment['comment']);
 				$sql = "INSERT LOW_PRIORITY INTO ".db_prefix("commentary")." (commentid,postdate,section,author,comment) VALUES ('$id','$postdate','$section','$author','$comment')";
 				db_query($sql);
-				invalidatedatacache("comments-$section");
+				DataCache::invalidatedatacache("comments-$section");
 			}
 			$sql = "DELETE FROM ".db_prefix("moderatedcomments")." WHERE modid IN ('".join("','",array_keys($unkeys))."')";
 			db_query($sql);

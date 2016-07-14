@@ -31,7 +31,7 @@ if ($op=="vote"){
 	db_query($sql);
 	$sql = "INSERT INTO " . db_prefix("pollresults") . " (choice,account,motditem) VALUES ('$choice','{$session['user']['acctid']}','$motditem')";
 	db_query($sql);
-	invalidatedatacache("poll-$motditem");
+	DataCache::invalidatedatacache("poll-$motditem");
 	header("Location: motd.php");
 	exit();
 }

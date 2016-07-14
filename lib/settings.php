@@ -73,7 +73,7 @@ class Settings
         }
         db_query($sql);
         $settings[$settingname] = $value;
-        invalidatedatacache("game-settings");
+        DataCache::invalidatedatacache("game-settings");
         if (db_affected_rows() > 0) {
             return true;
         } else {

@@ -8,19 +8,19 @@
 			$sql = "UPDATE " . db_prefix("clans") . " SET clanname='$clanname',clanshort='$clanshort' WHERE clanid='$detail'";
 			OutputClass::output("Updating clan names`n");
 			db_query($sql);
-			invalidatedatacache("clandata-$detail");
+			DataCache::invalidatedatacache("clandata-$detail");
 		}
 		if (Http::httppost('block')>""){
 			$blockdesc = Translator::translate_inline("Description blocked for inappropriate usage.");
 			$sql = "UPDATE " . db_prefix("clans") . " SET descauthor=4294967295, clandesc='$blockdesc' where clanid='$detail'";
 			OutputClass::output("Blocking public description`n");
 			db_query($sql);
-			invalidatedatacache("clandata-$detail");
+			DataCache::invalidatedatacache("clandata-$detail");
 		}elseif (Http::httppost('unblock')>""){
 			$sql = "UPDATE " . db_prefix("clans") . " SET descauthor=0, clandesc='' where clanid='$detail'";
 			OutputClass::output("UNblocking public description`n");
 			db_query($sql);
-			invalidatedatacache("clandata-$detail");
+			DataCache::invalidatedatacache("clandata-$detail");
 		}
 	}
 	$sql = "SELECT * FROM " . db_prefix("clans") . " WHERE clanid='$detail'";

@@ -247,7 +247,7 @@ if ($op==""){
 
 	// Moved this hear to make some things easier.
 	Modules::modulehook("dragonkill", array());
-	invalidatedatacache("list.php-warsonline");
+	DataCache::invalidatedatacache("list.php-warsonline");
 }
 
 if ($op=="run"){

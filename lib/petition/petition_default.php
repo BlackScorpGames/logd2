@@ -25,7 +25,7 @@ if (count($post)>0){
 			$sql = "INSERT INTO " . db_prefix("petitions") . " (author,date,body,pageinfo,ip,id) VALUES (".(int)$session['user']['acctid'].",'$date',\"".addslashes(output_array($post))."\",\"".addslashes(output_array($session,"Session:"))."\",'{$_SERVER['REMOTE_ADDR']}','".addslashes($_COOKIE['lgi'])."')";
 			db_query($sql);
 			// Fix the counter
-			invalidatedatacache("petitioncounts");
+			DataCache::invalidatedatacache("petitioncounts");
 			// If the admin wants it, email the petitions to them.
 			if (Settings::getsetting("emailpetitions", 0)) {
 				// Yeah, the format of this is ugly.

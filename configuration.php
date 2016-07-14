@@ -60,7 +60,7 @@ if ($op=="save"){
 			$session['user']['location'] = stripslashes(Http::httppost('innname'));
 	}
 	if (stripslashes(Http::httppost("motditems")) != $settings['motditems']) {
-		invalidatedatacache("motd");
+		DataCache::invalidatedatacache("motd");
 	}
 	$post = httpallpost();
 	reset($post);

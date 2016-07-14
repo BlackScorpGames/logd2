@@ -44,13 +44,13 @@ if ($op=="deactivate"){
 	db_query($sql);
 	$op="";
 	Http::httpset("op", "");
-	invalidatedatacache("mountdata-$id");
+	DataCache::invalidatedatacache("mountdata-$id");
 } elseif ($op=="activate"){
 	$sql = "UPDATE " . db_prefix("mounts") . " SET mountactive=1 WHERE mountid='$id'";
 	db_query($sql);
 	$op="";
 	Http::httpset("op", "");
-	invalidatedatacache("mountdata-$id");
+	DataCache::invalidatedatacache("mountdata-$id");
 } elseif ($op=="del") {
 	//refund for anyone who has a mount of this type.
 	$sql = "SELECT * FROM ".db_prefix("mounts")." WHERE mountid='$id'";
@@ -64,7 +64,7 @@ if ($op=="deactivate"){
 	module_delete_objprefs('mounts', $id);
 	$op = "";
 	Http::httpset("op", "");
-	invalidatedatacache("mountdata-$id");
+	DataCache::invalidatedatacache("mountdata-$id");
 } elseif ($op=="give") {
 	$session['user']['hashorse'] = $id;
 	// changed to make use of the cached query
@@ -100,7 +100,7 @@ if ($op=="deactivate"){
 					" ($keys) VALUES ($vals)";
 			}
 			db_query($sql);
-			invalidatedatacache("mountdata-$id");
+			DataCache::invalidatedatacache("mountdata-$id");
 			if (db_affected_rows()>0){
 				OutputClass::output("`^Mount saved!`0`n");
 			}else{

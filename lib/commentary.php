@@ -84,8 +84,8 @@ class Commentary
 			db_query($sql);
 			$sql = "DELETE FROM " . db_prefix("commentary") . " WHERE commentid='$remove';";
 			db_query($sql);
-			invalidatedatacache("comments-$section");
-			invalidatedatacache("comments-or11");
+			DataCache::invalidatedatacache("comments-$section");
+			DataCache::invalidatedatacache("comments-or11");
 			$session['user']['specialinc'] == ''; //just to make sure he was not in a special
 			$return = cmd_sanitize($return);
 			$return = substr($return, strrpos($return, "/") + 1);
@@ -122,9 +122,9 @@ function injectrawcomment($section, $author, $comment)
 {
 	$sql = "INSERT INTO " . db_prefix("commentary") . " (postdate,section,author,comment) VALUES ('".date("Y-m-d H:i:s")."','$section',$author,\"$comment\")";
 	db_query($sql);
-	invalidatedatacache("comments-{$section}");
+	DataCache::invalidatedatacache("comments-{$section}");
 	// invalidate moderation screen also.
-	invalidatedatacache("comments-or11");
+	DataCache::invalidatedatacache("comments-or11");
 }
 
 function injectcommentary($section, $talkline, $comment, $schema=false) {

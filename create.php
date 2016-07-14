@@ -47,7 +47,7 @@ if ($op=="val"){
 		//only set this if they are not doing a forgotten password.
 		if (substr($id,0,1)!="x") {
 			Settings::savesetting("newestplayer", $row['acctid']);
-			invalidatedatacache('newest');
+			DataCache::invalidatedatacache('newest');
 		}
 	}else{
 		OutputClass::output("`#Your email could not be verified.");

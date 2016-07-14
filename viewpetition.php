@@ -54,7 +54,7 @@ if ($op==""){
 	$sql = "DELETE FROM " . db_prefix("petitions") . " WHERE status=2 AND closedate<'".date("Y-m-d H:i:s",strtotime("-7 days"))."'";
 	db_query($sql);
 	if(db_affected_rows()) {
-		invalidatedatacache("petition_counts");
+		DataCache::invalidatedatacache("petition_counts");
 	}
 	$setstat = Http::httpget("setstat");
 	if ($setstat!=""){
@@ -64,7 +64,7 @@ if ($op==""){
 		if ($row['status']!=$setstat){
 			$sql = "UPDATE " . db_prefix("petitions") . " SET status='$setstat',closeuserid='{$session['user']['acctid']}',closedate='".date("Y-m-d H:i:s")."' WHERE petitionid='$id'";
 			db_query($sql);
-			invalidatedatacache("petition_counts");
+			DataCache::invalidatedatacache("petition_counts");
 		}
 	}
 	reset($statuses);

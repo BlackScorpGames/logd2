@@ -218,7 +218,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 				$companions = $newcompanions;
 			}
 
-			invalidatedatacache("list.php-warsonline");
+			DataCache::invalidatedatacache("list.php-warsonline");
 
 			OutputClass::addnav("Question Master","train.php?op=question");
 			OutputClass::addnav("M?Challenge Master","train.php?op=challenge");

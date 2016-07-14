@@ -64,16 +64,25 @@ function updatedatacache($name,$data){
 	return false;
 }
 
+class DataCache
+{
 //we want to be able to invalidate data caches when we know we've done
 //something which would change the data.
-function invalidatedatacache($name,$full=false){
-	global $datacache;
-	if (Settings::getsetting("usedatacache",0)){
-		if(!$full) $fullname = makecachetempname($name);
-		else $fullname = $name;
-		if (file_exists($fullname)) @unlink($fullname);
-		unset($datacache[$name]);
-	}
+    public static function invalidatedatacache($name, $full = false)
+    {
+        global $datacache;
+        if (Settings::getsetting("usedatacache", 0)) {
+            if (!$full) {
+                $fullname = makecachetempname($name);
+            } else {
+                $fullname = $name;
+            }
+            if (file_exists($fullname)) {
+                @unlink($fullname);
+            }
+            unset($datacache[$name]);
+        }
+    }
 }
 
 
@@ -88,7 +97,7 @@ function massinvalidate($name) {
 		if(is_object($dir)) {
 			while(false !== ($file = $dir->read())) {
 				if (strpos($file, $name) !== false) {
-					invalidatedatacache($dir->path."/".$file,true);
+					DataCache::invalidatedatacache($dir->path."/".$file,true);
 				}
 			}
 			$dir->close();

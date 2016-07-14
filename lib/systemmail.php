@@ -39,7 +39,7 @@ function systemmail($to,$subject,$body,$from=0,$noemail=false){
 
 	$sql = "INSERT INTO " . db_prefix("mail") . " (msgfrom,msgto,subject,body,sent,originator) VALUES ('".$from."','".(int)$to."','$subject','$body','".date("Y-m-d H:i:s")."', ".($session['user']['acctid']).")";
 	db_query($sql);
-	invalidatedatacache("mail-$to");
+	DataCache::invalidatedatacache("mail-$to");
 	$email=false;
 	if (isset($prefs['emailonmail']) && $prefs['emailonmail'] && $from>0){
 		$email=true;
@@ -102,7 +102,7 @@ function systemmail($to,$subject,$body,$from=0,$noemail=false){
 		),$to);
 		mail($row['emailaddress'],$mailsubj,str_replace("`n","\n",$mailbody),"From: ".Settings::getsetting("gameadminemail","postmaster@localhost"));
 	}
-	invalidatedatacache("mail-$to");
+	DataCache::invalidatedatacache("mail-$to");
 }
 
 ?>

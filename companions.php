@@ -27,13 +27,13 @@ if ($op=="deactivate"){
 	db_query($sql);
 	$op="";
 	Http::httpset("op", "");
-	invalidatedatacache("companionsdata-$id");
+	DataCache::invalidatedatacache("companionsdata-$id");
 } elseif ($op=="activate"){
 	$sql = "UPDATE " . db_prefix("companions") . " SET companionactive=1 WHERE companionid='$id'";
 	db_query($sql);
 	$op="";
 	Http::httpset("op", "");
-	invalidatedatacache("companiondata-$id");
+	DataCache::invalidatedatacache("companiondata-$id");
 } elseif ($op=="del") {
 	//drop the companion.
 	$sql = "DELETE FROM " . db_prefix("companions") . " WHERE companionid='$id'";
@@ -41,7 +41,7 @@ if ($op=="deactivate"){
 	module_delete_objprefs('companions', $id);
 	$op = "";
 	Http::httpset("op", "");
-	invalidatedatacache("companiondata-$id");
+	DataCache::invalidatedatacache("companiondata-$id");
 } elseif ($op=="take"){
 	$sql = "SELECT * FROM " . db_prefix("companions") . " WHERE companionid='$id'";
 	$result = db_query($sql);
@@ -103,7 +103,7 @@ if ($op=="deactivate"){
 					" ($keys) VALUES ($vals)";
 			}
 			db_query($sql);
-			invalidatedatacache("companiondata-$id");
+			DataCache::invalidatedatacache("companiondata-$id");
 			if (db_affected_rows()>0){
 				OutputClass::output("`^Companion saved!`0`n`n");
 			}else{
