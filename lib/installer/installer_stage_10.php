@@ -44,7 +44,7 @@ if (db_num_rows($result)==0){
 		rawoutput("<input name='pass1' type='password'>");
 		OutputClass::output("`nConfirm your password: ");
 		rawoutput("<input name='pass2' type='password'>");
-		$submit = translate_inline("Create");
+		$submit = Translator::translate_inline("Create");
 		rawoutput("<br><input type='submit' value='$submit' class='button'>");
 		rawoutput("</form>");
 	}

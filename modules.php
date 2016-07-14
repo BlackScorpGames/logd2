@@ -37,7 +37,7 @@ if (is_array($module)){
 reset($modules);
 while (list($key,$module)=each($modules)){
 	$op = $theOp;
-	OutputClass::output("`2Performing `^%s`2 on `%%s`0`n", translate_inline($op), $module);
+	OutputClass::output("`2Performing `^%s`2 on `%%s`0`n", Translator::translate_inline($op), $module);
 	if($op=="install"){
 		if (install_module($module)){
 
@@ -93,23 +93,23 @@ if ($op==""){
 		$sortby=Http::httpget('sortby');
 		if (!$sortby) $sortby="installdate";
 		$order=Http::httpget('order');
-		$tcat = translate_inline($cat);
+		$tcat = Translator::translate_inline($cat);
 		OutputClass::output("`n`b%s Modules`b`n", $tcat);
-		$deactivate = translate_inline("Deactivate");
-		$activate = translate_inline("Activate");
-		$uninstall = translate_inline("Uninstall");
-		$reinstall = translate_inline("Reinstall");
-		$strsettings = translate_inline("Settings");
-		$strnosettings = translate_inline("`\$No Settings`0");
-		$uninstallconfirm = translate_inline("Are you sure you wish to uninstall this module?  All user preferences and module settings will be lost.  If you wish to temporarily remove access to the module, you may simply deactivate it.");
-		$status = translate_inline("Status");
-		$mname = translate_inline("Module Name");
-		$ops = translate_inline("Ops");
-		$mauth = translate_inline("Module Author");
-		$inon = translate_inline("Installed On");
-		$installstr = translate_inline("by %s");
-		$active = translate_inline("`@Active`0");
-		$inactive = translate_inline("`\$Inactive`0");
+		$deactivate = Translator::translate_inline("Deactivate");
+		$activate = Translator::translate_inline("Activate");
+		$uninstall = Translator::translate_inline("Uninstall");
+		$reinstall = Translator::translate_inline("Reinstall");
+		$strsettings = Translator::translate_inline("Settings");
+		$strnosettings = Translator::translate_inline("`\$No Settings`0");
+		$uninstallconfirm = Translator::translate_inline("Are you sure you wish to uninstall this module?  All user preferences and module settings will be lost.  If you wish to temporarily remove access to the module, you may simply deactivate it.");
+		$status = Translator::translate_inline("Status");
+		$mname = Translator::translate_inline("Module Name");
+		$ops = Translator::translate_inline("Ops");
+		$mauth = Translator::translate_inline("Module Author");
+		$inon = Translator::translate_inline("Installed On");
+		$installstr = Translator::translate_inline("by %s");
+		$active = Translator::translate_inline("`@Active`0");
+		$inactive = Translator::translate_inline("`\$Inactive`0");
 		rawoutput("<form action='modules.php?op=mass&cat=$cat' method='POST'>");
 		addnav("","modules.php?op=mass&cat=$cat");
 		rawoutput("<table border='0' cellpadding='2' cellspacing='1' bgcolor='#999999'>",true);
@@ -182,10 +182,10 @@ if ($op==""){
 			rawoutput("</td></tr>");
 		}
 		rawoutput("</table><br />");
-		$activate = translate_inline("Activate");
-		$deactivate = translate_inline("Deactivate");
-		$reinstall = translate_inline("Reinstall");
-		$uninstall = translate_inline("Uninstall");
+		$activate = Translator::translate_inline("Activate");
+		$deactivate = Translator::translate_inline("Deactivate");
+		$reinstall = Translator::translate_inline("Reinstall");
+		$uninstall = Translator::translate_inline("Uninstall");
 		rawoutput("<input type='submit' name='activate' class='button' value='$activate'>");
 		rawoutput("<input type='submit' name='deactivate' class='button' value='$deactivate'>");
 		rawoutput("<input type='submit' name='reinstall' class='button' value='$reinstall'>");
@@ -196,12 +196,12 @@ if ($op==""){
 		if (!$sorting) $sorting="shortname";
 		$order=Http::httpget('order');
 		OutputClass::output("`bUninstalled Modules`b`n");
-		$install = translate_inline("Install");
-		$mname = translate_inline("Module Name");
-		$ops = translate_inline("Ops");
-		$mauth = translate_inline("Module Author");
-		$categ = translate_inline("Category");
-		$fname = translate_inline("Filename");
+		$install = Translator::translate_inline("Install");
+		$mname = Translator::translate_inline("Module Name");
+		$ops = Translator::translate_inline("Ops");
+		$mauth = Translator::translate_inline("Module Author");
+		$categ = Translator::translate_inline("Category");
+		$fname = Translator::translate_inline("Filename");
 		rawoutput("<form action='modules.php?op=mass&cat=$cat' method='POST'>");
 		addnav("","modules.php?op=mass&cat=$cat");
 		rawoutput("<table border='0' cellpadding='2' cellspacing='1' bgcolor='#999999'>",true);
@@ -232,7 +232,7 @@ if ($op==""){
 					strpos($file,$shortnamelower."_install")===false ||
 					strpos($file,$shortnamelower."_uninstall")===false) {
 						//here the files has neither do_hook nor getinfo, which means it won't execute as a module here --> block it + notify the admin who is the manage modules section
-						$temp=array_merge($invalidmodule,array("name"=>$shortname.".php ".appoencode(translate_inline("(`\$Invalid Module! Contact Author or check file!`0)"))));
+						$temp=array_merge($invalidmodule,array("name"=>$shortname.".php ".appoencode(Translator::translate_inline("(`\$Invalid Module! Contact Author or check file!`0)"))));
 				} else {
 					$temp= get_module_info($shortname);
 				}
@@ -301,7 +301,7 @@ if ($op==""){
 			rawoutput("</td></tr>");
 		}
 		rawoutput("</table><br />");
-		$install = translate_inline("Install");
+		$install = Translator::translate_inline("Install");
 		rawoutput("<input type='submit' name='install' class='button' value='$install'>");
 	}
 }

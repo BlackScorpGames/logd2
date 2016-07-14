@@ -35,7 +35,7 @@ if (Settings::getsetting("homecurtime", 1)) {
 if (Settings::getsetting("homenewdaytime", 1)) {
 	$secstonewday = GameDateTime::secondstonextgameday();
 	OutputClass::output("`@Next new game day in: `\$%s (real time)`0`n`n",
-			date("G\\".translate_inline("h","datetime").", i\\".translate_inline("m","datetime").", s\\".translate_inline("s","datetime"),
+			date("G\\".Translator::translate_inline("h","datetime").", i\\".Translator::translate_inline("m","datetime").", s\\".Translator::translate_inline("s","datetime"),
 				$secstonewday));
 }
 
@@ -82,11 +82,11 @@ if (abs(Settings::getsetting("OnlineCountLast",0) - strtotime("now")) > 60){
 if ($onlinecount<Settings::getsetting("maxonline",0) || Settings::getsetting("maxonline",0)==0){
 	OutputClass::output("Enter your name and password to enter the realm.`n");
 	if ($op=="timeout"){
-		$session['message'].= translate_inline(" Your session has timed out, you must log in again.`n");
+		$session['message'].= Translator::translate_inline(" Your session has timed out, you must log in again.`n");
 	}
 	if (!isset($_COOKIE['lgi'])){
-		$session['message'].=translate_inline("It appears that you may be blocking cookies from this site.  At least session cookies must be enabled in order to use this site.`n");
-		$session['message'].=translate_inline("`b`#If you are not sure what cookies are, please <a href='http://en.wikipedia.org/wiki/WWW_browser_cookie'>read this article</a> about them, and how to enable them.`b`n");
+		$session['message'].=Translator::translate_inline("It appears that you may be blocking cookies from this site.  At least session cookies must be enabled in order to use this site.`n");
+		$session['message'].=Translator::translate_inline("`b`#If you are not sure what cookies are, please <a href='http://en.wikipedia.org/wiki/WWW_browser_cookie'>read this article</a> about them, and how to enable them.`b`n");
 	}
 	if (isset($session['message']) && $session['message']>"")
 		output_notl("`b`\$%s`b`n", $session['message'],true);
@@ -102,20 +102,20 @@ if ($onlinecount<Settings::getsetting("maxonline",0) || Settings::getsetting("ma
 	}
 	//-->
 	</script>");
-	$uname = translate_inline("<u>U</u>sername");
-	$pass = translate_inline("<u>P</u>assword");
-	$butt = translate_inline("Log in");
+	$uname = Translator::translate_inline("<u>U</u>sername");
+	$pass = Translator::translate_inline("<u>P</u>assword");
+	$butt = Translator::translate_inline("Log in");
 	rawoutput("<form action='login.php' method='POST' onSubmit=\"md5pass();\">".templatereplace("login",array("username"=>$uname,"password"=>$pass,"button"=>$butt))."</form>");
 	output_notl("`c");
 	addnav("","login.php");
 } else {
 	OutputClass::output("`\$`bServer full!`b`n`^Please wait until some users have logged out.`n`n`0");
 	if ($op=="timeout"){
-		$session['message'].= translate_inline(" Your session has timed out, you must log in again.`n");
+		$session['message'].= Translator::translate_inline(" Your session has timed out, you must log in again.`n");
 	}
 	if (!isset($_COOKIE['lgi'])){
-		$session['message'].=translate_inline("It appears that you may be blocking cookies from this site. At least session cookies must be enabled in order to use this site.`n");
-		$session['message'].=translate_inline("`b`#If you are not sure what cookies are, please <a href='http://en.wikipedia.org/wiki/WWW_browser_cookie'>read this article</a> about them, and how to enable them.`b`n");
+		$session['message'].=Translator::translate_inline("It appears that you may be blocking cookies from this site. At least session cookies must be enabled in order to use this site.`n");
+		$session['message'].=Translator::translate_inline("`b`#If you are not sure what cookies are, please <a href='http://en.wikipedia.org/wiki/WWW_browser_cookie'>read this article</a> about them, and how to enable them.`b`n");
 	}
 	if ($session['message']>"") OutputClass::output("`b`\$%s`b`n", $session['message'],true);
 	rawoutput(templatereplace("loginfull",array()));
@@ -136,7 +136,7 @@ if (Settings::getsetting("homeskinselect", 1)) {
 		$prefs['template'] = Settings::getsetting("defaultskin", "jade.htm");
 	require_once("lib/showform.php");
 	showform($form, $prefs, true);
-	$submit = translate_inline("Choose");
+	$submit = Translator::translate_inline("Choose");
 	rawoutput("</td><td><br>&nbsp;<input type='submit' class='button' value='$submit'></td>");
 	rawoutput("</tr></table></form>");
 }

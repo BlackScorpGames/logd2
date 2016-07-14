@@ -82,8 +82,8 @@ function specialtydarkarts_dohook($hookname,$args){
 		if ($session['user']['specialty'] == "" ||
 				$session['user']['specialty'] == '0') {
 			addnav("$ccode$name`0","newday.php?setspecialty=$spec$resline");
-			$t1 = translate_inline("Killing a lot of woodland creatures");
-			$t2 = appoencode(translate_inline("$ccode$name`0"));
+			$t1 = Translator::translate_inline("Killing a lot of woodland creatures");
+			$t2 = appoencode(Translator::translate_inline("$ccode$name`0"));
 			rawoutput("<a href='newday.php?setspecialty=$spec$resline'>$t1 ($t2)</a><br>");
 			addnav("","newday.php?setspecialty=$spec$resline");
 		}
@@ -100,7 +100,7 @@ function specialtydarkarts_dohook($hookname,$args){
 		$args[$spec] = $ccode;
 		break;
 	case "specialtynames":
-		$args[$spec] = translate_inline($name);
+		$args[$spec] = Translator::translate_inline($name);
 		break;
 	case "specialtymodules":
 		$args[$spec] = "specialtydarkarts";
@@ -110,7 +110,7 @@ function specialtydarkarts_dohook($hookname,$args){
 			$new = get_module_pref("skill") + 1;
 			set_module_pref("skill", $new);
 			$c = $args['color'];
-			$name = translate_inline($name);
+			$name = Translator::translate_inline($name);
 			OutputClass::output("`n%sYou gain a level in `&%s%s to `#%s%s!",
 					$c, $name, $c, $new, $c);
 			$x = $new % 3;
@@ -130,7 +130,7 @@ function specialtydarkarts_dohook($hookname,$args){
 	case "newday":
 		$bonus = Settings::getsetting("specialtybonus", 1);
 		if($session['user']['specialty'] == $spec) {
-			$name = translate_inline($name);
+			$name = Translator::translate_inline($name);
 			if ($bonus == 1) {
 				OutputClass::output("`n`2For being interested in %s%s`2, you receive `^1`2 extra `&%s%s`2 use for today.`n",$ccode, $name, $ccode, $name);
 			} else {

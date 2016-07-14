@@ -1,6 +1,6 @@
 <?php
 $subop = Http::httpget("subop");
-$none = translate_inline('NONE');
+$none = Translator::translate_inline('NONE');
 if ($subop=="xml"){
 	header("Content-Type: text/xml");
 	$sql = "SELECT DISTINCT " . db_prefix("accounts") . ".name FROM " . db_prefix("bans") . ", " . db_prefix("accounts") . " WHERE (ipfilter='".addslashes(Http::httpget("ip"))."' AND " .
@@ -78,18 +78,18 @@ function getUserInfo(ip,id,divid){
 </script>
 ");
 rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
-$ops = translate_inline("Ops");
-$bauth = translate_inline("Ban Author");
-$ipd = translate_inline("IP/ID");
-$dur = translate_inline("Duration");
-$mssg = translate_inline("Message");
-$aff = translate_inline("Affects");
-$l = translate_inline("Last");
+$ops = Translator::translate_inline("Ops");
+$bauth = Translator::translate_inline("Ban Author");
+$ipd = Translator::translate_inline("IP/ID");
+$dur = Translator::translate_inline("Duration");
+$mssg = Translator::translate_inline("Message");
+$aff = Translator::translate_inline("Affects");
+$l = Translator::translate_inline("Last");
 	rawoutput("<tr class='trhead'><td>$ops</td><td>$bauth</td><td>$ipd</td><td>$dur</td><td>$mssg</td><td>$aff</td><td>$l</td></tr>");
 $i=0;
 while ($row = db_fetch_assoc($result)) {
-	$liftban = translate_inline("Lift&nbsp;ban");
-	$showuser = translate_inline("Click&nbsp;to&nbsp;show&nbsp;users");
+	$liftban = Translator::translate_inline("Lift&nbsp;ban");
+	$showuser = Translator::translate_inline("Click&nbsp;to&nbsp;show&nbsp;users");
 	rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
 	rawoutput("<td><a href='user.php?op=delban&ipfilter=".URLEncode($row['ipfilter'])."&uniqueid=".URLEncode($row['uniqueid'])."'>");
 	output_notl("%s", $liftban, true);
@@ -105,14 +105,14 @@ while ($row = db_fetch_assoc($result)) {
 	$expire= sprintf_translate("%s days",
 			round((strtotime($row['banexpire'])+43200-strtotime("now"))/86400,0));
 	if (substr($expire,0,2)=="1 ")
-		$expire= translate_inline("1 day");
+		$expire= Translator::translate_inline("1 day");
 	if (date("Y-m-d",strtotime($row['banexpire'])) == date("Y-m-d"))
-		$expire=translate_inline("Today");
+		$expire=Translator::translate_inline("Today");
 	if (date("Y-m-d",strtotime($row['banexpire'])) ==
 			date("Y-m-d",strtotime("1 day")))
-		$expire=translate_inline("Tomorrow");
+		$expire=Translator::translate_inline("Tomorrow");
 	if ($row['banexpire']=="0000-00-00")
-		$expire=translate_inline("Never");
+		$expire=Translator::translate_inline("Never");
 	output_notl("%s", $expire);
 	rawoutput("</td><td>");
 	output_notl("%s", $row['banreason']);

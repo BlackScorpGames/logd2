@@ -74,14 +74,14 @@ if ($op==""){
 	}
 	$sql = "SELECT * FROM " . db_prefix("armor") . " WHERE level=$armorlevel ORDER BY defense";
 	$result= db_query($sql);
-	$ops = translate_inline("Ops");
-	$name = translate_inline("Name");
-	$cost = translate_inline("Cost");
-	$defense = translate_inline("Defense");
-	$level = translate_inline("Level");
-	$edit = translate_inline("Edit");
-	$del = translate_inline("Del");
-	$delconfirm = translate_inline("Are you sure you wish to delete this armor?");
+	$ops = Translator::translate_inline("Ops");
+	$name = Translator::translate_inline("Name");
+	$cost = Translator::translate_inline("Cost");
+	$defense = Translator::translate_inline("Defense");
+	$level = Translator::translate_inline("Level");
+	$edit = Translator::translate_inline("Edit");
+	$del = Translator::translate_inline("Del");
+	$delconfirm = Translator::translate_inline("Are you sure you wish to delete this armor?");
 
 	rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
 	rawoutput("<tr class='trhead'><td>$ops</td><td>$name</td><td>$cost</td><td>$defense</td><td>$level</td></tr>");

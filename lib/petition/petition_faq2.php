@@ -1,7 +1,7 @@
 <?php
 Translator::tlschema("faq");
 popup_header("General Questions with Spoilers");
-$c = translate_inline("Return to Contents");
+$c = Translator::translate_inline("Return to Contents");
 rawoutput("<a href='petition.php?op=faq'>$c</a><hr>");
 OutputClass::output("`n`n`&(Warning, the FAQs below might contain some spoilers, so if you really want to discover things on your own, you'd be better off not reading too far.");
 OutputClass::output("This is not a manual.  It's a self-help pamphlet.)`n`n`n`n`n`n`n`n`n`n`n`n`n");

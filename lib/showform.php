@@ -133,7 +133,7 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 				$optval = $v;
 				list($k,$v)=each($info);
 				$optdis = $v;
-				if (!$pretrans) $optdis = translate_inline($optdis);
+				if (!$pretrans) $optdis = Translator::translate_inline($optdis);
 				if (is_array($row[$key])){
 					if ($row[$key][$optval]) {
 						$checked=true;
@@ -161,7 +161,7 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 				$optval = $v;
 				list($k,$v)=each($info);
 				$optdis = $v;
-				if (!$pretrans) $optdis = translate_inline($optdis);
+				if (!$pretrans) $optdis = Translator::translate_inline($optdis);
 				$select.=("<input type='radio' name='$keyout' value='$optval'".($row[$key]==$optval?" checked":"").">&nbsp;".("$optdis")."<br>");
 			}
 			rawoutput($select);
@@ -229,7 +229,7 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 					.($disablemask & (int)$v?"":" disabled")
 					." value='1'> ");
 				list($k,$v)=each($info);
-				if (!$pretrans) $v = translate_inline($v);
+				if (!$pretrans) $v = Translator::translate_inline($v);
 				output_notl("%s`n",$v,true);
 			}
 			break;
@@ -276,7 +276,7 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 				list($k,$v)=each($info);
 				$optdis = $v;
 				if (!$pretrans) {
-					$optdis = translate_inline($optdis);
+					$optdis = Translator::translate_inline($optdis);
 				}
 				$selected = 0;
 				if (isset($row[$key]) && $row[$key] == $optval)
@@ -294,8 +294,8 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 			break;
 		case "bool":
 			Translator::tlschema("showform");
-			$yes = translate_inline("Yes");
-			$no = translate_inline("No");
+			$yes = Translator::translate_inline("Yes");
+			$no = Translator::translate_inline("No");
 			Translator::tlschema();
 			rawoutput("<select name='$keyout'>");
 			rawoutput("<option value='0'".($row[$key]==0?" selected":"").">$no</option>");
@@ -434,7 +434,7 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 	}
 	rawoutput("</td></tr></table>");
 	Translator::tlschema("showform");
-	$save = translate_inline("Save");
+	$save = Translator::translate_inline("Save");
 	Translator::tlschema();
 	if ($nosave) {}
 	else rawoutput("<input type='submit' class='button' value='$save'>");

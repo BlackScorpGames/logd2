@@ -168,7 +168,7 @@ function goldmine_runevent($type)
 				break;
 			case 11: case 12: case 13: case 14: case 15:
 				$gems = e_rand(1, round($session['user']['level']/7)+1);
-				OutputClass::output("`^After a few hours of hard work, you find `%%s %s`^!`n`n", $gems, translate_inline($gems == 1 ? "gem" : "gems"));
+				OutputClass::output("`^After a few hours of hard work, you find `%%s %s`^!`n`n", $gems, Translator::translate_inline($gems == 1 ? "gem" : "gems"));
 				$session['user']['gems'] += $gems;
 				debuglog("found $gems gems in the goldmine");
 				OutputClass::output("`^You lose one forest fight while digging.`n`n");
@@ -179,7 +179,7 @@ function goldmine_runevent($type)
 				$gold = e_rand($session['user']['level']*10, $session['user']['level']*40);
 				$gems = e_rand(1, round($session['user']['level']/3)+1);
 				OutputClass::output("`^You have found the mother lode!`n`n");
-				OutputClass::output("`^After a few hours of hard work, you find `%%s %s`^ and %s gold!`n`n", $gems, translate_inline($gems==1?"gem":"gems"), $gold);
+				OutputClass::output("`^After a few hours of hard work, you find `%%s %s`^ and %s gold!`n`n", $gems, Translator::translate_inline($gems==1?"gem":"gems"), $gold);
 				$session['user']['gems'] += $gems;
 				$session['user']['gold'] += $gold;
 				debuglog("found $gold gold and $gems gems in the goldmine");
@@ -198,7 +198,7 @@ function goldmine_runevent($type)
 				$racesave = 1;
 				if (isset($vals['racesave']) && $vals['racesave']) {
 					if ($vals['schema']) Translator::tlschema($vals['schema']);
-					$racemsg = translate_inline($vals['racesave']);
+					$racemsg = Translator::translate_inline($vals['racesave']);
 					if ($vals['schema']) Translator::tlschema();
 				}
 
@@ -249,7 +249,7 @@ function goldmine_runevent($type)
 					$gemlost = round(get_module_setting("percentgemloss")/100 * $session['user']['gems'], 0);
 					$goldlost = round(get_module_setting("percentgoldloss")/100 * $session['user']['gold'], 0);
 					debuglog("lost $goldlost gold and $gemlost gems by dying in the goldmine");
-					OutputClass::output("`^%s gold `&and `%%s %s`& were lost when you were buried!", $goldlost, $gemlost, translate_inline($gemlost == 1?"gem":"gems"));
+					OutputClass::output("`^%s gold `&and `%%s %s`& were lost when you were buried!", $goldlost, $gemlost, Translator::translate_inline($gemlost == 1?"gem":"gems"));
 					$session['user']['gold'] -= $goldlost;
 					$session['user']['gems'] -= $gemlost;
 					addnav("Daily News","news.php");

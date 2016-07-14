@@ -50,13 +50,13 @@ if ($op==""){
 	$sql = "SELECT " . db_prefix("paylog") . ".*," . db_prefix("accounts") . ".name," . db_prefix("accounts") . ".donation," . db_prefix("accounts") . ".donationspent FROM " . db_prefix("paylog") . " LEFT JOIN " . db_prefix("accounts") . " ON " . db_prefix("paylog") . ".acctid = " . db_prefix("accounts") . ".acctid WHERE processdate>='$startdate' AND processdate < '$enddate' ORDER BY payid DESC";
 	$result = db_query($sql);
 	rawoutput("<table border='0' cellpadding='2' cellspacing='1' bgcolor='#999999'>");
-	$type = translate_inline("Type");
-	$gross = translate_inline("Gross");
-	$fee = translate_inline("Fee");
-	$net = translate_inline("Net");
-	$processed = translate_inline("Processed");
-	$id = translate_inline("Transaction ID");
-	$who = translate_inline("Who");
+	$type = Translator::translate_inline("Type");
+	$gross = Translator::translate_inline("Gross");
+	$fee = Translator::translate_inline("Fee");
+	$net = Translator::translate_inline("Net");
+	$processed = Translator::translate_inline("Processed");
+	$id = Translator::translate_inline("Transaction ID");
+	$who = Translator::translate_inline("Who");
 	rawoutput("<tr class='trhead'><td>Date</td><td>$id</td><td>$type</td><td>$gross</td><td>$fee</td><td>$net</td><td>$processed</td><td>$who</td></tr>");
 	$number=db_num_rows($result);
 	for ($i=0;$i<$number;$i++){
@@ -75,7 +75,7 @@ if ($op==""){
 		rawoutput("</td><td>");
 		output_notl("%.2f", (float)$info['mc_gross'] - (float)$info['mc_fee']);
 		rawoutput("</td><td>");
-		output_notl("%s", translate_inline($row['processed']?"`@Yes`0":"`\$No`0"));
+		output_notl("%s", Translator::translate_inline($row['processed']?"`@Yes`0":"`\$No`0"));
 		rawoutput("</td><td nowrap>");
 		if ($row['name']>"") {
 			rawoutput("<a href='user.php?op=edit&userid={$row['acctid']}'>");

@@ -26,7 +26,7 @@ $statuses=array(
 	);
 
 //$statuses = modulehook("petition-status", $status);
-$statuses=translate_inline($statuses);
+$statuses=Translator::translate_inline($statuses);
 
 $op = Http::httpget("op");
 $id = Http::httpget("id");
@@ -135,16 +135,16 @@ if ($op==""){
 	$result = db_query($sql);
 	addnav("Petitions");
 	addnav("Refresh","viewpetition.php");
-	$num = translate_inline("Num");
-	$ops = translate_inline("Ops");
-	$from = translate_inline("From");
-	$sent = translate_inline("Sent");
-	$com = translate_inline("Com");
-	$last = translate_inline("Last Updater");
-	$when = translate_inline("Updated");
-	$view = translate_inline("View");
-	$close = translate_inline("Close");
-	$mark = translate_inline("Mark");
+	$num = Translator::translate_inline("Num");
+	$ops = Translator::translate_inline("Ops");
+	$from = Translator::translate_inline("From");
+	$sent = Translator::translate_inline("Sent");
+	$com = Translator::translate_inline("Com");
+	$last = Translator::translate_inline("Last Updater");
+	$when = Translator::translate_inline("Updated");
+	$view = Translator::translate_inline("View");
+	$close = Translator::translate_inline("Close");
+	$mark = Translator::translate_inline("Mark");
 
 	rawoutput("<table border='0'><tr class='trhead'><td>$num</td><td>$ops</td><td>$from</td><td>$sent</td><td>$com</td><td>$last</td><td>$when</td></tr>");
 	$i=0;
@@ -270,7 +270,7 @@ if ($op==""){
 		addnav("User Ops");
 		addnav("Edit User Donations","donators.php?op=add1&name=".rawurlencode($row['login'])."&ret=".urlencode($_SERVER['REQUEST_URI']));
 	}
-	$write = translate_inline("Write Mail");
+	$write = Translator::translate_inline("Write Mail");
 	// We assume that petitions are handled in default language
 	$yourpeti = translate_mail("Your Petition",0);
 	$peti = translate_mail("Petition",0);

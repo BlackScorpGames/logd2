@@ -246,7 +246,7 @@ if ($op==""){
 		$row['description'] = str_replace("`&amp;", "`&", $row['description']);
 
 		// Correct for old logdnet servers
-		if ($row['version']=="") $row['version'] = translate_inline("Unknown");
+		if ($row['version']=="") $row['version'] = Translator::translate_inline("Unknown");
 
 		// OutputClass::output the information we have.
 		rawoutput("<tr class='" . ($i%2==0?"trlight":"trdark") . "'>");

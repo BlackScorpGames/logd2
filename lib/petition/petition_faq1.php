@@ -1,7 +1,7 @@
 <?php
 Translator::tlschema("faq");
 popup_header("General Questions");
-$c = translate_inline("Return to Contents");
+$c = Translator::translate_inline("Return to Contents");
 rawoutput("<a href='petition.php?op=faq'>$c</a><hr>");
 OutputClass::output("`n`n`c`bGeneral questions`b`c`n");
 OutputClass::output("`^1. What is the purpose of this game?`n");

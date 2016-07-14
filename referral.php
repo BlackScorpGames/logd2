@@ -35,12 +35,12 @@ if ($session['user']['loggedin']){
 
 	$sql = "SELECT name,level,refererawarded FROM " . db_prefix("accounts") . " WHERE referer={$session['user']['acctid']} ORDER BY dragonkills,level";
 	$result = db_query($sql);
-	$name=translate_inline("Name");
-	$level=translate_inline("Level");
-	$awarded=translate_inline("Awarded?");
-	$yes=translate_inline("`@Yes!`0");
-	$no=translate_inline("`\$No!`0");
-	$none=translate_inline("`iNone`i");
+	$name=Translator::translate_inline("Name");
+	$level=Translator::translate_inline("Level");
+	$awarded=Translator::translate_inline("Awarded?");
+	$yes=Translator::translate_inline("`@Yes!`0");
+	$no=Translator::translate_inline("`\$No!`0");
+	$none=Translator::translate_inline("`iNone`i");
 	OutputClass::output("`n`nAccounts which you referred:`n");
 	rawoutput("<table border='0' cellpadding='3' cellspacing='0'><tr><td>$name</td><td>$level</td><td>$awarded</td></tr>");
 	$number=db_num_rows($result);

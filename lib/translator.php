@@ -120,11 +120,7 @@ function sprintf_translate(){
 	return $return;
 }
 
-function translate_inline($in,$namespace=FALSE){
-	$out = translate($in,$namespace);
-	rawoutput(tlbutton_clear());
-	return $out;
-}
+
 
 function translate_mail($in,$to=0){
 	global $session;
@@ -241,19 +237,28 @@ function enable_translation($enable=true){
 
 $translation_namespace = "";
 $translation_namespace_stack = array();
-class Translator {
-public static function tlschema($schema=false){
-	global $translation_namespace,$translation_namespace_stack,$REQUEST_URI;
-    //var_dump($translation_namespace_stack);
-	if ($schema===false){
-		$translation_namespace = array_pop($translation_namespace_stack);
-		if ($translation_namespace=="")
-			$translation_namespace = translator_uri($REQUEST_URI);
-	}else{
-		array_push($translation_namespace_stack,$translation_namespace);
-		$translation_namespace = $schema;
+
+class Translator
+{
+	public static function tlschema($schema = false)
+	{
+		global $translation_namespace, $translation_namespace_stack, $REQUEST_URI;
+		//var_dump($translation_namespace_stack);
+		if ($schema === false) {
+			$translation_namespace = array_pop($translation_namespace_stack);
+			if ($translation_namespace == "") {
+				$translation_namespace = translator_uri($REQUEST_URI);
+			}
+		} else {
+			array_push($translation_namespace_stack, $translation_namespace);
+			$translation_namespace = $schema;
+		}
 	}
-}
+	public static function translate_inline($in,$namespace=FALSE){
+		$out = translate($in,$namespace);
+		rawoutput(tlbutton_clear());
+		return $out;
+	}
 }
 function translator_check_collect_texts()
 {

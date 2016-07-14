@@ -1,7 +1,7 @@
 <?php
 Translator::tlschema("faq");
 popup_header("Specific and Technical Questions");
-$c = translate_inline("Return to Contents");
+$c = Translator::translate_inline("Return to Contents");
 rawoutput("<a href='petition.php?op=faq'>$c</a><hr>");
 OutputClass::output("`n`n`c`bSpecific and technical questions`b`c`n");
 OutputClass::output("`^1.a. How can I have been killed by another player while I was currently playing?`n");

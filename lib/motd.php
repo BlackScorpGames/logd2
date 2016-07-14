@@ -6,9 +6,9 @@
 function motd_admin($id, $poll=false) {
 	global $session;
 	if ($session['user']['superuser'] & SU_POST_MOTD) {
-		$ed = translate_inline("Edit");
-		$del = translate_inline("Del");
-		$confirm = translate_inline("Are you sure you want to delete this item?");
+		$ed = Translator::translate_inline("Edit");
+		$del = Translator::translate_inline("Del");
+		$confirm = Translator::translate_inline("Are you sure you want to delete this item?");
 		output_notl("[ ");
 		if (!$poll) {
 			rawoutput("<a href='motd.php?op=add".($poll?"poll":"")."&id=$id'>$ed</a> | ");
@@ -45,7 +45,7 @@ function pollitem($id,$subject,$body,$author,$date,$showpoll=true){
 	$choice = $row['choice'];
 	$body = unserialize($body);
 
-	$poll = translate_inline("Poll:");
+	$poll = Translator::translate_inline("Poll:");
 	if ($session['user']['loggedin'] && $showpoll) {
 		rawoutput("<form action='motd.php?op=vote' method='POST'>");
 		rawoutput("<input type='hidden' name='motditem' value='$id'>",true);
@@ -86,7 +86,7 @@ function pollitem($id,$subject,$body,$author,$date,$showpoll=true){
 		}
 	}
 	if ($session['user']['loggedin'] && $showpoll) {
-		$vote = translate_inline("Vote");
+		$vote = Translator::translate_inline("Vote");
 		rawoutput("<input type='submit' class='button' value='$vote'></form>");
 	}
 	rawoutput("<hr>",true);
@@ -98,9 +98,9 @@ function motd_form($id) {
 	$body = httppost('body');
 	$preview = httppost('preview');
 	if ($subject=="" || $body=="" || $preview>""){
-		$edit = translate_inline("Edit a MoTD");
-		$add = translate_inline("Add a MoTD");
-		$ret = translate_inline("Return");
+		$edit = Translator::translate_inline("Edit a MoTD");
+		$add = Translator::translate_inline("Add a MoTD");
+		$ret = Translator::translate_inline("Return");
 
 		$row = array(
 			"motditem"=>0,
@@ -149,8 +149,8 @@ function motd_form($id) {
 			rawoutput("<input type='checkbox' value='1' name='changedate'".(httppost('changedate')?" checked":"").">");
 			OutputClass::output("Change Date (force popup again)`n");
 		}
-		$prev = translate_inline("Preview");
-		$sub = translate_inline("Submit");
+		$prev = Translator::translate_inline("Preview");
+		$sub = Translator::translate_inline("Submit");
 		rawoutput("<input type='submit' class='button' name='preview' value='$prev'> <input type='submit' class='button' value='$sub'></form>");
 	}else{
 		if ($id>""){
@@ -199,7 +199,7 @@ function motd_poll_form() {
 		rawoutput("<input type='text' size='50' name='subject' value=\"".HTMLEntities(stripslashes($subject), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"><br/>");
 		OutputClass::output("Body:`n");
 		rawoutput("<textarea class='input' name='body' cols='37' rows='5'>".HTMLEntities(stripslashes($body), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
-		$option = translate_inline("Option");
+		$option = Translator::translate_inline("Option");
 		OutputClass::output("Choices:`n");
 		$pollitem = "$option <input name='opt[]'><br/>";
 		rawoutput($pollitem);
@@ -210,8 +210,8 @@ function motd_poll_form() {
 		rawoutput("<div id='hidepolls'>");
 		rawoutput("</div>");
 		rawoutput("<script language='JavaScript'>document.getElementById('hidepolls').innerHTML = '';</script>",true);
-		$addi = translate_inline("Add Poll Item");
-		$add = translate_inline("Add");
+		$addi = Translator::translate_inline("Add Poll Item");
+		$add = Translator::translate_inline("Add");
 		rawoutput("<a href=\"#\" onClick=\"javascript:document.getElementById('hidepolls').innerHTML += '".addslashes($pollitem)."'; return false;\">$addi</a><br>");
 		rawoutput("<input type='submit' class='button' value='$add'></form>");
 	}else{

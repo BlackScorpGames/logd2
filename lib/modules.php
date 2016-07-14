@@ -866,7 +866,7 @@ function get_module_info($shortname){
 					!isset($moduleinfo['category']) ||
 					!isset($moduleinfo['author']) ||
 					!isset($moduleinfo['version'])) {
-				$ns = translate_inline("Not specified","common");
+				$ns = Translator::translate_inline("Not specified","common");
 			}
 			if (!isset($moduleinfo['name']))
 				$moduleinfo['name']="$ns ($shortname)";
@@ -882,7 +882,7 @@ function get_module_info($shortname){
 				$moduleinfo['description'] = "";
 		}
 		if (!is_array($moduleinfo) || count($moduleinfo)<2){
-			$mf = translate_inline("Missing function","common");
+			$mf = Translator::translate_inline("Missing function","common");
 			$moduleinfo = array(
 					"name"=>"$mf ({$shortname}_getmoduleinfo)",
 					"version"=>"0.0",
@@ -1151,9 +1151,9 @@ function module_display_events($eventtype, $forcescript=false) {
 
 	Translator::tlschema("events");
 	OutputClass::output("`n`nSpecial event triggers:`n");
-	$name = translate_inline("Name");
-	$rchance = translate_inline("Raw Chance");
-	$nchance = translate_inline("Normalized Chance");
+	$name = Translator::translate_inline("Name");
+	$rchance = Translator::translate_inline("Raw Chance");
+	$nchance = Translator::translate_inline("Normalized Chance");
 	rawoutput("<table cellspacing='1' cellpadding='2' border='0' bgcolor='#999999'>");
 	rawoutput("<tr class='trhead'>");
 	rawoutput("<td>$name</td><td>$rchance</td><td>nchance</td>");
@@ -1427,9 +1427,9 @@ function get_module_install_status(){
 function get_racename($thisuser=true) {
 	if ($thisuser === true) {
 		global $session;
-		return translate_inline($session['user']['race'],"race");
+		return Translator::translate_inline($session['user']['race'],"race");
 	} else {
-		return translate_inline($thisuser,"race");
+		return Translator::translate_inline($thisuser,"race");
 	}
 }
 

@@ -102,7 +102,7 @@ function darkhorse_bartender($from){
 	$what = Http::httpget('what');
 	if ($what==""){
 		OutputClass::output("The grizzled old man behind the bar reminds you very much of a strip of beef jerky.`n`n");
-		$dname = translate_inline($session['user']['sex']?"lasshie":"shon");
+		$dname = Translator::translate_inline($session['user']['sex']?"lasshie":"shon");
 		OutputClass::output("\"`7Shay, what can I do for you %s?`0\" inquires the toothless fellow.", $dname);
 		OutputClass::output("\"`7Don't shee the likesh of your short too offen 'round theshe partsh.`0\"");
 		addnav("Learn about my enemies",$from."op=bartender&what=enemies");
@@ -114,7 +114,7 @@ function darkhorse_bartender($from){
 		OutputClass::output("He continues, \"`%To do colorsh, here'sh what you need to do.  Firsht, you ushe a &#0096; mark (found right above the tab key) followed by 1, 2, 3, 4, 5, 6, 7, !, @, #, $, %, ^, &, ), q or Q.  Each of thoshe correshpondsh with a color to look like this: `n`1&#0096;1 `2&#0096;2 `3&#0096;3 `4&#0096;4 `5&#0096;5 `6&#0096;6 `7&#0096;7 `n`!&#0096;! `@&#0096;@ `#&#0096;# `\$&#0096;\$ `%&#0096;% `^&#0096;^ `&&#0096;& `n `)&#0096;) `q&#0096;q `Q&#0096;Q `n`% got it?`0\"`n  You can practice below:", true);
 		rawoutput("<form action=\"".$from."op=bartender&what=colors\" method='POST'>");
 		$testtext = httppost('testtext');
-		$try = translate_inline("Try");
+		$try = Translator::translate_inline("Try");
 		rawoutput("<input name='testtext' id='testtext'><input type='submit' class='button' value='$try'></form>");
 		addnav("",$from."op=bartender&what=colors");
 		rawoutput("<script language='JavaScript'>document.getElementById('testtext').focus();</script>");
@@ -129,7 +129,7 @@ function darkhorse_bartender($from){
 			OutputClass::output("\"`7Sho, you want to learn about your enemiesh, do you?  Who do you want to know about?  Well?  Shpeak up!  It only costs `^100`7 gold per person for information.`0\"");
 			$subop = Http::httpget('subop');
 			if ($subop!="search"){
-				$search = translate_inline("Search");
+				$search = Translator::translate_inline("Search");
 				rawoutput("<form action='".$from."op=bartender&what=enemies&subop=search' method='POST'><input name='name' id='name'><input type='submit' class='button' value='$search'></form>");
 				addnav("",$from."op=bartender&what=enemies&subop=search");
 				rawoutput("<script language='JavaScript'>document.getElementById('name').focus();</script>");
@@ -147,8 +147,8 @@ function darkhorse_bartender($from){
 					OutputClass::output("`n`n\"`7Hey, whatsh you think yoush doin'.  That'sh too many namesh to shay.  I'll jusht tell you 'bout shome of them.`0`n");
 					$max = 100;
 				}
-				$n = translate_inline("Name");
-				$lev = translate_inline("Level");
+				$n = Translator::translate_inline("Name");
+				$lev = Translator::translate_inline("Level");
 				rawoutput("<table border=0 cellpadding=0><tr><td>$n</td><td>$lev</td></tr>");
 				for ($i=0;$i<$max;$i++){
 					$row = db_fetch_assoc($result);
@@ -171,7 +171,7 @@ function darkhorse_bartender($from){
 					OutputClass::output("\"`7Well... letsh shee what I know about %s`7,`0\" he says...`n`n", $name);
 					OutputClass::output("`4`bName:`b`6 %s`n", $row['name']);
 					OutputClass::output("`4`bRace:`b`6 %s`n",
-							translate_inline($row['race'],"race"));
+							Translator::translate_inline($row['race'],"race"));
 					OutputClass::output("`4`bLevel:`b`6 %s`n", $row['level']);
 					OutputClass::output("`4`bHitpoints:`b`6 %s`n", $row['maxhitpoints']);
 					OutputClass::output("`4`bGold:`b`6 %s`n", $row['gold']);

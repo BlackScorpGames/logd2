@@ -182,7 +182,7 @@ if ($dp < $dkills) {
 	}
 	if ($dkff>0) {
 		OutputClass::output("`n`2You gain `^%s`2 forest %s from spent dragon points!",
-				$dkff, translate_inline($dkff == 1?"fight":"fights"));
+				$dkff, Translator::translate_inline($dkff == 1?"fight":"fights"));
 	}
 	$r1 = e_rand(-1,1);
 	$r2 = e_rand(-1,1);
@@ -206,17 +206,17 @@ if ($dp < $dkills) {
 
 	$sp = array((-6)=>"Resurrected", (-2)=>"Very Low", (-1)=>"Low",
 			(0)=>"Normal", 1=>"High", 2=>"Very High");
-	$sp = translate_inline($sp);
+	$sp = Translator::translate_inline($sp);
 	OutputClass::output("`n`2You are in `^%s`2 spirits today!`n",$sp[$spirits]);
 	if (abs($spirits)>0){
 		if($resurrectionturns>0){
-			$gain=translate_inline("gain");
+			$gain=Translator::translate_inline("gain");
 		}else{
-			$gain=translate_inline("lose");
+			$gain=Translator::translate_inline("lose");
 		}
 		$sff = abs($resurrectionturns);
 		OutputClass::output("`2As a result, you `^%s %s forest %s`2 for today!`n",
-				$gain, $sff, translate_inline($sff==1?"fight":"fights"));
+				$gain, $sff, Translator::translate_inline($sff==1?"fight":"fights"));
 	}
 	$rp = $session['user']['restorepage'];
 	$x = max(strrpos("&",$rp),strrpos("?",$rp));
@@ -265,15 +265,15 @@ if ($dp < $dkills) {
 		$session['user']['turns'] += $mff;
 		$turnstoday.=", Mount: $mff";
 		if ($mff > 0) {
-			$state = translate_inline("gain");
+			$state = Translator::translate_inline("gain");
 			$color = "`^";
 		} elseif ($mff < 0) {
-			$state = translate_inline("lose");
+			$state = Translator::translate_inline("lose");
 			$color = "`$";
 		}
 		$mff = abs($mff);
 		if ($mff != 0) {
-			OutputClass::output("`n`&Because of %s`&, you %s%s %s`& forest %s for today!`n`0", $lcname, $color, $state, $mff, translate_inline($mff==1?'fight':'fights'));
+			OutputClass::output("`n`&Because of %s`&, you %s%s %s`& forest %s for today!`n`0", $lcname, $color, $state, $mff, Translator::translate_inline($mff==1?'fight':'fights'));
 		}
 	}else{
 		OutputClass::output("`n`&You strap your `%%s`& to your back and head out for some adventure.`0",$session['user']['weapon']);

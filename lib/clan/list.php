@@ -7,8 +7,8 @@
 	if (db_num_rows($result)>0){
 		OutputClass::output("`7You ask %s`7 for the clan listings.  She points you toward a marquee board near the entrance of the lobby that lists the clans.`0`n`n",$registrar);
 		$v = 0;
-		$memb_n = translate_inline("(%s members)");
-		$memb_1 = translate_inline("(%s member)");
+		$memb_n = Translator::translate_inline("(%s members)");
+		$memb_1 = Translator::translate_inline("(%s member)");
 		rawoutput('<table cellspacing="0" cellpadding="2" align="left">');
 		while ($row = db_fetch_assoc($result)){
 			if ($row['c']==0){

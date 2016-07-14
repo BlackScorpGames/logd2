@@ -15,7 +15,7 @@ $basetext=array(
 	"desc"=>array(
 		"`7Behind the inn, and a little to the left of Ye Olde Bank, is as fine a stable as one might expect to find in any village. ",
 		"In it, Merick, a burly looking dwarf tends to various beasts.`n`n",
-		array("You approach, and he whirls around, pointing a pitchfork in your general direction, \"`&Ach, sorry m'%s, I dinnae hear ya' comin' up on me, an' I thoht fer sure ye were %s`&; he what been tryin' to improve on his dwarf tossin' skills. ",translate_inline($session['user']['sex']?'lass':'lad'),Settings::getsetting('barkeep','`tCedrik')),
+		array("You approach, and he whirls around, pointing a pitchfork in your general direction, \"`&Ach, sorry m'%s, I dinnae hear ya' comin' up on me, an' I thoht fer sure ye were %s`&; he what been tryin' to improve on his dwarf tossin' skills. ",Translator::translate_inline($session['user']['sex']?'lass':'lad'),Settings::getsetting('barkeep','`tCedrik')),
 		"Naahw, wha' can oye do fer ya?`7\" he asks.",
 	),
 	"nosuchbeast"=>"`7\"`&Ach, thar dinnae be any such beestie here!`7\" shouts the dwarf!",

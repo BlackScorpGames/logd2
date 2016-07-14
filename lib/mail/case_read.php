@@ -7,7 +7,7 @@ if (db_num_rows($result)>0){
 	$row = db_fetch_assoc($result);
 	if ($row['msgfrom']==0  || !is_numeric($row['msgfrom'])){
 		if ($row['msgfrom'] == 0 && is_numeric($row['msgfrom'])) {
-			$row['name']=translate_inline("`i`^System`0`i");
+			$row['name']=Translator::translate_inline("`i`^System`0`i");
 		} else {
 			$row['name']=$row['msgfrom'];
 		}
@@ -36,10 +36,10 @@ if (db_num_rows($result)>0){
 	$sql = "UPDATE " . db_prefix("mail") . " SET seen=1 WHERE  msgto=\"".$session['user']['acctid']."\" AND messageid=\"".$id."\"";
 	db_query($sql);
 	invalidatedatacache("mail-{$session['user']['acctid']}");
-	$reply = translate_inline("Reply");
-	$del = translate_inline("Delete");
-	$unread = translate_inline("Mark Unread");
-	$report = translate_inline("Report to Admin");
+	$reply = Translator::translate_inline("Reply");
+	$del = Translator::translate_inline("Delete");
+	$unread = Translator::translate_inline("Mark Unread");
+	$report = Translator::translate_inline("Report to Admin");
 	$problem = "Abusive Email Report:\nFrom: {$row['name']}\nSubject: {$row['subject']}\nSent: {$row['sent']}\nID: {$row['messageid']}\nBody:\n{$row['body']}";
 	rawoutput("<table width='50%' border='0' cellpadding='0' cellspacing='5'><tr>");
 	if ($row['msgfrom'] > 0 && is_numeric($row['msgfrom'])) {
@@ -73,8 +73,8 @@ if (db_num_rows($result)>0){
 	}else{
 		$nid = 0;
 	}
-	$prev = translate_inline("< Previous");
-	$next = translate_inline("Next >");
+	$prev = Translator::translate_inline("< Previous");
+	$next = Translator::translate_inline("Next >");
 	rawoutput("<td nowrap='true'>");
 	if ($pid > 0) {
 		rawoutput("<a href='mail.php?op=read&id=$pid' class='motd'>".htmlentities($prev, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</a>");

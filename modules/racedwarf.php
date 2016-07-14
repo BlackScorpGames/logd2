@@ -240,10 +240,10 @@ function racedwarf_dohook($hookname,$args){
 		$args['schemas']['toomany'] = "module-racedwarf";
 		$args['drinksubs']=array(
 				"/Cedrik/"=>$args['barkeep']."`0",
-				"/ Violet /"=>translate_inline(" a stranger "),
-				"/ Seth /"=>translate_inline(" a stranger "),
-				"/ `.Violet`. /"=>translate_inline(" a stranger "),
-				"/ `.Seth`. /"=>translate_inline(" a stranger "),
+				"/ Violet /"=>Translator::translate_inline(" a stranger "),
+				"/ Seth /"=>Translator::translate_inline(" a stranger "),
+				"/ `.Violet`. /"=>Translator::translate_inline(" a stranger "),
+				"/ `.Seth`. /"=>Translator::translate_inline(" a stranger "),
 				);
 		break;
 	case "drinks-check":

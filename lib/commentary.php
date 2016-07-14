@@ -16,18 +16,18 @@ function commentarylocs() {
 	Translator::tlschema("commentary");
 	$comsecs['village'] = sprintf_translate("%s Square", $vname);
 	if ($session['user']['superuser'] & ~SU_DOESNT_GIVE_GROTTO) {
-		$comsecs['superuser']=translate_inline("Grotto");
+		$comsecs['superuser']=Translator::translate_inline("Grotto");
 	}
-	$comsecs['shade']=translate_inline("Land of the Shades");
-	$comsecs['grassyfield']=translate_inline("Grassy Field");
+	$comsecs['shade']=Translator::translate_inline("Land of the Shades");
+	$comsecs['grassyfield']=Translator::translate_inline("Grassy Field");
 	$comsecs['inn']="$iname";
-	$comsecs['motd']=translate_inline("MotD");
-	$comsecs['veterans']=translate_inline("Veterans Club");
-	$comsecs['hunterlodge']=translate_inline("Hunter's Lodge");
-	$comsecs['gardens']=translate_inline("Gardens");
-	$comsecs['waiting']=translate_inline("Clan Hall Waiting Area");
+	$comsecs['motd']=Translator::translate_inline("MotD");
+	$comsecs['veterans']=Translator::translate_inline("Veterans Club");
+	$comsecs['hunterlodge']=Translator::translate_inline("Hunter's Lodge");
+	$comsecs['gardens']=Translator::translate_inline("Gardens");
+	$comsecs['waiting']=Translator::translate_inline("Clan Hall Waiting Area");
 	if (Settings::getsetting("betaperplayer", 1) == 1 && @file_exists("pavilion.php")) {
-		$comsecs['beta']=translate_inline("Pavilion");
+		$comsecs['beta']=Translator::translate_inline("Pavilion");
 	}
 	Translator::tlschema();
 	// All of the ones after this will be translated in the modules.
@@ -130,7 +130,7 @@ function injectcommentary($section, $talkline, $comment, $schema=false) {
 		$commentary = $args['commentline'];
 		$talkline = $args['commenttalk'];
 		Translator::tlschema($schema);
-		$talkline = translate_inline($talkline);
+		$talkline = Translator::translate_inline($talkline);
 		Translator::tlschema();
 
 		$commentary = preg_replace("'([^[:space:]]{45,45})([^[:space:]])'","\\1 \\2",$commentary);
@@ -370,7 +370,7 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 	if (($session['user']['superuser'] & SU_EDIT_COMMENTS) && $message=="X")
 		$moderating=true;
 
-	$del=translate_inline("Del");
+	$del=Translator::translate_inline("Del");
 	$scriptname=substr($_SERVER['SCRIPT_NAME'],strrpos($_SERVER['SCRIPT_NAME'],"/")+1);
 	$pos=strpos($_SERVER['REQUEST_URI'],"?");
 	$return=$scriptname.($pos==false?"":substr($_SERVER['REQUEST_URI'],$pos));
@@ -412,11 +412,11 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 	if ($moderating){
 		$scriptname=substr($_SERVER['SCRIPT_NAME'],strrpos($_SERVER['SCRIPT_NAME'],"/")+1);
 		addnav("","$scriptname?op=commentdelete&return=".URLEncode($_SERVER['REQUEST_URI']));
-		$mod_Del1 = htmlentities(translate_inline("Delete Checked Comments"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
-		$mod_Del2 = htmlentities(translate_inline("Delete Checked & Ban (3 days)"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
-		$mod_Del_confirm = addslashes(htmlentities(translate_inline("Are you sure you wish to ban this user and have you specified the exact reason for the ban, i.e. cut/pasted their offensive comments?"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
-		$mod_reason = translate_inline("Reason:");
-		$mod_reason_desc = htmlentities(translate_inline("Banned for comments you posted."), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
+		$mod_Del1 = htmlentities(Translator::translate_inline("Delete Checked Comments"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
+		$mod_Del2 = htmlentities(Translator::translate_inline("Delete Checked & Ban (3 days)"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
+		$mod_Del_confirm = addslashes(htmlentities(Translator::translate_inline("Are you sure you wish to ban this user and have you specified the exact reason for the ban, i.e. cut/pasted their offensive comments?"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
+		$mod_reason = Translator::translate_inline("Reason:");
+		$mod_reason_desc = htmlentities(Translator::translate_inline("Banned for comments you posted."), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
 
 		output_notl("<form action='$scriptname?op=commentdelete&return=".URLEncode($_SERVER['REQUEST_URI'])."' method='POST'>",true);
 		output_notl("<input type='submit' class='button' value=\"$mod_Del1\">",true);
@@ -492,11 +492,11 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 		$jump = true;
 	}
 
-	$firstu = translate_inline("&lt;&lt; First Unseen");
-	$prev = translate_inline("&lt; Previous");
-	$ref = translate_inline("Refresh");
-	$next = translate_inline("Next &gt;");
-	$lastu = translate_inline("Last Page &gt;&gt;");
+	$firstu = Translator::translate_inline("&lt;&lt; First Unseen");
+	$prev = Translator::translate_inline("&lt; Previous");
+	$ref = Translator::translate_inline("Refresh");
+	$next = Translator::translate_inline("Next &gt;");
+	$lastu = Translator::translate_inline("Last Page &gt;&gt;");
 	if ($rowcount>=$limit || $cid>0){
 		$sql = "SELECT count(commentid) AS c FROM " . db_prefix("commentary") . " WHERE section='$section' AND postdate > '{$session['user']['recentcomments']}'";
 		$r = db_query($sql);
@@ -589,8 +589,8 @@ function talkform($section,$talkline,$limit=10,$schema=false){
 			}
 		}
 	}
-	if (translate_inline($talkline,$schema)!="says")
-		$tll = strlen(translate_inline($talkline,$schema))+11;
+	if (Translator::translate_inline($talkline,$schema)!="says")
+		$tll = strlen(Translator::translate_inline($talkline,$schema))+11;
 		else $tll=0;
 	$req = comscroll_sanitize($REQUEST_URI)."&comment=1";
 	$req = str_replace("?&","?",$req);
@@ -618,7 +618,7 @@ function talkform($section,$talkline,$limit=10,$schema=false){
 	}else{
 		output_notl("<input type='hidden' name='section' value='$section'>",true);
 	}
-	$add = htmlentities(translate_inline("Add"), ENT_QUOTES, Settings::getsetting("charset", "ISO-8859-1"));
+	$add = htmlentities(Translator::translate_inline("Add"), ENT_QUOTES, Settings::getsetting("charset", "ISO-8859-1"));
 	output_notl("<input type='submit' class='button' value='$add'>`n",true);
 	if (round($limit/2,0)-$counttoday < 3 && Settings::getsetting('postinglimit',1)){
 		OutputClass::output("`)(You have %s posts left today)`n`0",(round($limit/2,0)-$counttoday));

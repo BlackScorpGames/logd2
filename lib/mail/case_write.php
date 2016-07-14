@@ -31,7 +31,7 @@ if ($to){
 if (is_array($row)){
 	if (isset($row['subject']) && $row['subject']){
 		if ((int)$row['msgfrom']==0){
-			$row['name']=translate_inline("`i`^System`0`i");
+			$row['name']=Translator::translate_inline("`i`^System`0`i");
 			// No translation for subject if it's not an array
 			$row_subject = @unserialize($row['subject']);
 			if ($row_subject !== false) {
@@ -125,14 +125,14 @@ OutputClass::output("`2Body:`n");
 require_once("lib/forms.php");
 previewfield("body", "`^", false, false, array("type"=>"textarea", "class"=>"input", "cols"=>"60", "rows"=>"9", "onKeyDown"=>"sizeCount(this);"), htmlentities($body, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")).htmlentities(stripslashes(Http::httpget('body')), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
 //rawoutput("<textarea name='body' id='textarea' class='input' cols='60' rows='9' onKeyUp='sizeCount(this);'>".htmlentities($body, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")).htmlentities(stripslashes(Http::httpget('body')), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br>");
-$send = translate_inline("Send");
+$send = Translator::translate_inline("Send");
 rawoutput("<table border='0' cellpadding='0' cellspacing='0' width='100%'><tr><td><input type='submit' class='button' value='$send'></td><td align='right'><div id='sizemsg'></div></td></tr></table>");
 rawoutput("</form>");
 $sizemsg = "`#Max message size is `@%s`#, you have `^XX`# characters left.";
-$sizemsg = translate_inline($sizemsg);
+$sizemsg = Translator::translate_inline($sizemsg);
 $sizemsg = sprintf($sizemsg,Settings::getsetting("mailsizelimit",1024));
 $sizemsgover = "`\$Max message size is `@%s`\$, you are over by `^XX`\$ characters!";
-$sizemsgover = translate_inline($sizemsgover);
+$sizemsgover = Translator::translate_inline($sizemsgover);
 $sizemsgover = sprintf($sizemsgover,Settings::getsetting("mailsizelimit",1024));
 $sizemsg = explode("XX",$sizemsg);
 $sizemsgover = explode("XX",$sizemsgover);

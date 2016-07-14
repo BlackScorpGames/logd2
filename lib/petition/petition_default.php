@@ -39,10 +39,10 @@ if (count($post)>0){
 					$url = $url . "/";
 					savesetting("serverurl", $url);
 				}
-				$tl_server = translate_inline("Server");
-				$tl_author = translate_inline("Author");
-				$tl_date = translate_inline("Date");
-				$tl_body = translate_inline("Body");
+				$tl_server = Translator::translate_inline("Server");
+				$tl_author = Translator::translate_inline("Author");
+				$tl_date = Translator::translate_inline("Date");
+				$tl_body = Translator::translate_inline("Body");
 				$tl_subject = sprintf_translate("New LoGD Petition at %s", $url);
 
 				$msg  = "$tl_server: $url\n";
@@ -81,7 +81,7 @@ if (count($post)>0){
 		rawoutput("<input name='charname' value=\"".htmlentities($session['user']['name'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='46'>");
 		OutputClass::output("`nYour email address: ");
 		rawoutput("<input name='email' value=\"".htmlentities($session['user']['emailaddress'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'>");
-		$nolog = translate_inline("Character is not logged in!!");
+		$nolog = Translator::translate_inline("Character is not logged in!!");
 		rawoutput("<input name='unverified' type='hidden' value='$nolog'>");
 	}
 	OutputClass::output("`nDescription of the problem:`n");
@@ -93,7 +93,7 @@ if (count($post)>0){
 		rawoutput("<textarea name='description' cols='55' rows='7' class='input'>".stripslashes_deep(htmlentities(Http::httpget("problem"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")))."</textarea>");
 	}
 	modulehook("petitionform",array());
-	$submit = translate_inline("Submit");
+	$submit = Translator::translate_inline("Submit");
 	rawoutput("<br/><input type='submit' class='button' value='$submit'><br/>");
 	OutputClass::output("Please be as descriptive as possible in your petition.");
 	OutputClass::output("If you have questions about how the game works, please check out the <a href='petition.php?op=faq'>FAQ</a>.", true);

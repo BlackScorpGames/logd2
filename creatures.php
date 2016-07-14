@@ -119,7 +119,7 @@ if ($op=="" || $op=="search"){
 	$sql = "SELECT * FROM " . db_prefix("creatures") . " WHERE $where ORDER BY creaturelevel,creaturename";
 	$result = db_query($sql);
 	// Search form
-	$search = translate_inline("Search");
+	$search = Translator::translate_inline("Search");
 	rawoutput("<form action='creatures.php?op=search' method='POST'>");
 	OutputClass::output("Search by field: ");
 	rawoutput("<input name='q' id='q'>");
@@ -141,17 +141,17 @@ if ($op=="" || $op=="search"){
 		addnav("Edit");
 		addnav("Add a creature","creatures.php?op=add&level=$level");
 	}
-	$opshead = translate_inline("Ops");
-	$idhead = translate_inline("ID");
-	$name = translate_inline("Name");
-	$lev = translate_inline("Level");
-	$weapon = translate_inline("Weapon");
-	$winmsg = translate_inline("Win");
-	$diemsg = translate_inline("Die");
-	$author = translate_inline("Author");
-	$edit = translate_inline("Edit");
-	$confirm = translate_inline("Are you sure you wish to delete this creature?");
-	$del = translate_inline("Del");
+	$opshead = Translator::translate_inline("Ops");
+	$idhead = Translator::translate_inline("ID");
+	$name = Translator::translate_inline("Name");
+	$lev = Translator::translate_inline("Level");
+	$weapon = Translator::translate_inline("Weapon");
+	$winmsg = Translator::translate_inline("Win");
+	$diemsg = Translator::translate_inline("Die");
+	$author = Translator::translate_inline("Author");
+	$edit = Translator::translate_inline("Edit");
+	$confirm = Translator::translate_inline("Are you sure you wish to delete this creature?");
+	$del = Translator::translate_inline("Del");
 
 	rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
 	rawoutput("<tr class='trhead'>");

@@ -1,7 +1,7 @@
 <?php
 Translator::tlschema("faq");
 popup_header("New Player Primer");
-$c = translate_inline("Return to Contents");
+$c = Translator::translate_inline("Return to Contents");
 rawoutput("<a href='petition.php?op=faq'>$c</a><hr>");
 OutputClass::output("`n`n`^Welcome to the Legend of the Green Dragon New Player Primer`n`n");
 OutputClass::output("`^`bThe village square`b`n");

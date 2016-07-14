@@ -44,7 +44,7 @@ if ($target = db_fetch_assoc($result)) {
   modulehook("biotop", $target);
 
   OutputClass::output("`^Biography for %s`^.",$target['name']);
-  $write = translate_inline("Write Mail");
+  $write = Translator::translate_inline("Write Mail");
   if ($session['user']['loggedin'])
 	  rawoutput("<a href=\"mail.php?op=write&to={$target['login']}\" target=\"_blank\" onClick=\"".popup("mail.php?op=write&to={$target['login']}").";return false;\"><img src='images/newscroll.GIF' width='16' height='16' alt='$write' border='0'></a>");
   output_notl("`n`n");
@@ -54,7 +54,7 @@ if ($target = db_fetch_assoc($result)) {
 	  $ranks = modulehook("clanranks", array("ranks"=>$ranks, "clanid"=>$target['clanid']));
 	  Translator::tlschema("clans"); //just to be in the right schema
 	  array_push($ranks['ranks'],"`\$Founder");
-	  $ranks = translate_inline($ranks['ranks']);
+	  $ranks = Translator::translate_inline($ranks['ranks']);
 	  Translator::tlschema();
 	  OutputClass::output("`@%s`2 is a %s`2 to `%%s`2`n", $target['name'], $ranks[$target['clanrank']], $target['clanname']);
   }
@@ -67,7 +67,7 @@ if ($target = db_fetch_assoc($result)) {
 			Settings::getsetting("LOGINTIMEOUT", 900))) {
 	  $loggedin = true;
   }
-  $status = translate_inline($loggedin?"`#Online`0":"`\$Offline`0");
+  $status = Translator::translate_inline($loggedin?"`#Online`0":"`\$Offline`0");
   OutputClass::output("`^Status: %s`n",$status);
 
   OutputClass::output("`^Resurrections: `@%s`n",$target['resurrections']);
@@ -75,16 +75,16 @@ if ($target = db_fetch_assoc($result)) {
   $race = $target['race'];
   if (!$race) $race = RACE_UNKNOWN;
   Translator::tlschema("race");
-  $race = translate_inline($race);
+  $race = Translator::translate_inline($race);
   Translator::tlschema();
   OutputClass::output("`^Race: `@%s`n",$race);
 
   $genders = array("Male","Female");
-  $genders = translate_inline($genders);
+  $genders = Translator::translate_inline($genders);
   OutputClass::output("`^Gender: `@%s`n",$genders[$target['sex']]);
 
   $specialties = modulehook("specialtynames",
-		  array(""=>translate_inline("Unspecified")));
+		  array(""=>Translator::translate_inline("Unspecified")));
   if (isset($specialties[$target['specialty']])) {
 		OutputClass::output("`^Specialty: `@%s`n",$specialties[$target['specialty']]);
   }
@@ -94,7 +94,7 @@ if ($target = db_fetch_assoc($result)) {
 
   $mount['acctid']=$target['acctid'];
   $mount = modulehook("bio-mount",$mount);
-  $none = translate_inline("`iNone`i");
+  $none = Translator::translate_inline("`iNone`i");
   if (!isset($mount['mountname']) || $mount['mountname']=="")
 		  $mount['mountname'] = $none;
   OutputClass::output("`^Creature: `@%s`0`n",$mount['mountname']);
@@ -126,7 +126,7 @@ if ($target = db_fetch_assoc($result)) {
 		  $news = call_user_func_array("sprintf_translate", $arguments);
 		  rawoutput(tlbutton_clear());
 	  } else {
-		  $news = translate_inline($row['newstext']);
+		  $news = Translator::translate_inline($row['newstext']);
 		  rawoutput(tlbutton_clear());
 	  }
 	  Translator::tlschema();

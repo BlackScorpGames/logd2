@@ -18,12 +18,12 @@ rawoutput("<input name='duration' id='duration' size='3' value='14'>");
 OutputClass::output("Days (0 for permanent)`n");
 $reason = Http::httpget("reason");
 if ($reason == "")
-	$reason=translate_inline("Don't mess with me.");
+	$reason=Translator::translate_inline("Don't mess with me.");
 OutputClass::output("Reason for the ban: ");
 rawoutput("<input name='reason' size=50 value=\"$reason\">");
 output_notl("`n");
-$pban = translate_inline("Post ban");
-$conf = translate_inline("Are you sure you wish to issue a permanent ban?");
+$pban = Translator::translate_inline("Post ban");
+$conf = Translator::translate_inline("Are you sure you wish to issue a permanent ban?");
 rawoutput("<input type='submit' class='button' value='$pban' onClick='if (document.getElementById(\"duration\").value==0) {return confirm(\"$conf\");} else {return true;}'>");
 rawoutput("</form>");
 OutputClass::output("For an IP ban, enter the beginning part of the IP you wish to ban if you wish to ban a range, or simply a full IP to ban a single IP`n`n");

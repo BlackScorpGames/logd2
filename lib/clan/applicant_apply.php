@@ -47,8 +47,8 @@
 					}else{
 /*//*/					$row = modulehook("clan-applymember", $row);
 /*//*/					if (isset($row['handled']) && $row['handled']) continue;
-						$memb_n = translate_inline("(%s members)");
-						$memb_1 = translate_inline("(%s member)");
+						$memb_n = Translator::translate_inline("(%s members)");
+						$memb_1 = Translator::translate_inline("(%s member)");
 						if ($row['c'] == 1) {
 							$memb = sprintf($memb_1, $row['c']);
 						} else {

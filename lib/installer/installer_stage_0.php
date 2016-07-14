@@ -77,7 +77,7 @@ if ($needsauthentication){
 	rawoutput("<input name='username'><br>");
 	OutputClass::output("`^Password: `0");
 	rawoutput("<input type='password' name='password'><br>");
-	$submit = translate_inline("Submit");
+	$submit = Translator::translate_inline("Submit");
 	rawoutput("<input type='submit' value='$submit' class='button'>");
 	rawoutput("</form>");
 }else{

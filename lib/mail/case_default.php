@@ -10,7 +10,7 @@ $sql = "SELECT subject,messageid,$accounts.name,msgfrom,seen,sent FROM $mail LEF
 $result = db_query($sql);
 $db_num_rows = db_num_rows($result);
 if ($db_num_rows>0){
-	$no_subject = translate_inline("`i(No Subject)`i");
+	$no_subject = Translator::translate_inline("`i(No Subject)`i");
 	rawoutput("<form action='mail.php?op=process' method='post'><table>");
 	while($row = db_fetch_assoc($result)){
 		rawoutput("<tr>");
@@ -19,7 +19,7 @@ if ($db_num_rows>0){
 		rawoutput("<td>");
 		if ($row['msgfrom']==0 || !is_numeric($row['msgfrom'])){
 			if ($row['msgfrom'] == 0 && is_numeric($row['msgfrom'])) {
-				$row['name']=translate_inline("`i`^System`0`i");
+				$row['name']=Translator::translate_inline("`i`^System`0`i");
 			} else {
 				$row['name']=$row['msgfrom'];
 			}
@@ -28,7 +28,7 @@ if ($db_num_rows>0){
 			if ($row_subject !== false) {
 				$row['subject'] = call_user_func_array("sprintf_translate", $row_subject);
 			} else {
-         			$row['subject'] = translate_inline($row['subject']);
+         			$row['subject'] = Translator::translate_inline($row['subject']);
         		}
 		}
 		// In one line so the Translator doesn't screw the Html up
@@ -39,14 +39,14 @@ if ($db_num_rows>0){
 		rawoutput("</tr>");
 	}
 	rawoutput("</table>");
-	$checkall = htmlentities(translate_inline("Check All"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
+	$checkall = htmlentities(Translator::translate_inline("Check All"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
 	rawoutput("<input type='button' value=\"$checkall\" class='button' onClick='
 		var elements = document.getElementsByName(\"msg[]\");
 		for(i = 0; i < elements.length; i++) {
 			elements[i].checked = true;
 		}
 	'>");
-	$delchecked = htmlentities(translate_inline("Delete Checked"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
+	$delchecked = htmlentities(Translator::translate_inline("Delete Checked"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
 	rawoutput("<input type='submit' class='button' value=\"$delchecked\">");
 	rawoutput("</form>");
 }else{

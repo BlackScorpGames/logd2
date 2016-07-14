@@ -42,7 +42,7 @@ if ($op=="edit"){
 	OutputClass::output("%o = Objective pronoun for the player (he she)`n");
 	OutputClass::output("%W = The monster's name (also can be specified as {badguy}`n");
 	OutputClass::output("%X = The monster's weapon (also can be specified as {creatureweapon}`n");
-	$save = translate_inline("Save");
+	$save = Translator::translate_inline("Save");
 	rawoutput("<input type='submit' class='button' value='$save'>");
 	rawoutput("</form>");
 }else if($op=="del"){
@@ -65,18 +65,18 @@ if ($op == "") {
 	$sql = "SELECT * FROM " . db_prefix("taunts");
 	$result = db_query($sql);
 	rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
-	$op = translate_inline("Ops");
-	$t = translate_inline("Taunt String");
-	$auth = translate_inline("Author");
+	$op = Translator::translate_inline("Ops");
+	$t = Translator::translate_inline("Taunt String");
+	$auth = Translator::translate_inline("Author");
 	rawoutput("<tr class='trhead'><td nowrap>$op</td><td>$t</td><td>$auth</td></tr>");
 	$number=db_num_rows($result);
 	for ($i=0;$i<$number;$i++){
 		$row=db_fetch_assoc($result);
 		rawoutput("<tr class='".($i%2==0?"trdark":"trlight")."'>",true);
 		rawoutput("<td nowrap>");
-		$edit = translate_inline("Edit");
-		$del = translate_inline("Del");
-		$conf = translate_inline("Are you sure you wish to delete this taunt?");
+		$edit = Translator::translate_inline("Edit");
+		$del = Translator::translate_inline("Del");
+		$conf = Translator::translate_inline("Are you sure you wish to delete this taunt?");
 		$id = $row['tauntid'];
 		rawoutput("[ <a href='taunt.php?op=edit&tauntid=$id'>$edit</a> | <a href='taunt.php?op=del&tauntid=$id' onClick='return confirm(\"$conf\");'>$del</a> ]");
 		addnav("","taunt.php?op=edit&tauntid=$id");

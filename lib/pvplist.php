@@ -56,12 +56,12 @@ function pvplist($location=false,$link=false,$extra=false,$sql=false){
 	$pvp = modulehook("pvpmodifytargets", $pvp);
 
 	Translator::tlschema("pvp");
-	$n = translate_inline("Name");
-	$l = translate_inline("Level");
-	$loc = translate_inline("Location");
-	$ops = translate_inline("Ops");
-	$bio = translate_inline("Bio");
-	$att = translate_inline("Attack");
+	$n = Translator::translate_inline("Name");
+	$l = Translator::translate_inline("Level");
+	$loc = Translator::translate_inline("Location");
+	$ops = Translator::translate_inline("Ops");
+	$bio = Translator::translate_inline("Bio");
+	$att = Translator::translate_inline("Attack");
 
 	rawoutput("<table border='0' cellpadding='3' cellspacing='0'>");
 	rawoutput("<tr class='trhead'><td>$n</td><td>$l</td><td>$loc</td><td>$ops</td></tr>");
@@ -108,7 +108,7 @@ function pvplist($location=false,$link=false,$extra=false,$sql=false){
 	}
 
 	if (!isset($loc_counts[$location]) || $loc_counts[$location]==0){
-		$noone = translate_inline("`iThere are no available targets.`i");
+		$noone = Translator::translate_inline("`iThere are no available targets.`i");
 		output_notl("<tr><td align='center' colspan='4'>$noone</td></tr>", true);
 	}
 	rawoutput("</table>",true);

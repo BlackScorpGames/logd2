@@ -49,7 +49,7 @@ if ($name!=""){
 
 			if ($session['user']['emailvalidation']!="" && substr($session['user']['emailvalidation'],0,1)!="x"){
 				$session['user']=array();
-				$session['message']=translate_inline("`4Error, you must validate your email address before you can log in.");
+				$session['message']=Translator::translate_inline("`4Error, you must validate your email address before you can log in.");
 				echo appoencode($session['message']);
 				exit();
 			}else{
@@ -103,7 +103,7 @@ if ($name!=""){
 				}
 			}
 		}else{
-			$session['message']=translate_inline("`4Error, your login was incorrect`0");
+			$session['message']=Translator::translate_inline("`4Error, your login was incorrect`0");
 			//now we'll log the failed attempt and begin to issue bans if
 			//there are too many, plus notify the admins.
 			$sql = "DELETE FROM " . db_prefix("faillog") . " WHERE date<'".date("Y-m-d H:i:s",strtotime("-".(Settings::getsetting("expirecontent",180)/4)." days"))."'";
@@ -130,7 +130,7 @@ if ($name!=""){
 					}
 					if ($c>=10){
 						// 5 failed attempts for superuser, 10 for regular user
-						$banmessage=translate_inline("Automatic System Ban: Too many failed login attempts.");
+						$banmessage=Translator::translate_inline("Automatic System Ban: Too many failed login attempts.");
 						$sql = "INSERT INTO " . db_prefix("bans") . " VALUES ('{$_SERVER['REMOTE_ADDR']}','','".date("Y-m-d H:i:s",strtotime("+".($c*3)." hours"))."','$banmessage','System','0000-00-00 00:00:00')";
 						db_query($sql);
 						if ($su){
@@ -183,6 +183,6 @@ if ($name!=""){
 }
 // If you enter an empty username, don't just say oops.. do something useful.
 $session=array();
-$session['message']=translate_inline("`4Error, your login was incorrect`0");
+$session['message']=Translator::translate_inline("`4Error, your login was incorrect`0");
 redirect("index.php");
 ?>

@@ -73,9 +73,9 @@ if ($op==""){
   	}
   	Translator::tlschema();
 
-	$aname = translate_inline("`bName`b");
-	$adef = translate_inline("`bDefense`b");
-	$acost = translate_inline("`bCost`b");
+	$aname = Translator::translate_inline("`bName`b");
+	$adef = Translator::translate_inline("`bDefense`b");
+	$acost = Translator::translate_inline("`bCost`b");
 	rawoutput("<table border='0' cellpadding='0'>");
 	rawoutput("<tr class='trhead'><td>");
 	output_notl($aname);

@@ -32,7 +32,7 @@ if ($op=="val"){
 		rawoutput("<input name='force' value='1' type='hidden'>");
 		OutputClass::output("Your email has been validated, your login name is `^%s`0.`n`n",
 				$row['login']);
-		$click = translate_inline("Click here to log in");
+		$click = Translator::translate_inline("Click here to log in");
 		rawoutput("<input type='submit' class='button' value='$click'></form>");
 		output_notl("`n");
 		if ($trash > 0) {
@@ -77,7 +77,7 @@ if ($op=="forgot"){
 						($_SERVER['SERVER_NAME'].($_SERVER['SERVER_PORT'] == 80?"":":".$_SERVER['SERVER_PORT']).$_SERVER['SCRIPT_NAME']),
 						$row['emailvalidation']
 						),$row['acctid']);
-				mail($row['emailaddress'],$subj,str_replace("`n","\n",$msg),translate_inline("From:").Settings::getsetting("gameadminemail","postmaster@localhost.com"));
+				mail($row['emailaddress'],$subj,str_replace("`n","\n",$msg),Translator::translate_inline("From:").Settings::getsetting("gameadminemail","postmaster@localhost.com"));
 				OutputClass::output("`#Sent a new validation email to the address on file for that account.");
 				OutputClass::output("You may use the validation email to log in and change your password.");
 			}else{
@@ -94,7 +94,7 @@ if ($op=="forgot"){
 		OutputClass::output("Enter your character's name: ");
 		rawoutput("<input name='charname'>");
 		output_notl("`n");
-		$send = translate_inline("Email me my password");
+		$send = Translator::translate_inline("Email me my password");
 		rawoutput("<input type='submit' class='button' value='$send'>");
 		rawoutput("</form>");
 	}
@@ -121,7 +121,7 @@ if (Settings::getsetting("allowcreation",1)==0){
 				$result = db_query($sql);
 				if (db_num_rows($result)>0){
 					$blockaccount=true;
-					$msg.= translate_inline("You may have only one account.`n");
+					$msg.= Translator::translate_inline("You may have only one account.`n");
 				}
 			}
 
@@ -131,24 +131,24 @@ if (Settings::getsetting("allowcreation",1)==0){
 				$passlen = strlen($pass1);
 			}
 			if ($passlen<=3){
-					$msg.=translate_inline("Your password must be at least 4 characters long.`n");
+					$msg.=Translator::translate_inline("Your password must be at least 4 characters long.`n");
 				$blockaccount=true;
 			}
 			if ($pass1!=$pass2){
-				$msg.=translate_inline("Your passwords do not match.`n");
+				$msg.=Translator::translate_inline("Your passwords do not match.`n");
 				$blockaccount=true;
 			}
 			if (strlen($shortname)<3){
-				$msg.=translate_inline("Your name must be at least 3 characters long.`n");
+				$msg.=Translator::translate_inline("Your name must be at least 3 characters long.`n");
 				$blockaccount=true;
 			}
 			if (strlen($shortname)>25){
-				$msg.=translate_inline("Your character's name cannot exceed 25 characters.`n");
+				$msg.=Translator::translate_inline("Your character's name cannot exceed 25 characters.`n");
 				$blockaccount=true;
 			}
 			if (Settings::getsetting("requireemail",0)==1 && is_email($email) || Settings::getsetting("requireemail",0)==0){
 			}else{
-				$msg.=translate_inline("You must enter a valid email address.`n");
+				$msg.=Translator::translate_inline("You must enter a valid email address.`n");
 				$blockaccount=true;
 			}
 			$args = modulehook("check-create", httpallpost());
@@ -219,7 +219,7 @@ if (Settings::getsetting("allowcreation",1)==0){
 							rawoutput("<input name='name' value=\"$shortname\" type='hidden'>");
 							rawoutput("<input name='password' value=\"$pass1\" type='hidden'>");
 							OutputClass::output("Your account was created, your login name is `^%s`0.`n`n", $shortname);
-							$click = translate_inline("Click here to log in");
+							$click = Translator::translate_inline("Click here to log in");
 							rawoutput("<input type='submit' class='button' value='$click'>");
 							rawoutput("</form>");
 							output_notl("`n");
@@ -279,9 +279,9 @@ if (Settings::getsetting("allowcreation",1)==0){
 		OutputClass::output("Re-enter it for confirmation: ");
 		rawoutput("</td><td><input type='password' name='pass2' id='pass2'></td></tr><tr valign='top'><td>");
 		OutputClass::output("Enter your email address: ");
-		$r1 = translate_inline("`^(optional -- however, if you choose not to enter one, there will be no way that you can reset your password if you forget it!)`0");
-		$r2 = translate_inline("`\$(required)`0");
-		$r3 = translate_inline("`\$(required, an email will be sent to this address to verify it before you can log in)`0");
+		$r1 = Translator::translate_inline("`^(optional -- however, if you choose not to enter one, there will be no way that you can reset your password if you forget it!)`0");
+		$r2 = Translator::translate_inline("`\$(required)`0");
+		$r3 = Translator::translate_inline("`\$(required, an email will be sent to this address to verify it before you can log in)`0");
 		if (Settings::getsetting("requireemail", 0) == 0) {
 			$req = $r1;
 		} elseif (Settings::getsetting("requirevalidemail", 0) == 0) {
@@ -296,7 +296,7 @@ if (Settings::getsetting("allowcreation",1)==0){
 				"<input type='radio' name='sex' value='1'>",
 				"<input type='radio' name='sex' value='0' checked>",true);
 		modulehook("create-form");
-		$createbutton = translate_inline("Create your character");
+		$createbutton = Translator::translate_inline("Create your character");
 		rawoutput("<input type='submit' class='button' value='$createbutton'>");
 		output_notl("`n`n");
 		if ($trash > 0) {

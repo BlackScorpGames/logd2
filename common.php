@@ -184,7 +184,7 @@ if (strtotime("-".Settings::getsetting("LOGINTIMEOUT",900)." seconds") > $sessio
 	// ignore it.
 	// 1.1.1 now should be a good time to get it on with it, added tl-inline
 	translator_setup();
-	$session['message'].=translate_inline("`nYour session has expired!`n","common");
+	$session['message'].=Translator::translate_inline("`nYour session has expired!`n","common");
 }
 $session['lasthit']=strtotime("now");
 

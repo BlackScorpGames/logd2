@@ -68,7 +68,7 @@ function systemmail($to,$subject,$body,$from=0,$noemail=false){
 		if ($row1['name']!="")
 			$fromline=full_sanitize($row1['name']);
 		else
-			$fromline=translate_inline("The Green Dragon","mail");
+			$fromline=Translator::translate_inline("The Green Dragon","mail");
 
 		$sql = "SELECT name FROM " . db_prefix("accounts") . " WHERE acctid='$to'";
 		$result = db_query($sql);

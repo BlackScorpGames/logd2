@@ -24,7 +24,7 @@ function drinks_run_private(){
 		if ($drunk > get_module_setting("maxdrunk"))
 			$end = ",";
 		Translator::tlschema($drinktext['schemas']['demand']);
-		$remark = translate_inline($drinktext['demand']);
+		$remark = Translator::translate_inline($drinktext['demand']);
 		$remark = str_replace("{lover}",$partner."`0", $remark);
 		$remark = str_replace("{barkeep}", $drinktext['barkeep']."`0", $remark);
 		Translator::tlschema();
@@ -32,7 +32,7 @@ function drinks_run_private(){
 		$drunk = get_module_pref("drunkeness");
 		if ($drunk > get_module_setting("maxdrunk")) {
 			Translator::tlschema($drinktext['schemas']['toodrunk']);
-			$remark = translate_inline($drinktext['toodrunk']);
+			$remark = Translator::translate_inline($drinktext['toodrunk']);
  			Translator::tlschema();
 			$remark = str_replace("{lover}",$partner."`0", $remark);
 			$remark = str_replace("{barkeep}", $drinktext['barkeep']."`0", $remark);

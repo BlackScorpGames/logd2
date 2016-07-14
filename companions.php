@@ -133,15 +133,15 @@ if ($op==""){
 	$sql = "SELECT * FROM " . db_prefix("companions") . " ORDER BY category, name";
 	$result = db_query($sql);
 
-	$ops = translate_inline("Ops");
-	$name = translate_inline("Name");
-	$cost = translate_inline("Cost");
+	$ops = Translator::translate_inline("Ops");
+	$name = Translator::translate_inline("Name");
+	$cost = Translator::translate_inline("Cost");
 
-	$edit = translate_inline("Edit");
-	$del = translate_inline("Del");
-	$take = translate_inline("Take");
-	$deac = translate_inline("Deactivate");
-	$act = translate_inline("Activate");
+	$edit = Translator::translate_inline("Edit");
+	$del = Translator::translate_inline("Del");
+	$take = Translator::translate_inline("Take");
+	$deac = Translator::translate_inline("Deactivate");
+	$act = Translator::translate_inline("Activate");
 
 	rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
 	rawoutput("<tr class='trhead'><td nowrap>$ops</td><td>$name</td><td>$cost</td></tr>");
@@ -280,7 +280,7 @@ function companionform($companion){
 	$vname = Settings::getsetting('villagename', LOCATION_FIELDS);
 	$locs = array($vname => sprintf_translate("The Village of %s", $vname));
 	$locs = modulehook("camplocs", $locs);
-	$locs['all'] = translate_inline("Everywhere");
+	$locs['all'] = Translator::translate_inline("Everywhere");
 	ksort($locs);
 	reset($locs);
 	rawoutput("<select name='companion[companionlocation]'>");
@@ -351,7 +351,7 @@ function companionform($companion){
 	OutputClass::output("Allow in train:");
 	rawoutput("</td><td><input type='checkbox' name='companion[allowintrain]' value='1'".($companion['allowintrain']==true?" checked":"")."></td></tr>");
 	rawoutput("</table>");
-	$save = translate_inline("Save");
+	$save = Translator::translate_inline("Save");
 	rawoutput("<input type='submit' class='button' value='$save'></form>");
 }
 

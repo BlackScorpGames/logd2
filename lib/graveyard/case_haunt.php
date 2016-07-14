@@ -1,6 +1,6 @@
 <?php
 OutputClass::output("`\$%s`) is impressed with your actions, and grants you the power to haunt a foe.`n`n",$deathoverlord);
-$search = translate_inline("Search");
+$search = Translator::translate_inline("Search");
 rawoutput("<form action='graveyard.php?op=haunt2' method='POST'>");
 addnav("","graveyard.php?op=haunt2");
 OutputClass::output("Who would you like to haunt? ");
