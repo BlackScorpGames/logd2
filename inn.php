@@ -14,7 +14,7 @@ require_once("lib/villagenav.php");
 
 Translator::tlschema("inn");
 
-addcommentary();
+Commentary::addcommentary();
 $iname = Settings::getsetting("innname", LOCATION_INN);
 $vname = Settings::getsetting("villagename", LOCATION_FIELDS);
 $barkeep = Settings::getsetting('barkeep','`tCedrik');

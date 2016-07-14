@@ -12,7 +12,7 @@ Translator::tlschema("gardens");
 
 PageParts::page_header("The Gardens");
 
-addcommentary();
+Commentary::addcommentary();
 $skipgardendesc = handle_event("gardens");
 $op = Http::httpget('op');
 $com = Http::httpget('comscroll');

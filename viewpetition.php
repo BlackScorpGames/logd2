@@ -11,7 +11,7 @@ Translator::tlschema("petition");
 
 check_su_access(SU_EDIT_PETITIONS);
 
-addcommentary();
+Commentary::addcommentary();
 
 //WHEN 0 THEN 2 WHEN 1 THEN 3 WHEN 2 THEN 7 WHEN 3 THEN 5 WHEN 4 THEN 1 WHEN 5 THEN 0 WHEN 6 THEN 4 WHEN 7 THEN 6
 $statuses=array(

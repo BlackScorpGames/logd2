@@ -11,7 +11,7 @@ require_once("lib/names.php");
 
 Translator::tlschema("lodge");
 
-addcommentary();
+Commentary::addcommentary();
 
 $op = Http::httpget('op');
 if ($op == "") checkday();

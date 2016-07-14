@@ -9,7 +9,7 @@ require_once("lib/http.php");
 
 Translator::tlschema("moderate");
 
-addcommentary();
+Commentary::addcommentary();
 
 check_su_access(SU_EDIT_COMMENTS);
 

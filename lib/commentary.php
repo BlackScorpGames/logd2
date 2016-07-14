@@ -36,55 +36,61 @@ function commentarylocs() {
 	return $comsecs;
 }
 
-function addcommentary() {
-	global $session, $emptypost;
-	$section = httppost('section');
-	$talkline = httppost('talkline');
-	$schema = httppost('schema');
-	$comment = trim(httppost('insertcommentary'));
-	$counter = httppost('counter');
-	$remove = URLDecode(Http::httpget('removecomment'));
-	if ($remove>0) {
-		$return = '/' . Http::httpget('returnpath');
-		$section = Http::httpget('section');
-        $sql = "SELECT " .
-                db_prefix("commentary").".*,".db_prefix("accounts").".name,".
-                db_prefix("accounts").".acctid, ".db_prefix("accounts").".clanrank,".
-                db_prefix("clans").".clanshort FROM ".db_prefix("commentary").
-                " INNER JOIN ".db_prefix("accounts")." ON ".
-                db_prefix("accounts").".acctid = " . db_prefix("commentary").
-                ".author LEFT JOIN ".db_prefix("clans")." ON ".
-                db_prefix("clans").".clanid=".db_prefix("accounts").
-                ".clanid WHERE commentid=$remove";
-		$row = db_fetch_assoc(db_query($sql));
-		$sql = "INSERT LOW_PRIORITY INTO ".db_prefix("moderatedcomments").
-			" (moderator,moddate,comment) VALUES ('{$session['user']['acctid']}','".date("Y-m-d H:i:s")."','".addslashes(serialize($row))."')";
-		db_query($sql);
-		$sql = "DELETE FROM ".db_prefix("commentary")." WHERE commentid='$remove';";
-		db_query($sql);
-		invalidatedatacache("comments-$section");
-		invalidatedatacache("comments-or11");
-		$session['user']['specialinc']==''; //just to make sure he was not in a special
-		$return = cmd_sanitize($return);
-		$return = substr($return,strrpos($return,"/")+1);
-		if (strpos($return,"?")===false && strpos($return,"&")!==false){
-			$x = strpos($return,"&");
-			$return = substr($return,0,$x-1)."?".substr($return,$x+1);
+class Commentary
+{
+	public static function addcommentary()
+	{
+		global $session, $emptypost;
+		$section = httppost('section');
+		$talkline = httppost('talkline');
+		$schema = httppost('schema');
+		$comment = trim(httppost('insertcommentary'));
+		$counter = httppost('counter');
+		$remove = URLDecode(Http::httpget('removecomment'));
+		if ($remove > 0) {
+			$return = '/' . Http::httpget('returnpath');
+			$section = Http::httpget('section');
+			$sql = "SELECT " .
+				db_prefix("commentary") . ".*," . db_prefix("accounts") . ".name," .
+				db_prefix("accounts") . ".acctid, " . db_prefix("accounts") . ".clanrank," .
+				db_prefix("clans") . ".clanshort FROM " . db_prefix("commentary") .
+				" INNER JOIN " . db_prefix("accounts") . " ON " .
+				db_prefix("accounts") . ".acctid = " . db_prefix("commentary") .
+				".author LEFT JOIN " . db_prefix("clans") . " ON " .
+				db_prefix("clans") . ".clanid=" . db_prefix("accounts") .
+				".clanid WHERE commentid=$remove";
+			$row = db_fetch_assoc(db_query($sql));
+			$sql = "INSERT LOW_PRIORITY INTO " . db_prefix("moderatedcomments") .
+				" (moderator,moddate,comment) VALUES ('{$session['user']['acctid']}','" . date("Y-m-d H:i:s") . "','" . addslashes(serialize($row)) . "')";
+			db_query($sql);
+			$sql = "DELETE FROM " . db_prefix("commentary") . " WHERE commentid='$remove';";
+			db_query($sql);
+			invalidatedatacache("comments-$section");
+			invalidatedatacache("comments-or11");
+			$session['user']['specialinc'] == ''; //just to make sure he was not in a special
+			$return = cmd_sanitize($return);
+			$return = substr($return, strrpos($return, "/") + 1);
+			if (strpos($return, "?") === false && strpos($return, "&") !== false) {
+				$x = strpos($return, "&");
+				$return = substr($return, 0, $x - 1) . "?" . substr($return, $x + 1);
+			}
+			debug($return);
+			RedirectClass::redirect($return);
 		}
-		debug($return);
-		RedirectClass::redirect($return);
-	}
-	if (array_key_exists('commentcounter',$session) &&
-			$session['commentcounter']==$counter) {
-		if ($section || $talkline || $comment) {
-			$tcom = color_sanitize($comment);
-			if ($tcom == "" || $tcom == ":" || $tcom == "::" || $tcom == "/me")
-				$emptypost = 1;
-			else injectcommentary($section, $talkline, $comment, $schema);
+		if (array_key_exists('commentcounter', $session) &&
+			$session['commentcounter'] == $counter
+		) {
+			if ($section || $talkline || $comment) {
+				$tcom = color_sanitize($comment);
+				if ($tcom == "" || $tcom == ":" || $tcom == "::" || $tcom == "/me") {
+					$emptypost = 1;
+				} else {
+					injectcommentary($section, $talkline, $comment, $schema);
+				}
+			}
 		}
 	}
 }
-
 function injectsystemcomment($section,$comment) {
 	//function lets gamemasters put in comments without a user association...be careful, it is not trackable who posted it
 	if (strncmp($comment, "/game", 5) !== 0) {

@@ -111,7 +111,7 @@ Translator::tlschema($schemas['title']);
 PageParts::page_header($texts['title']);
 Translator::tlschema();
 
-addcommentary();
+Commentary::addcommentary();
 $skipvillagedesc = handle_event("village");
 checkday();
 

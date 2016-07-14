@@ -9,7 +9,7 @@ require_once("lib/commentary.php");
 Translator::tlschema("shades");
 
 PageParts::page_header("Land of the Shades");
-addcommentary();
+Commentary::addcommentary();
 checkday();
 
 if ($session['user']['alive']) RedirectClass::redirect("village.php");

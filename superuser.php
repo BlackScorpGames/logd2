@@ -8,7 +8,7 @@ require_once("lib/sanitize.php");
 require_once("lib/http.php");
 
 check_su_access(0xFFFFFFFF &~ SU_DOESNT_GIVE_GROTTO);
-addcommentary();
+Commentary::addcommentary();
 Translator::tlschema("superuser");
 
 require_once("lib/superusernav.php");
