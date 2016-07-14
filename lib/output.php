@@ -25,10 +25,42 @@ function set_block_new_output($block)
 }
 
 
-
-
 class OutputClass
 {
+    /**
+     * Determins if there are any navs for the player
+     *
+     * @return bool
+     */
+    public static function checknavs()
+    {
+        global $navbysection, $session;
+
+        // If we already have navs entered (because someone stuck raw links in)
+        // just return true;
+        if (is_array($session['allowednavs']) &&
+            count($session['allowednavs']) > 0
+        ) {
+            return true;
+        }
+
+        // If we have any links which are going to be stuck in, return true
+        reset($navbysection);
+        while (list($key, $val) = each($navbysection)) {
+            if (count_viable_navs($key) > 0) {
+                reset($val);
+                while (list($k, $v) = each($val)) {
+                    if (is_array($v) && count($v) > 0) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        // We have no navs.
+        return false;
+    }
+
     /**
      * Handles color and style encoding, and appends to the OutputClass::output buffer ($output)
      *
@@ -108,18 +140,23 @@ class OutputClass
     {
         $session['allowednavs'] = array();
     }
+
     /**
      * Raw OutputClass::output (unprocessed) appended to the OutputClass::output buffer
      *
      * @param string $indata
      */
-    public static function rawoutput($indata) {
+    public static function rawoutput($indata)
+    {
         global $output, $block_new_output;
 
-        if ($block_new_output) return;
+        if ($block_new_output) {
+            return;
+        }
 
         $output .= $indata . "\n";
     }
+
     public static function addnav($text, $link = false, $priv = false, $pop = false, $popsize = "500x300")
     {
         global $navsection, $navbysection, $translation_namespace, $navschema;
@@ -600,33 +637,7 @@ function count_viable_navs($section)
 }
 
 
-/**
- * Determins if there are any navs for the player
- *
- * @return bool
- */
-function checknavs() {
-	global $navbysection, $session;
 
-	// If we already have navs entered (because someone stuck raw links in)
-	// just return true;
-	if (is_array($session['allowednavs']) &&
-			count($session['allowednavs']) > 0) return true;
-
-	// If we have any links which are going to be stuck in, return true
-	reset($navbysection);
-	while(list($key, $val) = each($navbysection)) {
-		if (count_viable_navs($key) > 0) {
-			reset($val);
-			while(list($k, $v) = each($val)) {
-				if (is_array($v) && count($v) > 0) return true;
-			}
-		}
-	}
-
-	// We have no navs.
-	return false;
-}
 
 /**
  * Builds navs for display

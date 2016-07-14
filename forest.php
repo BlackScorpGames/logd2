@@ -66,7 +66,7 @@ if ($op=="search"){
 			'schema'=>'forest');
 		Modules::modulehook("soberup", $args);
 		if (Modules::module_events("forest", Settings::getsetting("forestchance", 15)) != 0) {
-			if (!checknavs()) {
+			if (!OutputClass::checknavs()) {
 				// If we're showing the forest, make sure to reset the special
 				// and the specialmisc
 				$session['user']['specialinc'] = "";

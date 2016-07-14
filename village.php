@@ -145,7 +145,7 @@ $comment = Http::httppost('insertcommentary');
 if (!$op && $com=="" && !$comment && !$refresh && !$commenting) {
 	// The '1' should really be sysadmin customizable.
 	if (Modules::module_events("village", Settings::getsetting("villagechance", 0)) != 0) {
-		if (checknavs()) {
+		if (OutputClass::checknavs()) {
 			PageParts::page_footer();
 		} else {
 			// Reset the special for good.

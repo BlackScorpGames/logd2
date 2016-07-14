@@ -53,7 +53,7 @@ class Events
                     debug("Slow Event (" . round($endtime - $starttime, 2) . "s): $hookname - {$row['modulename']}`n");
                 }
             }
-            if (checknavs()) {
+            if (OutputClass::checknavs()) {
                 // The page rendered some linkage, so we just want to exit.
                 PageParts::page_footer();
             } else {

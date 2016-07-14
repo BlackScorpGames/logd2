@@ -1,7 +1,7 @@
 <?php
 if ($com=="" && !$comment && $op!="fleedragon") {
 	if (Modules::module_events("inn", Settings::getsetting("innchance", 0)) != 0) {
-		if (checknavs()) {
+		if (OutputClass::checknavs()) {
 			PageParts::page_footer();
 		} else {
 			$skipinndesc = true;

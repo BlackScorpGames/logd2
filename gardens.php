@@ -23,7 +23,7 @@ $comment = Http::httppost('insertcommentary');
 // the commentary (or talking) or dealing with any of the hooks in the village.
 if (!$op && $com=="" && !$comment && !$refresh && !$commenting) {
 	if (Modules::module_events("gardens", Settings::getsetting("gardenchance", 0)) != 0) {
-		if (checknavs()) {
+		if (OutputClass::checknavs()) {
 			PageParts::page_footer();
 		} else {
 			// Reset the special for good.
