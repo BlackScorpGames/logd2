@@ -46,7 +46,7 @@ if ($target = db_fetch_assoc($result)) {
   OutputClass::output("`^Biography for %s`^.",$target['name']);
   $write = Translator::translate_inline("Write Mail");
   if ($session['user']['loggedin'])
-	  rawoutput("<a href=\"mail.php?op=write&to={$target['login']}\" target=\"_blank\" onClick=\"".popup("mail.php?op=write&to={$target['login']}").";return false;\"><img src='images/newscroll.GIF' width='16' height='16' alt='$write' border='0'></a>");
+	  OutputClass::rawoutput("<a href=\"mail.php?op=write&to={$target['login']}\" target=\"_blank\" onClick=\"".popup("mail.php?op=write&to={$target['login']}").";return false;\"><img src='images/newscroll.GIF' width='16' height='16' alt='$write' border='0'></a>");
   OutputClass::output_notl("`n`n");
 
   if ($target['clanname']>"" && Settings::getsetting("allowclans",false)){
@@ -124,10 +124,10 @@ if ($target = db_fetch_assoc($result)) {
 			  array_push($arguments, $val);
 		  }
 		  $news = call_user_func_array("sprintf_translate", $arguments);
-		  rawoutput(tlbutton_clear());
+		  OutputClass::rawoutput(tlbutton_clear());
 	  } else {
 		  $news = Translator::translate_inline($row['newstext']);
-		  rawoutput(tlbutton_clear());
+		  OutputClass::rawoutput(tlbutton_clear());
 	  }
 	  Translator::tlschema();
 	  if ($odate!=$row['newsdate']){

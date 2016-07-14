@@ -2,7 +2,7 @@
 Translator::tlschema("faq");
 popup_header("General Questions");
 $c = Translator::translate_inline("Return to Contents");
-rawoutput("<a href='petition.php?op=faq'>$c</a><hr>");
+OutputClass::rawoutput("<a href='petition.php?op=faq'>$c</a><hr>");
 OutputClass::output("`n`n`c`bGeneral questions`b`c`n");
 OutputClass::output("`^1. What is the purpose of this game?`n");
 OutputClass::output("`@To get chicks.`n");
@@ -83,5 +83,5 @@ OutputClass::output("`@A hubbub.`n");
 OutputClass::output("The fact is that because there's so many people, there can be several conversations happening at once in any given area.");
 OutputClass::output("Also, the thing to understand is that not all the comments are posted immediately, and that sometimes a person won't press the refresh or add button for several minutes, during which time more comments could have been said that the person missed while they were typing their own.");
 OutputClass::output("Not to worry, though. Don't be shy, join in!`n`n");
-rawoutput("<hr><a href='petition.php?op=faq'>$c</a>");
+OutputClass::rawoutput("<hr><a href='petition.php?op=faq'>$c</a>");
 ?>

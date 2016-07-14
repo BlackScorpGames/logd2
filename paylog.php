@@ -49,7 +49,7 @@ if ($op==""){
 	$enddate = date("Y-m-d H:i:s",strtotime("+1 month",strtotime($startdate)));
 	$sql = "SELECT " . db_prefix("paylog") . ".*," . db_prefix("accounts") . ".name," . db_prefix("accounts") . ".donation," . db_prefix("accounts") . ".donationspent FROM " . db_prefix("paylog") . " LEFT JOIN " . db_prefix("accounts") . " ON " . db_prefix("paylog") . ".acctid = " . db_prefix("accounts") . ".acctid WHERE processdate>='$startdate' AND processdate < '$enddate' ORDER BY payid DESC";
 	$result = db_query($sql);
-	rawoutput("<table border='0' cellpadding='2' cellspacing='1' bgcolor='#999999'>");
+	OutputClass::rawoutput("<table border='0' cellpadding='2' cellspacing='1' bgcolor='#999999'>");
 	$type = Translator::translate_inline("Type");
 	$gross = Translator::translate_inline("Gross");
 	$fee = Translator::translate_inline("Fee");
@@ -57,31 +57,31 @@ if ($op==""){
 	$processed = Translator::translate_inline("Processed");
 	$id = Translator::translate_inline("Transaction ID");
 	$who = Translator::translate_inline("Who");
-	rawoutput("<tr class='trhead'><td>Date</td><td>$id</td><td>$type</td><td>$gross</td><td>$fee</td><td>$net</td><td>$processed</td><td>$who</td></tr>");
+	OutputClass::rawoutput("<tr class='trhead'><td>Date</td><td>$id</td><td>$type</td><td>$gross</td><td>$fee</td><td>$net</td><td>$processed</td><td>$who</td></tr>");
 	$number=db_num_rows($result);
 	for ($i=0;$i<$number;$i++){
 		$row = db_fetch_assoc($result);
 		$info = unserialize($row['info']);
-		rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td nowrap>");
+		OutputClass::rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td nowrap>");
 		OutputClass::output_notl(date("m/d H:i",strtotime($info['payment_date'])));
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl("%s",$row['txnid']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl("%s", $info['txn_type']);
-		rawoutput("</td><td nowrap>");
+		OutputClass::rawoutput("</td><td nowrap>");
 		OutputClass::output_notl("%.2f %s", $info['mc_gross'], $info['mc_currency']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl("%s", $info['mc_fee']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl("%.2f", (float)$info['mc_gross'] - (float)$info['mc_fee']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl("%s", Translator::translate_inline($row['processed']?"`@Yes`0":"`\$No`0"));
-		rawoutput("</td><td nowrap>");
+		OutputClass::rawoutput("</td><td nowrap>");
 		if ($row['name']>"") {
-			rawoutput("<a href='user.php?op=edit&userid={$row['acctid']}'>");
+			OutputClass::rawoutput("<a href='user.php?op=edit&userid={$row['acctid']}'>");
 			OutputClass::output_notl("`&%s`0 (%d/%d)", $row['name'],  $row['donationspent'],
 					$row['donation']);
-			rawoutput("</a>");
+			OutputClass::rawoutput("</a>");
 			OutputClass::addnav("","user.php?op=edit&userid={$row['acctid']}");
 		}else{
 			$amt = round((float)$info['mc_gross'] * 100,0);
@@ -90,12 +90,12 @@ if ($op==""){
 				$memo = $info['memo'];
 			}
 			$link = "donators.php?op=add1&name=".rawurlencode($memo)."&amt=$amt&txnid={$row['txnid']}";
-			rawoutput("-=( <a href='$link' title=\"".htmlentities($info['item_number'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" alt=\"".htmlentities($info['item_number'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">[".htmlentities($memo, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."]</a> )=-");
+			OutputClass::rawoutput("-=( <a href='$link' title=\"".htmlentities($info['item_number'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" alt=\"".htmlentities($info['item_number'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">[".htmlentities($memo, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."]</a> )=-");
 			OutputClass::addnav("",$link);
 		}
-		rawoutput("</td></tr>");
+		OutputClass::rawoutput("</td></tr>");
 	}
-	rawoutput("</table>");
+	OutputClass::rawoutput("</table>");
 	OutputClass::addnav("Refresh","paylog.php");
 }
 page_footer();

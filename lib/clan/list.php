@@ -9,13 +9,13 @@
 		$v = 0;
 		$memb_n = Translator::translate_inline("(%s members)");
 		$memb_1 = Translator::translate_inline("(%s member)");
-		rawoutput('<table cellspacing="0" cellpadding="2" align="left">');
+		OutputClass::rawoutput('<table cellspacing="0" cellpadding="2" align="left">');
 		while ($row = db_fetch_assoc($result)){
 			if ($row['c']==0){
 				$sql = "DELETE FROM " . db_prefix("clans") . " WHERE clanid={$row['clanid']}";
 				db_query($sql);
 			}else{
-				rawoutput('<tr class="' . ($v%2?"trlight":"trdark").'"><td>', true);
+				OutputClass::rawoutput('<tr class="' . ($v%2?"trlight":"trdark").'"><td>', true);
 				if ($row['c'] == 1) {
 					$memb = sprintf($memb_1, $row['c']);
 				} else {
@@ -26,12 +26,12 @@
 						$row['clanid'],
 						full_sanitize(htmlentities($row['clanname']), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")),
 						$memb, true);
-				rawoutput('</td></tr>');
+				OutputClass::rawoutput('</td></tr>');
 				OutputClass::addnav("","clan.php?detail={$row['clanid']}");
 				$v++;
 			}
 		}
-		rawoutput("</table>", true);
+		OutputClass::rawoutput("</table>", true);
 		OutputClass::addnav("Return to the Lobby","clan.php");
 	}else{
 		OutputClass::output("`7You ask %s`7 for the clan listings.  She stares at you blankly for a few moments, then says, \"`5Sorry pal, no one has had enough gumption to start up a clan yet.  Maybe that should be you, eh?`7\"",$registrar);

@@ -61,7 +61,7 @@ function relativedate($indate){
 		$laston = Translator::translate_inline("Never");
 	else {
 		$laston= sprintf_translate("%s days", round((strtotime("now")-strtotime($indate)) / 86400,0));
-		rawoutput(tlbutton_clear());
+		OutputClass::rawoutput(tlbutton_clear());
 	}
 	Translator::tlschema();
 	return $laston;

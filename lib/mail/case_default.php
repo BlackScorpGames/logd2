@@ -11,12 +11,12 @@ $result = db_query($sql);
 $db_num_rows = db_num_rows($result);
 if ($db_num_rows>0){
 	$no_subject = Translator::translate_inline("`i(No Subject)`i");
-	rawoutput("<form action='mail.php?op=process' method='post'><table>");
+	OutputClass::rawoutput("<form action='mail.php?op=process' method='post'><table>");
 	while($row = db_fetch_assoc($result)){
-		rawoutput("<tr>");
-		rawoutput("<td nowrap><input type='checkbox' name='msg[]' value='{$row['messageid']}'>");
-		rawoutput("<img src='images/".($row['seen']?"old":"new")."scroll.GIF' width='16px' height='16px' alt='".($row['seen']?"Old":"New")."'></td>");
-		rawoutput("<td>");
+		OutputClass::rawoutput("<tr>");
+		OutputClass::rawoutput("<td nowrap><input type='checkbox' name='msg[]' value='{$row['messageid']}'>");
+		OutputClass::rawoutput("<img src='images/".($row['seen']?"old":"new")."scroll.GIF' width='16px' height='16px' alt='".($row['seen']?"Old":"New")."'></td>");
+		OutputClass::rawoutput("<td>");
 		if ($row['msgfrom']==0 || !is_numeric($row['msgfrom'])){
 			if ($row['msgfrom'] == 0 && is_numeric($row['msgfrom'])) {
 				$row['name']=Translator::translate_inline("`i`^System`0`i");
@@ -33,22 +33,22 @@ if ($db_num_rows>0){
 		}
 		// In one line so the Translator doesn't screw the Html up
 		OutputClass::output_notl("<a href='mail.php?op=read&id={$row['messageid']}'>".((trim($row['subject']))?$row['subject']:$no_subject)."</a>", true);
-		rawoutput("</td><td><a href='mail.php?op=read&id={$row['messageid']}'>");
+		OutputClass::rawoutput("</td><td><a href='mail.php?op=read&id={$row['messageid']}'>");
 		OutputClass::output_notl($row['name']);
-		rawoutput("</a></td><td><a href='mail.php?op=read&id={$row['messageid']}'>".date("M d, h:i a",strtotime($row['sent']))."</a></td>");
-		rawoutput("</tr>");
+		OutputClass::rawoutput("</a></td><td><a href='mail.php?op=read&id={$row['messageid']}'>".date("M d, h:i a",strtotime($row['sent']))."</a></td>");
+		OutputClass::rawoutput("</tr>");
 	}
-	rawoutput("</table>");
+	OutputClass::rawoutput("</table>");
 	$checkall = htmlentities(Translator::translate_inline("Check All"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
-	rawoutput("<input type='button' value=\"$checkall\" class='button' onClick='
+	OutputClass::rawoutput("<input type='button' value=\"$checkall\" class='button' onClick='
 		var elements = document.getElementsByName(\"msg[]\");
 		for(i = 0; i < elements.length; i++) {
 			elements[i].checked = true;
 		}
 	'>");
 	$delchecked = htmlentities(Translator::translate_inline("Delete Checked"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
-	rawoutput("<input type='submit' class='button' value=\"$delchecked\">");
-	rawoutput("</form>");
+	OutputClass::rawoutput("<input type='submit' class='button' value=\"$delchecked\">");
+	OutputClass::rawoutput("</form>");
 }else{
 	OutputClass::output("`iAww, you have no mail, how sad.`i");
 }

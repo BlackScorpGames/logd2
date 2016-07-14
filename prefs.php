@@ -167,9 +167,9 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 		"bio"=>"Short Character Biography (255 chars max),string,255",
 		"nojump"=>"Don't jump to comment areas after refreshing or posting a comment?,bool",
 	);
-	rawoutput("<script language='JavaScript' src='lib/md5.js'></script>");
+	OutputClass::rawoutput("<script language='JavaScript' src='lib/md5.js'></script>");
 	$warn = Translator::translate_inline("Your password is too short.  It must be at least 4 characters long.");
-	rawoutput("<script language='JavaScript'>
+	OutputClass::rawoutput("<script language='JavaScript'>
 	<!--
 	function md5pass(){
 		//encode passwords before submission to protect them even from network sniffing attacks.
@@ -292,24 +292,24 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 	
 	$form = array_merge($form, $msettings);
 	$prefs = array_merge($prefs, $mdata);
-	rawoutput("<form action='prefs.php?op=save' method='POST' onSubmit='return(md5pass)'>");
+	OutputClass::rawoutput("<form action='prefs.php?op=save' method='POST' onSubmit='return(md5pass)'>");
 	$info = showform($form,$prefs);
-	rawoutput("<input type='hidden' value=\"" .
+	OutputClass::rawoutput("<input type='hidden' value=\"" .
 			htmlentities(serialize($info), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" name='oldvalues'>");
 
-	rawoutput("</form><br />");
+	OutputClass::rawoutput("</form><br />");
 	OutputClass::addnav("","prefs.php?op=save");
 
 	// Stop clueless lusers from deleting their character just because a
 	// monster killed them.
 	if ($session['user']['alive'] && Settings::getsetting("selfdelete",0)!=0) {
-		rawoutput("<form action='prefs.php?op=suicide&userid={$session['user']['acctid']}' method='POST'>");
+		OutputClass::rawoutput("<form action='prefs.php?op=suicide&userid={$session['user']['acctid']}' method='POST'>");
 		$deltext = Translator::translate_inline("Delete Character");
 		$conf = Translator::translate_inline("Are you sure you wish to delete your character?");
-		rawoutput("<table class='noborder' width='100%'><tr><td width='100%'></td><td style='background-color:#FF00FF' align='right'>");
-		rawoutput("<input type='submit' class='button' value='$deltext' onClick='return confirm(\"$conf\");'>");
-		rawoutput("</td></tr></table>");
-		rawoutput("</form>");
+		OutputClass::rawoutput("<table class='noborder' width='100%'><tr><td width='100%'></td><td style='background-color:#FF00FF' align='right'>");
+		OutputClass::rawoutput("<input type='submit' class='button' value='$deltext' onClick='return confirm(\"$conf\");'>");
+		OutputClass::rawoutput("</td></tr></table>");
+		OutputClass::rawoutput("</form>");
 		OutputClass::addnav("","prefs.php?op=suicide&userid={$session['user']['acctid']}");
 	}
 }

@@ -14,10 +14,10 @@
 		$descauthname = $row['name'];
 
 		if ($claninfo['clanmotd'] != '') {
-			rawoutput("<div style='margin-left: 15px; padding-left: 15px;'>");
+			OutputClass::rawoutput("<div style='margin-left: 15px; padding-left: 15px;'>");
 			OutputClass::output("`&`bCurrent MoTD:`b `#by %s`2`n",$motdauthname);
 			OutputClass::output_notl(nltoappon($claninfo['clanmotd'])."`n");
-			rawoutput("</div>");
+			OutputClass::rawoutput("</div>");
 			OutputClass::output_notl("`n");
 		}
 

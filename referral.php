@@ -42,24 +42,24 @@ if ($session['user']['loggedin']){
 	$no=Translator::translate_inline("`\$No!`0");
 	$none=Translator::translate_inline("`iNone`i");
 	OutputClass::output("`n`nAccounts which you referred:`n");
-	rawoutput("<table border='0' cellpadding='3' cellspacing='0'><tr><td>$name</td><td>$level</td><td>$awarded</td></tr>");
+	OutputClass::rawoutput("<table border='0' cellpadding='3' cellspacing='0'><tr><td>$name</td><td>$level</td><td>$awarded</td></tr>");
 	$number=db_num_rows($result);
 	for ($i=0;$i<$number;$i++){
 		$row = db_fetch_assoc($result);
-		rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td>");
+		OutputClass::rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td>");
 		OutputClass::output_notl($row['name']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl($row['level']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl($row['refererawarded']?$yes:$no);
-		rawoutput("</td></tr>");
+		OutputClass::rawoutput("</td></tr>");
 	}
 	if (db_num_rows($result)==0){
-		rawoutput("<tr><td colspan='3' align='center'>");
+		OutputClass::rawoutput("<tr><td colspan='3' align='center'>");
 		OutputClass::output_notl($none);
-		rawoutput("</td></tr>");
+		OutputClass::rawoutput("</td></tr>");
 	}
-	rawoutput("</table>",true);
+	OutputClass::rawoutput("</table>",true);
 	page_footer();
 }else{
 	PageParts::page_header("Welcome to Legend of the Green Dragon");

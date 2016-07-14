@@ -6,7 +6,7 @@
 $baseaccount = array();
 function do_forced_nav($anonymous,$overrideforced){
 	global $baseaccount, $session,$REQUEST_URI;
-	rawoutput("<!--\nAllowAnonymous: ".($anonymous?"True":"False")."\nOverride Forced Nav: ".($overrideforced?"True":"False")."\n-->");
+	OutputClass::rawoutput("<!--\nAllowAnonymous: ".($anonymous?"True":"False")."\nOverride Forced Nav: ".($overrideforced?"True":"False")."\n-->");
 	if (isset($session['loggedin']) && $session['loggedin']){
 		$sql = "SELECT *  FROM ".db_prefix("accounts")." WHERE acctid = '".$session['user']['acctid']."'";
 		$result = db_query($sql);

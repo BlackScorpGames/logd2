@@ -31,7 +31,7 @@ $skipinndesc = handle_event("inn");
 
 if (!$skipinndesc) {
 	checkday();
-	rawoutput("<span style='color: #9900FF'>");
+	OutputClass::rawoutput("<span style='color: #9900FF'>");
 	OutputClass::output_notl("`c`b");
 	OutputClass::output($iname);
 	OutputClass::output_notl("`b`c");
@@ -64,7 +64,7 @@ switch ($op) {
 		break;
 }
 
-if (!$skipinndesc) rawoutput("</span>");
+if (!$skipinndesc) OutputClass::rawoutput("</span>");
 
 page_footer();
 ?>

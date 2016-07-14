@@ -13,10 +13,10 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 	$returnvalues = array();
 	$extensions = array();
 	$extensions = Modules::modulehook("showformextensions",$extensions);
-	rawoutput("<table width='100%' cellpadding='0' cellspacing='0'><tr><td>");
-	rawoutput("<div id='showFormSection$showform_id'></div>");
-	rawoutput("</td></tr><tr><td>&nbsp;</td></tr><tr><td>");
-	rawoutput("<table cellpadding='2' cellspacing='0'>");
+	OutputClass::rawoutput("<table width='100%' cellpadding='0' cellspacing='0'><tr><td>");
+	OutputClass::rawoutput("<div id='showFormSection$showform_id'></div>");
+	OutputClass::rawoutput("</td></tr><tr><td>&nbsp;</td></tr><tr><td>");
+	OutputClass::rawoutput("<table cellpadding='2' cellspacing='0'>");
 	$i = 0;
 	while(list($key,$val)=each($layout)){
 		$pretrans = 0;
@@ -40,15 +40,15 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 
 		if ($info[1]=="title"){
 		 	$title_id++;
-		 	rawoutput("</table>");
+		 	OutputClass::rawoutput("</table>");
 		 	$formSections[$title_id] = $info[0];
-		 	rawoutput("<table id='showFormTable$title_id' cellpadding='2' cellspacing='0'>");
-			rawoutput("<tr><td colspan='2' class='trhead'>");
+		 	OutputClass::rawoutput("<table id='showFormTable$title_id' cellpadding='2' cellspacing='0'>");
+			OutputClass::rawoutput("<tr><td colspan='2' class='trhead'>");
 			OutputClass::output_notl("`b%s`b", $info[0], true);
-			rawoutput("</td></tr>",true);
+			OutputClass::rawoutput("</td></tr>",true);
 			$i=0;
 		}elseif ($info[1]=="note"){
-			rawoutput("<tr class='".($i%2?'trlight':'trdark')."'><td colspan='2'>");
+			OutputClass::rawoutput("<tr class='".($i%2?'trlight':'trdark')."'><td colspan='2'>");
 			OutputClass::output_notl("`i%s`i", $info[0], true);
 			$i++;
 		}elseif($info[1]=="invisible"){
@@ -56,9 +56,9 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 		}else{
 			if (isset($row[$key]))
 				$returnvalues[$key] = $row[$key];
-			rawoutput("<tr class='".($i%2?'trlight':'trdark')."'><td valign='top'>");
+			OutputClass::rawoutput("<tr class='".($i%2?'trlight':'trdark')."'><td valign='top'>");
 			OutputClass::output_notl("%s", $info[0],true);
-			rawoutput("</td><td valign='top'>");
+			OutputClass::rawoutput("</td><td valign='top'>");
 			$i++;
 		}
 		switch ($info[1]){
@@ -86,15 +86,15 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 				break;
 			}
 			natcasesort($skins); //sort them in natural order
-			rawoutput("<select name='$keyout'>");
+			OutputClass::rawoutput("<select name='$keyout'>");
 			foreach($skins as $skin) {
 				if ($skin == $row[$key]) {
-					rawoutput("<option value='$skin' selected>".htmlentities(substr($skin, 0, strpos($skin, ".htm")), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
+					OutputClass::rawoutput("<option value='$skin' selected>".htmlentities(substr($skin, 0, strpos($skin, ".htm")), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
 				} else {
-					rawoutput("<option value='$skin'>".htmlentities(substr($skin, 0, strpos($skin, ".htm")), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
+					OutputClass::rawoutput("<option value='$skin'>".htmlentities(substr($skin, 0, strpos($skin, ".htm")), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
 				}
 			}
-			rawoutput("</select>");
+			OutputClass::rawoutput("</select>");
 			break;
 		case "location":
 			// A generic way of allowing the location to be specified for
@@ -110,16 +110,16 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 			$vloc = Modules::modulehook("validlocation", $vloc);
 			unset($vloc['all']);
 			reset($vloc);
-			rawoutput("<select name='$keyout'>");
+			OutputClass::rawoutput("<select name='$keyout'>");
 			foreach($vloc as $loc=>$val) {
 				if ($loc == $row[$key]) {
-					rawoutput("<option value='$loc' selected>".htmlentities($loc, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
+					OutputClass::rawoutput("<option value='$loc' selected>".htmlentities($loc, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
 				} else {
-					rawoutput("<option value='$loc'>".htmlentities($loc, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
+					OutputClass::rawoutput("<option value='$loc'>".htmlentities($loc, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
 				}
 
 			}
-			rawoutput("</select>");
+			OutputClass::rawoutput("</select>");
 			break;
 		case "checkpretrans":
 			$pretrans = 1;
@@ -147,7 +147,7 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 				}
 				$select.="<input type='checkbox' name='{$keyout}[{$optval}]' value='1'".($checked==$optval?" checked":"").">&nbsp;".("$optdis")."<br>";
 			}
-			rawoutput($select);
+			OutputClass::rawoutput($select);
 			break;
 		case "radiopretrans":
 			$pretrans = 1;
@@ -164,7 +164,7 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 				if (!$pretrans) $optdis = Translator::translate_inline($optdis);
 				$select.=("<input type='radio' name='$keyout' value='$optval'".($row[$key]==$optval?" checked":"").">&nbsp;".("$optdis")."<br>");
 			}
-			rawoutput($select);
+			OutputClass::rawoutput($select);
 			break;
 		case "dayrange":
 			$start = strtotime(date("Y-m-d", strtotime("now")));
@@ -173,16 +173,16 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 			// we should really try to avoid an infinite loop here if
 			// they define a time string which equates to 0 :/
 			$cur = $row[$key];
-			rawoutput("<select name='$keyout'>");
+			OutputClass::rawoutput("<select name='$keyout'>");
 			if ($cur && $cur < date("Y-m-d H:i:s", $start))
-				rawoutput("<option value='$cur' selected>".htmlentities($cur, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
+				OutputClass::rawoutput("<option value='$cur' selected>".htmlentities($cur, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
 			for($j = $start; $j < $end; $j = strtotime($step, $j)) {
 				$d = date("Y-m-d H:i:s", $j);
-				rawoutput("<option value='$d'".($cur==$d?" selected":"").">".HTMLEntities("$d", ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
+				OutputClass::rawoutput("<option value='$d'".($cur==$d?" selected":"").">".HTMLEntities("$d", ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
 			}
 			if ($cur && $cur > date("Y-m-d H:i:s", $end))
-				rawoutput("<option value='$cur' selected>".htmlentities($cur, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
-			rawoutput("</select>");
+				OutputClass::rawoutput("<option value='$cur' selected>".htmlentities($cur, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
+			OutputClass::rawoutput("</select>");
 			break;
 
 		case "range":
@@ -190,25 +190,25 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 			$max = (int)$info[3];
 			$step = (int)(isset($info[4])?$info[4]:false);
 			if ($step == 0) $step = 1;
-			rawoutput("<select name='$keyout'>");
+			OutputClass::rawoutput("<select name='$keyout'>");
 			if ($min<$max && ($max-$min)/$step>300)
 				$step=max(1,(int)(($max-$min)/300));
 			for($j = $min; $j <= $max; $j += $step) {
-				rawoutput("<option value='$j'".($row[$key]==$j?" selected":"").">".HTMLEntities("$j", ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
+				OutputClass::rawoutput("<option value='$j'".($row[$key]==$j?" selected":"").">".HTMLEntities("$j", ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
 			}
-			rawoutput("</select>");
+			OutputClass::rawoutput("</select>");
 			break;
 		case "floatrange":
 			$min = round((float)$info[2],2);
 			$max = round((float)$info[3],2);
 			$step = round((float)$info[4],2);
 			if ($step==0) $step=1;
-			rawoutput("<select name='$keyout'>", true);
+			OutputClass::rawoutput("<select name='$keyout'>", true);
 			$val = round((float)$row[$key], 2);
 			for($j = $min; $j <= $max; $j = round($j+$step,2)) {
-				rawoutput("<option value='$j'".($val==$j?" selected":"").">".HTMLEntities("$j", ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>", true);
+				OutputClass::rawoutput("<option value='$j'".($val==$j?" selected":"").">".HTMLEntities("$j", ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>", true);
 			}
-			rawoutput("</select>", true);
+			OutputClass::rawoutput("</select>", true);
 			break;
 		case "bitfieldpretrans":
 			$pretrans = 1;
@@ -222,9 +222,9 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 			list($k,$v)=each($info);
 			list($k,$v)=each($info);
 			list($k,$disablemask)=each($info);
-			rawoutput("<input type='hidden' name='$keyout"."[0]' value='1'>", true);
+			OutputClass::rawoutput("<input type='hidden' name='$keyout"."[0]' value='1'>", true);
 			while (list($k,$v)=each($info)){
-				rawoutput("<input type='checkbox' name='$keyout"."[$v]'"
+				OutputClass::rawoutput("<input type='checkbox' name='$keyout"."[$v]'"
 					.(isset($row[$key]) && (int)$row[$key] & (int)$v?" checked":"")
 					.($disablemask & (int)$v?"":" disabled")
 					." value='1'> ");
@@ -252,15 +252,15 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 			Translator::tlschema("showform");
 			while (list($k,$v)=each($vals)){
 				$vals[$k]=translate($v);
-				rawoutput(tlbutton_pop());
+				OutputClass::rawoutput(tlbutton_pop());
 			}
 			Translator::tlschema();
 			reset($vals);
-			rawoutput("<select name='$keyout'>");
+			OutputClass::rawoutput("<select name='$keyout'>");
 			while(list($k,$v)=each($vals)) {
-				rawoutput("<option value=\"".htmlentities($v, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"".($row[$key]==$v?" selected":"").">".htmlentities($v, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
+				OutputClass::rawoutput("<option value=\"".htmlentities($v, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"".($row[$key]==$v?" selected":"").">".htmlentities($v, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
 			}
-			rawoutput("</select>");
+			OutputClass::rawoutput("</select>");
 			break;
 		case "enumpretrans":
 			$pretrans = 1;
@@ -285,25 +285,25 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 				$select.=("<option value='$optval'".($selected?" selected":"").">".HTMLEntities("$optdis", ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</option>");
 			}
 			$select.="</select>";
-			rawoutput($select);
+			OutputClass::rawoutput($select);
 			break;
 		case "password":
 			if (array_key_exists($key, $row)) $out = $row[$key];
 			else $out = "";
-			rawoutput("<input type='password' name='$keyout' value='".HTMLEntities($out, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."'>");
+			OutputClass::rawoutput("<input type='password' name='$keyout' value='".HTMLEntities($out, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."'>");
 			break;
 		case "bool":
 			Translator::tlschema("showform");
 			$yes = Translator::translate_inline("Yes");
 			$no = Translator::translate_inline("No");
 			Translator::tlschema();
-			rawoutput("<select name='$keyout'>");
-			rawoutput("<option value='0'".($row[$key]==0?" selected":"").">$no</option>");
-			rawoutput("<option value='1'".($row[$key]==1?" selected":"").">$yes</option>");
-			rawoutput("</select>", true);
+			OutputClass::rawoutput("<select name='$keyout'>");
+			OutputClass::rawoutput("<option value='0'".($row[$key]==0?" selected":"").">$no</option>");
+			OutputClass::rawoutput("<option value='1'".($row[$key]==1?" selected":"").">$yes</option>");
+			OutputClass::rawoutput("</select>", true);
 			break;
 		case "hidden":
-			if(isset($row[$key])) rawoutput("<input type='hidden' name='$keyout' value=\"".HTMLEntities($row[$key], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">".HTMLEntities($row[$key], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
+			if(isset($row[$key])) OutputClass::rawoutput("<input type='hidden' name='$keyout' value=\"".HTMLEntities($row[$key], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">".HTMLEntities($row[$key], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
 			break;
 		case "viewonly":
 			unset($returnvalues[$key]);
@@ -322,20 +322,20 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 				$text = $row[$key];
 			}
 			if (isset($resize) && $resize) {
-				rawoutput("<script type=\"text/javascript\">function increase(target, value){  if (target.rows + value > 3 && target.rows + value < 50) target.rows = target.rows + value;}</script>");
-				rawoutput("<textarea id='textarea$key' class='input' name='$keyout' cols='$cols' rows='5'>".htmlentities(str_replace("`n", "\n", $text), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea>");
-				rawoutput("<input type='button' onClick=\"increase(textarea$key,1);\" value='+' accesskey='+'><input type='button' onClick=\"increase(textarea$key,-1);\" value='-' accesskey='-'>");
+				OutputClass::rawoutput("<script type=\"text/javascript\">function increase(target, value){  if (target.rows + value > 3 && target.rows + value < 50) target.rows = target.rows + value;}</script>");
+				OutputClass::rawoutput("<textarea id='textarea$key' class='input' name='$keyout' cols='$cols' rows='5'>".htmlentities(str_replace("`n", "\n", $text), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea>");
+				OutputClass::rawoutput("<input type='button' onClick=\"increase(textarea$key,1);\" value='+' accesskey='+'><input type='button' onClick=\"increase(textarea$key,-1);\" value='-' accesskey='-'>");
 			} else {
-				rawoutput("<textarea class='input' name='$keyout' cols='$cols' rows='5'>".htmlentities(str_replace("`n", "\n", $text), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea>");
+				OutputClass::rawoutput("<textarea class='input' name='$keyout' cols='$cols' rows='5'>".htmlentities(str_replace("`n", "\n", $text), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea>");
 			}
 			break;
 		case "int":
 			if (array_key_exists($key, $row)) $out = $row[$key];
 			else $out = 0;
-			rawoutput("<input name='$keyout' value=\"".HTMLEntities($out, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='5'>");
+			OutputClass::rawoutput("<input name='$keyout' value=\"".HTMLEntities($out, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='5'>");
 			break;
 		case "float":
-			rawoutput("<input name='$keyout' value=\"".htmlentities($row[$key], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='8'>");
+			OutputClass::rawoutput("<input name='$keyout' value=\"".htmlentities($row[$key], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='8'>");
 			break;
 		case "string":
 			$len = 50;
@@ -346,7 +346,7 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 			if ($minlen > 70) $minlen = 70;
 			if (array_key_exists($key, $row)) $val = $row[$key];
 			else $val = "";
-			rawoutput("<input size='$minlen' maxlength='$len' name='$keyout' value=\"".HTMLEntities($val, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
+			OutputClass::rawoutput("<input size='$minlen' maxlength='$len' name='$keyout' value=\"".HTMLEntities($val, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
 			break;
 		default:
 			if (array_key_exists($info[1],$extensions)){
@@ -357,12 +357,12 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 			}else{
 				if (array_key_exists($key, $row)) $val = $row[$key];
 				else $val = "";
-				rawoutput("<input size='50' name='$keyout' value=\"".HTMLEntities($val, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
+				OutputClass::rawoutput("<input size='50' name='$keyout' value=\"".HTMLEntities($val, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
 			}
 		}
-		rawoutput("</td></tr>",true);
+		OutputClass::rawoutput("</td></tr>",true);
 	}
-	rawoutput("</table><br>",true);
+	OutputClass::rawoutput("</table><br>",true);
 	if ($showform_id==1){
 		$startIndex = (int)httppost("showFormTabIndex");
 		if ($startIndex == 0){
@@ -371,7 +371,7 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 		if (isset($session['user']['prefs']['tabconfig']) &&
 				$session['user']['prefs']['tabconfig'] == 0) {
 		} else {
-		 	rawoutput("
+		 	OutputClass::rawoutput("
 		 	<script language='JavaScript'>
 		 	function prepare_form(id){
 		 		var theTable;
@@ -422,22 +422,22 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 	if (isset($session['user']['prefs']['tabconfig']) &&
 			$session['user']['prefs']['tabconfig'] == 0) {
 	} else {
-		rawoutput("<script language='JavaScript'>");
-		rawoutput("formSections[$showform_id] = new Array();");
+		OutputClass::rawoutput("<script language='JavaScript'>");
+		OutputClass::rawoutput("formSections[$showform_id] = new Array();");
 		reset($formSections);
 		while (list($key,$val)=each($formSections)){
-			rawoutput("formSections[$showform_id][$key] = '".addslashes($val)."';");
+			OutputClass::rawoutput("formSections[$showform_id][$key] = '".addslashes($val)."';");
 		}
-		rawoutput("
+		OutputClass::rawoutput("
 		prepare_form($showform_id);
 		</script>");
 	}
-	rawoutput("</td></tr></table>");
+	OutputClass::rawoutput("</td></tr></table>");
 	Translator::tlschema("showform");
 	$save = Translator::translate_inline("Save");
 	Translator::tlschema();
 	if ($nosave) {}
-	else rawoutput("<input type='submit' class='button' value='$save'>");
+	else OutputClass::rawoutput("<input type='submit' class='button' value='$save'>");
 	return $returnvalues;
 }
 ?>

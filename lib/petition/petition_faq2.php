@@ -2,7 +2,7 @@
 Translator::tlschema("faq");
 popup_header("General Questions with Spoilers");
 $c = Translator::translate_inline("Return to Contents");
-rawoutput("<a href='petition.php?op=faq'>$c</a><hr>");
+OutputClass::rawoutput("<a href='petition.php?op=faq'>$c</a><hr>");
 OutputClass::output("`n`n`&(Warning, the FAQs below might contain some spoilers, so if you really want to discover things on your own, you'd be better off not reading too far.");
 OutputClass::output("This is not a manual.  It's a self-help pamphlet.)`n`n`n`n`n`n`n`n`n`n`n`n`n");
 OutputClass::output("`^1. What are gems for?`n");
@@ -51,5 +51,5 @@ OutputClass::output("To get ahold of them, or one of their trusty helpers, use t
 OutputClass::output("`^11. How did they get to be so darn attractive, anyway?`n");
 OutputClass::output("`@Lots of at-home facials, my dear!!");
 OutputClass::output("MightyE especially enjoys the Grapefruit Essence Facial Masque.`n");
-rawoutput("<hr><a href='petition.php?op=faq'>$c</a>");
+OutputClass::rawoutput("<hr><a href='petition.php?op=faq'>$c</a>");
 ?>

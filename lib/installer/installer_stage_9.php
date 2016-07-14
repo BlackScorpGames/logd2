@@ -7,7 +7,7 @@ OutputClass::output("`2I'm now going to build the tables.");
 OutputClass::output("If this is an upgrade, your current tables will be brought in line with the current version.");
 OutputClass::output("If it's an install, the necessary tables will be placed in your database.`n");
 OutputClass::output("`n`@Table Synchronization Logs:`n");
-rawoutput("<div style='width: 100%; height: 150px; max-height: 150px; overflow: auto;'>");
+OutputClass::rawoutput("<div style='width: 100%; height: 150px; max-height: 150px; overflow: auto;'>");
 $descriptors = descriptors($DB_PREFIX);
 require_once("lib/tabledescriptor.php");
 reset($descriptors);
@@ -19,9 +19,9 @@ while (list($tablename,$descriptor)=each($descriptors)){
 		db_query("TRUNCATE TABLE $tablename");
 	}
 }
-rawoutput("</div>");
+OutputClass::rawoutput("</div>");
 OutputClass::output("`n`2The tables now have new fields and columns added, I'm going to begin importing data now.`n");
-rawoutput("<div style='width: 100%; height: 150px; max-height: 150px; overflow: auto;'>");
+OutputClass::rawoutput("<div style='width: 100%; height: 150px; max-height: 150px; overflow: auto;'>");
 $dosql = false;
 reset($sql_upgrade_statements);
 while (list($key,$val)=each($sql_upgrade_statements)){
@@ -56,9 +56,9 @@ while (list($key,$val)=each($sql_upgrade_statements)){
 	if ($key == $session['fromversion'] ||
 	$session['dbinfo']['upgrade'] == false) $dosql=true;
 }
-rawoutput("</div>");
+OutputClass::rawoutput("</div>");
 OutputClass::output("Now I'm going to insert default settings that you don't have.");
-rawoutput("<div style='width: 100%; height: 150px; max-height: 150px; overflow: auto;'>");
+OutputClass::rawoutput("<div style='width: 100%; height: 150px; max-height: 150px; overflow: auto;'>");
 foreach ($default_settings as $setting_name=>$setting_value) {
 	if(!isset($settings[$setting_name]) && Settings::getsetting($setting_name, $setting_value) == $setting_value) {
 		if ($setting_value === true) {
@@ -69,22 +69,22 @@ foreach ($default_settings as $setting_name=>$setting_value) {
 		OutputClass::output_notl("Setting $setting_name to default value of $setting_value`n");
 	}
 }
-rawoutput("</div>");
+OutputClass::rawoutput("</div>");
 	/*
 OutputClass::output("`n`2Now I'll install the recommended modules.");
 OutputClass::output("Please note that these modules will be installed, but not activated.");
 OutputClass::output("Once installation is complete, you should use the Module Manager found in the superuser grotto to activate those modules you wish to use.");
 reset($recommended_modules);
-rawoutput("<div style='width: 100%; height: 150px; max-height: 150px; overflow: auto;'>");
+OutputClass::rawoutput("<div style='width: 100%; height: 150px; max-height: 150px; overflow: auto;'>");
 while (list($key,$modulename)=each($recommended_modules)){
 OutputClass::output("`3Installing `#$modulename`\$`n");
 install_module($modulename, false);
 }
-rawoutput("</div>");
+OutputClass::rawoutput("</div>");
 */
 if (!$session['skipmodules']) {
   OutputClass::output("`n`2Now I'll install and configure your modules.");
-  rawoutput("<div style='width: 100%; height: 150px; max-height: 150px; overflow: auto;'>");
+  OutputClass::rawoutput("<div style='width: 100%; height: 150px; max-height: 150px; overflow: auto;'>");
   foreach($session['moduleoperations'] as $modulename=>$val){
 	  $ops = explode(",",$val);
 	  reset($ops);
@@ -129,15 +129,15 @@ if (!$session['skipmodules']) {
 	  }
 	  $session['moduleoperations'][$modulename] = "donothing";
   }
-  rawoutput("</div>");
+  OutputClass::rawoutput("</div>");
 }
 OutputClass::output("`n`2Finally, I'll clean up old data.`n");
-rawoutput("<div style='width: 100%; height: 150px; max-height: 150px; overflow: auto;'>");
+OutputClass::rawoutput("<div style='width: 100%; height: 150px; max-height: 150px; overflow: auto;'>");
 reset($descriptors);
 while (list($tablename,$descriptor)=each($descriptors)){
 	OutputClass::output("`3Cleaning up `#$tablename`3...`n");
 	synctable($tablename,$descriptor);
 }
-rawoutput("</div>");
+OutputClass::rawoutput("</div>");
 OutputClass::output("`n`n`^You're ready for the next step.");
 ?>

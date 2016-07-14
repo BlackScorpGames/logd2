@@ -23,15 +23,15 @@ if ($op==""){
 	$translation = Translator::translate_inline("Translation:");
 	$saveclose = htmlentities(Translator::translate_inline("Save & Close"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
 	$savenotclose = htmlentities(Translator::translate_inline("Save No Close"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
-	rawoutput("<form action='translatortool.php?op=save' method='POST'>");
-	rawoutput("$namespace <input name='uri' value=\"".htmlentities(stripslashes($uri), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" readonly><br/>");
-	rawoutput("$texta<br>");
-	rawoutput("<textarea name='text' cols='60' rows='5' readonly>".htmlentities($text, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
-	rawoutput("$translation<br>");
-	rawoutput("<textarea name='trans' cols='60' rows='5'>".htmlentities(stripslashes($trans), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
-	rawoutput("<input type='submit' value=\"$saveclose\" class='button'>");
-	rawoutput("<input type='submit' value=\"$savenotclose\" class='button' name='savenotclose'>");
-	rawoutput("</form>");
+	OutputClass::rawoutput("<form action='translatortool.php?op=save' method='POST'>");
+	OutputClass::rawoutput("$namespace <input name='uri' value=\"".htmlentities(stripslashes($uri), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" readonly><br/>");
+	OutputClass::rawoutput("$texta<br>");
+	OutputClass::rawoutput("<textarea name='text' cols='60' rows='5' readonly>".htmlentities($text, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
+	OutputClass::rawoutput("$translation<br>");
+	OutputClass::rawoutput("<textarea name='trans' cols='60' rows='5'>".htmlentities(stripslashes($trans), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
+	OutputClass::rawoutput("<input type='submit' value=\"$saveclose\" class='button'>");
+	OutputClass::rawoutput("<input type='submit' value=\"$savenotclose\" class='button' name='savenotclose'>");
+	OutputClass::rawoutput("</form>");
 	popup_footer();
 }elseif ($_GET['op']=='save'){
 	$uri = httppost('uri');
@@ -88,55 +88,55 @@ if ($op==""){
 		exit();
 	}else{
 		popup_header("Updated");
-		rawoutput("<script language='javascript'>window.close();</script>");
+		OutputClass::rawoutput("<script language='javascript'>window.close();</script>");
 		popup_footer();
 	}
 }elseif($op=="list"){
 	popup_header("Translation List");
 	$sql = "SELECT uri,count(*) AS c FROM " . db_prefix("translations") . " WHERE language='".LANGUAGE."' GROUP BY uri ORDER BY uri ASC";
 	$result = db_query($sql);
-	rawoutput("<form action='translatortool.php' method='GET'>");
-	rawoutput("<input type='hidden' name='op' value='list'>");
+	OutputClass::rawoutput("<form action='translatortool.php' method='GET'>");
+	OutputClass::rawoutput("<input type='hidden' name='op' value='list'>");
 	OutputClass::output("Known Namespaces:");
-	rawoutput("<select name='u'>");
+	OutputClass::rawoutput("<select name='u'>");
 	while ($row = db_fetch_assoc($result)){
-		rawoutput("<option value=\"".rawurlencode(htmlentities($row['uri'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")))."\">".htmlentities($row['uri'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))." ({$row['c']})</option>",true);
+		OutputClass::rawoutput("<option value=\"".rawurlencode(htmlentities($row['uri'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")))."\">".htmlentities($row['uri'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))." ({$row['c']})</option>",true);
 	}
-	rawoutput("</select>");
+	OutputClass::rawoutput("</select>");
 	$show = Translator::translate_inline("Show");
-	rawoutput("<input type='submit' class='button' value=\"$show\">");
-	rawoutput("</form>");
+	OutputClass::rawoutput("<input type='submit' class='button' value=\"$show\">");
+	OutputClass::rawoutput("</form>");
 	$ops = Translator::translate_inline("Ops");
 	$from = Translator::translate_inline("From");
 	$to = Translator::translate_inline("To");
 	$version = Translator::translate_inline("Version");
 	$author = Translator::translate_inline("Author");
 	$norows = Translator::translate_inline("No rows found");
-	rawoutput("<table border='0' cellpadding='2' cellspacing='0'>");
-	rawoutput("<tr class='trhead'><td>$ops</td><td>$from</td><td>$to</td><td>$version</td><td>$author</td></tr>");
+	OutputClass::rawoutput("<table border='0' cellpadding='2' cellspacing='0'>");
+	OutputClass::rawoutput("<tr class='trhead'><td>$ops</td><td>$from</td><td>$to</td><td>$version</td><td>$author</td></tr>");
 	$sql = "SELECT * FROM " . db_prefix("translations") . " WHERE language='".LANGUAGE."' AND uri='".Http::httpget("u")."'";
 	$result = db_query($sql);
 	if (db_num_rows($result)>0){
 		$i=0;
 		while ($row = db_fetch_assoc($result)){
 			$i++;
-			rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td>");
+			OutputClass::rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td>");
 			$edit = Translator::translate_inline("Edit");
-			rawoutput("<a href='translatortool.php?u=".rawurlencode(htmlentities($row['uri'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")))."&t=".rawurlencode(htmlentities($row['intext']))."'>$edit</a>");
-			rawoutput("</td><td>");
-			rawoutput(htmlentities($row['intext'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
-			rawoutput("</td><td>");
-			rawoutput(htmlentities($row['outtext'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
-			rawoutput("</td><td>");
-			rawoutput($row['version']);
-			rawoutput("</td><td>");
-			rawoutput($row['author']);
-			rawoutput("</td></tr>");
+			OutputClass::rawoutput("<a href='translatortool.php?u=".rawurlencode(htmlentities($row['uri'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")))."&t=".rawurlencode(htmlentities($row['intext']))."'>$edit</a>");
+			OutputClass::rawoutput("</td><td>");
+			OutputClass::rawoutput(htmlentities($row['intext'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
+			OutputClass::rawoutput("</td><td>");
+			OutputClass::rawoutput(htmlentities($row['outtext'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
+			OutputClass::rawoutput("</td><td>");
+			OutputClass::rawoutput($row['version']);
+			OutputClass::rawoutput("</td><td>");
+			OutputClass::rawoutput($row['author']);
+			OutputClass::rawoutput("</td></tr>");
 		}
 	}else{
-		rawoutput("<tr><td colspan='5'>$norows</td></tr>");
+		OutputClass::rawoutput("<tr><td colspan='5'>$norows</td></tr>");
 	}
-	rawoutput("</table>");
+	OutputClass::rawoutput("</table>");
 	popup_footer();
 }
 ?>

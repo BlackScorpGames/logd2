@@ -23,7 +23,7 @@ OutputClass::addnav("Return whence you came",$return);
 Translator::tlschema();
 
 $add = Translator::translate_inline("Add Donation");
-rawoutput("<form action='donators.php?op=add1&ret=".rawurlencode($ret)."' method='POST'>");
+OutputClass::rawoutput("<form action='donators.php?op=add1&ret=".rawurlencode($ret)."' method='POST'>");
 OutputClass::addnav("","donators.php?op=add1&ret=".rawurlencode($ret)."");
 $name = httppost("name");
 if ($name=="") $name = Http::httpget("name");
@@ -38,16 +38,16 @@ if ($reason == "") $reason = Translator::translate_inline("manual donation entry
 
 OutputClass::output("`bAdd Donation Points:`b`n");
 OutputClass::output("Character: ");
-rawoutput("<input name='name' value=\"".htmlentities($name, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
+OutputClass::rawoutput("<input name='name' value=\"".htmlentities($name, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
 OutputClass::output("`nPoints: ");
-rawoutput("<input name='amt' size='3' value=\"".htmlentities($amt, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
+OutputClass::rawoutput("<input name='amt' size='3' value=\"".htmlentities($amt, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
 OutputClass::output("`nReason: ");
-rawoutput("<input name='reason' size='30' value=\"".htmlentities($reason, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
-rawoutput("<input type='hidden' name='txnid' value=\"".htmlentities($txnid, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
+OutputClass::rawoutput("<input name='reason' size='30' value=\"".htmlentities($reason, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
+OutputClass::rawoutput("<input type='hidden' name='txnid' value=\"".htmlentities($txnid, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
 OutputClass::output_notl("`n");
 if ($txnid>"") OutputClass::output("For transaction: %s`n",$txnid);
-rawoutput("<input type='submit' class='button' value='$add'>");
-rawoutput("</form>");
+OutputClass::rawoutput("<input type='submit' class='button' value='$add'>");
+OutputClass::rawoutput("</form>");
 
 OutputClass::addnav("Donations");
 if (($session['user']['superuser'] & SU_EDIT_PAYLOG) &&
@@ -114,22 +114,22 @@ if ($op==""){
 	$points = Translator::translate_inline("Points");
 	$spent = Translator::translate_inline("Spent");
 
-	rawoutput("<table border='0' cellpadding='3' cellspacing='1' bgcolor='#999999'>");
-	rawoutput("<tr class='trhead'><td>$name</td><td>$points</td><td>$spent</td></tr>");
+	OutputClass::rawoutput("<table border='0' cellpadding='3' cellspacing='1' bgcolor='#999999'>");
+	OutputClass::rawoutput("<tr class='trhead'><td>$name</td><td>$points</td><td>$spent</td></tr>");
 	$number=db_num_rows($result);
 	for ($i=0;$i<$number;$i++){
 		$row = db_fetch_assoc($result);
-		rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
-		rawoutput("<td>");
+		OutputClass::rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+		OutputClass::rawoutput("<td>");
 		OutputClass::output_notl("`^%s`0",$row['name']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl("`@%s`0", number_format($row['donation']));
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl("`%%s`0", number_format($row['donationspent']));
-		rawoutput("</td>");
-		rawoutput("</tr>");
+		OutputClass::rawoutput("</td>");
+		OutputClass::rawoutput("</tr>");
 	}
-	rawoutput("</table>",true);
+	OutputClass::rawoutput("</table>",true);
 }else if ($op=="add1"){
 	$search="%";
 	$name = httppost('name');
@@ -154,12 +154,12 @@ if ($op==""){
 	for ($i=0;$i<$number;$i++){
 		$row = db_fetch_assoc($result);
 		if ($ret!=""){
-			rawoutput("<a href='donators.php?op=add2&id={$row['acctid']}&amt=$amt&ret=".rawurlencode($ret)."&reason=".rawurlencode($reason)."'>");
+			OutputClass::rawoutput("<a href='donators.php?op=add2&id={$row['acctid']}&amt=$amt&ret=".rawurlencode($ret)."&reason=".rawurlencode($reason)."'>");
 		}else{
-			rawoutput("<a href='donators.php?op=add2&id={$row['acctid']}&amt=$amt&reason=".rawurlencode($reason)."&txnid=$txnid'>");
+			OutputClass::rawoutput("<a href='donators.php?op=add2&id={$row['acctid']}&amt=$amt&reason=".rawurlencode($reason)."&txnid=$txnid'>");
 		}
 		OutputClass::output_notl("%s (%s/%s)", $row['name'], $row['donation'], $row['donationspent']);
-		rawoutput("</a>");
+		OutputClass::rawoutput("</a>");
 		OutputClass::output_notl("`n");
 		if ($ret!=""){
 			OutputClass::addnav("","donators.php?op=add2&id={$row['acctid']}&amt=$amt&ret=".rawurlencode($ret)."&reason=".rawurlencode($reason));

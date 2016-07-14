@@ -21,7 +21,7 @@ popup_header("LoGD Message of the Day (MoTD)");
 if ($session['user']['superuser'] & SU_POST_MOTD) {
 	$addm = Translator::translate_inline("Add MoTD");
 	$addp = Translator::translate_inline("Add Poll");
-	rawoutput(" [ <a href='motd.php?op=add'>$addm</a> | <a href='motd.php?op=addpoll'>$addp</a> ]<br/><br/>");
+	OutputClass::rawoutput(" [ <a href='motd.php?op=add'>$addm</a> | <a href='motd.php?op=addpoll'>$addp</a> ]<br/><br/>");
 }
 
 if ($op=="vote"){
@@ -90,20 +90,20 @@ if ($op=="") {
 
 	$result = db_query("SELECT mid(motddate,1,7) AS d, count(*) AS c FROM ".db_prefix("motd")." GROUP BY d ORDER BY d DESC");
 	$row = db_fetch_assoc($result);
-	rawoutput("<form action='motd.php' method='GET'>");
+	OutputClass::rawoutput("<form action='motd.php' method='GET'>");
 	OutputClass::output("MoTD Archives:");
-	rawoutput("<select name='month' onChange='this.form.submit();' >");
-	rawoutput("<option value=''>--Current--</option>");
+	OutputClass::rawoutput("<select name='month' onChange='this.form.submit();' >");
+	OutputClass::rawoutput("<option value=''>--Current--</option>");
 	while ($row = db_fetch_assoc($result)){
 		$time = strtotime("{$row['d']}-01");
 		$m = Translator::translate_inline(date("M",$time));
-		rawoutput ("<option value='{$row['d']}'".(Http::httpget("month")==$row['d']?" selected":"").">$m".date(", Y",$time)." ({$row['c']})</option>");
+		OutputClass::rawoutput ("<option value='{$row['d']}'".(Http::httpget("month")==$row['d']?" selected":"").">$m".date(", Y",$time)." ({$row['c']})</option>");
 	}
-	rawoutput("</select>".tlbutton_clear());
-	rawoutput("<input type='hidden' name='newcount' value='".($count+$newcount)."'>");
-	rawoutput("<input type='submit' value='&gt;' name='proceed'  class='button'>");
-	rawoutput(" <input type='submit' value='".Translator::translate_inline("Submit")."' class='button'>");
-	rawoutput("</form>");
+	OutputClass::rawoutput("</select>".tlbutton_clear());
+	OutputClass::rawoutput("<input type='hidden' name='newcount' value='".($count+$newcount)."'>");
+	OutputClass::rawoutput("<input type='submit' value='&gt;' name='proceed'  class='button'>");
+	OutputClass::rawoutput(" <input type='submit' value='".Translator::translate_inline("Submit")."' class='button'>");
+	OutputClass::rawoutput("</form>");
 
 	commentdisplay("`n`@Commentary:`0`n", "motd");
 }

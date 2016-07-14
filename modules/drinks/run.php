@@ -14,7 +14,7 @@ function drinks_run_private(){
 
 		Translator::tlschema($drinktext['schemas']['title']);
 		PageParts::page_header($drinktext['title']);
-		rawoutput("<span style='color: #9900FF'>");
+		OutputClass::rawoutput("<span style='color: #9900FF'>");
 		OutputClass::output_notl("`c`b");
 		OutputClass::output($drinktext['title']);
 		OutputClass::output_notl("`b`c");
@@ -136,7 +136,7 @@ function drinks_run_private(){
 				OutputClass::output("You don't have enough money.  How can you buy %s if you don't have any money!?!", $row['name']);
 			}
 		}
-		rawoutput("</span>");
+		OutputClass::rawoutput("</span>");
 		if ($drinktext['return']>""){
 			Translator::tlschema($drinktext['schemas']['return']);
 			OutputClass::addnav($drinktext['return'],$drinktext['returnlink']);

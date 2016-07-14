@@ -42,39 +42,39 @@ if ($dkills-$dp > 1) {
 		}
 	// -->
 	</script>\n";
-	rawoutput($text);
+	OutputClass::rawoutput($text);
 	OutputClass::addnav("Reset", "newday.php?pdk=0$resline");
 		$link = appendcount("newday.php?pdk=1$resline");
-		rawoutput("<form id='dkForm' action='$link' method='POST'>");
+		OutputClass::rawoutput("<form id='dkForm' action='$link' method='POST'>");
 	OutputClass::addnav("",$link);
-	rawoutput("<table cellpadding='0' cellspacing='0' border='0' width='200'>");
+	OutputClass::rawoutput("<table cellpadding='0' cellspacing='0' border='0' width='200'>");
 	reset($labels);
 	foreach($labels as $type=>$label) {
 		if (isset($canbuy[$type]) && $canbuy[$type]) {
-			rawoutput("<tr><td nowrap>");
+			OutputClass::rawoutput("<tr><td nowrap>");
 			OutputClass::output($label);
 			OutputClass::output_notl(":");
-			rawoutput("</td><td>");
-			rawoutput("<input id='$type' name='$type' size='4' maxlength='4' value='{$pdks[$type]}' onKeyUp='pointsLeft();' onBlur='pointsLeft();' onFocus='pointsLeft();'>");
-			rawoutput("</td></tr>");
+			OutputClass::rawoutput("</td><td>");
+			OutputClass::rawoutput("<input id='$type' name='$type' size='4' maxlength='4' value='{$pdks[$type]}' onKeyUp='pointsLeft();' onBlur='pointsLeft();' onFocus='pointsLeft();'>");
+			OutputClass::rawoutput("</td></tr>");
 		}
 	}
-	rawoutput("<tr><td colspan='2'>&nbsp;");
-	rawoutput("</td></tr><tr><td colspan='2' align='center'>");
+	OutputClass::rawoutput("<tr><td colspan='2'>&nbsp;");
+	OutputClass::rawoutput("</td></tr><tr><td colspan='2' align='center'>");
 	$click = Translator::translate_inline("Spend");
-	rawoutput("<input id='dksub' type='submit' class='button' value='$click'>");
-	rawoutput("</td></tr><tr><td colspan='2'>&nbsp;");
-	rawoutput("</td></tr><tr><td colspan='2' align='center'>");
-	rawoutput("<div id='amtLeft'></div>");
-	rawoutput("</td></tr>");
-	rawoutput("</table>");
-	rawoutput("</form>");
+	OutputClass::rawoutput("<input id='dksub' type='submit' class='button' value='$click'>");
+	OutputClass::rawoutput("</td></tr><tr><td colspan='2'>&nbsp;");
+	OutputClass::rawoutput("</td></tr><tr><td colspan='2' align='center'>");
+	OutputClass::rawoutput("<div id='amtLeft'></div>");
+	OutputClass::rawoutput("</td></tr>");
+	OutputClass::rawoutput("</table>");
+	OutputClass::rawoutput("</form>");
 	reset($labels);
 	$count = 0;
 	foreach($labels as $type=>$label) {
 		if ($count > 0) break;
 		if (isset($canbuy[$type]) && $canbuy[$type]) {
-			rawoutput("<script language='JavaScript'>document.getElementById('$type').focus();</script>");
+			OutputClass::rawoutput("<script language='JavaScript'>document.getElementById('$type').focus();</script>");
 			$count++;
 		}
 	}
@@ -100,19 +100,19 @@ if ($dkills-$dp > 1) {
 		}
 	}
 		OutputClass::output("`n`nCurrently, the dragon points you have already spent are distributed in the following manner.");
-	rawoutput("<blockquote>");
-	rawoutput("<table>");
+	OutputClass::rawoutput("<blockquote>");
+	OutputClass::rawoutput("<table>");
 	reset ($labels);
 	foreach ($labels as $type=>$label) {
 		if ($type == 'unknown' && $dist[$type] == 0) continue;
-		rawoutput("<tr><td nowrap>");
+		OutputClass::rawoutput("<tr><td nowrap>");
 		OutputClass::output($label);
 		OutputClass::output_notl(":");
-		rawoutput("</td><td>&nbsp;&nbsp;</td><td>");
+		OutputClass::rawoutput("</td><td>&nbsp;&nbsp;</td><td>");
 		OutputClass::output_notl("`@%s", $dist[$type]);
-		rawoutput("</td></tr>");
+		OutputClass::rawoutput("</td></tr>");
 	}
-	rawoutput("</table>");
-	rawoutput("</blockquote>");
+	OutputClass::rawoutput("</table>");
+	OutputClass::rawoutput("</blockquote>");
 }
 ?>

@@ -100,7 +100,7 @@ function cedrikspotions_run(){
 	$iname = Settings::getsetting("innname", LOCATION_INN);
 	Translator::tlschema("inn");
 	PageParts::page_header($iname);
-	rawoutput("<span style='color: #9900FF'>");
+	OutputClass::rawoutput("<span style='color: #9900FF'>");
 	OutputClass::output_notl("`c`b");
 	OutputClass::output($iname);
 	OutputClass::output_notl("`b`c");
@@ -176,12 +176,12 @@ function cedrikspotions_run(){
 			$give = Translator::translate_inline("Give");
 			$link = appendcount("runmodule.php?module=cedrikspotions&op=gems");
 			OutputClass::addnav("", $link);
-			rawoutput("<form action='$link' method='POST'>");
-			rawoutput("<input name='gemcount' value='0'>");
-			rawoutput("<input type='submit' class='button' value='$give'>");
+			OutputClass::rawoutput("<form action='$link' method='POST'>");
+			OutputClass::rawoutput("<input name='gemcount' value='0'>");
+			OutputClass::rawoutput("<input type='submit' class='button' value='$give'>");
 			OutputClass::output("`nAnd what do you wish for?`n");
 			if (get_module_setting("ischarm") == 1) {
-				rawoutput("<input type='radio' name='wish' value='1' checked>");
+				OutputClass::rawoutput("<input type='radio' name='wish' value='1' checked>");
 				OutputClass::output("Charm");
 				if ($mincost != $maxcost) {
 					$cm = get_module_setting("charmcost");
@@ -190,7 +190,7 @@ function cedrikspotions_run(){
 				OutputClass::output_notl("`n");
 			}
 			if (get_module_setting("ismax") == 1) {
-				rawoutput("<input type='radio' name='wish' value='2'>");
+				OutputClass::rawoutput("<input type='radio' name='wish' value='2'>");
 				OutputClass::output("Vitality");
 				if ($mincost != $maxcost) {
 					$cm = get_module_setting("maxcost");
@@ -210,7 +210,7 @@ function cedrikspotions_run(){
 				OutputClass::output_notl("`n");
 			}
 			if (get_module_setting("istemp") == 1) {
-				rawoutput("<input type='radio' name='wish' value='3'>");
+				OutputClass::rawoutput("<input type='radio' name='wish' value='3'>");
 				OutputClass::output("Health");
 				if ($mincost != $maxcost) {
 					$cm = get_module_setting("tempcost");
@@ -220,7 +220,7 @@ function cedrikspotions_run(){
 				OutputClass::output_notl("`n");
 			}
 			if (get_module_setting("isforget") == 1) {
-				rawoutput("<input type='radio' name='wish' value='4'>");
+				OutputClass::rawoutput("<input type='radio' name='wish' value='4'>");
 				OutputClass::output("Forgetfulness");
 				if ($mincost != $maxcost) {
 					$cm = get_module_setting("forgcost");
@@ -229,7 +229,7 @@ function cedrikspotions_run(){
 				OutputClass::output_notl("`n");
 			}
 			if (get_module_setting("istrans") == 1) {
-				rawoutput("<input type='radio' name='wish' value='5'>");
+				OutputClass::rawoutput("<input type='radio' name='wish' value='5'>");
 				OutputClass::output("Transmutation");
 				if ($mincost != $maxcost) {
 					$cm = get_module_setting("transcost");
@@ -237,7 +237,7 @@ function cedrikspotions_run(){
 				}
 				OutputClass::output_notl("`n");
 			}
-			rawoutput("</form>");
+			OutputClass::rawoutput("</form>");
 		}else{
 			$gemcount = abs((int)$gemcount);
 			if ($gemcount>$session['user']['gems']){
@@ -348,7 +348,7 @@ function cedrikspotions_run(){
 		OutputClass::addnav("I?Return to the Inn","inn.php");
 		villagenav();
 	}
-	rawoutput("</span>");
+	OutputClass::rawoutput("</span>");
 	page_footer();
 }
 ?>

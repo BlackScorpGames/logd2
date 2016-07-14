@@ -256,7 +256,7 @@ class Translator
 	}
 	public static function translate_inline($in,$namespace=FALSE){
 		$out = translate($in,$namespace);
-		rawoutput(tlbutton_clear());
+		OutputClass::rawoutput(tlbutton_clear());
 		return $out;
 	}
 }

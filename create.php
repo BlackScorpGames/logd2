@@ -26,14 +26,14 @@ if ($op=="val"){
 		$sql = "UPDATE " . db_prefix("accounts") . " SET emailvalidation='' WHERE emailvalidation='$id';";
 		db_query($sql);
 		OutputClass::output("`#`cYour email has been validated.  You may now log in.`c`0");
-		rawoutput("<form action='login.php' method='POST'>");
-		rawoutput("<input name='name' value=\"{$row['login']}\" type='hidden'>");
-		rawoutput("<input name='password' value=\"!md52!{$row['password']}\" type='hidden'>");
-		rawoutput("<input name='force' value='1' type='hidden'>");
+		OutputClass::rawoutput("<form action='login.php' method='POST'>");
+		OutputClass::rawoutput("<input name='name' value=\"{$row['login']}\" type='hidden'>");
+		OutputClass::rawoutput("<input name='password' value=\"!md52!{$row['password']}\" type='hidden'>");
+		OutputClass::rawoutput("<input name='force' value='1' type='hidden'>");
 		OutputClass::output("Your email has been validated, your login name is `^%s`0.`n`n",
 				$row['login']);
 		$click = Translator::translate_inline("Click here to log in");
-		rawoutput("<input type='submit' class='button' value='$click'></form>");
+		OutputClass::rawoutput("<input type='submit' class='button' value='$click'></form>");
 		OutputClass::output_notl("`n");
 		if ($trash > 0) {
 			OutputClass::output("`^Characters that have never been logged into will be deleted after %s day(s) of no activity.`n`0", $trash);
@@ -89,14 +89,14 @@ if ($op=="forgot"){
 			OutputClass::output("Look at the List Warriors page off the login page to make sure that the character hasn't expired and been deleted.");
 		}
 	}else{
-		rawoutput("<form action='create.php?op=forgot' method='POST'>");
+		OutputClass::rawoutput("<form action='create.php?op=forgot' method='POST'>");
 		OutputClass::output("`bForgotten Passwords:`b`n`n");
 		OutputClass::output("Enter your character's name: ");
-		rawoutput("<input name='charname'>");
+		OutputClass::rawoutput("<input name='charname'>");
 		OutputClass::output_notl("`n");
 		$send = Translator::translate_inline("Email me my password");
-		rawoutput("<input type='submit' class='button' value='$send'>");
-		rawoutput("</form>");
+		OutputClass::rawoutput("<input type='submit' class='button' value='$send'>");
+		OutputClass::rawoutput("</form>");
 	}
 }
 PageParts::page_header("Create A Character");
@@ -215,13 +215,13 @@ if (Settings::getsetting("allowcreation",1)==0){
 							mail($email,$subj,str_replace("`n","\n",$msg),"From: ".Settings::getsetting("gameadminemail","postmaster@localhost.com"));
 							OutputClass::output("`4An email was sent to `\$%s`4 to validate your address.  Click the link in the email to activate your account.`0`n`n", $email);
 						}else{
-							rawoutput("<form action='login.php' method='POST'>");
-							rawoutput("<input name='name' value=\"$shortname\" type='hidden'>");
-							rawoutput("<input name='password' value=\"$pass1\" type='hidden'>");
+							OutputClass::rawoutput("<form action='login.php' method='POST'>");
+							OutputClass::rawoutput("<input name='name' value=\"$shortname\" type='hidden'>");
+							OutputClass::rawoutput("<input name='password' value=\"$pass1\" type='hidden'>");
 							OutputClass::output("Your account was created, your login name is `^%s`0.`n`n", $shortname);
 							$click = Translator::translate_inline("Click here to log in");
-							rawoutput("<input type='submit' class='button' value='$click'>");
-							rawoutput("</form>");
+							OutputClass::rawoutput("<input type='submit' class='button' value='$click'>");
+							OutputClass::rawoutput("</form>");
 							OutputClass::output_notl("`n");
 							if ($trash > 0) {
 								OutputClass::output("`^Characters that have never been logged into will be deleted after %s day(s) of no activity.`n`0", $trash);
@@ -247,8 +247,8 @@ if (Settings::getsetting("allowcreation",1)==0){
 		$refer=Http::httpget('r');
 		if ($refer) $refer = "&r=".htmlentities($refer, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
 
-		rawoutput("<script language='JavaScript' src='lib/md5.js'></script>");
-		rawoutput("<script language='JavaScript'>
+		OutputClass::rawoutput("<script language='JavaScript' src='lib/md5.js'></script>");
+		OutputClass::rawoutput("<script language='JavaScript'>
 		<!--
 		function md5pass(){
 			// encode passwords
@@ -267,17 +267,17 @@ if (Settings::getsetting("allowcreation",1)==0){
 		}
 		//-->
 		</script>");
-		rawoutput("<form action=\"create.php?op=create$refer\" method='POST' onSubmit=\"md5pass();\">");
+		OutputClass::rawoutput("<form action=\"create.php?op=create$refer\" method='POST' onSubmit=\"md5pass();\">");
 		// this is the first thing a new player will se, so let's make it look
 		// better
-		rawoutput("<input type='hidden' name='passlen' id='passlen' value='0'>");
-		rawoutput("<table><tr valign='top'><td>");
+		OutputClass::rawoutput("<input type='hidden' name='passlen' id='passlen' value='0'>");
+		OutputClass::rawoutput("<table><tr valign='top'><td>");
 		OutputClass::output("How will you be known to this world? ");
-		rawoutput("</td><td><input name='name'></td></tr><tr valign='top'><td>");
+		OutputClass::rawoutput("</td><td><input name='name'></td></tr><tr valign='top'><td>");
 		OutputClass::output("Enter a password: ");
-		rawoutput("</td><td><input type='password' name='pass1' id='pass1'></td></tr><tr valign='top'><td>");
+		OutputClass::rawoutput("</td><td><input type='password' name='pass1' id='pass1'></td></tr><tr valign='top'><td>");
 		OutputClass::output("Re-enter it for confirmation: ");
-		rawoutput("</td><td><input type='password' name='pass2' id='pass2'></td></tr><tr valign='top'><td>");
+		OutputClass::rawoutput("</td><td><input type='password' name='pass2' id='pass2'></td></tr><tr valign='top'><td>");
 		OutputClass::output("Enter your email address: ");
 		$r1 = Translator::translate_inline("`^(optional -- however, if you choose not to enter one, there will be no way that you can reset your password if you forget it!)`0");
 		$r2 = Translator::translate_inline("`\$(required)`0");
@@ -289,15 +289,15 @@ if (Settings::getsetting("allowcreation",1)==0){
 		} else {
 			$req = $r3;
 		}
-		rawoutput("</td><td><input name='email'>");
+		OutputClass::rawoutput("</td><td><input name='email'>");
 		OutputClass::output_notl("%s", $req);
-		rawoutput("</td></tr></table>");
+		OutputClass::rawoutput("</td></tr></table>");
 		OutputClass::output("`nAnd are you a %s Female or a %s Male?`n",
 				"<input type='radio' name='sex' value='1'>",
 				"<input type='radio' name='sex' value='0' checked>",true);
 		Modules::modulehook("create-form");
 		$createbutton = Translator::translate_inline("Create your character");
-		rawoutput("<input type='submit' class='button' value='$createbutton'>");
+		OutputClass::rawoutput("<input type='submit' class='button' value='$createbutton'>");
 		OutputClass::output_notl("`n`n");
 		if ($trash > 0) {
 			OutputClass::output("`^Characters that have never been logged into will be deleted after %s day(s) of no activity.`n`0", $trash);
@@ -308,7 +308,7 @@ if (Settings::getsetting("allowcreation",1)==0){
 		if ($old > 0) {
 			OutputClass::output("`^Characters that have reached level 2 at least once will be deleted after %s days of no activity.`n`0", $old);
 		}
-		rawoutput("</form>");
+		OutputClass::rawoutput("</form>");
 	}
 }
 OutputClass::addnav("Login","index.php");

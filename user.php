@@ -48,13 +48,13 @@ if ($op=="search" || $op== ""){
 
 $m = Http::httpget("module");
 if ($m) $m = "&module=$m&subop=module";
-rawoutput("<form action='user.php?op=search$m' method='POST'>");
+OutputClass::rawoutput("<form action='user.php?op=search$m' method='POST'>");
 OutputClass::output("Search by any field below: ");
-rawoutput("<input name='q' id='q'>");
+OutputClass::rawoutput("<input name='q' id='q'>");
 $se = Translator::translate_inline("Search");
-rawoutput("<input type='submit' class='button' value='$se'>");
-rawoutput("</form>");
-rawoutput("<script language='JavaScript'>document.getElementById('q').focus();</script>");
+OutputClass::rawoutput("<input type='submit' class='button' value='$se'>");
+OutputClass::rawoutput("</form>");
+OutputClass::rawoutput("<script language='JavaScript'>document.getElementById('q').focus();</script>");
 OutputClass::addnav("","user.php?op=search$m");
 require_once("lib/superusernav.php");
 superusernav();

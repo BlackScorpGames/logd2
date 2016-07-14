@@ -11,29 +11,29 @@ if (db_num_rows($result)<=0){
 }elseif(db_num_rows($result)>100){
 	OutputClass::output("`\$%s`) thinks you should narrow down the number of people you wish to haunt.",$deathoverlord);
 	$search = Translator::translate_inline("Search");
-	rawoutput("<form action='graveyard.php?op=haunt2' method='POST'>");
+	OutputClass::rawoutput("<form action='graveyard.php?op=haunt2' method='POST'>");
 	OutputClass::addnav("","graveyard.php?op=haunt2");
 	OutputClass::output("Who would you like to haunt? ");
-	rawoutput("<input name='name' id='name'>");
-	rawoutput("<input type='submit' class='button' value='$search'>");
-	rawoutput("</form>");
-	rawoutput("<script language='JavaScript'>document.getElementById('name').focus()</script>",true);
+	OutputClass::rawoutput("<input name='name' id='name'>");
+	OutputClass::rawoutput("<input type='submit' class='button' value='$search'>");
+	OutputClass::rawoutput("</form>");
+	OutputClass::rawoutput("<script language='JavaScript'>document.getElementById('name').focus()</script>",true);
 }else{
 	OutputClass::output("`\$%s`) will allow you to try to haunt these people:`n",$deathoverlord);
 	$name = Translator::translate_inline("Name");
 	$lev = Translator::translate_inline("Level");
-	rawoutput("<table cellpadding='3' cellspacing='0' border='0'>");
-	rawoutput("<tr class='trhead'><td>$name</td><td>$lev</td></tr>");
+	OutputClass::rawoutput("<table cellpadding='3' cellspacing='0' border='0'>");
+	OutputClass::rawoutput("<tr class='trhead'><td>$name</td><td>$lev</td></tr>");
 	for ($i=0;$i<db_num_rows($result);$i++){
 		$row = db_fetch_assoc($result);
-		rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td><a href='graveyard.php?op=haunt3&name=".HTMLEntities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."'>");
+		OutputClass::rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td><a href='graveyard.php?op=haunt3&name=".HTMLEntities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."'>");
 		OutputClass::output_notl("%s", $row['name']);
-		rawoutput("</a></td><td>");
+		OutputClass::rawoutput("</a></td><td>");
 		OutputClass::output_notl("%s", $row['level']);
-		rawoutput("</td></tr>",true);
+		OutputClass::rawoutput("</td></tr>",true);
 		OutputClass::addnav("","graveyard.php?op=haunt3&name=".HTMLEntities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
 	}
-	rawoutput("</table>",true);
+	OutputClass::rawoutput("</table>",true);
 }
 OutputClass::addnav(array("Question `\$%s`0 about the worth of your soul",$deathoverlord),"graveyard.php?op=question");
 $max = $session['user']['level'] * 5 + 50;

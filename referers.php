@@ -49,21 +49,21 @@ $dest = Translator::translate_inline("Destination");
 $none = Translator::translate_inline("`iNone`i");
 $notset = Translator::translate_inline("`iNot set`i");
 $skipped = Translator::translate_inline("`i%s records skipped (over a week old)`i");
-rawoutput("<table border=0 cellpadding=2 cellspacing=1><tr class='trhead'><td>$count</td><td>$last</td><td>URL</td><td>$dest</td><td>IP</td></tr>");
+OutputClass::rawoutput("<table border=0 cellpadding=2 cellspacing=1><tr class='trhead'><td>$count</td><td>$last</td><td>URL</td><td>$dest</td><td>IP</td></tr>");
 $result = db_query($sql);
 $number=db_num_rows($result);
 for ($i=0;$i<$number;$i++){
 	$row = db_fetch_assoc($result);
 
-	rawoutput("<tr class='trdark'><td valign='top'>");
+	OutputClass::rawoutput("<tr class='trdark'><td valign='top'>");
 	OutputClass::output_notl("`b".$row['count']."`b");
-	rawoutput("</td><td valign='top'>");
+	OutputClass::rawoutput("</td><td valign='top'>");
 	$diffsecs = strtotime("now")-strtotime($row['last']);
 	//OutputClass::output((int)($diffsecs/86400)."d ".(int)($diffsecs/3600%3600)."h ".(int)($diffsecs/60%60)."m ".(int)($diffsecs%60)."s");
 	OutputClass::output_notl("`b".dhms($diffsecs)."`b");
-	rawoutput("</td><td valign='top' colspan='3'>");
+	OutputClass::rawoutput("</td><td valign='top' colspan='3'>");
 	OutputClass::output_notl("`b".($row['site']==""?$none:$row['site'])."`b");
-	rawoutput("</td></tr>");
+	OutputClass::rawoutput("</td></tr>");
 
 	$sql = "SELECT count,last,uri,dest,ip FROM " . db_prefix("referers") . " WHERE site='".addslashes($row['site'])."' ORDER BY {$order} LIMIT 25";
 	$result1 = db_query($sql);
@@ -74,34 +74,34 @@ for ($i=0;$i<$number;$i++){
 		$row1=db_fetch_assoc($result1);
 		$diffsecs = strtotime("now")-strtotime($row1['last']);
 		if ($diffsecs<=604800){
-			rawoutput("<tr class='trlight'><td>");
+			OutputClass::rawoutput("<tr class='trlight'><td>");
 			OutputClass::output_notl($row1['count']);
-			rawoutput("</td><td valign='top'>");
+			OutputClass::rawoutput("</td><td valign='top'>");
 			//OutputClass::output((int)($diffsecs/86400)."d".(int)($diffsecs/3600%3600)."h".(int)($diffsecs/60%60)."m".(int)($diffsecs%60)."s");
 			OutputClass::output_notl(dhms($diffsecs));
-			rawoutput("</td><td valign='top'>");
+			OutputClass::rawoutput("</td><td valign='top'>");
 			if ($row1['uri']>"")
-				rawoutput("<a href='".HTMLEntities($row1['uri'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."' target='_blank'>".HTMLEntities(substr($row1['uri'],0,100))."</a>");
+				OutputClass::rawoutput("<a href='".HTMLEntities($row1['uri'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."' target='_blank'>".HTMLEntities(substr($row1['uri'],0,100))."</a>");
 			else
 				OutputClass::output_notl($none);
 			OutputClass::output_notl("`n");
-			rawoutput("</td><td valign='top'>");
+			OutputClass::rawoutput("</td><td valign='top'>");
 			OutputClass::output_notl($row1['dest']==''?$notset:$row1['dest']);
-			rawoutput("</td><td valign='top'>");
+			OutputClass::rawoutput("</td><td valign='top'>");
 			OutputClass::output_notl($row1['ip']==''?$notset:$row1['ip']);
-			rawoutput("</td></tr>");
+			OutputClass::rawoutput("</td></tr>");
 		}else{
 			$skippedcount++;
 			$skippedtotal+=$row1['count'];
 		}
 	}
 	if ($skippedcount>0){
-		rawoutput("<tr class='trlight'><td>$skippedtotal</td><td valign='top' colspan='4'>");
+		OutputClass::rawoutput("<tr class='trlight'><td>$skippedtotal</td><td valign='top' colspan='4'>");
 		OutputClass::output_notl(sprintf($skipped,$skippedcount));
-		rawoutput("</td></tr>");
+		OutputClass::rawoutput("</td></tr>");
 	}
 	//OutputClass::output("</td></tr>",true);
 }
-rawoutput("</table>");
+OutputClass::rawoutput("</table>");
 page_footer();
 ?>

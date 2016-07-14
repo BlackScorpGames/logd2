@@ -277,7 +277,7 @@ if (!$skipvillagedesc) {
 		$id = $texts['newestid'];
 		if ($session['user']['superuser'] & SU_EDIT_USERS && $id) {
 			$edit = Translator::translate_inline("Edit");
-			rawoutput(" [<a href='user.php?op=edit&userid=$id'>$edit</a>]");
+			OutputClass::rawoutput(" [<a href='user.php?op=edit&userid=$id'>$edit</a>]");
 			OutputClass::addnav("","user.php?op=edit&userid=$id");
 		}
 		OutputClass::output_notl("`n");

@@ -90,8 +90,8 @@ if ($onlinecount<Settings::getsetting("maxonline",0) || Settings::getsetting("ma
 	}
 	if (isset($session['message']) && $session['message']>"")
 		OutputClass::output_notl("`b`\$%s`b`n", $session['message'],true);
-	rawoutput("<script language='JavaScript' src='lib/md5.js'></script>");
-	rawoutput("<script language='JavaScript'>
+	OutputClass::rawoutput("<script language='JavaScript' src='lib/md5.js'></script>");
+	OutputClass::rawoutput("<script language='JavaScript'>
 	<!--
 	function md5pass(){
 		//encode passwords before submission to protect them even from network sniffing attacks.
@@ -105,7 +105,7 @@ if ($onlinecount<Settings::getsetting("maxonline",0) || Settings::getsetting("ma
 	$uname = Translator::translate_inline("<u>U</u>sername");
 	$pass = Translator::translate_inline("<u>P</u>assword");
 	$butt = Translator::translate_inline("Log in");
-	rawoutput("<form action='login.php' method='POST' onSubmit=\"md5pass();\">".templatereplace("login",array("username"=>$uname,"password"=>$pass,"button"=>$butt))."</form>");
+	OutputClass::rawoutput("<form action='login.php' method='POST' onSubmit=\"md5pass();\">".templatereplace("login",array("username"=>$uname,"password"=>$pass,"button"=>$butt))."</form>");
 	OutputClass::output_notl("`c");
 	OutputClass::addnav("","login.php");
 } else {
@@ -118,7 +118,7 @@ if ($onlinecount<Settings::getsetting("maxonline",0) || Settings::getsetting("ma
 		$session['message'].=Translator::translate_inline("`b`#If you are not sure what cookies are, please <a href='http://en.wikipedia.org/wiki/WWW_browser_cookie'>read this article</a> about them, and how to enable them.`b`n");
 	}
 	if ($session['message']>"") OutputClass::output("`b`\$%s`b`n", $session['message'],true);
-	rawoutput(templatereplace("loginfull",array()));
+	OutputClass::rawoutput(templatereplace("loginfull",array()));
 	OutputClass::output_notl("`c");
 }
 
@@ -128,8 +128,8 @@ $session['message']="";
 OutputClass::output("`c`2Game server running version: `@%s`0`c", $logd_version);
 
 if (Settings::getsetting("homeskinselect", 1)) {
-	rawoutput("<form action='home.php' method='POST'>");
-	rawoutput("<table align='center'><tr><td>");
+	OutputClass::rawoutput("<form action='home.php' method='POST'>");
+	OutputClass::rawoutput("<table align='center'><tr><td>");
 	$form = array("template"=>"Choose a different display skin:,theme");
 	$prefs['template'] = $_COOKIE['template'];
 	if ($prefs['template'] == "")
@@ -137,8 +137,8 @@ if (Settings::getsetting("homeskinselect", 1)) {
 	require_once("lib/showform.php");
 	showform($form, $prefs, true);
 	$submit = Translator::translate_inline("Choose");
-	rawoutput("</td><td><br>&nbsp;<input type='submit' class='button' value='$submit'></td>");
-	rawoutput("</tr></table></form>");
+	OutputClass::rawoutput("</td><td><br>&nbsp;<input type='submit' class='button' value='$submit'></td>");
+	OutputClass::rawoutput("</tr></table></form>");
 }
 
 page_footer();

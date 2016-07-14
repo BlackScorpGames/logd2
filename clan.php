@@ -46,16 +46,16 @@ if ($detail>0){
 page_footer();
 
 function clanform(){
-	rawoutput("<form action='clan.php?op=new&apply=1' method='POST'>");
+	OutputClass::rawoutput("<form action='clan.php?op=new&apply=1' method='POST'>");
 	OutputClass::addnav("","clan.php?op=new&apply=1");
 	OutputClass::output("`b`cNew Clan Application Form`c`b");
 	OutputClass::output("Clan Name: ");
-	rawoutput("<input name='clanname' maxlength='50' value=\"".htmlentities(stripslashes(httppost('clanname')), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
+	OutputClass::rawoutput("<input name='clanname' maxlength='50' value=\"".htmlentities(stripslashes(httppost('clanname')), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
 	OutputClass::output("`nShort Name: ");
-	rawoutput("<input name='clanshort' maxlength='5' size='5' value=\"".htmlentities(stripslashes(httppost('clanshort')), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
+	OutputClass::rawoutput("<input name='clanshort' maxlength='5' size='5' value=\"".htmlentities(stripslashes(httppost('clanshort')), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
 	OutputClass::output("`nNote, color codes are permitted in neither clan names nor short names.");
 	OutputClass::output("The clan name is shown on player bios and on clan overview pages while the short name is displayed next to players' names in comment areas and such.`n");
 	$apply = Translator::translate_inline("Apply");
-	rawoutput("<input type='submit' class='button' value='$apply'></form>");
+	OutputClass::rawoutput("<input type='submit' class='button' value='$apply'></form>");
 }
 ?>

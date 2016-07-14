@@ -203,12 +203,12 @@ if ($op==""){
 	OutputClass::output("If you've been banned already, chances are you know why, and chances are we've got no interest in removing the ban.");
 	OutputClass::output("We provide this free of charge, at the expense of considerable bandwidth and server load, so if you've had the gall to abuse our charity, don't expect it to be won back very easily.`n`n");
 	OutputClass::output("If you are well behaved, we don't have an interest in blocking you from this listing. `0`n");
-	rawoutput("<table border='0' cellpadding='1' cellspacing='0'>");
-	rawoutput("<tr class='trhead'><td>");
+	OutputClass::rawoutput("<table border='0' cellpadding='1' cellspacing='0'>");
+	OutputClass::rawoutput("<tr class='trhead'><td>");
 	OutputClass::output("Server");
-	rawoutput("</td><td>");
+	OutputClass::rawoutput("</td><td>");
 	OutputClass::output("Version");
-	rawoutput("</td>");
+	OutputClass::rawoutput("</td>");
 	require_once("lib/pullurl.php");
 	$u = Settings::getsetting("logdnetserver", "http://logdnet.logd.com/");
 	if (!preg_match("/\\/$/", $u)) {
@@ -249,15 +249,15 @@ if ($op==""){
 		if ($row['version']=="") $row['version'] = Translator::translate_inline("Unknown");
 
 		// OutputClass::output the information we have.
-		rawoutput("<tr class='" . ($i%2==0?"trlight":"trdark") . "'>");
-		rawoutput("<td><a href=\"".HTMLEntities($row['address'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" target='_blank'>");
+		OutputClass::rawoutput("<tr class='" . ($i%2==0?"trlight":"trdark") . "'>");
+		OutputClass::rawoutput("<td><a href=\"".HTMLEntities($row['address'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" target='_blank'>");
 		OutputClass::output_notl("`&%s`0",$row['description'], true);
-		rawoutput("</a></td><td>");
+		OutputClass::rawoutput("</a></td><td>");
 		OutputClass::output_notl("`^%s`0", $row['version']); // so we are able to translate "`^Unknown`0"
-		rawoutput("</td></tr>");
+		OutputClass::rawoutput("</td></tr>");
 		$i++;
 	}
-	rawoutput("</table>");
+	OutputClass::rawoutput("</table>");
 	page_footer();
 }
 

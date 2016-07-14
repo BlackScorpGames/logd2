@@ -32,7 +32,7 @@ function commentarylocs() {
 	Translator::tlschema();
 	// All of the ones after this will be translated in the modules.
 	$comsecs = Modules::modulehook("moderate", $comsecs);
-	rawoutput(tlbutton_clear());
+	OutputClass::rawoutput(tlbutton_clear());
 	return $comsecs;
 }
 
@@ -178,7 +178,7 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
  	global $session,$REQUEST_URI,$doublepost, $translation_namespace;
 	global $emptypost;
 
-	rawoutput("<a name='$section'></a>");
+	OutputClass::rawoutput("<a name='$section'></a>");
 	// Let's add a hook for modules to block commentary sections
 	$args = Modules::modulehook("blockcommentarea", array("section"=>$section));
 	if (isset($args['block']) && ($args['block'] == "yes"))
@@ -459,11 +459,11 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 
 	if ($moderating){
 		OutputClass::output_notl("`n");
-		rawoutput("<input type='submit' class='button' value=\"$mod_Del1\">");
-		rawoutput("<input type='submit' class='button' name='delnban' value=\"$mod_Del2\" onClick=\"return confirm('$mod_Del_confirm');\">");
+		OutputClass::rawoutput("<input type='submit' class='button' value=\"$mod_Del1\">");
+		OutputClass::rawoutput("<input type='submit' class='button' name='delnban' value=\"$mod_Del2\" onClick=\"return confirm('$mod_Del_confirm');\">");
 		OutputClass::output_notl("`n%s ", $mod_reason);
-		rawoutput("<input name='reason' size='40' id='reason' value=\"$mod_reason_desc\">");
-		rawoutput("</form>");
+		OutputClass::rawoutput("<input name='reason' size='40' id='reason' value=\"$mod_reason_desc\">");
+		OutputClass::rawoutput("</form>");
 		OutputClass::output_notl("`n");
 	}
 
@@ -601,9 +601,9 @@ function talkform($section,$talkline,$limit=10,$schema=false){
 	OutputClass::addnav("",$req);
 	OutputClass::output_notl("<form action=\"$req\" method='POST' autocomplete='false'>",true);
 	previewfield("insertcommentary", $session['user']['name'], $talkline, true, array("size"=>"40", "maxlength"=>200-$tll));
-	rawoutput("<input type='hidden' name='talkline' value='$talkline'>");
-	rawoutput("<input type='hidden' name='schema' value='$schema'>");
-	rawoutput("<input type='hidden' name='counter' value='{$session['counter']}'>");
+	OutputClass::rawoutput("<input type='hidden' name='talkline' value='$talkline'>");
+	OutputClass::rawoutput("<input type='hidden' name='schema' value='$schema'>");
+	OutputClass::rawoutput("<input type='hidden' name='counter' value='{$session['counter']}'>");
 	$session['commentcounter'] = $session['counter'];
 	if ($section=="X"){
 		$vname = Settings::getsetting("villagename", LOCATION_FIELDS);
@@ -623,7 +623,7 @@ function talkform($section,$talkline,$limit=10,$schema=false){
 	if (round($limit/2,0)-$counttoday < 3 && Settings::getsetting('postinglimit',1)){
 		OutputClass::output("`)(You have %s posts left today)`n`0",(round($limit/2,0)-$counttoday));
 	}
-	rawoutput("<div id='previewtext'></div></form>");
+	OutputClass::rawoutput("<div id='previewtext'></div></form>");
 	Translator::tlschema();
 }
 ?>

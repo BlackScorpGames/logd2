@@ -26,7 +26,7 @@ function dag_run_private(){
 		OutputClass::output("`c`bThe Bounty List`b`c`n");
 		$sql = "SELECT bountyid,amount,target,setter,setdate FROM " . db_prefix("bounty") . " WHERE status=0 AND setdate<='".date("Y-m-d H:i:s")."' ORDER BY bountyid ASC";
 		$result = db_query($sql);
-		rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
+		OutputClass::rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
 		$amount = Translator::translate_inline("Amount");
 		$level = Translator::translate_inline("Level");
 		$name = Translator::translate_inline("Name");
@@ -34,7 +34,7 @@ function dag_run_private(){
 		$sex = Translator::translate_inline("Sex");
 		$alive = Translator::translate_inline("Alive");
 		$last = Translator::translate_inline("Last On");
-		rawoutput("<tr class='trhead'><td><b>$amount</b></td><td><b>$level</b></td><td><b>$name</b></td><td><b>$loc</b></td><td><b>$sex</b></td><td><b>$alive</b></td><td><b>$last</b></td>");
+		OutputClass::rawoutput("<tr class='trhead'><td><b>$amount</b></td><td><b>$level</b></td><td><b>$name</b></td><td><b>$loc</b></td><td><b>$sex</b></td><td><b>$alive</b></td><td><b>$last</b></td>");
 		$listing = array();
 		$totlist = 0;
 		for($i=0;$i<db_num_rows($result);$i++){
@@ -72,24 +72,24 @@ function dag_run_private(){
 		else
 			usort($listing, 'dag_sortbountieslevel');
 		for($i=0;$i<$totlist;$i++) {
-			rawoutput("<tr class='".($i%2?"trdark":"trlight")."'><td>");
+			OutputClass::rawoutput("<tr class='".($i%2?"trdark":"trlight")."'><td>");
 			OutputClass::output_notl("`^%s`0", $listing[$i]['Amount']);
-			rawoutput("</td><td>");
+			OutputClass::rawoutput("</td><td>");
 			OutputClass::output_notl("`^%s`0", $listing[$i]['Level']);
-			rawoutput("</td><td>");
+			OutputClass::rawoutput("</td><td>");
 			OutputClass::output_notl("`^%s`0", $listing[$i]['Name']);
-			rawoutput("</td><td>");
+			OutputClass::rawoutput("</td><td>");
 			OutputClass::output($listing[$i]['LoggedIn']?"`#Online`0":$listing[$i]['Location']);
-			rawoutput("</td><td>");
+			OutputClass::rawoutput("</td><td>");
 			OutputClass::output($listing[$i]['Sex']?"`!Female`0":"`!Male`0");
-			rawoutput("</td><td>");
+			OutputClass::rawoutput("</td><td>");
 			OutputClass::output($listing[$i]['Alive']?"`1Yes`0":"`4No`0");
-			rawoutput("</td><td>");
+			OutputClass::rawoutput("</td><td>");
 			$laston = relativedate($listing[$i]['LastOn']);
 			OutputClass::output_notl("%s", $laston);
-			rawoutput("</td></tr>");
+			OutputClass::rawoutput("</td></tr>");
 		}
-		rawoutput("</table>");
+		OutputClass::rawoutput("</table>");
 		// ***END ADDING***
 	}else if ($op=="addbounty"){
 		if (get_module_pref("bounties") >= get_module_setting("maxbounties")) {
@@ -105,16 +105,16 @@ function dag_run_private(){
 			$max = get_module_setting("bountymax");
 			OutputClass::output("Dag Durnick glances up at you and adjusts the pipe in his mouth with his teeth.`n");
 			OutputClass::output("`7\"So, who ye be wantin' to place a hit on? Just so ye be knowing, they got to be legal to be killin', they got to be at least level %s, and they can't be having too much outstandin' bounty nor be getting hit too frequent like, so if they ain't be listed, they can't be contracted on!  We don't run no slaughterhouse here, we run a.....business.  Also, there be a %s%% listin' fee fer any hit ye be placin'.\"`n`n", get_module_setting("bountylevel"), get_module_setting("bountyfee"));
-			rawoutput("<form action='runmodule.php?module=dag&op=finalize' method='POST'>");
+			OutputClass::rawoutput("<form action='runmodule.php?module=dag&op=finalize' method='POST'>");
 			OutputClass::output("`2Target: ");
-			rawoutput("<input name='contractname'>");
+			OutputClass::rawoutput("<input name='contractname'>");
 			OutputClass::output_notl("`n");
 			OutputClass::output("`2Amount to Place: ");
-			rawoutput("<input name='amount' id='amount' width='5'>");
+			OutputClass::rawoutput("<input name='amount' id='amount' width='5'>");
 			OutputClass::output_notl("`n`n");
 			$final = Translator::translate_inline("Finalize Contract");
-			rawoutput("<input type='submit' class='button' value='$final'>");
-			rawoutput("</form>");
+			OutputClass::rawoutput("<input type='submit' class='button' value='$final'>");
+			OutputClass::rawoutput("</form>");
 			OutputClass::addnav("","runmodule.php?module=dag&op=finalize");
 		}
 	}elseif ($op=="finalize") {
@@ -135,22 +135,22 @@ function dag_run_private(){
 			OutputClass::output("Dag Durnick scratches his head in puzzlement, `7\"Ye be describing near half th' town, ye fool?  Why don't ye be giving me a better name now?\"");
 		} elseif(db_num_rows($result) > 1) {
 			OutputClass::output("Dag Durnick searches through his list for a moment, `7\"There be a couple of 'em that ye could be talkin' about.  Which one ye be meaning?\"`n");
-			rawoutput("<form action='runmodule.php?module=dag&op=finalize&subfinal=1' method='POST'>");
+			OutputClass::rawoutput("<form action='runmodule.php?module=dag&op=finalize&subfinal=1' method='POST'>");
 			OutputClass::output("`2Target: ");
-			rawoutput("<select name='contractname'>");
+			OutputClass::rawoutput("<select name='contractname'>");
 			for ($i=0;$i<db_num_rows($result);$i++){
 				$row = db_fetch_assoc($result);
-				rawoutput("<option value=\"".rawurlencode($row['name'])."\">".full_sanitize($row['name'])."</option>");
+				OutputClass::rawoutput("<option value=\"".rawurlencode($row['name'])."\">".full_sanitize($row['name'])."</option>");
 			}
-			rawoutput("</select>");
+			OutputClass::rawoutput("</select>");
 			OutputClass::output_notl("`n`n");
 			$amount = httppost('amount');
 			OutputClass::output("`2Amount to Place: ");
-			rawoutput("<input name='amount' id='amount' width='5' value='$amount'>");
+			OutputClass::rawoutput("<input name='amount' id='amount' width='5' value='$amount'>");
 			OutputClass::output_notl("`n`n");
 			$final = Translator::translate_inline("Finalize Contract");
-			rawoutput("<input type='submit' class='button' value='$final'>");
-			rawoutput("</form>");
+			OutputClass::rawoutput("<input type='submit' class='button' value='$final'>");
+			OutputClass::rawoutput("</form>");
 			OutputClass::addnav("","runmodule.php?module=dag&op=finalize&subfinal=1");
 		} else {
 			// Now, we have just the one, so check it.
@@ -239,7 +239,7 @@ function dag_run_private(){
 				"runmodule.php?module=dag&op=list&sort=bounty");
 		OutputClass::addnav("View by Level", "runmodule.php?module=dag&op=list&sort=level");
 	}
-	rawoutput("</span>");
+	OutputClass::rawoutput("</span>");
 	page_footer();
 }
 ?>

@@ -45,12 +45,12 @@ function game_dice_run(){
 			OutputClass::addnav("Never mind", appendlink(urldecode($ret), "op=oldman"));
 			OutputClass::output("`3\"`!You get to roll a die, and choose to keep or pass on the roll.  If you pass, you get up to two more chances to roll, for a total of three rolls.  Once you keep your roll (or on the third roll), I will do the same.  In the end, if my die is higher than yours, I win, if yours is higher, you win, and if they are a tie, neither of us wins, and we each keep our bet.`3\"`n`n");
 			OutputClass::output("`3\"`!How much would you bet young %s?`3\"", Translator::translate_inline($session['user']['sex']?"lady":"man"));
-			rawoutput("<form action='runmodule.php?module=game_dice&ret=$ret' method='POST'>");
-			rawoutput("<input name='bet' id='bet'>");
+			OutputClass::rawoutput("<form action='runmodule.php?module=game_dice&ret=$ret' method='POST'>");
+			OutputClass::rawoutput("<input name='bet' id='bet'>");
 			$b = Translator::translate_inline("Bet");
-			rawoutput("<input type='submit' class='button' value='$b'>");
-			rawoutput("</form>");
-			rawoutput("<script language='JavaScript'>document.getElementById('bet').focus();</script>");
+			OutputClass::rawoutput("<input type='submit' class='button' value='$b'>");
+			OutputClass::rawoutput("</form>");
+			OutputClass::rawoutput("<script language='JavaScript'>document.getElementById('bet').focus();</script>");
 			OutputClass::addnav("","runmodule.php?module=game_dice&ret=$ret");
 		}else if($bet>$session['user']['gold']){
 			OutputClass::output("`3The old man reaches out with his stick and pokes your coin purse.");

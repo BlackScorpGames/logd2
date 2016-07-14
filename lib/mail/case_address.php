@@ -10,6 +10,6 @@ if ($session['user']['superuser'] & SU_IS_GAMEMASTER) {
 	OutputClass::output_notl("`n`2$from <input name='from' id='from'>`n", true);
 	OutputClass::output("`7`iLeave empty to send from your account!`i");
 }
-rawoutput("</form>");
-rawoutput("<script type='text/javascript'>document.getElementById(\"to\").focus();</script>");
+OutputClass::rawoutput("</form>");
+OutputClass::rawoutput("<script type='text/javascript'>document.getElementById(\"to\").focus();</script>");
 ?>

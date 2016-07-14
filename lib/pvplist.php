@@ -63,8 +63,8 @@ function pvplist($location=false,$link=false,$extra=false,$sql=false){
 	$bio = Translator::translate_inline("Bio");
 	$att = Translator::translate_inline("Attack");
 
-	rawoutput("<table border='0' cellpadding='3' cellspacing='0'>");
-	rawoutput("<tr class='trhead'><td>$n</td><td>$l</td><td>$loc</td><td>$ops</td></tr>");
+	OutputClass::rawoutput("<table border='0' cellpadding='3' cellspacing='0'>");
+	OutputClass::rawoutput("<tr class='trhead'><td>$n</td><td>$l</td><td>$loc</td><td>$ops</td></tr>");
 	$loc_counts = array();
 	$num = count($pvp);
 	$j = 0;
@@ -79,39 +79,39 @@ function pvplist($location=false,$link=false,$extra=false,$sql=false){
 		$j++;
 		$biolink="bio.php?char=".$row['acctid']."&ret=".urlencode($_SERVER['REQUEST_URI']);
 		OutputClass::addnav("", $biolink);
-		rawoutput("<tr class='".($j%2?"trlight":"trdark")."'>");
-		rawoutput("<td>");
+		OutputClass::rawoutput("<tr class='".($j%2?"trlight":"trdark")."'>");
+		OutputClass::rawoutput("<td>");
 		if ($row['clanshort']>"" && $row['clanrank'] > CLAN_APPLICANT) {
 			OutputClass::output_notl("%s&lt;`2%s%s&gt;`0 ",
 					$clanrankcolors[$row['clanrank']], $row['clanshort'],
 					$clanrankcolors[$row['clanrank']], true);
 		}
 		OutputClass::output_notl("`@%s`0", $row['name']);
-		rawoutput("</td>");
-		rawoutput("<td>");
+		OutputClass::rawoutput("</td>");
+		OutputClass::rawoutput("<td>");
 		OutputClass::output_notl("%s", $row['level']);
-		rawoutput("</td>");
-		rawoutput("<td>");
+		OutputClass::rawoutput("</td>");
+		OutputClass::rawoutput("<td>");
 		OutputClass::output_notl("%s", $row['location']);
-		rawoutput("</td>");
-		rawoutput("<td>[ <a href='$biolink'>$bio</a> | ");
+		OutputClass::rawoutput("</td>");
+		OutputClass::rawoutput("<td>[ <a href='$biolink'>$bio</a> | ");
 		if($row['pvpflag']>$pvptimeout){
 			OutputClass::output("`i(Attacked too recently)`i");
 		}elseif ($location!=$row['location']){
 			OutputClass::output("`i(Can't reach them from here)`i");
 		}else{
-			rawoutput("<a href='$link$extra&name=".$row['acctid']."'>$att</a>");
+			OutputClass::rawoutput("<a href='$link$extra&name=".$row['acctid']."'>$att</a>");
 			OutputClass::addnav("","$link$extra&name=".$row['acctid']);
 		}
-		rawoutput(" ]</td>");
-		rawoutput("</tr>");
+		OutputClass::rawoutput(" ]</td>");
+		OutputClass::rawoutput("</tr>");
 	}
 
 	if (!isset($loc_counts[$location]) || $loc_counts[$location]==0){
 		$noone = Translator::translate_inline("`iThere are no available targets.`i");
 		OutputClass::output_notl("<tr><td align='center' colspan='4'>$noone</td></tr>", true);
 	}
-	rawoutput("</table>",true);
+	OutputClass::rawoutput("</table>",true);
 
 	if ($num != 0 && (!isset($loc_counts[$location]) ||
 				$loc_counts[$location] != $num)) {

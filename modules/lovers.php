@@ -103,7 +103,7 @@ function lovers_run(){
 	require_once("lib/villagenav.php");
 	$iname = Settings::getsetting("innname", LOCATION_INN);
 	PageParts::page_header($iname);
-	rawoutput("<span style='color: #9900FF'>");
+	OutputClass::rawoutput("<span style='color: #9900FF'>");
 	OutputClass::output_notl("`c`b");
 	OutputClass::output($iname);
 	OutputClass::output_notl("`b`c");
@@ -130,7 +130,7 @@ function lovers_run(){
 	OutputClass::addnav("Return");
 	OutputClass::addnav("I?Return to the Inn","inn.php");
 	villagenav();
-	rawoutput("</span>");
+	OutputClass::rawoutput("</span>");
 	page_footer();
 }
 

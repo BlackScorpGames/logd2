@@ -21,15 +21,15 @@ if (!($session['user']['loggedin'] && $session['user']['superuser'] & SU_VIEW_SO
 	OutputClass::output("You may download the entirety of the latest publically released stable version from <a href='http://www.dragonprime.net' target='_blank'>DragonPrime</a>.", true);
 	OutputClass::output("You may then work with that code within the restrictions of its license.");
 	OutputClass::output("`n`nHopefully this will help put an end to actions like the following:");
-	rawoutput("<ul><li>");
+	OutputClass::rawoutput("<ul><li>");
 	OutputClass::output("Releasing code which they do not own without permission.");
-	rawoutput("</li><li>");
+	OutputClass::rawoutput("</li><li>");
 	OutputClass::output("Removing valid copyright information from code and replacing it.");
-	rawoutput("</li><li>");
+	OutputClass::rawoutput("</li><li>");
 	OutputClass::output("Removing portions of the code required to be kept intact by licensing.");
-	rawoutput("</li><li>");
+	OutputClass::rawoutput("</li><li>");
 	OutputClass::output("Claiming copyright of items which they did not create.");
-	rawoutput("</li></ul>");
+	OutputClass::rawoutput("</li></ul>");
 	popup_footer();
 } else {
 	$legal_start_dirs = array(
@@ -86,13 +86,13 @@ if (!($session['user']['loggedin'] && $session['user']['superuser'] & SU_VIEW_SO
 	);
 	$legal_files=array();
 
-	rawoutput("<h1>");
+	OutputClass::rawoutput("<h1>");
 	OutputClass::output("View Source: ");
 	OutputClass::output_notl("%s", htmlentities($url, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
-	rawoutput("</h1>");
+	OutputClass::rawoutput("</h1>");
 	if($url) OutputClass::output("<a href='#source'>Click here for the source,</a> OR`n", true);
 	OutputClass::output("`bOther files that you may wish to view the source of:`b");
-	rawoutput("<ul>");
+	OutputClass::rawoutput("<ul>");
 	// Gather all the legal dirs
 	$legal_dirs = array();
 	foreach ($legal_start_dirs as $dir=>$value) {
@@ -139,7 +139,7 @@ if (!($session['user']['loggedin'] && $session['user']['superuser'] & SU_VIEW_SO
 		$key2 = $key1;
 		$skey = "//" . $key1;
 		if ($key != $select_dir) {
-			rawoutput("<li>Folder: <a href='source.php?dir=$key1'>".($key1==""?"/":$key1)."</a></li>\n");
+			OutputClass::rawoutput("<li>Folder: <a href='source.php?dir=$key1'>".($key1==""?"/":$key1)."</a></li>\n");
 			continue;
 		}
 
@@ -158,36 +158,36 @@ if (!($session['user']['loggedin'] && $session['user']['superuser'] & SU_VIEW_SO
 					if ($illegal_files["$key2$entry"]=="X"){
 					//we're hiding the file completely.
 					}else{
-					rawoutput("<li>$key1$entry");
+					OutputClass::rawoutput("<li>$key1$entry");
 					$reason = Translator::translate_inline($illegal_files[$key2 . $entry]);
 					OutputClass::output("&#151; This file cannot be viewed: %s", $reason, true);
-					rawoutput("</li>\n");
+					OutputClass::rawoutput("</li>\n");
 					}
 			}else{
-				rawoutput("<li><a href='source.php?url=$key1$entry&amp;dir=$key1'>$key1$entry</a> &#151; ".date("Y-m-d H:i:s",filemtime($key."/".$entry))."</li>\n");
+				OutputClass::rawoutput("<li><a href='source.php?url=$key1$entry&amp;dir=$key1'>$key1$entry</a> &#151; ".date("Y-m-d H:i:s",filemtime($key."/".$entry))."</li>\n");
 				$legal_files["$key1$entry"]=true;
 			}
 		}
 	}
-	rawoutput("</ul>");
+	OutputClass::rawoutput("</ul>");
 	if ($url) {
-		rawoutput("<h1><a name='source'>");
+		OutputClass::rawoutput("<h1><a name='source'>");
 		OutputClass::output("Source of: %s", htmlentities($url, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
-		rawoutput("</a></h1>");
+		OutputClass::rawoutput("</a></h1>");
 
 		$page_name = $url;
 		if (substr($page_name,0,1)=="/") $page_name=substr($page_name,1);
 		if ($legal_files[$url]){
-			rawoutput("<table bgcolor=#cccccc>");
-			rawoutput("<tr><td>");
-			rawoutput("<font size=-1>");
+			OutputClass::rawoutput("<table bgcolor=#cccccc>");
+			OutputClass::rawoutput("<tr><td>");
+			OutputClass::rawoutput("<font size=-1>");
 			ob_start();
 			show_source($page_name);
 			$t = ob_get_contents();
 			ob_end_clean();
-			rawoutput($t);
-			rawoutput("</font>", true);
-			rawoutput("</td></tr></table>", true);
+			OutputClass::rawoutput($t);
+			OutputClass::rawoutput("</font>", true);
+			OutputClass::rawoutput("</td></tr></table>", true);
 		}else if ($illegal_files[$url]!="" && $illegal_files[$url]!="X"){
 			$reason = Translator::translate_inline($illegal_files[$url]);
 			OutputClass::output("`nCannot view this file: %s`n", $reason);

@@ -231,7 +231,7 @@ if ($logd_version != Settings::getsetting("installer_version","-1") && !defined(
 	OutputClass::output("In order to perform the upgrade, an admin will have to run through the installer.");
 	OutputClass::output("If you are an admin, please <a href='installer.php'>visit the Installer</a> and complete the upgrade process.`n`n",true);
 	OutputClass::output("`@If you don't know what this all means, just sit tight, we're doing an upgrade and will be done soon, you will be automatically returned to the game when the upgrade is complete.");
-	rawoutput("<meta http-equiv='refresh' content='30; url={$session['user']['restorepage']}'>");
+	OutputClass::rawoutput("<meta http-equiv='refresh' content='30; url={$session['user']['restorepage']}'>");
 	OutputClass::addnav("Installer (Admins only!)","installer.php");
 	define("NO_SAVE_USER",true);
 	page_footer();

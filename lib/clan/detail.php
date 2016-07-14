@@ -27,28 +27,28 @@
 	$result1 = db_query_cached($sql, "clandata-$detail", 3600);
 	$row1 = db_fetch_assoc($result1);
 	if ($session['user']['superuser'] & SU_EDIT_COMMENTS){
-		rawoutput("<div id='hidearea'>");
-		rawoutput("<form action='clan.php?detail=$detail' method='POST'>");
+		OutputClass::rawoutput("<div id='hidearea'>");
+		OutputClass::rawoutput("<form action='clan.php?detail=$detail' method='POST'>");
 		OutputClass::addnav("","clan.php?detail=$detail");
 		OutputClass::output("Superuser / Moderator renaming:`n");
 		OutputClass::output("Long Name: ");
-		rawoutput("<input name='clanname' value=\"".htmlentities($row1['clanname'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" maxlength=50 size=50>");
+		OutputClass::rawoutput("<input name='clanname' value=\"".htmlentities($row1['clanname'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" maxlength=50 size=50>");
 		OutputClass::output("`nShort Name: ");
-		rawoutput("<input name='clanshort' value=\"".htmlentities($row1['clanshort'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" maxlength=5 size=5>");
+		OutputClass::rawoutput("<input name='clanshort' value=\"".htmlentities($row1['clanshort'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" maxlength=5 size=5>");
 		OutputClass::output_notl("`n");
 		$save = Translator::translate_inline("Save");
-		rawoutput("<input type='submit' class='button' value=\"$save\">");
+		OutputClass::rawoutput("<input type='submit' class='button' value=\"$save\">");
 		$snu = htmlentities(Translator::translate_inline("Save & UNblock public description"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
 		$snb = htmlentities(Translator::translate_inline("Save & Block public description"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
 		if ($row1['descauthor']=="4294967295")
-			rawoutput("<input type='submit' name='unblock' value=\"$snu\" class='button'>");
+			OutputClass::rawoutput("<input type='submit' name='unblock' value=\"$snu\" class='button'>");
 		else
-			rawoutput("<input type='submit' name='block' value=\"$snb\" class='button'>");
-		rawoutput("</form>");
-		rawoutput("</div>");
-		rawoutput("<script language='JavaScript'>var hidearea = document.getElementById('hidearea');hidearea.style.visibility='hidden';hidearea.style.display='none';</script>",true);
+			OutputClass::rawoutput("<input type='submit' name='block' value=\"$snb\" class='button'>");
+		OutputClass::rawoutput("</form>");
+		OutputClass::rawoutput("</div>");
+		OutputClass::rawoutput("<script language='JavaScript'>var hidearea = document.getElementById('hidearea');hidearea.style.visibility='hidden';hidearea.style.display='none';</script>",true);
 		$e = Translator::translate_inline("Edit Clan Info");
-		rawoutput("<a href='#' onClick='hidearea.style.visibility=\"visible\"; hidearea.style.display=\"inline\"; return false;'>$e</a>",true);
+		OutputClass::rawoutput("<a href='#' onClick='hidearea.style.visibility=\"visible\"; hidearea.style.display=\"inline\"; return false;'>$e</a>",true);
 		OutputClass::output_notl("`n");
 	}
 
@@ -61,8 +61,8 @@
 	$name = Translator::translate_inline("Name");
 	$dk = Translator::translate_inline("Dragon Kills");
 	$jd = Translator::translate_inline("Join Date");
-	rawoutput("<table border='0' cellpadding='2' cellspacing='0'>");
-	rawoutput("<tr class='trhead'><td>$rank</td><td>$name</td><td>$dk</td><td>$jd</td></tr>");
+	OutputClass::rawoutput("<table border='0' cellpadding='2' cellspacing='0'>");
+	OutputClass::rawoutput("<tr class='trhead'><td>$rank</td><td>$name</td><td>$dk</td><td>$jd</td></tr>");
 	$i=0;
 	$sql = "SELECT acctid,name,login,clanrank,clanjoindate,dragonkills FROM " . db_prefix("accounts") . " WHERE clanid=$detail ORDER BY clanrank DESC,clanjoindate";
 	$result = db_query($sql);
@@ -75,21 +75,21 @@
 	while ($row=db_fetch_assoc($result)){
 		$i++;
 		$tot += $row['dragonkills'];
-		rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
-		rawoutput("<td>");
+		OutputClass::rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+		OutputClass::rawoutput("<td>");
 		OutputClass::output_notl($ranks[$row['clanrank']]); //translated earlier
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		$link = "bio.php?char=".$row['acctid']."&ret=".urlencode($_SERVER['REQUEST_URI']);
-		rawoutput("<a href='$link'>");
+		OutputClass::rawoutput("<a href='$link'>");
 		OutputClass::addnav("", $link);
 		OutputClass::output_notl("`&%s`0", $row['name']);
-		rawoutput("</a>");
-		rawoutput("</td><td align='center'>");
+		OutputClass::rawoutput("</a>");
+		OutputClass::rawoutput("</td><td align='center'>");
 		OutputClass::output_notl("`\$%s`0", $row['dragonkills']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl("`3%s`0", $row['clanjoindate']);
-		rawoutput("</td></tr>");
+		OutputClass::rawoutput("</td></tr>");
 	}
-	rawoutput("</table>");
+	OutputClass::rawoutput("</table>");
 	OutputClass::output("`n`n`^This clan has a total of `\$%s`^ dragon kills.",$tot);
 ?>

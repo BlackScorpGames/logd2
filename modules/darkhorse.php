@@ -112,12 +112,12 @@ function darkhorse_bartender($from){
 		OutputClass::output("\"`%Sho you want to know about colorsh, do you?`0\" he asks.`n`n");
 		OutputClass::output("You are about to answer when you realize the question was rhetorical.`n`n");
 		OutputClass::output("He continues, \"`%To do colorsh, here'sh what you need to do.  Firsht, you ushe a &#0096; mark (found right above the tab key) followed by 1, 2, 3, 4, 5, 6, 7, !, @, #, $, %, ^, &, ), q or Q.  Each of thoshe correshpondsh with a color to look like this: `n`1&#0096;1 `2&#0096;2 `3&#0096;3 `4&#0096;4 `5&#0096;5 `6&#0096;6 `7&#0096;7 `n`!&#0096;! `@&#0096;@ `#&#0096;# `\$&#0096;\$ `%&#0096;% `^&#0096;^ `&&#0096;& `n `)&#0096;) `q&#0096;q `Q&#0096;Q `n`% got it?`0\"`n  You can practice below:", true);
-		rawoutput("<form action=\"".$from."op=bartender&what=colors\" method='POST'>");
+		OutputClass::rawoutput("<form action=\"".$from."op=bartender&what=colors\" method='POST'>");
 		$testtext = httppost('testtext');
 		$try = Translator::translate_inline("Try");
-		rawoutput("<input name='testtext' id='testtext'><input type='submit' class='button' value='$try'></form>");
+		OutputClass::rawoutput("<input name='testtext' id='testtext'><input type='submit' class='button' value='$try'></form>");
 		OutputClass::addnav("",$from."op=bartender&what=colors");
-		rawoutput("<script language='JavaScript'>document.getElementById('testtext').focus();</script>");
+		OutputClass::rawoutput("<script language='JavaScript'>document.getElementById('testtext').focus();</script>");
 		if ($testtext) {
 			OutputClass::output("`0You entered %s`n", prevent_colors(HTMLEntities($testtext, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))),true);
 			OutputClass::output("It looks like %s`n", $testtext);
@@ -130,9 +130,9 @@ function darkhorse_bartender($from){
 			$subop = Http::httpget('subop');
 			if ($subop!="search"){
 				$search = Translator::translate_inline("Search");
-				rawoutput("<form action='".$from."op=bartender&what=enemies&subop=search' method='POST'><input name='name' id='name'><input type='submit' class='button' value='$search'></form>");
+				OutputClass::rawoutput("<form action='".$from."op=bartender&what=enemies&subop=search' method='POST'><input name='name' id='name'><input type='submit' class='button' value='$search'></form>");
 				OutputClass::addnav("",$from."op=bartender&what=enemies&subop=search");
-				rawoutput("<script language='JavaScript'>document.getElementById('name').focus();</script>");
+				OutputClass::rawoutput("<script language='JavaScript'>document.getElementById('name').focus();</script>");
 			}else{
 				OutputClass::addnav("Search Again",$from."op=bartender&what=enemies");
 				$search = "%";
@@ -149,15 +149,15 @@ function darkhorse_bartender($from){
 				}
 				$n = Translator::translate_inline("Name");
 				$lev = Translator::translate_inline("Level");
-				rawoutput("<table border=0 cellpadding=0><tr><td>$n</td><td>$lev</td></tr>");
+				OutputClass::rawoutput("<table border=0 cellpadding=0><tr><td>$n</td><td>$lev</td></tr>");
 				for ($i=0;$i<$max;$i++){
 					$row = db_fetch_assoc($result);
-					rawoutput("<tr><td><a href='".$from."op=bartender&what=enemies&who=".rawurlencode($row['login'])."'>");
+					OutputClass::rawoutput("<tr><td><a href='".$from."op=bartender&what=enemies&who=".rawurlencode($row['login'])."'>");
 					OutputClass::output_notl("%s", $row['name']);
-					rawoutput("</a></td><td>{$row['level']}</td></tr>");
+					OutputClass::rawoutput("</a></td><td>{$row['level']}</td></tr>");
 					OutputClass::addnav("",$from."op=bartender&what=enemies&who=".rawurlencode($row['login']));
 				}
-				rawoutput("</table>");
+				OutputClass::rawoutput("</table>");
 			}
 		}else{
 			if ($session['user']['gold']>=100){
@@ -222,7 +222,7 @@ function darkhorse_runevent($type, $link){
 	require_once("lib/sanitize.php");
 	$iname = get_module_setting("tavernname");
 
-	rawoutput("<span style='color: #787878'>");
+	OutputClass::rawoutput("<span style='color: #787878'>");
 	OutputClass::output_notl("`c`b%s`b`c",$iname);
 	$op = Http::httpget('op');
 	switch($op){
@@ -303,7 +303,7 @@ function darkhorse_runevent($type, $link){
 		$session['user']['specialinc']="";
 		break;
 	}
-	rawoutput("</span>");
+	OutputClass::rawoutput("</span>");
 }
 
 function darkhorse_run(){

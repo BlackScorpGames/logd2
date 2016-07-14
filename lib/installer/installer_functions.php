@@ -14,7 +14,7 @@ function create_db($dbname){
 	}else{
 		OutputClass::output("`\$It seems I was not successful.`2 ");
 		OutputClass::output("The error returned by the database server was:");
-		rawoutput("<blockquote>$error</blockquote>");
+		OutputClass::rawoutput("<blockquote>$error</blockquote>");
 	}
 
 }
@@ -24,11 +24,11 @@ function tip(){
 	global $tipid;
 	$tip = Translator::translate_inline("Tip");
 	OutputClass::output_notl("<div style='cursor: pointer; cursor: hand; display: inline;' onMouseOver=\"tip$tipid.style.visibility='visible'; tip$tipid.style.display='inline';\" onMouseOut=\"tip$tipid.style.visibility='hidden'; tip$tipid.style.display='none';\">`i[ `b{$tip}`b ]`i",true);
-	rawoutput("<div class='debug' id='tip$tipid' style='position: absolute; width: 200px; max-width: 200px; float: right;'>");
+	OutputClass::rawoutput("<div class='debug' id='tip$tipid' style='position: absolute; width: 200px; max-width: 200px; float: right;'>");
 	$args = func_get_args();
 	call_user_func_array("OutputClass::output",$args);
-	rawoutput("</div></div>");
-	rawoutput("<script language='JavaScript'>var tip$tipid = document.getElementById('tip$tipid'); tip$tipid.style.visibility='hidden'; tip$tipid.style.display='none';</script>");
+	OutputClass::rawoutput("</div></div>");
+	OutputClass::rawoutput("<script language='JavaScript'>var tip$tipid = document.getElementById('tip$tipid'); tip$tipid.style.visibility='hidden'; tip$tipid.style.display='none';</script>");
 	$tipid++;
 }
 

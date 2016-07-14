@@ -2,7 +2,7 @@
 Translator::tlschema("faq");
 popup_header("Specific and Technical Questions");
 $c = Translator::translate_inline("Return to Contents");
-rawoutput("<a href='petition.php?op=faq'>$c</a><hr>");
+OutputClass::rawoutput("<a href='petition.php?op=faq'>$c</a><hr>");
 OutputClass::output("`n`n`c`bSpecific and technical questions`b`c`n");
 OutputClass::output("`^1.a. How can I have been killed by another player while I was currently playing?`n");
 OutputClass::output("`@The biggest cause of this is someone who began attacking you while you were offline, and completed the fight while you were online.");
@@ -36,5 +36,5 @@ OutputClass::output("a) To file a petition.`n");
 OutputClass::output("b) To write and receive Ye Olde Mail.`n");
 OutputClass::output("c) To make sure you see our newest Message of the Day (MoTD).`n");
 OutputClass::output("That last one is very important, since until you've viewed it the window will continue to try to open on every page load. These messages are for server announcements such as outages, current known bugs (which you really don't have to petition about, since we already know of them), and other things that the staff think you need to know about right away.`n`n");
-rawoutput("<hr><a href='petition.php?op=faq'>$c</a>");
+OutputClass::rawoutput("<hr><a href='petition.php?op=faq'>$c</a>");
 ?>

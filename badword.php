@@ -21,10 +21,10 @@ OutputClass::addnav("Refresh the list","badword.php");
 OutputClass::output("`7Here you can edit the words that the game filters.  Using * at the start or end of a word will be a wildcard matching anything else attached to the word.  These words are only filtered if bad word filtering is turned on in the game settings page.`n`n`0");
 
 $test = Translator::translate_inline("Test");
-rawoutput("<form action='badword.php?op=test' method='POST'>");
+OutputClass::rawoutput("<form action='badword.php?op=test' method='POST'>");
 OutputClass::addnav("","badword.php?op=test");
 OutputClass::output("`7Test a word:`0");
-rawoutput("<input name='word'><input type='submit' class='button' value='$test'></form>");
+OutputClass::rawoutput("<input name='word'><input type='submit' class='button' value='$test'></form>");
 if ($op=="test"){
 	$word = httppost("word");
 	$return = soap($word,true);
@@ -36,19 +36,19 @@ if ($op=="test"){
 
 OutputClass::output_notl("<font size='+1'>", true);
 OutputClass::output("`7`bGood Words`b`0");
-rawoutput("</font>");
+OutputClass::rawoutput("</font>");
 OutputClass::output("`7 (bad word exceptions)`0`n");
 
 $add = Translator::translate_inline("Add");
 $remove = Translator::translate_inline("Remove");
-rawoutput("<form action='badword.php?op=addgood' method='POST'>");
+OutputClass::rawoutput("<form action='badword.php?op=addgood' method='POST'>");
 OutputClass::addnav("","badword.php?op=addgood");
 OutputClass::output("`7Add a word:`0");
-rawoutput("<input name='word'><input type='submit' class='button' value='$add'></form>");
-rawoutput("<form action='badword.php?op=removegood' method='POST'>");
+OutputClass::rawoutput("<input name='word'><input type='submit' class='button' value='$add'></form>");
+OutputClass::rawoutput("<form action='badword.php?op=removegood' method='POST'>");
 OutputClass::addnav("","badword.php?op=removegood");
 OutputClass::output("`7Remove a word:`0");
-rawoutput("<input name='word'><input type='submit' class='button' value='$remove'></form>");
+OutputClass::rawoutput("<input name='word'><input type='submit' class='button' value='$remove'></form>");
 
 
 $sql = "SELECT * FROM ".db_prefix("nastywords")." WHERE type='good'";
@@ -97,19 +97,19 @@ if ($op=="addgood" || $op=="removegood"){
 }
 
 OutputClass::output_notl("`0`n`n");
-rawoutput("<font size='+1'>");
+OutputClass::rawoutput("<font size='+1'>");
 OutputClass::output("`7`bNasty Words`b`0");
-rawoutput("</font>");
+OutputClass::rawoutput("</font>");
 OutputClass::output_notl("`n");
 
-rawoutput("<form action='badword.php?op=add' method='POST'>");
+OutputClass::rawoutput("<form action='badword.php?op=add' method='POST'>");
 OutputClass::addnav("","badword.php?op=add");
 OutputClass::output("`7Add a word:`0");
-rawoutput("<input name='word'><input type='submit' class='button' value='$add'></form>");
-rawoutput("<form action='badword.php?op=remove' method='POST'>");
+OutputClass::rawoutput("<input name='word'><input type='submit' class='button' value='$add'></form>");
+OutputClass::rawoutput("<form action='badword.php?op=remove' method='POST'>");
 OutputClass::addnav("","badword.php?op=remove");
 OutputClass::output("`7Remove a word:`0");
-rawoutput("<input name='word'><input type='submit' class='button' value='$remove'></form>");
+OutputClass::rawoutput("<input name='word'><input type='submit' class='button' value='$remove'></form>");
 
 $sql = "SELECT * FROM " . db_prefix("nastywords") . " WHERE type='nasty'";
 $result = db_query($sql);

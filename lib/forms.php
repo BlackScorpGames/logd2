@@ -7,7 +7,7 @@ function previewfield($name, $startdiv=false, $talkline="says", $showcharsleft=t
 
 	if ($startdiv === false)
 		$startdiv = "";
-	rawoutput("<script language='JavaScript'>
+	OutputClass::rawoutput("<script language='JavaScript'>
 				function previewtext$name(t,l){
 					var out = \"<span class=\\'colLtWhite\\'>".addslashes(appoencode($startdiv))." \";
 					var end = '</span>';
@@ -17,7 +17,7 @@ function previewfield($name, $startdiv=false, $talkline="says", $showcharsleft=t
 					var max=document.getElementById('input$name');
 					var charsleft='';");
 	if ($talkline !== false) {
-		rawoutput("	if (t.substr(0,2)=='::'){
+		OutputClass::rawoutput("	if (t.substr(0,2)=='::'){
 						x=2;
 						out += '</span><span class=\\'colLtWhite\\'>';
 					}else if (t.substr(0,1)==':'){
@@ -27,12 +27,12 @@ function previewfield($name, $startdiv=false, $talkline="says", $showcharsleft=t
 						x=3;
 						out += '</span><span class=\\'colLtWhite\\'>';");
 		if ($session['user']['superuser']&SU_IS_GAMEMASTER) {
-			rawoutput("
+			OutputClass::rawoutput("
 					}else if (t.substr(0,5)=='/game'){
 						x=5;
 						out = '<span class=\\'colLtWhite\\'>';");
 		}
-		rawoutput("	}else{
+		OutputClass::rawoutput("	}else{
 						out += '</span><span class=\\'colDkCyan\\'>".addslashes(appoencode($talkline)).", \"</span><span class=\\'colLtCyan\\'>';
 						end += '</span><span class=\\'colDkCyan\\'>\"';
 					}");
@@ -41,10 +41,10 @@ function previewfield($name, $startdiv=false, $talkline="says", $showcharsleft=t
 /*		if (Translator::translate_inline($talkline,$schema)!="says")
 		$tll = strlen(Translator::translate_inline($talkline,$schema))+11;
 		else $tll=0;  // Don't know why needed
-		rawoutput("	if (x!=0) {
+		OutputClass::rawoutput("	if (x!=0) {
 						if (max.maxlength!=200-$tll) max.maxlength=200-$tll;
 						l=200-$tll; */ // Don't know why needed
-		rawoutput("	if (x!=0) {
+		OutputClass::rawoutput("	if (x!=0) {
 						if (max.maxLength!=200) max.maxLength=200;
 						l=200;
 					} else {
@@ -55,7 +55,7 @@ function previewfield($name, $startdiv=false, $talkline="says", $showcharsleft=t
 					if (l-t.length<0) charsleft +='</span>';
 					document.getElementById('charsleft$name').innerHTML=charsleft+'<br/>';");
 	}
-	rawoutput("		for (; x < t.length; x++){
+	OutputClass::rawoutput("		for (; x < t.length; x++){
 						y = t.substr(x,1);
 						if (y=='<'){
 							out += '&lt;';
@@ -167,13 +167,13 @@ function previewfield($name, $startdiv=false, $talkline="says", $showcharsleft=t
 				</script>
 				");
 	if ($charsleft == true) {
-		rawoutput("<span id='charsleft$name'></span>");
+		OutputClass::rawoutput("<span id='charsleft$name'></span>");
 	}
 	if (!is_array($info)) {
 		if ($default) {
-			rawoutput("<input name='$name' id='input$name' maxlength='255' onKeyUp='previewtext$name(document.getElementById(\"input$name\").value,200);' value='$default'>");
+			OutputClass::rawoutput("<input name='$name' id='input$name' maxlength='255' onKeyUp='previewtext$name(document.getElementById(\"input$name\").value,200);' value='$default'>");
 		} else {
-			rawoutput("<input name='$name' id='input$name' maxlength='255' onKeyUp='previewtext$name(document.getElementById(\"input$name\").value,200);'>");
+			OutputClass::rawoutput("<input name='$name' id='input$name' maxlength='255' onKeyUp='previewtext$name(document.getElementById(\"input$name\").value,200);'>");
 		}
 	} else {
 		if (isset($info['maxlength'])) {
@@ -182,27 +182,27 @@ function previewfield($name, $startdiv=false, $talkline="says", $showcharsleft=t
 			$l=200;
 		}
 		if (isset($info['type']) && $info['type'] == 'textarea') {
-			rawoutput("<textarea name='$name' id='input$name' onKeyUp='previewtext$name(document.getElementById(\"input$name\").value,$l);' ");
+			OutputClass::rawoutput("<textarea name='$name' id='input$name' onKeyUp='previewtext$name(document.getElementById(\"input$name\").value,$l);' ");
 		} else {
-			rawoutput("<input name='$name' id='input$name' onKeyUp='previewtext$name(document.getElementById(\"input$name\").value,$l);' ");
+			OutputClass::rawoutput("<input name='$name' id='input$name' onKeyUp='previewtext$name(document.getElementById(\"input$name\").value,$l);' ");
 		}
 		foreach ($info as $key=>$val){
-			rawoutput("$key='$val'");
+			OutputClass::rawoutput("$key='$val'");
 		}
 		if (isset($info['type']) && $info['type'] == 'textarea') {
-			rawoutput(">");
+			OutputClass::rawoutput(">");
 			if ($default) {
-				rawoutput($default);
+				OutputClass::rawoutput($default);
 			}
-			rawoutput("</textarea>");
+			OutputClass::rawoutput("</textarea>");
 		} else {
 			if ($default) {
-				rawoutput(" value='$default'>");
+				OutputClass::rawoutput(" value='$default'>");
 			} else {
-				rawoutput(">");
+				OutputClass::rawoutput(">");
 			}
 		}
 	}
-	rawoutput("<div id='previewtext$name'></div>");
+	OutputClass::rawoutput("<div id='previewtext$name'></div>");
 }
 ?>

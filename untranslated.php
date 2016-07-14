@@ -37,54 +37,54 @@ if ($op == "list") {
 	}
 
 	if ($mode == "edit") {
-		rawoutput("<form action='untranslated.php?op=list&mode=save&ns=".rawurlencode($namespace)."' method='post'>");
+		OutputClass::rawoutput("<form action='untranslated.php?op=list&mode=save&ns=".rawurlencode($namespace)."' method='post'>");
 		OutputClass::addnav("", "untranslated.php?op=list&mode=save&ns=".rawurlencode($namespace));
 	} else {
-		rawoutput("<form action='untranslated.php?op=list' method='get'>");
+		OutputClass::rawoutput("<form action='untranslated.php?op=list' method='get'>");
 		OutputClass::addnav("", "untranslated.php?op=list");
 	}
 
 	$sql = "SELECT namespace,count(*) AS c FROM " . db_prefix("untranslated") . " WHERE language='".$session['user']['prefs']['language']."' GROUP BY namespace ORDER BY namespace ASC";
 	$result = db_query($sql);
-	rawoutput("<input type='hidden' name='op' value='list'>");
+	OutputClass::rawoutput("<input type='hidden' name='op' value='list'>");
 	OutputClass::output("Known Namespaces:");
-	rawoutput("<select name='ns'>");
+	OutputClass::rawoutput("<select name='ns'>");
 	while ($row = db_fetch_assoc($result)){
-		rawoutput("<option value=\"".htmlentities($row['namespace'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"".((htmlentities($row['namespace'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")) == $namespace) ? "selected" : "").">".htmlentities($row['namespace'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))." ({$row['c']})</option>");
+		OutputClass::rawoutput("<option value=\"".htmlentities($row['namespace'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"".((htmlentities($row['namespace'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")) == $namespace) ? "selected" : "").">".htmlentities($row['namespace'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))." ({$row['c']})</option>");
 	}
-	rawoutput("</select>");
-	rawoutput("<input type='submit' class='button' value='". Translator::translate_inline("Show") ."'>");
-	rawoutput("<br>");
+	OutputClass::rawoutput("</select>");
+	OutputClass::rawoutput("<input type='submit' class='button' value='". Translator::translate_inline("Show") ."'>");
+	OutputClass::rawoutput("<br>");
 
 	if ($mode == "edit") {
-		rawoutput(Translator::translate_inline("Text:"). "<br>");
-		rawoutput("<textarea name='intext' cols='60' rows='5' readonly>".htmlentities(stripslashes(Http::httpget('intext')), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
-		rawoutput(Translator::translate_inline("Translation:"). "<br>");
-		rawoutput("<textarea name='outtext' cols='60' rows='5'></textarea><br/>");
-		rawoutput("<input type='submit' value='". Translator::translate_inline("Save") ."' class='button'>");
+		OutputClass::rawoutput(Translator::translate_inline("Text:"). "<br>");
+		OutputClass::rawoutput("<textarea name='intext' cols='60' rows='5' readonly>".htmlentities(stripslashes(Http::httpget('intext')), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
+		OutputClass::rawoutput(Translator::translate_inline("Translation:"). "<br>");
+		OutputClass::rawoutput("<textarea name='outtext' cols='60' rows='5'></textarea><br/>");
+		OutputClass::rawoutput("<input type='submit' value='". Translator::translate_inline("Save") ."' class='button'>");
 	} else {
-		rawoutput("<table border='0' cellpadding='2' cellspacing='0'>");
-		rawoutput("<tr class='trhead'><td>". Translator::translate_inline("Ops") ."</td><td>". Translator::translate_inline("Text") ."</td></tr>");
+		OutputClass::rawoutput("<table border='0' cellpadding='2' cellspacing='0'>");
+		OutputClass::rawoutput("<tr class='trhead'><td>". Translator::translate_inline("Ops") ."</td><td>". Translator::translate_inline("Text") ."</td></tr>");
 		$sql = "SELECT * FROM " . db_prefix("untranslated") . " WHERE language='".$session['user']['prefs']['language']."' AND namespace='".$namespace."'";
 		$result = db_query($sql);
 		if (db_num_rows($result)>0){
 			$i = 0;
 			while ($row = db_fetch_assoc($result)){
 				$i++;
-				rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td>");
-				rawoutput("<a href='untranslated.php?op=list&mode=edit&ns=". rawurlencode($row['namespace']) ."&intext=". rawurlencode($row['intext']) ."'>". Translator::translate_inline("Edit") ."</a>");
+				OutputClass::rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td>");
+				OutputClass::rawoutput("<a href='untranslated.php?op=list&mode=edit&ns=". rawurlencode($row['namespace']) ."&intext=". rawurlencode($row['intext']) ."'>". Translator::translate_inline("Edit") ."</a>");
 				OutputClass::addnav("", "untranslated.php?op=list&mode=edit&ns=". rawurlencode($row['namespace']) ."&intext=". rawurlencode($row['intext']));
-				rawoutput("</td><td>");
-				rawoutput(htmlentities($row['intext'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
-				rawoutput("</td></tr>");
+				OutputClass::rawoutput("</td><td>");
+				OutputClass::rawoutput(htmlentities($row['intext'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
+				OutputClass::rawoutput("</td></tr>");
 			}
 		}else{
-			rawoutput("<tr><td colspan='2'>". Translator::translate_inline("No rows found") ."</td></tr>");
+			OutputClass::rawoutput("<tr><td colspan='2'>". Translator::translate_inline("No rows found") ."</td></tr>");
 		}
-		rawoutput("</table>");
+		OutputClass::rawoutput("</table>");
 	}
 
-	rawoutput("</form>");
+	OutputClass::rawoutput("</form>");
 
 } else {
 	if ($op == "step2") {
@@ -112,25 +112,25 @@ if ($op == "list") {
 			$row['intext'] = stripslashes($row['intext']);
 			$submit = Translator::translate_inline("Save Translation");
 			$skip = Translator::translate_inline("Skip Translation");
-			rawoutput("<form action='untranslated.php?op=step2' method='post'>");
+			OutputClass::rawoutput("<form action='untranslated.php?op=step2' method='post'>");
 			OutputClass::output("`^`cThere are `&%s`^ untranslated texts in the database.`c`n`n", $count['count']);
-			rawoutput("<table width='80%'>");
-			rawoutput("<tr><td width='30%'>");
+			OutputClass::rawoutput("<table width='80%'>");
+			OutputClass::rawoutput("<tr><td width='30%'>");
 			OutputClass::output("Target Language: %s", $row['language']);
-			rawoutput("</td><td></td></tr>");
-			rawoutput("<tr><td width='30%'>");
+			OutputClass::rawoutput("</td><td></td></tr>");
+			OutputClass::rawoutput("<tr><td width='30%'>");
 			OutputClass::output("Namespace: %s", $row['namespace']);
-			rawoutput("</td><td></td></tr>");
-			rawoutput("<tr><td width='30%'><textarea cols='35' rows='4' name='intext'>".$row['intext']."</textarea></td>");
-			rawoutput("<td width='30%'><textarea cols='25' rows='4' name='outtext'></textarea></td></tr></table>");
-			rawoutput("<input type='hidden' name='id' value='{$row['id']}'>");
-			rawoutput("<input type='hidden' name='language' value='{$row['language']}'>");
-			rawoutput("<input type='hidden' name='namespace' value='{$row['namespace']}'>");
-			rawoutput("<input type='submit' value='$submit' class='button'>");
-			rawoutput("</form>");
-			rawoutput("<form action='untranslated.php' method='post'>");
-			rawoutput("<input type='submit' value='$skip' class='button'>");
-			rawoutput("</form>");
+			OutputClass::rawoutput("</td><td></td></tr>");
+			OutputClass::rawoutput("<tr><td width='30%'><textarea cols='35' rows='4' name='intext'>".$row['intext']."</textarea></td>");
+			OutputClass::rawoutput("<td width='30%'><textarea cols='25' rows='4' name='outtext'></textarea></td></tr></table>");
+			OutputClass::rawoutput("<input type='hidden' name='id' value='{$row['id']}'>");
+			OutputClass::rawoutput("<input type='hidden' name='language' value='{$row['language']}'>");
+			OutputClass::rawoutput("<input type='hidden' name='namespace' value='{$row['namespace']}'>");
+			OutputClass::rawoutput("<input type='submit' value='$submit' class='button'>");
+			OutputClass::rawoutput("</form>");
+			OutputClass::rawoutput("<form action='untranslated.php' method='post'>");
+			OutputClass::rawoutput("<input type='submit' value='$skip' class='button'>");
+			OutputClass::rawoutput("</form>");
 			OutputClass::addnav("", "untranslated.php?op=step2");
 			OutputClass::addnav("", "untranslated.php");
 		} else {

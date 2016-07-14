@@ -30,25 +30,25 @@ if ($op=="" || $op=="sql"){
 			if (db_affected_rows() > 0) {
 				OutputClass::output("`&%s rows affected.`n`n",db_affected_rows());
 			}
-			rawoutput("<table cellspacing='1' cellpadding='2' border='0' bgcolor='#999999'>");
+			OutputClass::rawoutput("<table cellspacing='1' cellpadding='2' border='0' bgcolor='#999999'>");
 			$number = db_num_rows($r);
 			for ($i = 0; $i < $number; $i++) {
 				$row = db_fetch_assoc($r);
 				if ($i == 0) {
-					rawoutput("<tr class='trhead'>");
+					OutputClass::rawoutput("<tr class='trhead'>");
 					$keys = array_keys($row);
 					foreach ($keys as $value) {
-						rawoutput("<td>$value</td>");
+						OutputClass::rawoutput("<td>$value</td>");
 					}
-					rawoutput("</tr>");
+					OutputClass::rawoutput("</tr>");
 				}
-				rawoutput("<tr class='".($i%2==0?"trlight":"trdark")."'>");
+				OutputClass::rawoutput("<tr class='".($i%2==0?"trlight":"trdark")."'>");
 				foreach ($keys as $value) {
-					rawoutput("<td valign='top'>{$row[$value]}</td>");
+					OutputClass::rawoutput("<td valign='top'>{$row[$value]}</td>");
 				}
-				rawoutput("</tr>");
+				OutputClass::rawoutput("</tr>");
 			}
-			rawoutput("</table>");
+			OutputClass::rawoutput("</table>");
 		}
 	}
 
@@ -56,19 +56,19 @@ if ($op=="" || $op=="sql"){
 	$execute = Translator::translate_inline("Execute");
 	$ret = Modules::modulehook("rawsql-modsql",array("sql"=>$sql));
 	$sql = $ret['sql'];
-	rawoutput("<form action='rawsql.php' method='post'>");
-	rawoutput("<textarea name='sql' class='input' cols='60' rows='10'>".htmlentities($sql, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br>");
-	rawoutput("<input type='submit' class='button' value='$execute'>");
-	rawoutput("</form>");
+	OutputClass::rawoutput("<form action='rawsql.php' method='post'>");
+	OutputClass::rawoutput("<textarea name='sql' class='input' cols='60' rows='10'>".htmlentities($sql, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br>");
+	OutputClass::rawoutput("<input type='submit' class='button' value='$execute'>");
+	OutputClass::rawoutput("</form>");
 	OutputClass::addnav("", "rawsql.php");
 }else{
 	$php = stripslashes(httppost("php"));
 	$source = Translator::translate_inline("Source:");
 	$execute = Translator::translate_inline("Execute");
 	if ($php>""){
-		rawoutput("<div style='background-color: #FFFFFF; color: #000000; width: 100%'><b>$source</b><br>");
-		rawoutput(highlight_string("<?php\n$php\n?>",true));
-		rawoutput("</div>");
+		OutputClass::rawoutput("<div style='background-color: #FFFFFF; color: #000000; width: 100%'><b>$source</b><br>");
+		OutputClass::rawoutput(highlight_string("<?php\n$php\n?>",true));
+		OutputClass::rawoutput("</div>");
 		OutputClass::output("`bResults:`b`n");
 		Modules::modulehook("rawsql-execphp",array("php"=>$php));
 		ob_start();
@@ -80,10 +80,10 @@ if ($op=="" || $op=="sql"){
 	OutputClass::output("`n`nType your code:");
 	$ret = Modules::modulehook("rawsql-modphp",array("php"=>$php));
 	$php = $ret['php'];
-	rawoutput("<form action='rawsql.php?op=php' method='post'>");
-	rawoutput("&lt;?php<br><textarea name='php' class='input' cols='60' rows='10'>".htmlentities($php, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br>?&gt;<br>");
-	rawoutput("<input type='submit' class='button' value='$execute'>");
-	rawoutput("</form>");
+	OutputClass::rawoutput("<form action='rawsql.php?op=php' method='post'>");
+	OutputClass::rawoutput("&lt;?php<br><textarea name='php' class='input' cols='60' rows='10'>".htmlentities($php, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br>?&gt;<br>");
+	OutputClass::rawoutput("<input type='submit' class='button' value='$execute'>");
+	OutputClass::rawoutput("</form>");
 	OutputClass::addnav("", "rawsql.php?op=php");
 }
 page_footer();

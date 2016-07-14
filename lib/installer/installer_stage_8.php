@@ -95,17 +95,17 @@ if (return_bytes($phpram) < 12582912 && $phpram!=-1 && !$session['overridememory
 		exit();
 	}
 	OutputClass::output_notl("`0");
-	rawoutput("<form action='installer.php?stage=".$stage."' method='POST'>");
-	rawoutput("<input type='submit' value='$submit' class='button'>");
-	rawoutput("<input type='button' onClick='chooseRecommendedModules();' class='button' value='$install' class='button'>");
-	rawoutput("<input type='reset' value='$reset' class='button'><br>");
-	rawoutput("<table cellpadding='1' cellspacing='1'>");
+	OutputClass::rawoutput("<form action='installer.php?stage=".$stage."' method='POST'>");
+	OutputClass::rawoutput("<input type='submit' value='$submit' class='button'>");
+	OutputClass::rawoutput("<input type='button' onClick='chooseRecommendedModules();' class='button' value='$install' class='button'>");
+	OutputClass::rawoutput("<input type='reset' value='$reset' class='button'><br>");
+	OutputClass::rawoutput("<table cellpadding='1' cellspacing='1'>");
 	ksort($all_modules);
 	reset($all_modules);
 	$x=0;
 	while (list($categoryName,$categoryItems)=each($all_modules)){
-		rawoutput("<tr class='trhead'><td colspan='6'>".tl($categoryName)."</td></tr>");
-		rawoutput("<tr class='trhead'><td>".tl("Uninstalled")."</td><td>".tl("Installed")."</td><td>".tl("Activated")."</td><td>".tl("Recommended")."</td><td>".tl("Module Name")."</td><td>".tl("Author")."</td></tr>");
+		OutputClass::rawoutput("<tr class='trhead'><td colspan='6'>".tl($categoryName)."</td></tr>");
+		OutputClass::rawoutput("<tr class='trhead'><td>".tl("Uninstalled")."</td><td>".tl("Installed")."</td><td>".tl("Activated")."</td><td>".tl("Recommended")."</td><td>".tl("Module Name")."</td><td>".tl("Author")."</td></tr>");
 		reset($categoryItems);
 		while (list($modulename,$moduleinfo)=each($categoryItems)){
 			$x++;
@@ -138,7 +138,7 @@ if (return_bytes($phpram) < 12582912 && $phpram!=-1 && !$session['overridememory
 					}
 				}
 			}
-			rawoutput("<tr class='".($x%2?"trlight":"trdark")."'>");
+			OutputClass::rawoutput("<tr class='".($x%2?"trlight":"trdark")."'>");
 			if ($moduleinfo['realactive']){
 				$uninstallop = "uninstall";
 				$installop = "deactivate";
@@ -165,57 +165,57 @@ if (return_bytes($phpram) < 12582912 && $phpram!=-1 && !$session['overridememory
 				$uninstallcheck = true;
 			}
 			if (isset($moduleinfo['invalid']) && $moduleinfo['invalid'] == true) {
-				rawoutput("<td><input type='radio' name='modules[$modulename]' id='uninstall-$modulename' value='$uninstallop' checked disabled></td>");
-				rawoutput("<td><input type='radio' name='modules[$modulename]' id='install-$modulename' value='$installop' disabled></td>");
-				rawoutput("<td><input type='radio' name='modules[$modulename]' id='activate-$modulename' value='$activateop' disabled></td>");
+				OutputClass::rawoutput("<td><input type='radio' name='modules[$modulename]' id='uninstall-$modulename' value='$uninstallop' checked disabled></td>");
+				OutputClass::rawoutput("<td><input type='radio' name='modules[$modulename]' id='install-$modulename' value='$installop' disabled></td>");
+				OutputClass::rawoutput("<td><input type='radio' name='modules[$modulename]' id='activate-$modulename' value='$activateop' disabled></td>");
 			} else {
-				rawoutput("<td><input type='radio' name='modules[$modulename]' id='uninstall-$modulename' value='$uninstallop'".($uninstallcheck?" checked":"")."></td>");
-				rawoutput("<td><input type='radio' name='modules[$modulename]' id='install-$modulename' value='$installop'".($installcheck?" checked":"")."></td>");
-				rawoutput("<td><input type='radio' name='modules[$modulename]' id='activate-$modulename' value='$activateop'".($activatecheck?" checked":"")."></td>");
+				OutputClass::rawoutput("<td><input type='radio' name='modules[$modulename]' id='uninstall-$modulename' value='$uninstallop'".($uninstallcheck?" checked":"")."></td>");
+				OutputClass::rawoutput("<td><input type='radio' name='modules[$modulename]' id='install-$modulename' value='$installop'".($installcheck?" checked":"")."></td>");
+				OutputClass::rawoutput("<td><input type='radio' name='modules[$modulename]' id='activate-$modulename' value='$activateop'".($activatecheck?" checked":"")."></td>");
 			}
 			OutputClass::output_notl("<td>".(in_array($modulename,$recommended_modules)?tl("`^Yes`0"):tl("`\$No`0"))."</td>",true);
 			require_once("lib/sanitize.php");
-			rawoutput("<td><span title=\"" .
+			OutputClass::rawoutput("<td><span title=\"" .
 			(isset($moduleinfo['description']) &&
 			$moduleinfo['description'] ?
 			$moduleinfo['description'] :
 			sanitize($moduleinfo['formalname'])). "\">");
 			OutputClass::output_notl("`@");
 			if (isset($moduleinfo['invalid']) && $moduleinfo['invalid'] == true) {
-				rawoutput($moduleinfo['formalname']);
+				OutputClass::rawoutput($moduleinfo['formalname']);
 			} else {
 				OutputClass::output($moduleinfo['formalname']);
 			}
 			OutputClass::output_notl(" [`%$modulename`@]`0");
-			rawoutput("</span></td><td>");
+			OutputClass::rawoutput("</span></td><td>");
 			OutputClass::output_notl("`#{$moduleinfo['moduleauthor']}`0", true);
-			rawoutput("</td>");
-			rawoutput("</tr>");
+			OutputClass::rawoutput("</td>");
+			OutputClass::rawoutput("</tr>");
 		}
 	}
-	rawoutput("</table>");
-	rawoutput("<br><input type='submit' value='$submit' class='button'>");
-	rawoutput("<input type='button' onClick='chooseRecommendedModules();' class='button' value='$install' class='button'>");
-	rawoutput("<input type='reset' value='$reset' class='button'>");
-	rawoutput("</form>");
-	rawoutput("<script language='JavaScript'>
+	OutputClass::rawoutput("</table>");
+	OutputClass::rawoutput("<br><input type='submit' value='$submit' class='button'>");
+	OutputClass::rawoutput("<input type='button' onClick='chooseRecommendedModules();' class='button' value='$install' class='button'>");
+	OutputClass::rawoutput("<input type='reset' value='$reset' class='button'>");
+	OutputClass::rawoutput("</form>");
+	OutputClass::rawoutput("<script language='JavaScript'>
 function chooseRecommendedModules(){
 	var thisItem;
 	var selectedCount = 0;
 ");
 	reset($recommended_modules);
 	while (list($key,$val)=each($recommended_modules)){
-		rawoutput("thisItem = document.getElementById('activate-$val'); ");
-		rawoutput("if (!thisItem.checked) { selectedCount++; thisItem.checked=true; }\n");
+		OutputClass::rawoutput("thisItem = document.getElementById('activate-$val'); ");
+		OutputClass::rawoutput("if (!thisItem.checked) { selectedCount++; thisItem.checked=true; }\n");
 	}
-	rawoutput("
+	OutputClass::rawoutput("
 	alert('I selected '+selectedCount+' modules that I recommend, but which were not already selected.');
 }");
 	if (!$session['dbinfo']['upgrade']){
-		rawoutput("
+		OutputClass::rawoutput("
 	chooseRecommendedModules();");
 	}
-	rawoutput("
+	OutputClass::rawoutput("
 </script>");
 }
 ?>

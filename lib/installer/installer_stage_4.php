@@ -18,7 +18,7 @@ if (!$link){
 	OutputClass::output("`\$Blast!  I wasn't able to connect to the database server with the information you provided!");
 	OutputClass::output("`2This means that either the database server address, database username, or database password you provided were wrong, or else the database server isn't running.");
 	OutputClass::output("The specific error the database returned was:");
-	rawoutput("<blockquote>".$error."</blockquote>");
+	OutputClass::rawoutput("<blockquote>".$error."</blockquote>");
 	OutputClass::output("If you believe you provided the correct information, make sure that the database server is running (check documentation for how to determine this).");
 	OutputClass::output("Otherwise, you should return to the previous step, \"Database Info\" and double-check that the information provided there is accurate.");
 	$session['stagecompleted']=3;
@@ -42,7 +42,7 @@ if (!$link){
 			OutputClass::output("`2This is probably because the username and password you provided doesn't have permission to connect to the database.`n");
 		}
 		OutputClass::output("`nThe exact error returned from the database server was:");
-		rawoutput("<blockquote>$error</blockquote>");
+		OutputClass::rawoutput("<blockquote>$error</blockquote>");
 		$session['stagecompleted']=3;
 	}else{
 		OutputClass::output("`n`^Excellent, I was able to connect to the database!`n");
@@ -58,7 +58,7 @@ if (!$link){
 		db_query($sql);
 		if ($error=db_error()){
 			OutputClass::output("`2Result: `\$Fail`n");
-			rawoutput("<blockquote>$error</blockquote>");
+			OutputClass::rawoutput("<blockquote>$error</blockquote>");
 			array_push($issues,"`^Warning:`2 The installer will not be able to create the tables necessary to install LoGD.  If these tables already exist, or you have created them manually, then you can ignore this.  Also, many modules rely on being able to create tables, so you will not be able to use these modules.");
 		}else{
 			OutputClass::output("`2Result: `@Pass`n");
@@ -68,7 +68,7 @@ if (!$link){
 		db_query($sql);
 		if ($error=db_error()){
 			OutputClass::output("`2Result: `\$Fail`n");
-			rawoutput("<blockquote>$error</blockquote>");
+			OutputClass::rawoutput("<blockquote>$error</blockquote>");
 			array_push($issues,"`^Warning:`2 The installer will not be able to modify existing tables (if any) to line up with new configurations.  Also, many modules rely on table modification permissions, so you will not be able to use these modules.");
 		}else{
 			OutputClass::output("`2Result: `@Pass`n");
@@ -78,7 +78,7 @@ if (!$link){
 		db_query($sql);
 		if ($error=db_error()){
 			OutputClass::output("`2Result: `\$Fail`n");
-			rawoutput("<blockquote>$error</blockquote>");
+			OutputClass::rawoutput("<blockquote>$error</blockquote>");
 			array_push($issues,"`^Warning:`2 The installer will not be able to create indices on your tables.  Indices are extremely important for an active server, but can be done without on a small server.");
 		}else{
 			OutputClass::output("`2Result: `@Pass`n");
@@ -88,7 +88,7 @@ if (!$link){
 		db_query($sql);
 		if ($error=db_error()){
 			OutputClass::output("`2Result: `\$Fail`n");
-			rawoutput("<blockquote>$error</blockquote>");
+			OutputClass::rawoutput("<blockquote>$error</blockquote>");
 			array_push($issues,"`\$Critical:`2 The game will not be able to function with out the ability to insert rows.");
 			$session['stagecompleted']=3;
 		}else{
@@ -99,7 +99,7 @@ if (!$link){
 		db_query($sql);
 		if ($error=db_error()){
 			OutputClass::output("`2Result: `\$Fail`n");
-			rawoutput("<blockquote>$error</blockquote>");
+			OutputClass::rawoutput("<blockquote>$error</blockquote>");
 			array_push($issues,"`\$Critical:`2 The game will not be able to function with out the ability to select rows.");
 			$session['stagecompleted']=3;
 		}else{
@@ -110,7 +110,7 @@ if (!$link){
 		db_query($sql);
 		if ($error=db_error()){
 			OutputClass::output("`2Result: `\$Fail`n");
-			rawoutput("<blockquote>$error</blockquote>");
+			OutputClass::rawoutput("<blockquote>$error</blockquote>");
 			array_push($issues,"`\$Critical:`2 The game will not be able to function with out the ability to update rows.");
 			$session['stagecompleted']=3;
 		}else{
@@ -121,7 +121,7 @@ if (!$link){
 		db_query($sql);
 		if ($error=db_error()){
 			OutputClass::output("`2Result: `\$Fail`n");
-			rawoutput("<blockquote>$error</blockquote>");
+			OutputClass::rawoutput("<blockquote>$error</blockquote>");
 			array_push($issues,"`\$Critical:`2 The game database will grow very large with out the ability to delete rows.");
 			$session['stagecompleted']=3;
 		}else{
@@ -132,7 +132,7 @@ if (!$link){
 		db_query($sql);
 		if ($error = db_error()) {
 			OutputClass::output("`2Result: `\$Fail`n");
-			rawoutput("<blockquote>$error</blockquote>");
+			OutputClass::rawoutput("<blockquote>$error</blockquote>");
 			array_push($issues,"`\$Critical:`2 The game will not run correctly without the ability to lock tables.");
 			$session['stagecompleted']=3;
 		} else {
@@ -143,7 +143,7 @@ if (!$link){
 		db_query($sql);
 		if ($error = db_error()) {
 			OutputClass::output("`2Result: `\$Fail`n");
-			rawoutput("<blockquote>$error</blockquote>");
+			OutputClass::rawoutput("<blockquote>$error</blockquote>");
 			array_push($issues,"`\$Critical:`2 The game will not run correctly without the ability to unlock tables.");
 			$session['stagecompleted']=3;
 		} else {
@@ -154,7 +154,7 @@ if (!$link){
 		db_query($sql);
 		if ($error=db_error()){
 			OutputClass::output("`2Result: `\$Fail`n");
-			rawoutput("<blockquote>$error</blockquote>");
+			OutputClass::rawoutput("<blockquote>$error</blockquote>");
 			array_push($issues,"`^Warning:`2 The installer will not be able to delete old tables (if any).  Also, many modules need to be able to delete the tables they put in place when they are uninstalled.  Although the game will function, you may end up with a lot of old data sitting around.");
 		}else{
 			OutputClass::output("`2Result: `@Pass`n");
@@ -169,7 +169,7 @@ if (!$link){
 					OutputClass::output("`2Result: `@Pass`n");
 				}else{
 					OutputClass::output("`2Result: `\$Fail`n");
-					rawoutput("<blockquote>");
+					OutputClass::rawoutput("<blockquote>");
 					array_push($issues,"`^I was not able to write to your datacache directory!`n");
 				}
 				fclose($fp);
@@ -183,9 +183,9 @@ if (!$link){
 		if (count($issues)==0){
 			OutputClass::output("You've passed all the tests, you're ready for the next stage.");
 		}else{
-			rawoutput("<ul>");
+			OutputClass::rawoutput("<ul>");
 			OutputClass::output("<li>".join("</li>\n<li>",$issues)."</li>",true);
-			rawoutput("</ul>");
+			OutputClass::rawoutput("</ul>");
 			OutputClass::output("Even if all of the above issues are merely warnings, you will probably periodically see database errors as a result of them.");
 			OutputClass::output("It would be a good idea to resolve these permissions issues before attempting to run this game.");
 			OutputClass::output("For you technical folk, the specific permissions suggested are: SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER and LOCK TABLES.");

@@ -54,7 +54,7 @@ OutputClass::addnav("4 years","user.php?op=removeban&duration=4+years");
 OutputClass::addnav("Forever","user.php?op=removeban&duration=forever");
 $sql = "SELECT * FROM " . db_prefix("bans") . " $since ORDER BY banexpire";
 $result = db_query($sql);
-rawoutput("<script language='JavaScript'>
+OutputClass::rawoutput("<script language='JavaScript'>
 function getUserInfo(ip,id,divid){
 	var filename='user.php?op=removeban&subop=xml&ip='+ip+'&id='+id;
 	//set up the DOM object
@@ -77,7 +77,7 @@ function getUserInfo(ip,id,divid){
 }
 </script>
 ");
-rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
+OutputClass::rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
 $ops = Translator::translate_inline("Ops");
 $bauth = Translator::translate_inline("Ban Author");
 $ipd = Translator::translate_inline("IP/ID");
@@ -85,22 +85,22 @@ $dur = Translator::translate_inline("Duration");
 $mssg = Translator::translate_inline("Message");
 $aff = Translator::translate_inline("Affects");
 $l = Translator::translate_inline("Last");
-	rawoutput("<tr class='trhead'><td>$ops</td><td>$bauth</td><td>$ipd</td><td>$dur</td><td>$mssg</td><td>$aff</td><td>$l</td></tr>");
+	OutputClass::rawoutput("<tr class='trhead'><td>$ops</td><td>$bauth</td><td>$ipd</td><td>$dur</td><td>$mssg</td><td>$aff</td><td>$l</td></tr>");
 $i=0;
 while ($row = db_fetch_assoc($result)) {
 	$liftban = Translator::translate_inline("Lift&nbsp;ban");
 	$showuser = Translator::translate_inline("Click&nbsp;to&nbsp;show&nbsp;users");
-	rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
-	rawoutput("<td><a href='user.php?op=delban&ipfilter=".URLEncode($row['ipfilter'])."&uniqueid=".URLEncode($row['uniqueid'])."'>");
+	OutputClass::rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+	OutputClass::rawoutput("<td><a href='user.php?op=delban&ipfilter=".URLEncode($row['ipfilter'])."&uniqueid=".URLEncode($row['uniqueid'])."'>");
 	OutputClass::output_notl("%s", $liftban, true);
-	rawoutput("</a>");
+	OutputClass::rawoutput("</a>");
 	OutputClass::addnav("","user.php?op=delban&ipfilter=".URLEncode($row['ipfilter'])."&uniqueid=".URLEncode($row['uniqueid']));
-	rawoutput("</td><td>");
+	OutputClass::rawoutput("</td><td>");
 	OutputClass::output_notl("`&%s`0", $row['banner']);
-	rawoutput("</td><td>");
+	OutputClass::rawoutput("</td><td>");
 	OutputClass::output_notl("%s", $row['ipfilter']);
 	OutputClass::output_notl("%s", $row['uniqueid']);
-	rawoutput("</td><td>");
+	OutputClass::rawoutput("</td><td>");
 		// "43200" used so will basically round to nearest day rather than floor number of days
 	$expire= sprintf_translate("%s days",
 			round((strtotime($row['banexpire'])+43200-strtotime("now"))/86400,0));
@@ -114,18 +114,18 @@ while ($row = db_fetch_assoc($result)) {
 	if ($row['banexpire']=="0000-00-00")
 		$expire=Translator::translate_inline("Never");
 	OutputClass::output_notl("%s", $expire);
-	rawoutput("</td><td>");
+	OutputClass::rawoutput("</td><td>");
 	OutputClass::output_notl("%s", $row['banreason']);
-	rawoutput("</td><td>");
+	OutputClass::rawoutput("</td><td>");
 	$file = "user.php?op=removeban&subop=xml&ip={$row['ipfilter']}&id={$row['uniqueid']}";
-	rawoutput("<div id='user$i'><a href='$file' target='_blank' onClick=\"getUserInfo('{$row['ipfilter']}','{$row['uniqueid']}',$i); return false;\">");
+	OutputClass::rawoutput("<div id='user$i'><a href='$file' target='_blank' onClick=\"getUserInfo('{$row['ipfilter']}','{$row['uniqueid']}',$i); return false;\">");
 	OutputClass::output_notl("%s", $showuser, true);
-	rawoutput("</a></div>");
+	OutputClass::rawoutput("</a></div>");
 	OutputClass::addnav("",$file);
-	rawoutput("</td><td>");
+	OutputClass::rawoutput("</td><td>");
 	OutputClass::output_notl("%s", relativedate($row['lasthit']));
-	rawoutput("</td></tr>");
+	OutputClass::rawoutput("</td></tr>");
 	$i++;
 }
-rawoutput("</table>");
+OutputClass::rawoutput("</table>");
 ?>

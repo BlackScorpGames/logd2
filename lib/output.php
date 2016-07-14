@@ -24,18 +24,7 @@ function set_block_new_output($block)
 	$block_new_output = $block;
 }
 
-/**
- * Raw OutputClass::output (unprocessed) appended to the OutputClass::output buffer
- *
- * @param string $indata
- */
-function rawoutput($indata) {
-	global $output, $block_new_output;
 
-	if ($block_new_output) return;
-
-	$output .= $indata . "\n";
-}
 
 
 class OutputClass
@@ -119,7 +108,18 @@ class OutputClass
     {
         $session['allowednavs'] = array();
     }
+    /**
+     * Raw OutputClass::output (unprocessed) appended to the OutputClass::output buffer
+     *
+     * @param string $indata
+     */
+    public static function rawoutput($indata) {
+        global $output, $block_new_output;
 
+        if ($block_new_output) return;
+
+        $output .= $indata . "\n";
+    }
     public static function addnav($text, $link = false, $priv = false, $pop = false, $popsize = "500x300")
     {
         global $navsection, $navbysection, $translation_namespace, $navschema;
@@ -171,7 +171,7 @@ function debug($text, $force=false){
 			require_once("lib/dump_item.php");
 			$text = appoencode(dump_item($text),true);
 		}
-		rawoutput("<div class='debug'>$text</div>");
+		OutputClass::rawoutput("<div class='debug'>$text</div>");
 	}
 	set_block_new_output($temp);
 }

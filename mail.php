@@ -53,20 +53,20 @@ array_push($args, array("mail.php?op=address",$write));
 // and "functionname" is the name of the mail function to add
 $mailfunctions = Modules::modulehook("mailfunctions", $args);
 
-rawoutput("<table width='50%' border='0' cellpadding='0' cellspacing='2'>");
-rawoutput("<tr>");
+OutputClass::rawoutput("<table width='50%' border='0' cellpadding='0' cellspacing='2'>");
+OutputClass::rawoutput("<tr>");
 $count_mailfunctions = count($mailfunctions);
 for($i=0;$i<$count_mailfunctions;++$i) {
 	if (is_array($mailfunctions[$i])) {
 		if (count($mailfunctions[$i])==2) {
 			$page = $mailfunctions[$i][0];
 			$name = $mailfunctions[$i][1]; // already translated
-			rawoutput("<td><a href='$page' class='motd'>$name</a></td>");
+			OutputClass::rawoutput("<td><a href='$page' class='motd'>$name</a></td>");
 			// No need for OutputClass::addnav since mail function pages are (or should be) outside the page nav system.
 		}
 	}
 }
-rawoutput("</tr></table>");
+OutputClass::rawoutput("</tr></table>");
 OutputClass::output_notl("`n`n");
 
 if($op=="send"){

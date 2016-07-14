@@ -143,16 +143,16 @@ if ($op==""){
 	$deac = Translator::translate_inline("Deactivate");
 	$act = Translator::translate_inline("Activate");
 
-	rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
-	rawoutput("<tr class='trhead'><td nowrap>$ops</td><td>$name</td><td>$cost</td></tr>");
+	OutputClass::rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
+	OutputClass::rawoutput("<tr class='trhead'><td nowrap>$ops</td><td>$name</td><td>$cost</td></tr>");
 	$cat = "";
 	$count=0;
 
 	while ($row=db_fetch_assoc($result)) {
 		if ($cat!=$row['category']){
-			rawoutput("<tr class='trlight'><td colspan='5'>");
+			OutputClass::rawoutput("<tr class='trlight'><td colspan='5'>");
 			OutputClass::output("Category: %s", $row['category']);
-			rawoutput("</td></tr>");
+			OutputClass::rawoutput("</td></tr>");
 			$cat = $row['category'];
 			$count=0;
 		}
@@ -161,33 +161,33 @@ if ($op==""){
 		} else {
 			$companions[$row['companionid']] = 0;
 		}
-		rawoutput("<tr class='".($count%2?"trlight":"trdark")."'>");
-		rawoutput("<td nowrap>[ <a href='companions.php?op=edit&id={$row['companionid']}'>$edit</a> |");
+		OutputClass::rawoutput("<tr class='".($count%2?"trlight":"trdark")."'>");
+		OutputClass::rawoutput("<td nowrap>[ <a href='companions.php?op=edit&id={$row['companionid']}'>$edit</a> |");
 		OutputClass::addnav("","companions.php?op=edit&id={$row['companionid']}");
 		if ($row['companionactive']){
-			rawoutput("$del |");
+			OutputClass::rawoutput("$del |");
 		}else{
 			$mconf = sprintf($conf, $companions[$row['companionid']]);
-			rawoutput("<a href='companions.php?op=del&id={$row['companionid']}'>$del</a> |");
+			OutputClass::rawoutput("<a href='companions.php?op=del&id={$row['companionid']}'>$del</a> |");
 			OutputClass::addnav("","companions.php?op=del&id={$row['companionid']}");
 		}
 		if ($row['companionactive']) {
-			rawoutput("<a href='companions.php?op=deactivate&id={$row['companionid']}'>$deac</a> | ");
+			OutputClass::rawoutput("<a href='companions.php?op=deactivate&id={$row['companionid']}'>$deac</a> | ");
 			OutputClass::addnav("","companions.php?op=deactivate&id={$row['companionid']}");
 		}else{
-			rawoutput("<a href='companions.php?op=activate&id={$row['companionid']}'>$act</a> | ");
+			OutputClass::rawoutput("<a href='companions.php?op=activate&id={$row['companionid']}'>$act</a> | ");
 			OutputClass::addnav("","companions.php?op=activate&id={$row['companionid']}");
 		}
-		rawoutput("<a href='companions.php?op=take&id={$row['companionid']}'>$take</a> ]</td>");
+		OutputClass::rawoutput("<a href='companions.php?op=take&id={$row['companionid']}'>$take</a> ]</td>");
 		OutputClass::addnav("", "companions.php?op=take&id={$row['companionid']}");
-		rawoutput("<td>");
+		OutputClass::rawoutput("<td>");
 		OutputClass::output_notl("`&%s`0", $row['name']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output("`%%s gems`0, `^%s gold`0",$row['companioncostgems'], $row['companioncostgold']);
-		rawoutput("</td></tr>");
+		OutputClass::rawoutput("</td></tr>");
 		$count++;
 	}
-	rawoutput("</table>");
+	OutputClass::rawoutput("</table>");
 	OutputClass::output("`nIf you wish to delete a companion, you have to deactivate it first.");
 }elseif ($op=="add"){
 	OutputClass::output("Add a companion:`n");
@@ -205,9 +205,9 @@ if ($op==""){
 		$subop=Http::httpget("subop");
 		if ($subop=="module") {
 			$module = Http::httpget("module");
-			rawoutput("<form action='companions.php?op=save&subop=module&id=$id&module=$module' method='POST'>");
+			OutputClass::rawoutput("<form action='companions.php?op=save&subop=module&id=$id&module=$module' method='POST'>");
 			module_objpref_edit("companions", $module, $id);
-			rawoutput("</form>");
+			OutputClass::rawoutput("</form>");
 			OutputClass::addnav("", "companions.php?op=save&subop=module&id=$id&module=$module");
 		} else {
 			OutputClass::output("Companion Editor:`n");
@@ -252,28 +252,28 @@ function companionform($companion){
 	if (!isset($companion['allowinpvp'])) $companion['allowinpvp'] = 0;
 	if (!isset($companion['allowintrain'])) $companion['allowintrain'] = 0;
 
-	rawoutput("<form action='companions.php?op=save&id={$companion['companionid']}' method='POST'>");
-	rawoutput("<input type='hidden' name='companion[companionactive]' value=\"".$companion['companionactive']."\">");
+	OutputClass::rawoutput("<form action='companions.php?op=save&id={$companion['companionid']}' method='POST'>");
+	OutputClass::rawoutput("<input type='hidden' name='companion[companionactive]' value=\"".$companion['companionactive']."\">");
 	OutputClass::addnav("","companions.php?op=save&id={$companion['companionid']}");
-	rawoutput("<table width='100%'>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("<table width='100%'>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Companion Name:");
-	rawoutput("</td><td><input name='companion[name]' value=\"".htmlentities($companion['name'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" maxlength='50'></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='companion[name]' value=\"".htmlentities($companion['name'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" maxlength='50'></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Companion Dyingtext:");
-	rawoutput("</td><td><input name='companion[dyingtext]' value=\"".htmlentities($companion['dyingtext'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='companion[dyingtext]' value=\"".htmlentities($companion['dyingtext'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Companion Description:");
-	rawoutput("</td><td><textarea cols='25' rows='5' name='companion[description]'>".htmlentities($companion['description'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><textarea cols='25' rows='5' name='companion[description]'>".htmlentities($companion['description'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Companion join text:");
-	rawoutput("</td><td><textarea cols='25' rows='5' name='companion[jointext]'>".htmlentities($companion['jointext'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><textarea cols='25' rows='5' name='companion[jointext]'>".htmlentities($companion['jointext'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Companion Category:");
-	rawoutput("</td><td><input name='companion[category]' value=\"".htmlentities($companion['category'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" maxlength='50'></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='companion[category]' value=\"".htmlentities($companion['category'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" maxlength='50'></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Companion Availability:");
-	rawoutput("</td><td nowrap>");
+	OutputClass::rawoutput("</td><td nowrap>");
 	// Run a Modules::modulehook to find out where camps are located.  By default
 	// they are located in 'Degolburg' (ie, getgamesetting('villagename'));
 	// Some later module can remove them however.
@@ -283,76 +283,76 @@ function companionform($companion){
 	$locs['all'] = Translator::translate_inline("Everywhere");
 	ksort($locs);
 	reset($locs);
-	rawoutput("<select name='companion[companionlocation]'>");
+	OutputClass::rawoutput("<select name='companion[companionlocation]'>");
 	foreach($locs as $loc=>$name) {
-		rawoutput("<option value='$loc'".($companion['companionlocation']==$loc?" selected":"").">$name</option>");
+		OutputClass::rawoutput("<option value='$loc'".($companion['companionlocation']==$loc?" selected":"").">$name</option>");
 	}
 
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Maxhitpoints / Bonus per level:");
-	rawoutput("</td><td><input name='companion[maxhitpoints]' value=\"".htmlentities($companion['maxhitpoints'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"> / <input name='companion[maxhitpointsperlevel]' value=\"".htmlentities($companion['maxhitpointsperlevel'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='companion[maxhitpoints]' value=\"".htmlentities($companion['maxhitpoints'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"> / <input name='companion[maxhitpointsperlevel]' value=\"".htmlentities($companion['maxhitpointsperlevel'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Attack / Bonus per level:");
-	rawoutput("</td><td><input name='companion[attack]' value=\"".htmlentities($companion['attack'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"> / <input name='companion[attackperlevel]' value=\"".htmlentities($companion['attackperlevel'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='companion[attack]' value=\"".htmlentities($companion['attack'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"> / <input name='companion[attackperlevel]' value=\"".htmlentities($companion['attackperlevel'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Defense / Bonus per level:");
-	rawoutput("</td><td><input name='companion[defense]' value=\"".htmlentities($companion['defense'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"> / <input name='companion[defenseperlevel]' value=\"".htmlentities($companion['defenseperlevel'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
+	OutputClass::rawoutput("</td><td><input name='companion[defense]' value=\"".htmlentities($companion['defense'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"> / <input name='companion[defenseperlevel]' value=\"".htmlentities($companion['defenseperlevel'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
 
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Fighter?:");
-	rawoutput("</td><td><input id='fighter' type='checkbox' name='companion[abilities][fight]' value='1'".($companion['abilities']['fight']==true?" checked":"")." onClick='document.getElementById(\"defender\").disabled=document.getElementById(\"fighter\").checked; if(document.getElementById(\"defender\").disabled==true) document.getElementById(\"defender\").checked=false;'></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input id='fighter' type='checkbox' name='companion[abilities][fight]' value='1'".($companion['abilities']['fight']==true?" checked":"")." onClick='document.getElementById(\"defender\").disabled=document.getElementById(\"fighter\").checked; if(document.getElementById(\"defender\").disabled==true) document.getElementById(\"defender\").checked=false;'></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Defender?:");
-	rawoutput("</td><td><input id='defender' type='checkbox' name='companion[abilities][defend]' value='1'".($companion['abilities']['defend']==true?" checked":"")." onClick='document.getElementById(\"fighter\").disabled=document.getElementById(\"defender\").checked; if(document.getElementById(\"fighter\").disabled==true) document.getElementById(\"fighter\").checked=false;'></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input id='defender' type='checkbox' name='companion[abilities][defend]' value='1'".($companion['abilities']['defend']==true?" checked":"")." onClick='document.getElementById(\"fighter\").disabled=document.getElementById(\"defender\").checked; if(document.getElementById(\"fighter\").disabled==true) document.getElementById(\"fighter\").checked=false;'></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Healer level:");
-	rawoutput("</td><td valign='top'><select name='companion[abilities][heal]'>");
+	OutputClass::rawoutput("</td><td valign='top'><select name='companion[abilities][heal]'>");
 	for($i=0;$i<=30;$i++) {
-		rawoutput("<option value='$i'".($companion['abilities']['heal']==$i?" selected":"").">$i</option>");
+		OutputClass::rawoutput("<option value='$i'".($companion['abilities']['heal']==$i?" selected":"").">$i</option>");
 	}
-	rawoutput("</select></td></tr>");
-	rawoutput("<tr><td colspan='2'>");
+	OutputClass::rawoutput("</select></td></tr>");
+	OutputClass::rawoutput("<tr><td colspan='2'>");
 	OutputClass::output("`iThis value determines the maximum amount of HP healed per round`i");
-	rawoutput("</td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Magician?:");
-	rawoutput("</td><td valign='top'><select name='companion[abilities][magic]'>");
+	OutputClass::rawoutput("</td><td valign='top'><select name='companion[abilities][magic]'>");
 	for($i=0;$i<=30;$i++) {
-		rawoutput("<option value='$i'".($companion['abilities']['magic']==$i?" selected":"").">$i</option>");
+		OutputClass::rawoutput("<option value='$i'".($companion['abilities']['magic']==$i?" selected":"").">$i</option>");
 	}
-	rawoutput("</select></td></tr>");
-	rawoutput("<tr><td colspan='2'>");
+	OutputClass::rawoutput("</select></td></tr>");
+	OutputClass::rawoutput("<tr><td colspan='2'>");
 	OutputClass::output("`iThis value determines the maximum amount of damage caused per round`i");
-	rawoutput("</td></tr>");
+	OutputClass::rawoutput("</td></tr>");
 
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Companion cannot die:");
-	rawoutput("</td><td><input type='checkbox' name='companion[cannotdie]' value='1'".($companion['cannotdie']==true?" checked":"")."></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input type='checkbox' name='companion[cannotdie]' value='1'".($companion['cannotdie']==true?" checked":"")."></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Companion cannot be healed:");
-	rawoutput("</td><td><input type='checkbox' name='companion[cannotbehealed]' value='1'".($companion['cannotbehealed']==true?" checked":"")."></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input type='checkbox' name='companion[cannotbehealed]' value='1'".($companion['cannotbehealed']==true?" checked":"")."></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 
 	OutputClass::output("Companion Cost (DKs):");
-	rawoutput("</td><td><input name='companion[companioncostdks]' value=\"".htmlentities((int)$companion['companioncostdks'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='companion[companioncostdks]' value=\"".htmlentities((int)$companion['companioncostdks'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Companion Cost (Gems):");
-	rawoutput("</td><td><input name='companion[companioncostgems]' value=\"".htmlentities((int)$companion['companioncostgems'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='companion[companioncostgems]' value=\"".htmlentities((int)$companion['companioncostgems'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Companion Cost (Gold):");
-	rawoutput("</td><td><input name='companion[companioncostgold]' value=\"".htmlentities((int)$companion['companioncostgold'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='companion[companioncostgold]' value=\"".htmlentities((int)$companion['companioncostgold'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Allow in shades:");
-	rawoutput("</td><td><input type='checkbox' name='companion[allowinshades]' value='1'".($companion['allowinshades']==true?" checked":"")."></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input type='checkbox' name='companion[allowinshades]' value='1'".($companion['allowinshades']==true?" checked":"")."></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Allow in PvP:");
-	rawoutput("</td><td><input type='checkbox' name='companion[allowinpvp]' value='1'".($companion['allowinpvp']==true?" checked":"")."></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input type='checkbox' name='companion[allowinpvp]' value='1'".($companion['allowinpvp']==true?" checked":"")."></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Allow in train:");
-	rawoutput("</td><td><input type='checkbox' name='companion[allowintrain]' value='1'".($companion['allowintrain']==true?" checked":"")."></td></tr>");
-	rawoutput("</table>");
+	OutputClass::rawoutput("</td><td><input type='checkbox' name='companion[allowintrain]' value='1'".($companion['allowintrain']==true?" checked":"")."></td></tr>");
+	OutputClass::rawoutput("</table>");
 	$save = Translator::translate_inline("Save");
-	rawoutput("<input type='submit' class='button' value='$save'></form>");
+	OutputClass::rawoutput("<input type='submit' class='button' value='$save'></form>");
 }
 
 page_footer();

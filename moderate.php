@@ -107,9 +107,9 @@ if ($op==""){
 	$area = Http::httpget('area');
 	$link = "moderate.php" . ($area ? "?area=$area" : "");
 	$refresh = Translator::translate_inline("Refresh");
-	rawoutput("<form action='$link' method='POST'>");
-	rawoutput("<input type='submit' class='button' value='$refresh'>");
-	rawoutput("</form>");
+	OutputClass::rawoutput("<form action='$link' method='POST'>");
+	OutputClass::rawoutput("<input type='submit' class='button' value='$refresh'>");
+	OutputClass::rawoutput("</form>");
 	OutputClass::addnav("", "$link");
 	if ($area==""){
 		talkform("X","says");
@@ -163,10 +163,10 @@ if ($op==""){
 	$when = Translator::translate_inline("When");
 	$com = Translator::translate_inline("Comment");
 	$unmod = Translator::translate_inline("Unmoderate");
-	rawoutput("<form action='moderate.php?op=audit&subop=undelete' method='POST'>");
+	OutputClass::rawoutput("<form action='moderate.php?op=audit&subop=undelete' method='POST'>");
 	OutputClass::addnav("","moderate.php?op=audit&subop=undelete");
-	rawoutput("<table border='0' cellpadding='2' cellspacing='0'>");
-	rawoutput("<tr class='trhead'><td>$ops</td><td>$mod</td><td>$when</td><td>$com</td></tr>");
+	OutputClass::rawoutput("<table border='0' cellpadding='2' cellspacing='0'>");
+	OutputClass::rawoutput("<tr class='trhead'><td>$ops</td><td>$mod</td><td>$when</td><td>$com</td></tr>");
 	$limit = "75";
 	$where = "1=1 ";
 	$moderator = Http::httpget("moderator");
@@ -180,15 +180,15 @@ if ($op==""){
 	$clanrankcolors=array("`!","`#","`^","`&");
 	while ($row = db_fetch_assoc($result)){
 		$i++;
-		rawoutput("<tr class='".($i%2?'trlight':'trdark')."'>");
-		rawoutput("<td><input type='checkbox' name='mod[{$row['modid']}]' value='1'></td>");
-		rawoutput("<td>");
+		OutputClass::rawoutput("<tr class='".($i%2?'trlight':'trdark')."'>");
+		OutputClass::rawoutput("<td><input type='checkbox' name='mod[{$row['modid']}]' value='1'></td>");
+		OutputClass::rawoutput("<td>");
 		OutputClass::output_notl("%s", $row['name']);
-		rawoutput("</td>");
-		rawoutput("<td>");
+		OutputClass::rawoutput("</td>");
+		OutputClass::rawoutput("<td>");
 		OutputClass::output_notl("%s", $row['moddate']);
-		rawoutput("</td>");
-		rawoutput("<td>");
+		OutputClass::rawoutput("</td>");
+		OutputClass::rawoutput("<td>");
 		$comment = unserialize($row['comment']);
 		OutputClass::output_notl("`0(%s)", $comment['section']);
 
@@ -199,12 +199,12 @@ if ($op==""){
 		OutputClass::output_notl("%s", $comment['name']);
 		OutputClass::output_notl("-");
 		OutputClass::output_notl("%s", comment_sanitize($comment['comment']));
-		rawoutput("</td>");
-		rawoutput("</tr>");
+		OutputClass::rawoutput("</td>");
+		OutputClass::rawoutput("</tr>");
 	}
-	rawoutput("</table>");
-	rawoutput("<input type='submit' class='button' value='$unmod'>");
-	rawoutput("</form>");
+	OutputClass::rawoutput("</table>");
+	OutputClass::rawoutput("<input type='submit' class='button' value='$unmod'>");
+	OutputClass::rawoutput("</form>");
 }
 
 

@@ -152,27 +152,27 @@ function drinks_editor(){
 		$act = Translator::translate_inline("Activate");
 		$conf = Translator::translate_inline("Are you sure you wish to delete this drink?");
 		$del = Translator::translate_inline("Del");
-		rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
-		rawoutput("<tr class='trhead'>");
-		rawoutput("<td>$op</td><td>$id</td><td>$nm</td><td>$dkn</td><td>$hard</td>");
-		rawoutput("</tr>");
+		OutputClass::rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
+		OutputClass::rawoutput("<tr class='trhead'>");
+		OutputClass::rawoutput("<td>$op</td><td>$id</td><td>$nm</td><td>$dkn</td><td>$hard</td>");
+		OutputClass::rawoutput("</tr>");
 		$sql = "SELECT drinkid,active,name,drunkeness,harddrink FROM " . db_prefix("drinks") . " ORDER BY drinkid";
 		$result= db_query($sql);
 		for ($i=0;$i<db_num_rows($result);$i++){
 			$row = db_fetch_assoc($result);
 			$id = $row['drinkid'];
-			rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
-			rawoutput("<td nowrap>[ <a href='runmodule.php?module=drinks&act=editor&op=edit&drinkid=$id&admin=true'>$edit</a>");
+			OutputClass::rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+			OutputClass::rawoutput("<td nowrap>[ <a href='runmodule.php?module=drinks&act=editor&op=edit&drinkid=$id&admin=true'>$edit</a>");
 			OutputClass::addnav("","runmodule.php?module=drinks&act=editor&op=edit&drinkid=$id&admin=true");
 			if ($row['active']) {
-				rawoutput(" | <a href='runmodule.php?module=drinks&act=editor&op=deactivate&drinkid=$id&admin=true'>$deac</a>");
+				OutputClass::rawoutput(" | <a href='runmodule.php?module=drinks&act=editor&op=deactivate&drinkid=$id&admin=true'>$deac</a>");
 				OutputClass::addnav("","runmodule.php?module=drinks&act=editor&op=deactivate&drinkid=$id&admin=true");
 			} else {
-				rawoutput(" | <a href='runmodule.php?module=drinks&act=editor&op=activate&drinkid=$id&admin=true'>$act</a>");
+				OutputClass::rawoutput(" | <a href='runmodule.php?module=drinks&act=editor&op=activate&drinkid=$id&admin=true'>$act</a>");
 				OutputClass::addnav("","runmodule.php?module=drinks&act=editor&op=activate&drinkid=$id&admin=true");
 			}
 
-			rawoutput(" | <a href='runmodule.php?module=drinks&act=editor&op=del&drinkid=$id&admin=true' onClick='return confirm(\"$conf\");'>$del</a> ]</td>");
+			OutputClass::rawoutput(" | <a href='runmodule.php?module=drinks&act=editor&op=del&drinkid=$id&admin=true' onClick='return confirm(\"$conf\");'>$del</a> ]</td>");
 			OutputClass::addnav("","runmodule.php?module=drinks&act=editor&op=del&drinkid=$id&admin=true");
 			OutputClass::output_notl("<td>`^%s</td>`0", $id, true);
 			OutputClass::output_notl("<td>`&%s`0</td>", $row['name'], true);
@@ -180,9 +180,9 @@ function drinks_editor(){
 			$hard = Translator::translate_inline("`^No");
 			if ($row['harddrink']) $hard = Translator::translate_inline("`\$Yes");
 			OutputClass::output_notl("<td>%s`0</td>", $hard, true);
-			rawoutput("</tr>");
+			OutputClass::rawoutput("</tr>");
 		}
-		rawoutput("</table>");
+		OutputClass::rawoutput("</table>");
 	}
 	$subop= Http::httpget("subop");
 	if($op=="edit"){
@@ -191,10 +191,10 @@ function drinks_editor(){
 		if ($subop=="module") {
 			$module = Http::httpget("editmodule");
 			$oldmodule = $mostrecentmodule;
-			rawoutput("<form action='runmodule.php?module=drinks&act=editor&op=save&subop=module&editmodule=$module&drinkid=$drinkid&admin=true' method='POST'>");
+			OutputClass::rawoutput("<form action='runmodule.php?module=drinks&act=editor&op=save&subop=module&editmodule=$module&drinkid=$drinkid&admin=true' method='POST'>");
 			module_objpref_edit('drinks', $module, $drinkid);
 			$mostrecentmodule = $oldmodule;
-			rawoutput("</form>");
+			OutputClass::rawoutput("</form>");
 			OutputClass::addnav("", "runmodule.php?module=drinks&act=editor&op=save&subop=module&editmodule=$module&drinkid=$drinkid&admin=true");
 		} elseif ($subop=="") {
 				$sql = "SELECT * FROM " . db_prefix("drinks") . " WHERE drinkid='".Http::httpget('drinkid')."'";
@@ -208,10 +208,10 @@ function drinks_editor(){
 	}
 
 	if (($op == "edit" || $op == "add") && $subop=="") {
-		rawoutput("<form action='runmodule.php?module=drinks&act=editor&op=save&admin=true' method='POST'>");
+		OutputClass::rawoutput("<form action='runmodule.php?module=drinks&act=editor&op=save&admin=true' method='POST'>");
 		OutputClass::addnav("","runmodule.php?module=drinks&act=editor&op=save&admin=true");
 		showform($drinksarray,$row);
-		rawoutput("</form>");
+		OutputClass::rawoutput("</form>");
 		OutputClass::output("`\$NOTE:`7 Make sure that you know what you are doing when modifying or adding drinks.`n");
 		OutputClass::output("Just because the drinks have a lot of options, doesn't mean you have to use all of them`n`n");
 		OutputClass::output("`2Drink ID: `7This field is used internally and should be unique.`n");

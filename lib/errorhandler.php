@@ -30,7 +30,7 @@ function logd_error_handler($errno, $errstr, $errfile, $errline){
 		OutputClass::output("PHP Warning: \"%s\"`nin `b%s`b at `b%s`b.`n",$errstr,$errfile,$errline,true);
 		Translator::tlschema();
 		$backtrace = show_backtrace();
-		rawoutput($backtrace);
+		OutputClass::rawoutput($backtrace);
 		if (Settings::getsetting("notify_on_warn",0) > ""){
 			//$args = func_get_args();
 			//call_user_func_array("logd_error_notify",$args);

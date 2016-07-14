@@ -2,7 +2,7 @@
 Translator::tlschema("faq");
 popup_header("New Player Primer");
 $c = Translator::translate_inline("Return to Contents");
-rawoutput("<a href='petition.php?op=faq'>$c</a><hr>");
+OutputClass::rawoutput("<a href='petition.php?op=faq'>$c</a><hr>");
 OutputClass::output("`n`n`^Welcome to the Legend of the Green Dragon New Player Primer`n`n");
 OutputClass::output("`^`bThe village square`b`n");
 OutputClass::output("`@Legend of the Green Dragon (LotGD) is turning out to be a fairly expansive game, with a lot of areas to explore.");
@@ -72,5 +72,5 @@ OutputClass::output("`^`bReady to take on the world!`b`n");
 OutputClass::output("`@You should now have a pretty good idea of how the basics of the game work, how to advance, and how to protect yourself.");
 OutputClass::output("There's a whole lot more to the world, so explore it!");
 OutputClass::output("Don't be afraid of dying, particularly when you're young, as even when you're dead, there's yet more stuff to do!");
-rawoutput("<hr><a href='petition.php?op=faq'>$c</a>");
+OutputClass::rawoutput("<hr><a href='petition.php?op=faq'>$c</a>");
 ?>

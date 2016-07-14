@@ -11,15 +11,15 @@ function motd_admin($id, $poll=false) {
 		$confirm = Translator::translate_inline("Are you sure you want to delete this item?");
 		OutputClass::output_notl("[ ");
 		if (!$poll) {
-			rawoutput("<a href='motd.php?op=add".($poll?"poll":"")."&id=$id'>$ed</a> | ");
+			OutputClass::rawoutput("<a href='motd.php?op=add".($poll?"poll":"")."&id=$id'>$ed</a> | ");
 		}
-		rawoutput("<a href='motd.php?op=del&id=$id' onClick=\"return confirm('$confirm');\">$del</a> ]");
+		OutputClass::rawoutput("<a href='motd.php?op=del&id=$id' onClick=\"return confirm('$confirm');\">$del</a> ]");
 	}
 }
 
 function motditem($subject,$body,$author,$date,$id){
 	if ($date)
-		rawoutput("<a name='motd".date("YmdHis",strtotime($date))."'>");
+		OutputClass::rawoutput("<a name='motd".date("YmdHis",strtotime($date))."'>");
 	OutputClass::output_notl("`b`^%s`0`b", $subject);
 	if ($id > "") {
 		motd_admin($id);
@@ -33,8 +33,8 @@ function motditem($subject,$body,$author,$date,$id){
 	if ($date || $author) OutputClass::output_notl("`n");
 
 	OutputClass::output_notl("`2%s`0", nltoappon($body), true);
-	if ($date) rawoutput("</a>");
-	rawoutput("<hr>");
+	if ($date) OutputClass::rawoutput("</a>");
+	OutputClass::rawoutput("<hr>");
 }
 
 function pollitem($id,$subject,$body,$author,$date,$showpoll=true){
@@ -47,8 +47,8 @@ function pollitem($id,$subject,$body,$author,$date,$showpoll=true){
 
 	$poll = Translator::translate_inline("Poll:");
 	if ($session['user']['loggedin'] && $showpoll) {
-		rawoutput("<form action='motd.php?op=vote' method='POST'>");
-		rawoutput("<input type='hidden' name='motditem' value='$id'>",true);
+		OutputClass::rawoutput("<form action='motd.php?op=vote' method='POST'>");
+		OutputClass::rawoutput("<input type='hidden' name='motditem' value='$id'>",true);
 	}
 	OutputClass::output_notl("`b`&%s `^%s`0`b", $poll, $subject);
 	if ($showpoll) motd_admin($id, true);
@@ -72,7 +72,7 @@ function pollitem($id,$subject,$body,$author,$date,$showpoll=true){
 				$percent = round($choices[$key] / $totalanswers * 100,1);
 			}
 			if ($session['user']['loggedin'] && $showpoll) {
-				rawoutput("<input type='radio' name='choice' value='$key'".($choice==$key?" checked":"").">");
+				OutputClass::rawoutput("<input type='radio' name='choice' value='$key'".($choice==$key?" checked":"").">");
 			}
 			OutputClass::output_notl("%s (%s - %s%%)`n", stripslashes($val),
 					(isset($choices[$key])?(int)$choices[$key]:0), $percent);
@@ -82,14 +82,14 @@ function pollitem($id,$subject,$body,$author,$date,$showpoll=true){
 				$width = round(($choices[$key]/$maxitem) * 400,0);
 			}
 			$width = max($width,1);
-			rawoutput("<img src='images/rule.gif' width='$width' height='2' alt='$percent'><br>");
+			OutputClass::rawoutput("<img src='images/rule.gif' width='$width' height='2' alt='$percent'><br>");
 		}
 	}
 	if ($session['user']['loggedin'] && $showpoll) {
 		$vote = Translator::translate_inline("Vote");
-		rawoutput("<input type='submit' class='button' value='$vote'></form>");
+		OutputClass::rawoutput("<input type='submit' class='button' value='$vote'></form>");
 	}
-	rawoutput("<hr>",true);
+	OutputClass::rawoutput("<hr>",true);
 }
 
 function motd_form($id) {
@@ -121,9 +121,9 @@ function motd_form($id) {
 			$msg = $add;
 		}
 		OutputClass::output_notl("`b%s`b", $msg);
-		rawoutput("[ <a href='motd.php'>$ret</a> ]<br>");
+		OutputClass::rawoutput("[ <a href='motd.php'>$ret</a> ]<br>");
 
-		rawoutput("<form action='motd.php?op=add&id={$row['motditem']}' method='POST'>");
+		OutputClass::rawoutput("<form action='motd.php?op=add&id={$row['motditem']}' method='POST'>");
 		OutputClass::addnav("","motd.php?op=add&id={$row['motditem']}");
 		if ($row['motdauthorname']>"")
 			OutputClass::output("Originally by `@%s`0 on %s`n", $row['motdauthorname'],
@@ -139,19 +139,19 @@ function motd_form($id) {
 					$row['motdauthorname'],$row['motddate'], "");
 		}
 		OutputClass::output("Subject: ");
-		rawoutput("<input type='text' size='50' name='subject' value=\"".HTMLEntities(stripslashes($row['motdtitle']), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"><br/>");
+		OutputClass::rawoutput("<input type='text' size='50' name='subject' value=\"".HTMLEntities(stripslashes($row['motdtitle']), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"><br/>");
 		OutputClass::output("Body:`n");
-		rawoutput("<textarea align='right' class='input' name='body' cols='37' rows='5'>".HTMLEntities(stripslashes($row['motdbody']), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
+		OutputClass::rawoutput("<textarea align='right' class='input' name='body' cols='37' rows='5'>".HTMLEntities(stripslashes($row['motdbody']), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
 		if ($row['motditem']>0){
 			OutputClass::output("Options:`n");
-			rawoutput("<input type='checkbox' value='1' name='changeauthor'".(httppost('changeauthor')?" checked":"").">");
+			OutputClass::rawoutput("<input type='checkbox' value='1' name='changeauthor'".(httppost('changeauthor')?" checked":"").">");
 			OutputClass::output("Change Author`n");
-			rawoutput("<input type='checkbox' value='1' name='changedate'".(httppost('changedate')?" checked":"").">");
+			OutputClass::rawoutput("<input type='checkbox' value='1' name='changedate'".(httppost('changedate')?" checked":"").">");
 			OutputClass::output("Change Date (force popup again)`n");
 		}
 		$prev = Translator::translate_inline("Preview");
 		$sub = Translator::translate_inline("Submit");
-		rawoutput("<input type='submit' class='button' name='preview' value='$prev'> <input type='submit' class='button' value='$sub'></form>");
+		OutputClass::rawoutput("<input type='submit' class='button' name='preview' value='$prev'> <input type='submit' class='button' value='$sub'></form>");
 	}else{
 		if ($id>""){
 			$sql = " SET motdtitle='$subject', motdbody='$body'";
@@ -193,27 +193,27 @@ function motd_poll_form() {
 	$body = httppost('body');
 	if ($subject=="" || $body==""){
 		OutputClass::output("`\$NOTE:`^ Polls cannot be edited after they are begun in order to ensure fairness and accuracy of results.`0`n`n");
-		rawoutput("<form action='motd.php?op=addpoll' method='POST'>");
+		OutputClass::rawoutput("<form action='motd.php?op=addpoll' method='POST'>");
 		OutputClass::addnav("","motd.php?op=add");
 		OutputClass::output("Subject: ");
-		rawoutput("<input type='text' size='50' name='subject' value=\"".HTMLEntities(stripslashes($subject), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"><br/>");
+		OutputClass::rawoutput("<input type='text' size='50' name='subject' value=\"".HTMLEntities(stripslashes($subject), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"><br/>");
 		OutputClass::output("Body:`n");
-		rawoutput("<textarea class='input' name='body' cols='37' rows='5'>".HTMLEntities(stripslashes($body), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
+		OutputClass::rawoutput("<textarea class='input' name='body' cols='37' rows='5'>".HTMLEntities(stripslashes($body), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
 		$option = Translator::translate_inline("Option");
 		OutputClass::output("Choices:`n");
 		$pollitem = "$option <input name='opt[]'><br/>";
-		rawoutput($pollitem);
-		rawoutput($pollitem);
-		rawoutput($pollitem);
-		rawoutput($pollitem);
-		rawoutput($pollitem);
-		rawoutput("<div id='hidepolls'>");
-		rawoutput("</div>");
-		rawoutput("<script language='JavaScript'>document.getElementById('hidepolls').innerHTML = '';</script>",true);
+		OutputClass::rawoutput($pollitem);
+		OutputClass::rawoutput($pollitem);
+		OutputClass::rawoutput($pollitem);
+		OutputClass::rawoutput($pollitem);
+		OutputClass::rawoutput($pollitem);
+		OutputClass::rawoutput("<div id='hidepolls'>");
+		OutputClass::rawoutput("</div>");
+		OutputClass::rawoutput("<script language='JavaScript'>document.getElementById('hidepolls').innerHTML = '';</script>",true);
 		$addi = Translator::translate_inline("Add Poll Item");
 		$add = Translator::translate_inline("Add");
-		rawoutput("<a href=\"#\" onClick=\"javascript:document.getElementById('hidepolls').innerHTML += '".addslashes($pollitem)."'; return false;\">$addi</a><br>");
-		rawoutput("<input type='submit' class='button' value='$add'></form>");
+		OutputClass::rawoutput("<a href=\"#\" onClick=\"javascript:document.getElementById('hidepolls').innerHTML += '".addslashes($pollitem)."'; return false;\">$addi</a><br>");
+		OutputClass::rawoutput("<input type='submit' class='button' value='$add'></form>");
 	}else{
 		$opt = httppost("opt");
 		$body = array("body"=>$body,"opt"=>$opt);

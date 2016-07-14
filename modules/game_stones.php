@@ -61,12 +61,12 @@ function game_stones_run(){
 		$s1 = Translator::translate_inline($stones['side']=="likepair"?"Like":"Unlike");
 		$s2 = Translator::translate_inline($stones['side']=="likepair"?"unlike":"like");
 		OutputClass::output("`3\"`7%s pair for you, and %s pair for me it is then!  How much do you bet?`3\"", $s1, $s2);
-		rawoutput("<form action='runmodule.php?module=game_stones&ret=$ret' method='POST'>");
-		rawoutput("<input name='bet' id='bet'>");
+		OutputClass::rawoutput("<form action='runmodule.php?module=game_stones&ret=$ret' method='POST'>");
+		OutputClass::rawoutput("<input name='bet' id='bet'>");
 		$b = Translator::translate_inline("Bet");
-		rawoutput("<input type='submit' class='button' value='$b'>");
-		rawoutput("</form>");
-		rawoutput("<script language='JavaScript'>document.getElementById('bet').focus();</script>");
+		OutputClass::rawoutput("<input type='submit' class='button' value='$b'>");
+		OutputClass::rawoutput("</form>");
+		OutputClass::rawoutput("<script language='JavaScript'>document.getElementById('bet').focus();</script>");
 		OutputClass::addnav("","runmodule.php?module=game_stones&ret=$ret");
 		OutputClass::addnav("Never Mind", appendlink(urldecode($ret), "op=oldman"));
 	}elseif ($stones['red']+$stones['blue'] > 0 &&

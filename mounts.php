@@ -132,7 +132,7 @@ if ($op==""){
 	while ($row = db_fetch_assoc($result)){
 		$mounts[$row['hashorse']] = $row['c'];
 	}
-	rawoutput("<script language='JavaScript'>
+	OutputClass::rawoutput("<script language='JavaScript'>
 	function getUserInfo(id,divid){
 		var filename='mounts.php?op=xml&id='+id;
 		var xmldom;
@@ -168,8 +168,8 @@ if ($op==""){
 
 	$conf = Translator::translate_inline("There are %s user(s) who own this mount, are you sure you wish to delete it?");
 
-	rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
-	rawoutput("<tr class='trhead'><td nowrap>$ops</td><td>$name</td><td>$cost</td><td>$feat</td><td nowrap>$owners</td></tr>");
+	OutputClass::rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
+	OutputClass::rawoutput("<tr class='trhead'><td nowrap>$ops</td><td>$name</td><td>$cost</td><td>$feat</td><td nowrap>$owners</td></tr>");
 	$result = db_query($sql);
 	$cat = "";
 	$count=0;
@@ -178,9 +178,9 @@ if ($op==""){
 	for ($i=0;$i<$number;$i++){
 		$row = db_fetch_assoc($result);
 		if ($cat!=$row['mountcategory']){
-			rawoutput("<tr class='trlight'><td colspan='5'>");
+			OutputClass::rawoutput("<tr class='trlight'><td colspan='5'>");
 			OutputClass::output("Category: %s", $row['mountcategory']);
-			rawoutput("</td></tr>");
+			OutputClass::rawoutput("</td></tr>");
 			$cat = $row['mountcategory'];
 			$count=0;
 		}
@@ -189,30 +189,30 @@ if ($op==""){
 		} else {
 			$mounts[$row['mountid']] = 0;
 		}
-		rawoutput("<tr class='".($count%2?"trlight":"trdark")."'>");
-		rawoutput("<td nowrap>[ <a href='mounts.php?op=edit&id={$row['mountid']}'>$edit</a> |");
+		OutputClass::rawoutput("<tr class='".($count%2?"trlight":"trdark")."'>");
+		OutputClass::rawoutput("<td nowrap>[ <a href='mounts.php?op=edit&id={$row['mountid']}'>$edit</a> |");
 		OutputClass::addnav("","mounts.php?op=edit&id={$row['mountid']}");
-		rawoutput("<a href='mounts.php?op=give&id={$row['mountid']}'>$give</a> |",true);
+		OutputClass::rawoutput("<a href='mounts.php?op=give&id={$row['mountid']}'>$give</a> |",true);
 		OutputClass::addnav("","mounts.php?op=give&id={$row['mountid']}");
 		if ($row['mountactive']){
-			rawoutput("$del |");
+			OutputClass::rawoutput("$del |");
 		}else{
 			$mconf = sprintf($conf, $mounts[$row['mountid']]);
-			rawoutput("<a href='mounts.php?op=del&id={$row['mountid']}' onClick=\"return confirm('$mconf');\">$del</a> |");
+			OutputClass::rawoutput("<a href='mounts.php?op=del&id={$row['mountid']}' onClick=\"return confirm('$mconf');\">$del</a> |");
 			OutputClass::addnav("","mounts.php?op=del&id={$row['mountid']}");
 		}
 		if ($row['mountactive']) {
-			rawoutput("<a href='mounts.php?op=deactivate&id={$row['mountid']}'>$deac</a> ]</td>");
+			OutputClass::rawoutput("<a href='mounts.php?op=deactivate&id={$row['mountid']}'>$deac</a> ]</td>");
 			OutputClass::addnav("","mounts.php?op=deactivate&id={$row['mountid']}");
 		}else{
-			rawoutput("<a href='mounts.php?op=activate&id={$row['mountid']}'>$act</a> ]</td>");
+			OutputClass::rawoutput("<a href='mounts.php?op=activate&id={$row['mountid']}'>$act</a> ]</td>");
 			OutputClass::addnav("","mounts.php?op=activate&id={$row['mountid']}");
 		}
-		rawoutput("<td>");
+		OutputClass::rawoutput("<td>");
 		OutputClass::output_notl("`&%s`0", $row['mountname']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output("`%%s gems`0, `^%s gold`0",$row['mountcostgems'], $row['mountcostgold']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		$features = array("FF"=>$row['mountforestfights']);
 		$args = array("id"=>$row['mountid'],"features"=>&$features);
 		$args = Modules::modulehook("mountfeatures", $args);
@@ -224,16 +224,16 @@ if ($op==""){
 			OutputClass::output_notl("%s: %s%s", $fname,  $fval, ($mcount==$max?"":", "));
 			$mcount++;
 		}
-		rawoutput("</td><td nowrap>");
+		OutputClass::rawoutput("</td><td nowrap>");
 		$file = "mounts.php?op=xml&id=".$row['mountid'];
-		rawoutput("<div id='mountusers$i'><a href='$file' target='_blank' onClick=\"getUserInfo('".$row{'mountid'}."', $i); return false\">");
+		OutputClass::rawoutput("<div id='mountusers$i'><a href='$file' target='_blank' onClick=\"getUserInfo('".$row{'mountid'}."', $i); return false\">");
  		OutputClass::output_notl("`#%s`0", $mounts[$row['mountid']]);
 		OutputClass::addnav("", $file);
-		rawoutput("</a></div>");
-		rawoutput("</td></tr>");
+		OutputClass::rawoutput("</a></div>");
+		OutputClass::rawoutput("</td></tr>");
 		$count++;
 	}
-	rawoutput("</table>");
+	OutputClass::rawoutput("</table>");
 	OutputClass::output("`nIf you wish to delete a mount, you have to deactivate it first.");
 	OutputClass::output("If there are any owners of the mount when it is deleted, they will no longer have a mount, but they will get a FULL refund of the price of the mount at the time of deletion.");
 }elseif ($op=="add"){
@@ -252,9 +252,9 @@ if ($op==""){
 		$subop=Http::httpget("subop");
 		if ($subop=="module") {
 			$module = Http::httpget("module");
-			rawoutput("<form action='mounts.php?op=save&subop=module&id=$id&module=$module' method='POST'>");
+			OutputClass::rawoutput("<form action='mounts.php?op=save&subop=module&id=$id&module=$module' method='POST'>");
 			module_objpref_edit("mounts", $module, $id);
-			rawoutput("</form>");
+			OutputClass::rawoutput("</form>");
 			OutputClass::addnav("", "mounts.php?op=save&subop=module&id=$id&module=$module");
 		} else {
 			OutputClass::output("Mount Editor:`n");
@@ -326,22 +326,22 @@ function mountform($mount){
 	if (!isset($mount['mountbuff']['badguydefmod']))
 		$mount['mountbuff']['badguydefmod'] = "";
 
-	rawoutput("<form action='mounts.php?op=save&id={$mount['mountid']}' method='POST'>");
-	rawoutput("<input type='hidden' name='mount[mountactive]' value=\"".$mount['mountactive']."\">");
+	OutputClass::rawoutput("<form action='mounts.php?op=save&id={$mount['mountid']}' method='POST'>");
+	OutputClass::rawoutput("<input type='hidden' name='mount[mountactive]' value=\"".$mount['mountactive']."\">");
 	OutputClass::addnav("","mounts.php?op=save&id={$mount['mountid']}");
-	rawoutput("<table>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("<table>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Mount Name:");
-	rawoutput("</td><td><input name='mount[mountname]' value=\"".htmlentities($mount['mountname'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='mount[mountname]' value=\"".htmlentities($mount['mountname'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Mount Description:");
-	rawoutput("</td><td><input name='mount[mountdesc]' value=\"".htmlentities($mount['mountdesc'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='mount[mountdesc]' value=\"".htmlentities($mount['mountdesc'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Mount Category:");
-	rawoutput("</td><td><input name='mount[mountcategory]' value=\"".htmlentities($mount['mountcategory'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='mount[mountcategory]' value=\"".htmlentities($mount['mountcategory'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Mount Availability:");
-	rawoutput("</td><td nowrap>");
+	OutputClass::rawoutput("</td><td nowrap>");
 	// Run a Modules::modulehook to find out where stables are located.  By default
 	// they are located in 'Degolburg' (ie, getgamesetting('villagename'));
 	// Some later module can remove them however.
@@ -351,93 +351,93 @@ function mountform($mount){
 	$locs['all'] = Translator::translate_inline("Everywhere");
 	ksort($locs);
 	reset($locs);
-	rawoutput("<select name='mount[mountlocation]'>");
+	OutputClass::rawoutput("<select name='mount[mountlocation]'>");
 	foreach($locs as $loc=>$name) {
-		rawoutput("<option value='$loc'".($mount['mountlocation']==$loc?" selected":"").">$name</option>");
+		OutputClass::rawoutput("<option value='$loc'".($mount['mountlocation']==$loc?" selected":"").">$name</option>");
 	}
 
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Mount Cost (DKs):");
-	rawoutput("</td><td><input name='mount[mountdkcost]' value=\"".htmlentities((int)$mount['mountdkcost'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='mount[mountdkcost]' value=\"".htmlentities((int)$mount['mountdkcost'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Mount Cost (Gems):");
-	rawoutput("</td><td><input name='mount[mountcostgems]' value=\"".htmlentities((int)$mount['mountcostgems'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='mount[mountcostgems]' value=\"".htmlentities((int)$mount['mountcostgems'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Mount Cost (Gold):");
-	rawoutput("</td><td><input name='mount[mountcostgold]' value=\"".htmlentities((int)$mount['mountcostgold'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='mount[mountcostgold]' value=\"".htmlentities((int)$mount['mountcostgold'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Mount Feed Cost`n(Gold per level):");
-	rawoutput("</td><td><input name='mount[mountfeedcost]' value=\"".htmlentities((int)$mount['mountfeedcost'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='mount[mountfeedcost]' value=\"".htmlentities((int)$mount['mountfeedcost'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Delta Forest Fights:");
-	rawoutput("</td><td><input name='mount[mountforestfights]' value=\"".htmlentities((int)$mount['mountforestfights'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='5'></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='mount[mountforestfights]' value=\"".htmlentities((int)$mount['mountforestfights'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='5'></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("`bMount Messages:`b");
-	rawoutput("</td><td></td></tr><tr><td nowrap>");
+	OutputClass::rawoutput("</td><td></td></tr><tr><td nowrap>");
 	OutputClass::output("New Day:");
-	rawoutput("</td><td><input name='mount[newday]' value=\"".htmlentities($mount['newday'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='40'></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='mount[newday]' value=\"".htmlentities($mount['newday'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='40'></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Full Recharge:");
-	rawoutput("</td><td><input name='mount[recharge]' value=\"".htmlentities($mount['recharge'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='40'></td></tr>");
-	rawoutput("<tr><td nowrap>");
+	OutputClass::rawoutput("</td><td><input name='mount[recharge]' value=\"".htmlentities($mount['recharge'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='40'></td></tr>");
+	OutputClass::rawoutput("<tr><td nowrap>");
 	OutputClass::output("Partial Recharge:");
-	rawoutput("</td><td><input name='mount[partrecharge]' value=\"".htmlentities($mount['partrecharge'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='40'></td></tr>");
-	rawoutput("<tr><td valign='top' nowrap>");
+	OutputClass::rawoutput("</td><td><input name='mount[partrecharge]' value=\"".htmlentities($mount['partrecharge'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='40'></td></tr>");
+	OutputClass::rawoutput("<tr><td valign='top' nowrap>");
 	OutputClass::output("Mount Buff:");
-	rawoutput("</td><td>");
+	OutputClass::rawoutput("</td><td>");
 	OutputClass::output("Buff name:");
-	rawoutput("<input name='mount[mountbuff][name]' value=\"".htmlentities($mount['mountbuff']['name'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][name]' value=\"".htmlentities($mount['mountbuff']['name'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
 	OutputClass::output("`bBuff Messages:`b`n");
 	OutputClass::output("Each round:");
-	rawoutput("<input name='mount[mountbuff][roundmsg]' value=\"".htmlentities($mount['mountbuff']['roundmsg'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][roundmsg]' value=\"".htmlentities($mount['mountbuff']['roundmsg'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
 	OutputClass::output("Wear off:");
-	rawoutput("<input name='mount[mountbuff][wearoff]' value=\"".htmlentities($mount['mountbuff']['wearoff'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][wearoff]' value=\"".htmlentities($mount['mountbuff']['wearoff'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
 	OutputClass::output("Effect:");
-	rawoutput("<input name='mount[mountbuff][effectmsg]' value=\"".htmlentities($mount['mountbuff']['effectmsg'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][effectmsg]' value=\"".htmlentities($mount['mountbuff']['effectmsg'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
 	OutputClass::output("Effect No Damage:");
-	rawoutput("<input name='mount[mountbuff][effectnodmgmsg]' value=\"".htmlentities($mount['mountbuff']['effectnodmgmsg'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][effectnodmgmsg]' value=\"".htmlentities($mount['mountbuff']['effectnodmgmsg'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
 	OutputClass::output("Effect Fail:");
-	rawoutput("<input name='mount[mountbuff][effectfailmsg]' value=\"".htmlentities($mount['mountbuff']['effectfailmsg'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][effectfailmsg]' value=\"".htmlentities($mount['mountbuff']['effectfailmsg'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
 	OutputClass::output("(message replacements: {badguy}, {goodguy}, {weapon}, {armor}, {creatureweapon}, and where applicable {damage}.)`n");
 	OutputClass::output("`n`bEffects:`b`n");
 	OutputClass::output("Rounds to last (from new day):");
-	rawoutput("<input name='mount[mountbuff][rounds]' value=\"".htmlentities((int)$mount['mountbuff']['rounds'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][rounds]' value=\"".htmlentities((int)$mount['mountbuff']['rounds'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
 	OutputClass::output("Player Atk mod:");
-	rawoutput("<input name='mount[mountbuff][atkmod]' value=\"".htmlentities($mount['mountbuff']['atkmod'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][atkmod]' value=\"".htmlentities($mount['mountbuff']['atkmod'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'>");
 	OutputClass::output("(multiplier)`n");
 	OutputClass::output("Player Def mod:");
-	rawoutput("<input name='mount[mountbuff][defmod]' value=\"".htmlentities($mount['mountbuff']['defmod'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][defmod]' value=\"".htmlentities($mount['mountbuff']['defmod'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'>");
 	OutputClass::output("(multiplier)`n");
 	OutputClass::output("Player is invulnerable (1 = yes, 0 = no):");
-	rawoutput("<input name='mount[mountbuff][invulnerable]' value=\"".htmlentities($mount['mountbuff']['invulnerable'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size=50><br/>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][invulnerable]' value=\"".htmlentities($mount['mountbuff']['invulnerable'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size=50><br/>");
 	OutputClass::output("Regen:");
-	rawoutput("<input name='mount[mountbuff][regen]' value=\"".htmlentities($mount['mountbuff']['regen'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][regen]' value=\"".htmlentities($mount['mountbuff']['regen'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
 	OutputClass::output("Minion Count:");
-	rawoutput("<input name='mount[mountbuff][minioncount]' value=\"".htmlentities($mount['mountbuff']['minioncount'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][minioncount]' value=\"".htmlentities($mount['mountbuff']['minioncount'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
 
 	OutputClass::output("Min Badguy Damage:");
-	rawoutput("<input name='mount[mountbuff][minbadguydamage]' value=\"".htmlentities($mount['mountbuff']['minbadguydamage'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][minbadguydamage]' value=\"".htmlentities($mount['mountbuff']['minbadguydamage'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
 	OutputClass::output("Max Badguy Damage:");
-	rawoutput("<input name='mount[mountbuff][maxbadguydamage]' value=\"".htmlentities($mount['mountbuff']['maxbadguydamage'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][maxbadguydamage]' value=\"".htmlentities($mount['mountbuff']['maxbadguydamage'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
 	OutputClass::output("Min Goodguy Damage:");
-	rawoutput("<input name='mount[mountbuff][mingoodguydamage]' value=\"".htmlentities($mount['mountbuff']['mingoodguydamage'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][mingoodguydamage]' value=\"".htmlentities($mount['mountbuff']['mingoodguydamage'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
 	OutputClass::output("Max Goodguy Damage:");
-	rawoutput("<input name='mount[mountbuff][maxgoodguydamage]' value=\"".htmlentities($mount['mountbuff']['maxgoodguydamage'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][maxgoodguydamage]' value=\"".htmlentities($mount['mountbuff']['maxgoodguydamage'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'><br/>");
 
 	OutputClass::output("Lifetap:");
-	rawoutput("<input name='mount[mountbuff][lifetap]' value=\"".htmlentities($mount['mountbuff']['lifetap'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][lifetap]' value=\"".htmlentities($mount['mountbuff']['lifetap'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'>");
 	OutputClass::output("(multiplier)`n");
 	OutputClass::output("Damage shield:");
-	rawoutput("<input name='mount[mountbuff][damageshield]' value=\"".htmlentities($mount['mountbuff']['damageshield'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][damageshield]' value=\"".htmlentities($mount['mountbuff']['damageshield'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'>");
 	OutputClass::output("(multiplier)`n");
 	OutputClass::output("Badguy Damage mod:");
-	rawoutput("<input name='mount[mountbuff][badguydmgmod]' value=\"".htmlentities($mount['mountbuff']['badguydmgmod'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][badguydmgmod]' value=\"".htmlentities($mount['mountbuff']['badguydmgmod'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'>");
 	OutputClass::output("(multiplier)`n");
 	OutputClass::output("Badguy Atk mod:");
-	rawoutput("<input name='mount[mountbuff][badguyatkmod]' value=\"".htmlentities($mount['mountbuff']['badguyatkmod'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][badguyatkmod]' value=\"".htmlentities($mount['mountbuff']['badguyatkmod'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'>");
 	OutputClass::output("(multiplier)`n");
 	OutputClass::output("Badguy Def mod:");
-	rawoutput("<input name='mount[mountbuff][badguydefmod]' value=\"".htmlentities($mount['mountbuff']['badguydefmod'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'>");
+	OutputClass::rawoutput("<input name='mount[mountbuff][badguydefmod]' value=\"".htmlentities($mount['mountbuff']['badguydefmod'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" size='50'>");
 	OutputClass::output("(multiplier)`n");
 	OutputClass::output("`bOn Dynamic Buffs`b`n");
 	OutputClass::output("`@In the above, for most fields, you can choose to enter valid PHP code, substituting <fieldname> for fields in the user's account table.`n");
@@ -457,9 +457,9 @@ function mountform($mount){
 	OutputClass::output("You can also use module preferences by using <modulename|preference> (for instance '<specialtymystic|uses>' or '<drinks|drunkeness>'`n`n");
 	OutputClass::output("`@Finally, starting a field with 'debug:' will enable debug OutputClass::output for that field to help you locate errors in your implementation.");
 	OutputClass::output("While testing new buffs, you should be sure to debug fields before you release them on the world, as the PHP script will otherwise throw errors to the user if you have any, and this can break the site at various spots (as in places that redirects should happen).");
-	rawoutput("</td></tr></table>");
+	OutputClass::rawoutput("</td></tr></table>");
 	$save = Translator::translate_inline("Save");
-	rawoutput("<input type='submit' class='button' value='$save'></form>");
+	OutputClass::rawoutput("<input type='submit' class='button' value='$save'></form>");
 }
 
 page_footer();

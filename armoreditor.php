@@ -38,10 +38,10 @@ if($op=="edit" || $op=="add"){
 		$result = db_query($sql);
 		$row = db_fetch_assoc($result);
 	}
-	rawoutput("<form action='armoreditor.php?op=save&level=$armorlevel' method='POST'>");
+	OutputClass::rawoutput("<form action='armoreditor.php?op=save&level=$armorlevel' method='POST'>");
 	OutputClass::addnav("","armoreditor.php?op=save&level=$armorlevel");
 	showform($armorarray,$row);
-	rawoutput("</form>");
+	OutputClass::rawoutput("</form>");
 }else if($op=="del"){
 	$sql = "DELETE FROM " . db_prefix("armor") . " WHERE armorid='$id'";
 	db_query($sql);
@@ -83,27 +83,27 @@ if ($op==""){
 	$del = Translator::translate_inline("Del");
 	$delconfirm = Translator::translate_inline("Are you sure you wish to delete this armor?");
 
-	rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
-	rawoutput("<tr class='trhead'><td>$ops</td><td>$name</td><td>$cost</td><td>$defense</td><td>$level</td></tr>");
+	OutputClass::rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
+	OutputClass::rawoutput("<tr class='trhead'><td>$ops</td><td>$name</td><td>$cost</td><td>$defense</td><td>$level</td></tr>");
 	$number=db_num_rows($result);
 	for ($i=0;$i<$number;$i++){
 		$row = db_fetch_assoc($result);
-		rawoutput("<tr class='".($i%2?"trdark":"trlight")."'>");
-		rawoutput("<td>[<a href='armoreditor.php?op=edit&id={$row['armorid']}&level=$armorlevel'>$edit</a>|<a href='armoreditor.php?op=del&id={$row['armorid']}&level=$armorlevel' onClick='return confirm(\"$delconfirm\");'>$del</a>]</td>");
+		OutputClass::rawoutput("<tr class='".($i%2?"trdark":"trlight")."'>");
+		OutputClass::rawoutput("<td>[<a href='armoreditor.php?op=edit&id={$row['armorid']}&level=$armorlevel'>$edit</a>|<a href='armoreditor.php?op=del&id={$row['armorid']}&level=$armorlevel' onClick='return confirm(\"$delconfirm\");'>$del</a>]</td>");
 		OutputClass::addnav("","armoreditor.php?op=edit&id={$row['armorid']}&level=$armorlevel");
 		OutputClass::addnav("","armoreditor.php?op=del&id={$row['armorid']}&level=$armorlevel");
-		rawoutput("<td>");
+		OutputClass::rawoutput("<td>");
 		OutputClass::output_notl($row['armorname']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl($row['value']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl($row['defense']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl($row['level']);
-		rawoutput("</td>");
-		rawoutput("</tr>");
+		OutputClass::rawoutput("</td>");
+		OutputClass::rawoutput("</tr>");
 	}
-	rawoutput("</table>");
+	OutputClass::rawoutput("</table>");
 }
 page_footer();
 ?>

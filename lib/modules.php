@@ -423,10 +423,10 @@ class Modules
             debug("Args parameter to Modules::modulehook $hookname from $where is not an array.");
         }
         if ($session['user']['superuser'] & SU_DEBUG_OUTPUT && !isset($hookcomment[$hookname])) {
-            rawoutput("<!--Module Hook: $hookname; allow inactive: " . ($allowinactive ? "true" : "false") . "; only this module: " . ($only !== false ? $only : "any module"));
+            OutputClass::rawoutput("<!--Module Hook: $hookname; allow inactive: " . ($allowinactive ? "true" : "false") . "; only this module: " . ($only !== false ? $only : "any module"));
             if (!is_array($args)) {
                 $arg = $args . " (NOT AN ARRAY!)";
-                rawoutput("  arg: $arg");
+                OutputClass::rawoutput("  arg: $arg");
             } else {
                 reset($args);
                 while (list($key, $val) = each($args)) {
@@ -439,10 +439,10 @@ class Modules
                         $arg .= htmlentities(substr($val, 0, 25), ENT_COMPAT,
                             Settings::getsetting("charset", "ISO-8859-1"));
                     }
-                    rawoutput("  arg: $arg");
+                    OutputClass::rawoutput("  arg: $arg");
                 }
             }
-            rawoutput("  -->");
+            OutputClass::rawoutput("  -->");
             $hookcomment[$hookname] = true;
         }
         if (isset($modulehook_queries[$hookname]) //This data was pre fetched in mass_module_prepare
@@ -1174,15 +1174,15 @@ function module_display_events($eventtype, $forcescript=false) {
 	$name = Translator::translate_inline("Name");
 	$rchance = Translator::translate_inline("Raw Chance");
 	$nchance = Translator::translate_inline("Normalized Chance");
-	rawoutput("<table cellspacing='1' cellpadding='2' border='0' bgcolor='#999999'>");
-	rawoutput("<tr class='trhead'>");
-	rawoutput("<td>$name</td><td>$rchance</td><td>nchance</td>");
-	rawoutput("</tr>");
+	OutputClass::rawoutput("<table cellspacing='1' cellpadding='2' border='0' bgcolor='#999999'>");
+	OutputClass::rawoutput("<tr class='trhead'>");
+	OutputClass::rawoutput("<td>$name</td><td>$rchance</td><td>nchance</td>");
+	OutputClass::rawoutput("</tr>");
 	$i = 0;
 	foreach($events as $event) {
 		// Each event is an associative array of 'modulename',
 		// 'rawchance' and 'normchance'
-		rawoutput("<tr class='" . ($i%2==0?"trdark":"trlight")."'>");
+		OutputClass::rawoutput("<tr class='" . ($i%2==0?"trdark":"trlight")."'>");
 		$i++;
 		if ($event['modulename']) {
 			$link = "module-{$event['modulename']}";
@@ -1195,13 +1195,13 @@ function module_display_events($eventtype, $forcescript=false) {
 		$rl2 = substr($rlink, $first+1);
 		$rl2 = str_replace("?", "&", $rl2);
 		$rlink = $rl1 . $rl2;
-		rawoutput("<td><a href='$rlink'>$name</a></td>");
+		OutputClass::rawoutput("<td><a href='$rlink'>$name</a></td>");
 		OutputClass::addnav("", "$rlink");
-		rawoutput("<td>{$event['rawchance']}</td>");
-		rawoutput("<td>{$event['normchance']}</td>");
-		rawoutput("</tr>");
+		OutputClass::rawoutput("<td>{$event['rawchance']}</td>");
+		OutputClass::rawoutput("<td>{$event['normchance']}</td>");
+		OutputClass::rawoutput("</tr>");
 	}
-	rawoutput("</table>");
+	OutputClass::rawoutput("</table>");
 }
 
 function module_editor_navs($like, $linkprefix)

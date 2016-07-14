@@ -24,36 +24,36 @@ $mname = Translator::translate_inline("Module Name");
 $mver = Translator::translate_inline("Version");
 $mauth = Translator::translate_inline("Module Author");
 $mdown = Translator::translate_inline("Download Location");
-rawoutput("<table border='0' cellpadding='2' cellspacing='1' bgcolor='#999999'>",true);
-rawoutput("<tr class='trhead'><td>$mname</td><td>$mver</td><td>$mauth</td><td>$mdown</td></tr>",true);
+OutputClass::rawoutput("<table border='0' cellpadding='2' cellspacing='1' bgcolor='#999999'>",true);
+OutputClass::rawoutput("<tr class='trhead'><td>$mname</td><td>$mver</td><td>$mauth</td><td>$mdown</td></tr>",true);
 if (db_num_rows($result) == 0) {
-	rawoutput("<tr class='trlight'><td colspan='4' align='center'>");
+	OutputClass::rawoutput("<tr class='trlight'><td colspan='4' align='center'>");
 	OutputClass::output("`i-- No modules installed --`i");
-	rawoutput("</td></tr>");
+	OutputClass::rawoutput("</td></tr>");
 }
 $cat = "";
 $i=0;
 while ($row = db_fetch_assoc($result)) {
 	$i++;
 	if ($cat != $row['category']) {
-		rawoutput("<tr class='trhead'><td colspan='4' align='left'>");
+		OutputClass::rawoutput("<tr class='trhead'><td colspan='4' align='left'>");
 		OutputClass::output($row['category']);
-		rawoutput(":</td></tr>");
+		OutputClass::rawoutput(":</td></tr>");
 		$cat = $row['category'];
 	}
 
-	rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
-	rawoutput("<td valign='top'>");
+	OutputClass::rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+	OutputClass::rawoutput("<td valign='top'>");
 	OutputClass::output_notl("`&%s`0", $row['formalname']);
-	rawoutput("<td valign='top'>",true);
+	OutputClass::rawoutput("<td valign='top'>",true);
 	OutputClass::output_notl("`^%s`0", $row['version']);
-	rawoutput("</td><td valign='top'>");
+	OutputClass::rawoutput("</td><td valign='top'>");
 	OutputClass::output_notl("`^%s`0", $row['moduleauthor'], true);
-	rawoutput("</td><td nowrap valign='top'>");
+	OutputClass::rawoutput("</td><td nowrap valign='top'>");
 	if ($row['download'] == "core_module") {
-		rawoutput("<a href='http://dragonprime.net/index.php?module=Downloads;catd=4' target='_blank'>");
+		OutputClass::rawoutput("<a href='http://dragonprime.net/index.php?module=Downloads;catd=4' target='_blank'>");
 		OutputClass::output("Core Distribution");
-		rawoutput("</a>");
+		OutputClass::rawoutput("</a>");
 	} elseif ($row['download']) {
 		// We should check all legeal protocols
 		$protocols = array("http","https","ftp","ftps");
@@ -63,15 +63,15 @@ while ($row = db_fetch_assoc($result)) {
 		if (!in_array($protocol,$protocols)){
 			OutputClass::output("`\$Contact Admin for Release");
 		}else{
-			rawoutput("<a href='{$row['download']}' target='_blank'>");
+			OutputClass::rawoutput("<a href='{$row['download']}' target='_blank'>");
 			OutputClass::output("Download");
-			rawoutput("</a>");
+			OutputClass::rawoutput("</a>");
 		}
 	} else {
 		OutputClass::output("`\$Not publically released.`0");
 	}
-	rawoutput("</td>");
-	rawoutput("</tr>");
+	OutputClass::rawoutput("</td>");
+	OutputClass::rawoutput("</tr>");
 }
-rawoutput("</table>");
+OutputClass::rawoutput("</table>");
 ?>

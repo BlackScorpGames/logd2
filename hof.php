@@ -94,8 +94,8 @@ function display_table($title, $sql, $none=false, $foot=false,
 	} else {
 		OutputClass::output("`c`b`^%s`0`b`c`n", $title);
 	}
-	rawoutput("<table cellspacing='0' cellpadding='2' align='center'>");
-	rawoutput("<tr class='trhead'>");
+	OutputClass::rawoutput("<table cellspacing='0' cellpadding='2' align='center'>");
+	OutputClass::rawoutput("<tr class='trhead'>");
 	OutputClass::output_notl("<td>`b$rank`b</td><td>`b$name`b</td>", true);
 	if ($data_header !== false) {
 		for ($i = 0; $i < count($data_header); $i++) {
@@ -111,9 +111,9 @@ function display_table($title, $sql, $none=false, $foot=false,
 		while ($row = db_fetch_assoc($result)) {
 			$i++;
 			if ($row['name']==$session['user']['name']){
-				rawoutput("<tr class='hilight'>");
+				OutputClass::rawoutput("<tr class='hilight'>");
 			} else {
-				rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+				OutputClass::rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
 			}
 			OutputClass::output_notl("<td>%s</td><td>`&%s`0</td>",($i+$from), $row['name'], true);
 			if ($data_header !== false) {
@@ -128,10 +128,10 @@ function display_table($title, $sql, $none=false, $foot=false,
 					OutputClass::output_notl("<td align='right'>%s</td>", $val, true);
 				}
 			}
-			rawoutput("</tr>");
+			OutputClass::rawoutput("</tr>");
 		}
 	}
-	rawoutput("</table>");
+	OutputClass::rawoutput("</table>");
 	if ($foot !== false) OutputClass::output_notl("`n`c%s`c", $foot);
 }
 

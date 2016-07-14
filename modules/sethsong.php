@@ -99,7 +99,7 @@ function sethsong_run(){
 	Translator::tlschema("inn");
 	PageParts::page_header($iname);
 
-	rawoutput("<span style='color: #9900FF'>");
+	OutputClass::rawoutput("<span style='color: #9900FF'>");
 	OutputClass::output_notl("`c`b");
 	OutputClass::output($iname);
 	OutputClass::output_notl("`b`c");
@@ -116,7 +116,7 @@ function sethsong_run(){
 	OutputClass::addnav("Where to?");
 	OutputClass::addnav("I?Return to the Inn","inn.php");
 	villagenav();
-	rawoutput("</span>");
+	OutputClass::rawoutput("</span>");
 	page_footer();
 }
 

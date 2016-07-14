@@ -22,7 +22,7 @@ while (list($key,$val)=each($order)){
 		 * NOTICE please leave the main about body untouched.
 		 * NOTICE
 		 */
-		rawoutput("<hr>");
+		OutputClass::rawoutput("<hr>");
 		$impressum = Settings::getsetting("impressum", "");
 		if ($impressum > "") {
 			require_once("lib/nltoappon.php");

@@ -52,11 +52,11 @@ if (is_array($row)){
 		$body="\n\n---".sprintf_translate(array("Original Message from %s (%s)",sanitize($row['name']),date("Y-m-d H:i:s",strtotime($row['sent']))))."---\n".$row['body'];
 	}
 }
-rawoutput("<form action='mail.php?op=send' method='post'>");
+OutputClass::rawoutput("<form action='mail.php?op=send' method='post'>");
 if ($session['user']['superuser'] & SU_IS_GAMEMASTER) {
-	rawoutput("<input type='hidden' name='from' value='".htmlentities(stripslashes($from), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."'>");
+	OutputClass::rawoutput("<input type='hidden' name='from' value='".htmlentities(stripslashes($from), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."'>");
 }
-rawoutput("<input type='hidden' name='returnto' value=\"".htmlentities(stripslashes(Http::httpget("replyto")), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
+OutputClass::rawoutput("<input type='hidden' name='returnto' value=\"".htmlentities(stripslashes(Http::httpget("replyto")), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
 $superusers = array();
 if (($session['user']['superuser'] & SU_IS_GAMEMASTER) && $from > "") {
 	OutputClass::output("`2From: `^%s`n", $from);
@@ -94,7 +94,7 @@ if (isset($row['login']) && $row['login']!=""){
 		OutputClass::output("`\$No one was found who matches \"%s\".`n",stripslashes($to));
 		OutputClass::output("`@Please try again.`n");
 		httpset('prepop', $to, true);
-		rawoutput("</form>");
+		OutputClass::rawoutput("</form>");
 		require("lib/mail/case_address.php");
 		popup_footer();
 	}else{
@@ -111,23 +111,23 @@ if (isset($row['login']) && $row['login']!=""){
 		OutputClass::output_notl("</select>`n",true);
 	}
 }
-rawoutput("<script type='text/javascript'>var superusers = new Array();");
+OutputClass::rawoutput("<script type='text/javascript'>var superusers = new Array();");
 foreach($superusers as $val) {
-	rawoutput("	superusers['".addslashes($val)."'] = true;");
+	OutputClass::rawoutput("	superusers['".addslashes($val)."'] = true;");
 }
-rawoutput("</script>");
+OutputClass::rawoutput("</script>");
 OutputClass::output("`2Subject:");
-rawoutput("<input name='subject' value=\"".htmlentities($subject).htmlentities(stripslashes(Http::httpget('subject')), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"><br>");
-rawoutput("<div id='warning' style='visibility: hidden; display: none;'>");
+OutputClass::rawoutput("<input name='subject' value=\"".htmlentities($subject).htmlentities(stripslashes(Http::httpget('subject')), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"><br>");
+OutputClass::rawoutput("<div id='warning' style='visibility: hidden; display: none;'>");
 OutputClass::output("`2Notice: `^$superusermessage`n");
-rawoutput("</div>");
+OutputClass::rawoutput("</div>");
 OutputClass::output("`2Body:`n");
 require_once("lib/forms.php");
 previewfield("body", "`^", false, false, array("type"=>"textarea", "class"=>"input", "cols"=>"60", "rows"=>"9", "onKeyDown"=>"sizeCount(this);"), htmlentities($body, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")).htmlentities(stripslashes(Http::httpget('body')), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
-//rawoutput("<textarea name='body' id='textarea' class='input' cols='60' rows='9' onKeyUp='sizeCount(this);'>".htmlentities($body, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")).htmlentities(stripslashes(Http::httpget('body')), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br>");
+//OutputClass::rawoutput("<textarea name='body' id='textarea' class='input' cols='60' rows='9' onKeyUp='sizeCount(this);'>".htmlentities($body, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")).htmlentities(stripslashes(Http::httpget('body')), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br>");
 $send = Translator::translate_inline("Send");
-rawoutput("<table border='0' cellpadding='0' cellspacing='0' width='100%'><tr><td><input type='submit' class='button' value='$send'></td><td align='right'><div id='sizemsg'></div></td></tr></table>");
-rawoutput("</form>");
+OutputClass::rawoutput("<table border='0' cellpadding='0' cellspacing='0' width='100%'><tr><td><input type='submit' class='button' value='$send'></td><td align='right'><div id='sizemsg'></div></td></tr></table>");
+OutputClass::rawoutput("</form>");
 $sizemsg = "`#Max message size is `@%s`#, you have `^XX`# characters left.";
 $sizemsg = Translator::translate_inline($sizemsg);
 $sizemsg = sprintf($sizemsg,Settings::getsetting("mailsizelimit",1024));
@@ -140,7 +140,7 @@ $usize1 = addslashes("<span>".appoencode($sizemsg[0])."</span>");
 $usize2 = addslashes("<span>".appoencode($sizemsg[1])."</span>");
 $osize1 = addslashes("<span>".appoencode($sizemsgover[0])."</span>");
 $osize2 = addslashes("<span>".appoencode($sizemsgover[1])."</span>");
-rawoutput("
+OutputClass::rawoutput("
 <script type='text/javascript'>
 	var maxlen = ".Settings::getsetting("mailsizelimit",1024).";
 	function sizeCount(box){

@@ -19,25 +19,25 @@ if ($session['user']['superuser'] & SU_EDIT_DONATIONS) {
 OutputClass::addnav("Bans");
 OutputClass::addnav("Set up ban","user.php?op=setupban&userid={$row['acctid']}");
 if (Http::httpget("subop")==""){
-	rawoutput("<form action='user.php?op=special&userid=$userid$returnpetition' method='POST'>");
+	OutputClass::rawoutput("<form action='user.php?op=special&userid=$userid$returnpetition' method='POST'>");
 	OutputClass::addnav("","user.php?op=special&userid=$userid$returnpetition");
 	$grant = Translator::translate_inline("Grant New Day");
-	rawoutput("<input type='submit' class='button' name='newday' value='$grant'>");
+	OutputClass::rawoutput("<input type='submit' class='button' name='newday' value='$grant'>");
 	$fix = Translator::translate_inline("Fix Broken Navs");
-	rawoutput("<input type='submit' class='button' name='fixnavs' value='$fix'>");
+	OutputClass::rawoutput("<input type='submit' class='button' name='fixnavs' value='$fix'>");
 	$mark = Translator::translate_inline("Mark Email As Valid");
-	rawoutput("<input type='submit' class='button' name='clearvalidation' value='$mark'>");
-	rawoutput("</form>");
+	OutputClass::rawoutput("<input type='submit' class='button' name='clearvalidation' value='$mark'>");
+	OutputClass::rawoutput("</form>");
 		//Show a user's usertable
-	rawoutput("<form action='user.php?op=save&userid=$userid$returnpetition' method='POST'>");
+	OutputClass::rawoutput("<form action='user.php?op=save&userid=$userid$returnpetition' method='POST'>");
 	OutputClass::addnav("","user.php?op=save&userid=$userid$returnpetition");
 	$save = Translator::translate_inline("Save");
-	rawoutput("<input type='submit' class='button' value='$save'>");
+	OutputClass::rawoutput("<input type='submit' class='button' value='$save'>");
 	if ($row['loggedin']==1 && $row['laston']>date("Y-m-d H:i:s",strtotime("-".Settings::getsetting("LOGINTIMEOUT",900)." seconds"))){
 		OutputClass::output_notl("`\$");
-		rawoutput("<span style='font-size: 20px'>");
+		OutputClass::rawoutput("<span style='font-size: 20px'>");
 		OutputClass::output("`\$Warning:`0");
-		rawoutput("</span>");
+		OutputClass::rawoutput("</span>");
 		OutputClass::output("`\$This user is probably logged in at the moment!`0");
 	}
 	// Okay, munge the display name down to just the players name sans
@@ -51,13 +51,13 @@ if (Http::httpget("subop")==""){
 	*/
 	$showformargs = Modules::modulehook("modifyuserview", array("userinfo"=>$userinfo, "user"=>$row));
 	$info = showform($showformargs['userinfo'],$showformargs['user']);
-	rawoutput("<input type='hidden' value=\"".htmlentities(serialize($info), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" name='oldvalues'>");
-	rawoutput("</form>");
+	OutputClass::rawoutput("<input type='hidden' value=\"".htmlentities(serialize($info), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" name='oldvalues'>");
+	OutputClass::rawoutput("</form>");
 		OutputClass::output("`n`nLast Page Viewed:`n");
-	rawoutput("<iframe src='user.php?op=lasthit&userid=$userid' width='100%' height='400'>");
+	OutputClass::rawoutput("<iframe src='user.php?op=lasthit&userid=$userid' width='100%' height='400'>");
 	OutputClass::output("You need iframes to view the user's last hit here.");
 	OutputClass::output("Use the link in the nav instead.");
-	rawoutput("</iframe>");
+	OutputClass::rawoutput("</iframe>");
 }elseif(Http::httpget("subop")=="module"){
 	//Show a user's prefs for a given module.
 	OutputClass::addnav("Operations");
@@ -86,12 +86,12 @@ if (Http::httpget("subop")==""){
 		while ($row = db_fetch_assoc($result)){
 			$data[$row['setting']] = $row['value'];
 		}
-		rawoutput("<form action='user.php?op=savemodule&module=$module&userid=$userid$returnpetition' method='POST'>");
+		OutputClass::rawoutput("<form action='user.php?op=savemodule&module=$module&userid=$userid$returnpetition' method='POST'>");
 		OutputClass::addnav("","user.php?op=savemodule&module=$module&userid=$userid$returnpetition");
 		Translator::tlschema("module-$module");
 		showform($msettings,$data);
 		Translator::tlschema();
-		rawoutput("</form>");
+		OutputClass::rawoutput("</form>");
 	}else{
 		OutputClass::output("The $module module doesn't appear to define any user preferences.");
 	}

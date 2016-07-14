@@ -84,7 +84,7 @@ function specialtydarkarts_dohook($hookname,$args){
 			OutputClass::addnav("$ccode$name`0","newday.php?setspecialty=$spec$resline");
 			$t1 = Translator::translate_inline("Killing a lot of woodland creatures");
 			$t2 = appoencode(Translator::translate_inline("$ccode$name`0"));
-			rawoutput("<a href='newday.php?setspecialty=$spec$resline'>$t1 ($t2)</a><br>");
+			OutputClass::rawoutput("<a href='newday.php?setspecialty=$spec$resline'>$t1 ($t2)</a><br>");
 			OutputClass::addnav("","newday.php?setspecialty=$spec$resline");
 		}
 		break;

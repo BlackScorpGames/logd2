@@ -37,16 +37,16 @@ if (db_num_rows($result)==0){
 		Settings::savesetting("installer_version",$logd_version);
 	}
 	if ($showform){
-		rawoutput("<form action='installer.php?stage=$stage' method='POST'>");
+		OutputClass::rawoutput("<form action='installer.php?stage=$stage' method='POST'>");
 		OutputClass::output("Enter a name for your superuser account:");
-		rawoutput("<input name='name' value=\"".htmlentities(httppost("name"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
+		OutputClass::rawoutput("<input name='name' value=\"".htmlentities(httppost("name"), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">");
 		OutputClass::output("`nEnter a password: ");
-		rawoutput("<input name='pass1' type='password'>");
+		OutputClass::rawoutput("<input name='pass1' type='password'>");
 		OutputClass::output("`nConfirm your password: ");
-		rawoutput("<input name='pass2' type='password'>");
+		OutputClass::rawoutput("<input name='pass2' type='password'>");
 		$submit = Translator::translate_inline("Create");
-		rawoutput("<br><input type='submit' value='$submit' class='button'>");
-		rawoutput("</form>");
+		OutputClass::rawoutput("<br><input type='submit' value='$submit' class='button'>");
+		OutputClass::rawoutput("</form>");
 	}
 }else{
 	OutputClass::output("`#You already have a superuser account set up on this server.");

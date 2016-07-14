@@ -44,7 +44,7 @@ if ($op=="save") {
 	db_query($sql);
 	if (db_affected_rows() == 0) {
 		OutputClass::output($errnote);
-		rawoutput(db_error());
+		OutputClass::rawoutput(db_error());
 	} else {
 		OutputClass::output($note);
 	}
@@ -74,31 +74,31 @@ if ($op == ""){
 	$edit = Translator::translate_inline("Edit");
 	$del = Translator::translate_inline("Delete");
 	$delconfirm = Translator::translate_inline("Are you sure you wish to delete this title?");
-	rawoutput("<table border=0 cellspacing=0 cellpadding=2 width='100%' align='center'>");
+	OutputClass::rawoutput("<table border=0 cellspacing=0 cellpadding=2 width='100%' align='center'>");
 	// reference tag is currently unused
-	// rawoutput("<tr class='trhead'><td>$ops</td><td>$dks</td><td>$reftag</td><td>$mtit</td><td>$ftit</td></tr>");
-	rawoutput("<tr class='trhead'><td>$ops</td><td>$dks</td><td>$mtit</td><td>$ftit</td></tr>");
+	// OutputClass::rawoutput("<tr class='trhead'><td>$ops</td><td>$dks</td><td>$reftag</td><td>$mtit</td><td>$ftit</td></tr>");
+	OutputClass::rawoutput("<tr class='trhead'><td>$ops</td><td>$dks</td><td>$mtit</td><td>$ftit</td></tr>");
 	$result = db_query($sql);
 	$i = 0;
 	while($row = db_fetch_assoc($result)) {
 		$id = $row['titleid'];
-		rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
-		rawoutput("<td>[<a href='titleedit.php?op=edit&id=$id'>$edit</a>|<a href='titleedit.php?op=delete&id=$id' onClick='return confirm(\"$delconfirm\");'>$del</a>]</td>");
+		OutputClass::rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+		OutputClass::rawoutput("<td>[<a href='titleedit.php?op=edit&id=$id'>$edit</a>|<a href='titleedit.php?op=delete&id=$id' onClick='return confirm(\"$delconfirm\");'>$del</a>]</td>");
 		OutputClass::addnav("","titleedit.php?op=edit&id=$id");
 		OutputClass::addnav("","titleedit.php?op=delete&id=$id");
-		rawoutput("<td>");
+		OutputClass::rawoutput("<td>");
 		OutputClass::output_notl("`&%s`0",$row['dk']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		// reftag is currently unused
 		// OutputClass::output("`^%s`0", $row['ref']);
 		// OutputClass::output("</td><td>");
 		OutputClass::output_notl("`2%s`0",$row['male']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl("`6%s`0",$row['female']);
-		rawoutput("</td></tr>");
+		OutputClass::rawoutput("</td></tr>");
 		$i++;
 	}
-	rawoutput("</table>");
+	OutputClass::rawoutput("</table>");
 	//Modules::modulehook("titleedit", array());
 	OutputClass::addnav("Functions");
 	OutputClass::addnav("Add a Title", "titleedit.php?op=add");
@@ -115,10 +115,10 @@ if ($op == ""){
 		$row = array('titleid'=>0, 'male'=>'', 'female'=>'', 'dk'=>0);
 		$id = 0;
 	}
-	rawoutput("<form action='titleedit.php?op=save&id=$id' method='POST'>");
+	OutputClass::rawoutput("<form action='titleedit.php?op=save&id=$id' method='POST'>");
 	OutputClass::addnav("","titleedit.php?op=save&id=$id");
 	showform($editarray,$row);
-	rawoutput("</form>");
+	OutputClass::rawoutput("</form>");
 	OutputClass::addnav("Functions");
 	OutputClass::addnav("Main Title Editor", "titleedit.php");
 	title_help();

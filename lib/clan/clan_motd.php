@@ -46,24 +46,24 @@
 			OutputClass::output("`&`bCurrent Description:`b `#by %s`2`n",$descauthname);
 			OutputClass::output_notl(nltoappon($claninfo['clandesc'])."`n");
 
-			rawoutput("<form action='clan.php?op=motd' method='POST'>");
+			OutputClass::rawoutput("<form action='clan.php?op=motd' method='POST'>");
 			OutputClass::addnav("","clan.php?op=motd");
 			OutputClass::output("`&`bMoTD:`b `7(4096 chars)`n");
-			rawoutput("<textarea name='clanmotd' cols='50' rows='10' class='input' style='width: 66%'>".htmlentities($claninfo['clanmotd'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br>");
+			OutputClass::rawoutput("<textarea name='clanmotd' cols='50' rows='10' class='input' style='width: 66%'>".htmlentities($claninfo['clanmotd'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br>");
 			OutputClass::output("`n`&`bDescription:`b `7(4096 chars)`n");
 			$blocked = Translator::translate_inline("Your clan has been blocked from posting a description.`n");
 			if ($claninfo['descauthor']==INT_MAX){
 				OutputClass::output_notl($blocked);
 			}else{
-				rawoutput("<textarea name='clandesc' cols='50' rows='10' class='input' style='width: 66%'>".htmlentities($claninfo['clandesc'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br>");
+				OutputClass::rawoutput("<textarea name='clandesc' cols='50' rows='10' class='input' style='width: 66%'>".htmlentities($claninfo['clandesc'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br>");
 			}
 			if ($session['user']['clanrank']>=CLAN_LEADER){
 				OutputClass::output("`n`&`bCustom Talk Line`b `7(blank means \"says\" -- 15 chars max)`n");
-				rawoutput("<input name='customsay' value=\"".htmlentities($claninfo['customsay'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" class='input' maxlength=\"15\"><br/>");
+				OutputClass::rawoutput("<input name='customsay' value=\"".htmlentities($claninfo['customsay'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" class='input' maxlength=\"15\"><br/>");
 			}
 			$save = Translator::translate_inline("Save");
-			rawoutput("<input type='submit' class='button' value='$save'>");
-			rawoutput("</form>");
+			OutputClass::rawoutput("<input type='submit' class='button' value='$save'>");
+			OutputClass::rawoutput("</form>");
 		}else{
 			OutputClass::output("You do not have authority to change your clan's motd or description.");
 		}

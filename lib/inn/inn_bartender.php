@@ -92,15 +92,15 @@ if ($act==""){
 	OutputClass::output_notl("`n`1&#0096;1 `2&#0096;2 `3&#0096;3 `4&#0096;4 `5&#0096;5 `6&#0096;6 `7&#0096;7 ",true);
 	OutputClass::output_notl("`n`!&#0096;! `@&#0096;@ `#&#0096;# `\$&#0096;\$ `%&#0096;% `^&#0096;^ `&&#0096;& `n",true);
 	OutputClass::output("`% Got it?`0\"  You can practice below:");
-	rawoutput("<form action=\"$REQUEST_URI\" method='POST'>",true);
+	OutputClass::rawoutput("<form action=\"$REQUEST_URI\" method='POST'>",true);
 	$testtext = httppost('testtext');
 	OutputClass::output("You entered %s`n", prevent_colors(HTMLEntities($testtext, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))), true);
 	OutputClass::output("It looks like %s`n", $testtext);
 	$try = Translator::translate_inline("Try");
-	rawoutput("<input name='testtext' id='input'>");
-	rawoutput("<input type='submit' class='button' value='$try'>");
-	rawoutput("</form>");
-	rawoutput("<script language='javascript'>document.getElementById('input').focus();</script>");
+	OutputClass::rawoutput("<input name='testtext' id='input'>");
+	OutputClass::rawoutput("<input type='submit' class='button' value='$try'>");
+	OutputClass::rawoutput("</form>");
+	OutputClass::rawoutput("<script language='javascript'>document.getElementById('input').focus();</script>");
 		OutputClass::output("`0`n`nThese colors can be used in your name, and in any conversations you have.");
 	OutputClass::addnav("",$REQUEST_URI);
 }else if($act=="specialty"){

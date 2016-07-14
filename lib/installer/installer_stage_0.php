@@ -71,15 +71,15 @@ if (DB_CHOSEN){
 if ($session['user']['superuser'] & SU_MEGAUSER) $needsauthentication=false;
 if ($needsauthentication){
 	$session['stagecompleted']=-1;
-	rawoutput("<form action='installer.php?stage=0' method='POST'>");
+	OutputClass::rawoutput("<form action='installer.php?stage=0' method='POST'>");
 	OutputClass::output("`%In order to upgrade this LoGD installation, you will need to provide the username and password of a superuser account with the MEGAUSER privilege`n");
 	OutputClass::output("`^Username: `0");
-	rawoutput("<input name='username'><br>");
+	OutputClass::rawoutput("<input name='username'><br>");
 	OutputClass::output("`^Password: `0");
-	rawoutput("<input type='password' name='password'><br>");
+	OutputClass::rawoutput("<input type='password' name='password'><br>");
 	$submit = Translator::translate_inline("Submit");
-	rawoutput("<input type='submit' value='$submit' class='button'>");
-	rawoutput("</form>");
+	OutputClass::rawoutput("<input type='submit' value='$submit' class='button'>");
+	OutputClass::rawoutput("</form>");
 }else{
 	OutputClass::output("`nPlease continue on to the next page, \"License Agreement.\"");
 }

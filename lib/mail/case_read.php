@@ -41,22 +41,22 @@ if (db_num_rows($result)>0){
 	$unread = Translator::translate_inline("Mark Unread");
 	$report = Translator::translate_inline("Report to Admin");
 	$problem = "Abusive Email Report:\nFrom: {$row['name']}\nSubject: {$row['subject']}\nSent: {$row['sent']}\nID: {$row['messageid']}\nBody:\n{$row['body']}";
-	rawoutput("<table width='50%' border='0' cellpadding='0' cellspacing='5'><tr>");
+	OutputClass::rawoutput("<table width='50%' border='0' cellpadding='0' cellspacing='5'><tr>");
 	if ($row['msgfrom'] > 0 && is_numeric($row['msgfrom'])) {
-		rawoutput("<td><a href='mail.php?op=write&replyto={$row['messageid']}' class='motd'>$reply</a></td>");
+		OutputClass::rawoutput("<td><a href='mail.php?op=write&replyto={$row['messageid']}' class='motd'>$reply</a></td>");
 	} else {
-		rawoutput("<td>&nbsp;</td>");
+		OutputClass::rawoutput("<td>&nbsp;</td>");
 	}
-	rawoutput("<td><a href='mail.php?op=del&id={$row['messageid']}' class='motd'>$del</a></td>
+	OutputClass::rawoutput("<td><a href='mail.php?op=del&id={$row['messageid']}' class='motd'>$del</a></td>
 		</tr><tr>
 		<td><a href='mail.php?op=unread&id={$row['messageid']}' class='motd'>$unread</a></td>");
 	// Don't allow reporting of system messages as abuse.
 	if ((int)$row['msgfrom']!=0) {
-		rawoutput("<td><a href=\"petition.php?problem=".rawurlencode($problem)."&abuse=yes\" class='motd'>$report</a></td>");
+		OutputClass::rawoutput("<td><a href=\"petition.php?problem=".rawurlencode($problem)."&abuse=yes\" class='motd'>$report</a></td>");
 	} else {
-		rawoutput("<td>&nbsp;</td>");
+		OutputClass::rawoutput("<td>&nbsp;</td>");
 	}
-	rawoutput("</tr><tr>");
+	OutputClass::rawoutput("</tr><tr>");
 	$sql = "SELECT messageid FROM $mail WHERE msgto='{$session['user']['acctid']}' AND messageid < '$id' ORDER BY messageid DESC LIMIT 1";
 	$result = db_query($sql);
 	if (db_num_rows($result)>0){
@@ -75,20 +75,20 @@ if (db_num_rows($result)>0){
 	}
 	$prev = Translator::translate_inline("< Previous");
 	$next = Translator::translate_inline("Next >");
-	rawoutput("<td nowrap='true'>");
+	OutputClass::rawoutput("<td nowrap='true'>");
 	if ($pid > 0) {
-		rawoutput("<a href='mail.php?op=read&id=$pid' class='motd'>".htmlentities($prev, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</a>");
+		OutputClass::rawoutput("<a href='mail.php?op=read&id=$pid' class='motd'>".htmlentities($prev, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</a>");
 	}else{
-		rawoutput(htmlentities($prev), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
+		OutputClass::rawoutput(htmlentities($prev), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
 	}
-	rawoutput("</td><td nowrap='true'>");
+	OutputClass::rawoutput("</td><td nowrap='true'>");
 	if ($nid > 0){
-		rawoutput("<a href='mail.php?op=read&id=$nid' class='motd'>".htmlentities($next, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</a>");
+		OutputClass::rawoutput("<a href='mail.php?op=read&id=$nid' class='motd'>".htmlentities($next, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</a>");
 	}else{
-		rawoutput(htmlentities($next), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
+		OutputClass::rawoutput(htmlentities($next), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
 	}
-	rawoutput("</td>");
-	rawoutput("</tr></table>");
+	OutputClass::rawoutput("</td>");
+	OutputClass::rawoutput("</tr></table>");
 }else{
 	OutputClass::output("Eek, no such message was found!");
 }

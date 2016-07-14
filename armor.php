@@ -76,14 +76,14 @@ if ($op==""){
 	$aname = Translator::translate_inline("`bName`b");
 	$adef = Translator::translate_inline("`bDefense`b");
 	$acost = Translator::translate_inline("`bCost`b");
-	rawoutput("<table border='0' cellpadding='0'>");
-	rawoutput("<tr class='trhead'><td>");
+	OutputClass::rawoutput("<table border='0' cellpadding='0'>");
+	OutputClass::rawoutput("<tr class='trhead'><td>");
 	OutputClass::output_notl($aname);
-	rawoutput("</td><td align='center'>");
+	OutputClass::rawoutput("</td><td align='center'>");
 	OutputClass::output_notl($adef);
-	rawoutput("</td><td align='right'>");
+	OutputClass::rawoutput("</td><td align='right'>");
 	OutputClass::output_notl($acost);
-	rawoutput("</td></tr>");
+	OutputClass::rawoutput("</td></tr>");
 	$i = 0;
 	while($row = db_fetch_assoc($result)) {
 		$link = true;
@@ -94,37 +94,37 @@ if ($op==""){
 		if (isset($row['unavailable']) && $row['unavailable'] == true) {
 			$link = false;
 		}
-		rawoutput("<tr class='".($i%2==1?"trlight":"trdark")."'>");
-		rawoutput("<td>");
+		OutputClass::rawoutput("<tr class='".($i%2==1?"trlight":"trdark")."'>");
+		OutputClass::rawoutput("<td>");
 		$color = "`)";
 		if ($row['value']<=($session['user']['gold']+$tradeinvalue)){
 			if ($link) {
 				$color = "`&";
-				rawoutput("<a href='armor.php?op=buy&id={$row['armorid']}'>");
+				OutputClass::rawoutput("<a href='armor.php?op=buy&id={$row['armorid']}'>");
 			} else {
 				$color = "`7";
 			}
 			OutputClass::output_notl("%s%s`0", $color, $row['armorname']);
 			if ($link) {
-				rawoutput("</a>");
+				OutputClass::rawoutput("</a>");
 			}
 			OutputClass::addnav("","armor.php?op=buy&id={$row['armorid']}");
 		}else{
 			OutputClass::output_notl("%s%s`0", $color, $row['armorname']);
 			OutputClass::addnav("","armor.php?op=buy&id={$row['armorid']}");
 		}
-		rawoutput("</td><td align='center'>");
+		OutputClass::rawoutput("</td><td align='center'>");
 		OutputClass::output_notl("%s%s`0", $color, $row['defense']);
-		rawoutput("</td><td align='right'>");
+		OutputClass::rawoutput("</td><td align='right'>");
 		if (isset($row['alternatetext']) && $row['alternatetext'] > "") {
 			OutputClass::output("%s%s`0", $color, $row['alternatetext']);
 		} else {
 			OutputClass::output_notl("%s%s`0",$color,$row['value']);
 		}
-		rawoutput("</td></tr>");
+		OutputClass::rawoutput("</td></tr>");
 		++$i;
 	}
-	rawoutput("</table>",true);
+	OutputClass::rawoutput("</table>",true);
 	villagenav();
 }elseif ($op=="buy"){
 	$id = Http::httpget('id');

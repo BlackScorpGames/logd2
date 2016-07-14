@@ -104,9 +104,9 @@ if ($dp < $dkills) {
 	require_once("lib/newday/setspecialty.php");
 }else{
 	PageParts::page_header("It is a new day!");
-	rawoutput("<font size='+1'>");
+	OutputClass::rawoutput("<font size='+1'>");
 	OutputClass::output("`c`b`#It is a New Day!`0`b`c");
-	rawoutput("</font>");
+	OutputClass::rawoutput("</font>");
 	$resurrection = Http::httpget('resurrection');
 
 	if ($session['user']['alive']!=true){

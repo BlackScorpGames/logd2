@@ -84,7 +84,7 @@ if ($page=="" && $op==""){
 	} else {
 		$title = sprintf_translate("Warriors of the realm");
 	}
-	rawoutput(tlbutton_clear());
+	OutputClass::rawoutput(tlbutton_clear());
 	$sql = "SELECT acctid,name,login,alive,hitpoints,location,race,sex,level,laston,loggedin,lastip,uniqueid FROM " . db_prefix("accounts") . " WHERE locked=0 $search ORDER BY level DESC, dragonkills DESC, login ASC $limit";
 	$result = db_query($sql);
 }
@@ -92,7 +92,7 @@ if ($session['user']['loggedin']){
 	$search = Translator::translate_inline("Search by name: ");
 	$search2 = Translator::translate_inline("Search");
 
-	rawoutput("<form action='list.php?op=search' method='POST'>$search<input name='name'><input type='submit' class='button' value='$search2'></form>");
+	OutputClass::rawoutput("<form action='list.php?op=search' method='POST'>$search<input name='name'><input type='submit' class='button' value='$search2'></form>");
 	OutputClass::addnav("","list.php?op=search");
 }
 
@@ -115,15 +115,15 @@ $race = Translator::translate_inline("Race");
 $sex = Translator::translate_inline("Sex");
 $last = Translator::translate_inline("Last On");
 
-rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>",true);
-rawoutput("<tr class='trhead'><td>$alive</td><td>$level</td><td>$name</td><td>$loc</td><td>$race</td><td>$sex</td><td>$last</tr>");
+OutputClass::rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>",true);
+OutputClass::rawoutput("<tr class='trhead'><td>$alive</td><td>$level</td><td>$name</td><td>$loc</td><td>$race</td><td>$sex</td><td>$last</tr>");
 $writemail = Translator::translate_inline("Write Mail");
 $alive = Translator::translate_inline("`1Yes`0");
 $dead = Translator::translate_inline("`4No`0");
 $unconscious = Translator::translate_inline("`6Unconscious`0");
 for($i=0;$i<$max;$i++){
 	$row = db_fetch_assoc($result);
-	rawoutput("<tr class='".($i%2?"trdark":"trlight")."'><td>",true);
+	OutputClass::rawoutput("<tr class='".($i%2?"trdark":"trlight")."'><td>",true);
 	if ($row['alive'] == true) {
 		$a = $alive;
 	} else if ($row['hitpoints'] > 0) {
@@ -133,39 +133,39 @@ for($i=0;$i<$max;$i++){
 	}
 	//$a = Translator::translate_inline($row['alive']?"`1Yes`0":"`4No`0");
 	OutputClass::output_notl("%s", $a);
-	rawoutput("</td><td>");
+	OutputClass::rawoutput("</td><td>");
 	OutputClass::output_notl("`^%s`0", $row['level']);
-	rawoutput("</td><td>");
+	OutputClass::rawoutput("</td><td>");
 	if ($session['user']['loggedin']) {
-		rawoutput("<a href=\"mail.php?op=write&to=".rawurlencode($row['login'])."\" target=\"_blank\" onClick=\"".popup("mail.php?op=write&to=".rawurlencode($row['login'])."").";return false;\">");
-		rawoutput("<img src='images/newscroll.GIF' width='16' height='16' alt='$writemail' border='0'></a>");
-		rawoutput("<a href='bio.php?char=".$row['acctid']."'>");
+		OutputClass::rawoutput("<a href=\"mail.php?op=write&to=".rawurlencode($row['login'])."\" target=\"_blank\" onClick=\"".popup("mail.php?op=write&to=".rawurlencode($row['login'])."").";return false;\">");
+		OutputClass::rawoutput("<img src='images/newscroll.GIF' width='16' height='16' alt='$writemail' border='0'></a>");
+		OutputClass::rawoutput("<a href='bio.php?char=".$row['acctid']."'>");
 		OutputClass::addnav("","bio.php?char=".$row['acctid']."");
 	}
 	OutputClass::output_notl("`&%s`0", $row['name']);
 	if ($session['user']['loggedin'])
-		rawoutput("</a>");
-	rawoutput("</td><td>");
+		OutputClass::rawoutput("</a>");
+	OutputClass::rawoutput("</td><td>");
 	$loggedin=(date("U") - strtotime($row['laston']) < Settings::getsetting("LOGINTIMEOUT",900) && $row['loggedin']);
 	OutputClass::output_notl("`&%s`0", $row['location']);
 	if ($loggedin) {
 		$online = Translator::translate_inline("`#(Online)");
 		OutputClass::output_notl("%s", $online);
 	}
-	rawoutput("</td><td>");
+	OutputClass::rawoutput("</td><td>");
 	if (!$row['race']) $row['race'] = RACE_UNKNOWN;
 	Translator::tlschema("race");
 	OutputClass::output($row['race']);
 	Translator::tlschema();
-	rawoutput("</td><td>");
+	OutputClass::rawoutput("</td><td>");
 	$sex = Translator::translate_inline($row['sex']?"`%Female`0":"`!Male`0");
 	OutputClass::output_notl("%s", $sex);
-	rawoutput("</td><td>");
+	OutputClass::rawoutput("</td><td>");
 	$laston = relativedate($row['laston']);
 	OutputClass::output_notl("%s", $laston);
-	rawoutput("</td></tr>");
+	OutputClass::rawoutput("</td></tr>");
 }
-rawoutput("</table>");
+OutputClass::rawoutput("</table>");
 OutputClass::output_notl("`c");
 page_footer();
 ?>

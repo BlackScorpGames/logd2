@@ -146,7 +146,7 @@ if ($op==""){
 	$close = Translator::translate_inline("Close");
 	$mark = Translator::translate_inline("Mark");
 
-	rawoutput("<table border='0'><tr class='trhead'><td>$num</td><td>$ops</td><td>$from</td><td>$sent</td><td>$com</td><td>$last</td><td>$when</td></tr>");
+	OutputClass::rawoutput("<table border='0'><tr class='trhead'><td>$num</td><td>$ops</td><td>$from</td><td>$sent</td><td>$com</td><td>$last</td><td>$when</td></tr>");
 	$i=0;
 	$laststatus=-1;
 	while($row = db_fetch_assoc($result)){
@@ -155,20 +155,20 @@ if ($op==""){
 		$res = db_query($sql);
 		$counter = db_fetch_assoc($res);
 		if (array_key_exists('status', $row) && $row['status']!=$laststatus){
-			rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
-			rawoutput("<td colspan='7'>");
+			OutputClass::rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+			OutputClass::rawoutput("<td colspan='7'>");
 			OutputClass::output_notl("%s", $statuses[$row['status']]);
-			rawoutput("</td></tr>");
+			OutputClass::rawoutput("</td></tr>");
 			$i++;
 			$laststatus=$row['status'];
 		}
-		rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
-		rawoutput("<td>");
+		OutputClass::rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+		OutputClass::rawoutput("<td>");
 		OutputClass::output_notl("%s", $row['petitionid']);
-		rawoutput("</td>");
-		rawoutput("<td nowrap>[ ");
-		rawoutput("<a href='viewpetition.php?op=view&id={$row['petitionid']}'>$view</a>",true);
-		rawoutput(" | <a href='viewpetition.php?setstat=2&id={$row['petitionid']}'>$close</a>");
+		OutputClass::rawoutput("</td>");
+		OutputClass::rawoutput("<td nowrap>[ ");
+		OutputClass::rawoutput("<a href='viewpetition.php?op=view&id={$row['petitionid']}'>$view</a>",true);
+		OutputClass::rawoutput(" | <a href='viewpetition.php?setstat=2&id={$row['petitionid']}'>$close</a>");
 		OutputClass::output_notl(" | %s: ", $mark);
 		OutputClass::output_notl("<a href='viewpetition.php?setstat=0&id={$row['petitionid']}'>`b`&U`0`b</a>/",true);
 		OutputClass::output_notl("<a href='viewpetition.php?setstat=1&id={$row['petitionid']}'>`7P`0</a>/",true);
@@ -177,7 +177,7 @@ if ($op==""){
 		//OutputClass::output_notl("<a href='viewpetition.php?setstat=5&id={$row['petitionid']}'>`\$T`0</a>/",true);
 		//OutputClass::output_notl("<a href='viewpetition.php?setstat=6&id={$row['petitionid']}'>`%B`0</a>/",true);
 		//OutputClass::output_notl("<a href='viewpetition.php?setstat=7&id={$row['petitionid']}'>`#A`0</a>",true);
-		rawoutput(" ]</td>");
+		OutputClass::rawoutput(" ]</td>");
 		OutputClass::addnav("","viewpetition.php?op=view&id={$row['petitionid']}");
 		OutputClass::addnav("","viewpetition.php?setstat=2&id={$row['petitionid']}");
 		OutputClass::addnav("","viewpetition.php?setstat=0&id={$row['petitionid']}");
@@ -187,7 +187,7 @@ if ($op==""){
 		//OutputClass::addnav("","viewpetition.php?setstat=5&id={$row['petitionid']}");
 		//OutputClass::addnav("","viewpetition.php?setstat=6&id={$row['petitionid']}");
 		//OutputClass::addnav("","viewpetition.php?setstat=7&id={$row['petitionid']}");
-		rawoutput("<td>");
+		OutputClass::rawoutput("<td>");
 		if ($row['name']==""){
 			$v = substr($row['body'],0,strpos($row['body'],"[email"));
 			$v = preg_replace("'\\[PHPSESSID\\] = .*'", "", $v);
@@ -198,43 +198,43 @@ if ($op==""){
 		}else{
 			OutputClass::output_notl("`&%s`0", $row['name']);
 		}
-		rawoutput("</td>");
-		rawoutput("<td>");
+		OutputClass::rawoutput("</td>");
+		OutputClass::rawoutput("<td>");
 		OutputClass::output_notl("`7%s`0", reltime(strtotime($row['date'])));
-		rawoutput("</td>");
-		rawoutput("<td>");
+		OutputClass::rawoutput("</td>");
+		OutputClass::rawoutput("<td>");
 		OutputClass::output_notl("`#%s`0", $counter['c']);
-		rawoutput("</td>");
-		rawoutput("<td>");
+		OutputClass::rawoutput("</td>");
+		OutputClass::rawoutput("<td>");
 		OutputClass::output_notl("`^%s`0", $row['closer']);
-		rawoutput("</td>");
-		rawoutput("<td>");
+		OutputClass::rawoutput("</td>");
+		OutputClass::rawoutput("<td>");
 		if ($row['closedate'] != 0) OutputClass::output_notl("`7%s`0", reltime(strtotime($row['closedate'])));
-		rawoutput("</td>");
-		rawoutput("</tr>");
+		OutputClass::rawoutput("</td>");
+		OutputClass::rawoutput("</tr>");
 	}
-	rawoutput("</table>");
+	OutputClass::rawoutput("</table>");
 	OutputClass::output("`i(Closed petitions will automatically delete themselves when they have been closed for 7 days)`i");
 	OutputClass::output("`n`bKey:`b`n");
-	rawoutput("<ul><li>");
+	OutputClass::rawoutput("<ul><li>");
 	OutputClass::output("`\$T = Top Level`0 petitions are for petitions that only server operators can take care of.");
-	rawoutput("</li><li>");
+	OutputClass::rawoutput("</li><li>");
 	OutputClass::output("`^E = Escalated`0 petitions deal with an issue you can't handle for yourself.");
 	OutputClass::output("Mark it escalated so someone with more permissions than you can deal with it.");
-	rawoutput("</li><li>");
+	OutputClass::rawoutput("</li><li>");
 	OutputClass::output("`b`&U = Unhandled`0`b: No one is currently working on this problem, and it has not been dealt with yet.");
-	rawoutput("</li><li>");
+	OutputClass::rawoutput("</li><li>");
 	OutputClass::output("P = In-Progress petitions are probably being worked on by someone else, so please leave them be unless they have been around for some time.");
-	rawoutput("</li><li>");
+	OutputClass::rawoutput("</li><li>");
 	OutputClass::output("`%B = Bug/Suggestion`0 petitions are petitions that detail mistakes, bugs, misspellings, or suggestions for the game.");
-	rawoutput("</li><li>");
+	OutputClass::rawoutput("</li><li>");
 	OutputClass::output("`#A = Awaiting Points`0 stuff wot is dun and needz teh points added (this is mostly for lotgd.net).");
-	rawoutput("</li><li>");
+	OutputClass::rawoutput("</li><li>");
 	OutputClass::output("`!I = Informational`0 petitions are just around for others to view, either nothing needed to be done with them, or their issue has been dealt with, but you feel other admins could benefit from reading it.");
-	rawoutput("</li><li>");
+	OutputClass::rawoutput("</li><li>");
 	OutputClass::output("`iClosed`i petitions are for you have dealt with an issue, these will auto delete when they have been closed for 7 days.");
 	Modules::modulehook("petitions-descriptions", array());
-	rawoutput("</li></ul>");
+	OutputClass::rawoutput("</li></ul>");
 }elseif($op=="view"){
 	$viewpageinfo = (int)Http::httpget("viewpageinfo");
 	if ($viewpageinfo==1){
@@ -281,7 +281,7 @@ if ($op==""){
 	$reppet = substr(stripslashes($row['body']), 0, 2000);
 	OutputClass::output("`@From: ");
 	if ($row['login']>"") {
-		rawoutput("<a href=\"mail.php?op=write&to=".rawurlencode($row['login'])."&body=".rawurlencode("\n\n----- $yourpeti -----\n$reppet")."&subject=RE:+$peti\" target=\"_blank\" onClick=\"".popup("mail.php?op=write&to=".rawurlencode($row['login'])."&body=".rawurlencode("\n\n----- $yourpeti -----\n$reppet")."&subject=RE:+$peti").";return false;\"><img src='images/newscroll.GIF' width='16' height='16' alt='$write' border='0'></a>");
+		OutputClass::rawoutput("<a href=\"mail.php?op=write&to=".rawurlencode($row['login'])."&body=".rawurlencode("\n\n----- $yourpeti -----\n$reppet")."&subject=RE:+$peti\" target=\"_blank\" onClick=\"".popup("mail.php?op=write&to=".rawurlencode($row['login'])."&body=".rawurlencode("\n\n----- $yourpeti -----\n$reppet")."&subject=RE:+$peti").";return false;\"><img src='images/newscroll.GIF' width='16' height='16' alt='$write' border='0'></a>");
 	}
 	OutputClass::output_notl("`^`b%s`b`n", $row['name']);
 	OutputClass::output("`@Date: `^`b%s`b (%s)`n", $row['date'], reltime(strtotime($row['date'])));
@@ -292,7 +292,7 @@ if ($op==""){
 	$body = htmlentities(stripslashes($row['body']), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
 	$body = preg_replace("'([[:alnum:]_.-]+[@][[:alnum:]_.-]{2,}([.][[:alnum:]_.-]{2,})+)'i","<a href='mailto:\\1?subject=RE: $peti&body=".str_replace("+"," ",URLEncode("\n\n----- $yourpeti -----\n".$row['body']))."'>\\1</a>",$body);
 	$body = preg_replace("'([\\[][[:alnum:]_.-]+[\\]])'i","<span class='colLtRed'>\\1</span>",$body);
-	rawoutput("<span style='font-family: fixed-width'>".nl2br($body)."</span>");
+	OutputClass::rawoutput("<span style='font-family: fixed-width'>".nl2br($body)."</span>");
 	commentdisplay("`n`@Commentary:`0`n", "pet-$id","Add information",200);
 	if ($viewpageinfo){
 		OutputClass::output("`n`n`@Page Info:`&`n");
@@ -300,7 +300,7 @@ if ($op==""){
 		$body = HTMLEntities($row['pageinfo'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
 		$body = preg_replace("'([[:alnum:]_.-]+[@][[:alnum:]_.-]{2,}([.][[:alnum:]_.-]{2,})+)'i","<a href='mailto:\\1?subject=RE: $peti&body=".str_replace("+"," ",URLEncode("\n\n----- $yourpeti -----\n".$row['body']))."'>\\1</a>",$body);
 		$body = preg_replace("'([\\[][[:alnum:]_.-]+[\\]])'i","<span class='colLtRed'>\\1</span>",$body);
-		rawoutput("<span style='font-family: fixed-width'>".nl2br($body)."</span>");
+		OutputClass::rawoutput("<span style='font-family: fixed-width'>".nl2br($body)."</span>");
 	}
 }
 

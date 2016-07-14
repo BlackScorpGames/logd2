@@ -57,13 +57,13 @@ $session['dbinfo']['upgrade']=$upgrade;
 	OutputClass::output("`nYou can avoid table conflicts with other applications in the same database by providing a table name prefix.");
 	OutputClass::output("This prefix will get put on the name of every table in the database.");
 }
-rawoutput("<form action='installer.php?stage=5' method='POST'>");
+OutputClass::rawoutput("<form action='installer.php?stage=5' method='POST'>");
 OutputClass::output("`nTo provide a table prefix, enter it here.");
 OutputClass::output("If you don't know what this means, you should either leave it blank, or enter an intuitive value such as \"logd\".`n");
-rawoutput("<input name='DB_PREFIX' value=\"".htmlentities($session['dbinfo']['DB_PREFIX'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"><br>");
+OutputClass::rawoutput("<input name='DB_PREFIX' value=\"".htmlentities($session['dbinfo']['DB_PREFIX'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"><br>");
 $submit = Translator::translate_inline("Submit your prefix.");
-rawoutput("<input type='submit' value='$submit' class='button'>");
-rawoutput("</form>");
+OutputClass::rawoutput("<input type='submit' value='$submit' class='button'>");
+OutputClass::rawoutput("</form>");
 if (count($conflict)==0){
 	OutputClass::output("`^It looks like you can probably safely skip this step if you don't know what it means.");
 }

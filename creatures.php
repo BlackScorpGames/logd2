@@ -120,12 +120,12 @@ if ($op=="" || $op=="search"){
 	$result = db_query($sql);
 	// Search form
 	$search = Translator::translate_inline("Search");
-	rawoutput("<form action='creatures.php?op=search' method='POST'>");
+	OutputClass::rawoutput("<form action='creatures.php?op=search' method='POST'>");
 	OutputClass::output("Search by field: ");
-	rawoutput("<input name='q' id='q'>");
-	rawoutput("<input type='submit' class='button' value='$search'>");
-	rawoutput("</form>");
-	rawoutput("<script language='JavaScript'>document.getElementById('q').focus();</script>",true);
+	OutputClass::rawoutput("<input name='q' id='q'>");
+	OutputClass::rawoutput("<input type='submit' class='button' value='$search'>");
+	OutputClass::rawoutput("</form>");
+	OutputClass::rawoutput("<script language='JavaScript'>document.getElementById('q').focus();</script>",true);
 	OutputClass::addnav("","creatures.php?op=search");
 
 	OutputClass::addnav("Levels");
@@ -153,37 +153,37 @@ if ($op=="" || $op=="search"){
 	$confirm = Translator::translate_inline("Are you sure you wish to delete this creature?");
 	$del = Translator::translate_inline("Del");
 
-	rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
-	rawoutput("<tr class='trhead'>");
-	rawoutput("<td>$opshead</td><td>$idhead</td><td>$name</td><td>$lev</td><td>$weapon</td><td>$winmsg</td><td>$diemsg</td><td>$author</td></tr>");
+	OutputClass::rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
+	OutputClass::rawoutput("<tr class='trhead'>");
+	OutputClass::rawoutput("<td>$opshead</td><td>$idhead</td><td>$name</td><td>$lev</td><td>$weapon</td><td>$winmsg</td><td>$diemsg</td><td>$author</td></tr>");
 	OutputClass::addnav("","creatures.php");
 	$number=db_num_rows($result);
 	for ($i=0;$i<$number;$i++){
 		$row = db_fetch_assoc($result);
-		rawoutput("<tr class='".($i%2==0?"trdark":"trlight")."'>", true);
-		rawoutput("<td>[ <a href='creatures.php?op=edit&creatureid={$row['creatureid']}'>");
+		OutputClass::rawoutput("<tr class='".($i%2==0?"trdark":"trlight")."'>", true);
+		OutputClass::rawoutput("<td>[ <a href='creatures.php?op=edit&creatureid={$row['creatureid']}'>");
 		OutputClass::output_notl("%s", $edit);
-		rawoutput("</a> | <a href='creatures.php?op=del&creatureid={$row['creatureid']}&level={$row['creaturelevel']}' onClick='return confirm(\"$confirm\");'>");
+		OutputClass::rawoutput("</a> | <a href='creatures.php?op=del&creatureid={$row['creatureid']}&level={$row['creaturelevel']}' onClick='return confirm(\"$confirm\");'>");
 		OutputClass::output_notl("%s", $del);
-		rawoutput("</a> ]</td><td>");
+		OutputClass::rawoutput("</a> ]</td><td>");
 		OutputClass::addnav("","creatures.php?op=edit&creatureid={$row['creatureid']}");
 		OutputClass::addnav("","creatures.php?op=del&creatureid={$row['creatureid']}&level={$row['creaturelevel']}");
 		OutputClass::output_notl("%s", $row['creatureid']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl("%s", $row['creaturename']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl("%s", $row['creaturelevel']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl("%s", $row['creatureweapon']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl("%s", $row['creaturewin']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl("%s", $row['creaturelose']);
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl("%s", $row['createdby']);
-		rawoutput("</td></tr>");
+		OutputClass::rawoutput("</td></tr>");
 	}
-	rawoutput("</table>");
+	OutputClass::rawoutput("</table>");
 }else{
 	$level = Http::httpget('level');
 	if (!$level) $level = 1;
@@ -196,9 +196,9 @@ if ($op=="" || $op=="search"){
 		module_editor_navs("prefs-creatures", "creatures.php?op=edit&subop=module&creatureid=$id&module=");
 		if ($subop == "module") {
 			$module = Http::httpget("module");
-			rawoutput("<form action='creatures.php?op=save&subop=module&creatureid=$id&module=$module' method='POST'>");
+			OutputClass::rawoutput("<form action='creatures.php?op=save&subop=module&creatureid=$id&module=$module' method='POST'>");
 			module_objpref_edit("creatures", $module, $id);
-			rawoutput("</form>");
+			OutputClass::rawoutput("</form>");
 			OutputClass::addnav("", "creatures.php?op=save&subop=module&creatureid=$id&module=$module");
 		} else {
 			if ($op=="edit" && $id!=""){
@@ -227,16 +227,16 @@ if ($op=="" || $op=="search"){
 				"graveyard"=>"Creature is in graveyard?,bool",
 				"creatureaiscript"=>"Creature's A.I.,textarearesizeable",
 			);
-			rawoutput("<form action='creatures.php?op=save' method='POST'>");
+			OutputClass::rawoutput("<form action='creatures.php?op=save' method='POST'>");
 			showform($form, $row);
-			rawoutput("</form>");
+			OutputClass::rawoutput("</form>");
 			OutputClass::addnav("","creatures.php?op=save");
 		}
 	}else{
 		$module = Http::httpget("module");
-		rawoutput("<form action='mounts.php?op=save&subop=module&creatureid=$id&module=$module' method='POST'>");
+		OutputClass::rawoutput("<form action='mounts.php?op=save&subop=module&creatureid=$id&module=$module' method='POST'>");
 		module_objpref_edit("creatures", $module, $id);
-		rawoutput("</form>");
+		OutputClass::rawoutput("</form>");
 		OutputClass::addnav("", "creatures.php?op=save&subop=module&creatureid=$id&module=$module");
 	}
 	OutputClass::addnav("Navigation");

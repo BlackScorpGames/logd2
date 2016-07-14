@@ -33,18 +33,18 @@ if ($op=="stats" || $op==""){
 	OutputClass::output("`@Average Page Gen Size: `^%s`n",number_format($row['s']/$row['c']));
 }elseif ($op=="referers"){
 	OutputClass::output("`n`%`bTop Referers:`b`0`n");
-	rawoutput("<table border='0' cellpadding='2' cellspacing='1' bgcolor='#999999'>");
+	OutputClass::rawoutput("<table border='0' cellpadding='2' cellspacing='1' bgcolor='#999999'>");
 	$name = Translator::translate_inline("Name");
 	$refs = Translator::translate_inline("Referrals");
-	rawoutput("<tr class='trhead'><td><b>$name</b></td><td><b>$refs</b></td></tr>");
+	OutputClass::rawoutput("<tr class='trhead'><td><b>$name</b></td><td><b>$refs</b></td></tr>");
 	$sql = "SELECT count(*) AS c, acct.acctid,acct.name AS referer FROM " . db_prefix("accounts") . " INNER JOIN " . db_prefix("accounts") . " AS acct ON acct.acctid = " . db_prefix("accounts") . ".referer WHERE " . db_prefix("accounts") . ".referer>0 GROUP BY " . db_prefix("accounts") . ".referer DESC ORDER BY c DESC";
 	$result = db_query($sql);
 	$number=db_num_rows($result);
 	for ($i=0;$i<$number;$i++){
 		$row = db_fetch_assoc($result);
-		rawoutput("<tr class='".($i%2?"trdark":"trlight")."'><td>");
+		OutputClass::rawoutput("<tr class='".($i%2?"trdark":"trlight")."'><td>");
 		OutputClass::output_notl("`@{$row['referer']}`0");
-		rawoutput("</td><td>");
+		OutputClass::rawoutput("</td><td>");
 		OutputClass::output_notl("`^{$row['c']}:`0  ");
 		$sql = "SELECT name,refererawarded FROM " . db_prefix("accounts") . " WHERE referer = ${row['acctid']} ORDER BY acctid ASC";
 		$res2 = db_query($sql);
@@ -54,14 +54,14 @@ if ($op=="stats" || $op==""){
 			OutputClass::output_notl(($r['refererawarded']?"`&":"`$") . $r['name'] . "`0");
 			if ($j != $number2-1) OutputClass::output_notl(",");
 		}
-		rawoutput("</td></tr>");
+		OutputClass::rawoutput("</td></tr>");
 	}
-	rawoutput("</table>");
+	OutputClass::rawoutput("</table>");
 }elseif($op=="graph"){
 	$sql = "SELECT count(acctid) AS c, substring(laston,1,10) AS d FROM " . db_prefix("accounts") . " GROUP BY d DESC ORDER BY d DESC";
 	$result = db_query($sql);
 	OutputClass::output("`n`%`bDate accounts last logged on:`b");
-	rawoutput("<table border='0' cellpadding='0' cellspacing='0'>");
+	OutputClass::rawoutput("<table border='0' cellpadding='0' cellspacing='0'>");
 	$class="trlight";
 	$odate=date("Y-m-d");
 	$j=0;
@@ -74,16 +74,16 @@ if ($op=="stats" || $op==""){
 			//if ($j%7==0) $class=($class=="trlight"?"trdark":"trlight");
 			//$j++;
 			$class=(date("W",strtotime("$odate -$x days"))%2?"trlight":"trdark");
-			rawoutput("<tr class='$class'><td>".date("Y-m-d",strtotime("$odate -$x days"))."</td><td>&nbsp;&nbsp;</td><td>0</td><td>&nbsp;&nbsp;</td><td align='right'>$cumul</td></tr>");
+			OutputClass::rawoutput("<tr class='$class'><td>".date("Y-m-d",strtotime("$odate -$x days"))."</td><td>&nbsp;&nbsp;</td><td>0</td><td>&nbsp;&nbsp;</td><td align='right'>$cumul</td></tr>");
 		}
 	//	if ($j%7==0) $class=($class=="trlight"?"trdark":"trlight");
 	//	$j++;
 		$class=(date("W",strtotime($row['d']))%2?"trlight":"trdark");
 		$cumul+=$row['c'];
-		rawoutput("<tr class='$class'><td>{$row['d']}</td><td>&nbsp;&nbsp;</td><td><img src='images/trans.gif' width='{$row['c']}' border='1' height='5'>{$row['c']}</td><td>&nbsp;&nbsp;</td><td align='right'>$cumul</td></tr>");
+		OutputClass::rawoutput("<tr class='$class'><td>{$row['d']}</td><td>&nbsp;&nbsp;</td><td><img src='images/trans.gif' width='{$row['c']}' border='1' height='5'>{$row['c']}</td><td>&nbsp;&nbsp;</td><td align='right'>$cumul</td></tr>");
 		$odate = $row['d'];
 	}
-	rawoutput("</table>");
+	OutputClass::rawoutput("</table>");
 }
 page_footer();
 ?>

@@ -6,7 +6,7 @@ $thispage_superuser_level=0;
 function check_su_access($level){
 	global $session,$thispage_superuser_level;
 	$thispage_superuser_level = $thispage_superuser_level | $level;
-	rawoutput("<!--Su_Restricted-->");
+	OutputClass::rawoutput("<!--Su_Restricted-->");
 	if ($session['user']['superuser'] & $level) {
 		//they have appropriate levels, let's see if there's a module that
 		// restricts access beyond this point.

@@ -149,24 +149,24 @@ if ($op=="save"){
 				if (is_module_active($module)){
 					OutputClass::output("This module is currently active: ");
 					$deactivate = Translator::translate_inline("Deactivate");
-					rawoutput("<a href='modules.php?op=deactivate&module={$module}&cat={$info['category']}'>");
+					OutputClass::rawoutput("<a href='modules.php?op=deactivate&module={$module}&cat={$info['category']}'>");
 					OutputClass::output_notl($deactivate);
-					rawoutput("</a>");
+					OutputClass::rawoutput("</a>");
 					OutputClass::addnav("","modules.php?op=deactivate&module={$module}&cat={$info['category']}");
 				}else{
 					OutputClass::output("This module is currently deactivated: ");
 					$deactivate = Translator::translate_inline("Activate");
-					rawoutput("<a href='modules.php?op=activate&module={$module}&cat={$info['category']}'>");
+					OutputClass::rawoutput("<a href='modules.php?op=activate&module={$module}&cat={$info['category']}'>");
 					OutputClass::output_notl($deactivate);
-					rawoutput("</a>");
+					OutputClass::rawoutput("</a>");
 					OutputClass::addnav("","modules.php?op=activate&module={$module}&cat={$info['category']}");
 				}
-				rawoutput("<form action='configuration.php?op=modulesettings&module=$module&save=1' method='POST'>",true);
+				OutputClass::rawoutput("<form action='configuration.php?op=modulesettings&module=$module&save=1' method='POST'>",true);
 				OutputClass::addnav("","configuration.php?op=modulesettings&module=$module&save=1");
 				Translator::tlschema("module-$module");
 				showform($msettings,$module_settings[$mostrecentmodule]);
 				Translator::tlschema();
-				rawoutput("</form>",true);
+				OutputClass::rawoutput("</form>",true);
 			}else{
 				OutputClass::output("The %s module does not appear to define any module settings.", $module);
 			}
@@ -204,7 +204,7 @@ if ($op == "") {
                 reltime($x), date("h:i a", $x),date("H:i",$i));
 		$enum.=",$i,$str";
 	}
-	rawoutput(tlbutton_clear());
+	OutputClass::rawoutput(tlbutton_clear());
 	$setup = array(
 		"Game Setup,title",
 		"loginbanner"=>"Login Banner (under login prompt: 255 chars)",
@@ -442,10 +442,10 @@ if ($op == "") {
 	loadsettings();
 	$vals = $settings + $useful_vals;
 
-	rawoutput("<form action='configuration.php?op=save' method='POST'>");
+	OutputClass::rawoutput("<form action='configuration.php?op=save' method='POST'>");
 	OutputClass::addnav("","configuration.php?op=save");
 	showform($setup,$vals);
-	rawoutput("</form>");
+	OutputClass::rawoutput("</form>");
 }
 page_footer();
 ?>

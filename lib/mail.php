@@ -64,21 +64,21 @@ array_push($args, array("mail.php?op=address",$write));
 $mailfunctions = Modules::modulehook("mailfunctions", $args);
 
 //OutputClass::output_notl("<table width='25%' border='0' cellpadding='0' cellspacing='2'><tr><td><a href='mail.php' class='motd'>$inbox</a></td><td><a href='mail.php?op=address' class='motd'>$write</a></td>", true);
-rawoutput("<table width='50%' border='0' cellpadding='0' cellspacing='2'>");
-rawoutput("<tr>");
+OutputClass::rawoutput("<table width='50%' border='0' cellpadding='0' cellspacing='2'>");
+OutputClass::rawoutput("<tr>");
 for($i=0;$i<count($mailfunctions);$i++) {
 	if (is_array($mailfunctions[$i])) {
 		if (count($mailfunctions[$i])==2) {
 			$page = $mailfunctions[$i][0];
 			$name = $mailfunctions[$i][1]; // already translated
-			rawoutput("<td><a href='$page' class='motd'>$name</a></td>");
+			OutputClass::rawoutput("<td><a href='$page' class='motd'>$name</a></td>");
 			// OutputClass::addnav("", $page);
 			// No need for OutputClass::addnav since mail function pages are (or should
 			// be) outside the page nav system.
 		}
 	}
 }
-rawoutput("</tr></table>");
+OutputClass::rawoutput("</tr></table>");
 OutputClass::output_notl("`n`n");
 
 if($op=="send"){
@@ -203,18 +203,18 @@ if ($op==""){
 		$unread = Translator::translate_inline("Mark Unread");
 		$report = Translator::translate_inline("Report to Admin");
 		$problem = "Abusive Email Report:\nFrom: {$row['name']}\nSubject: {$row['subject']}\nSent: {$row['sent']}\nID: {$row['messageid']}\nBody:\n{$row['body']}";
-		rawoutput("<table width='50%' border='0' cellpadding='0' cellspacing='5'><tr>
+		OutputClass::rawoutput("<table width='50%' border='0' cellpadding='0' cellspacing='5'><tr>
 			<td><a href='mail.php?op=write&replyto={$row['messageid']}' class='motd'>$reply</a></td>
 			<td><a href='mail.php?op=del&id={$row['messageid']}' class='motd'>$del</a></td>
 			</tr><tr>
 			<td><a href='mail.php?op=unread&id={$row['messageid']}' class='motd'>$unread</a></td>");
 		// Don't allow reporting of system messages as abuse.
 		if ((int)$row['msgfrom']!=0) {
-			rawoutput("<td><a href=\"petition.php?problem=".rawurlencode($problem)."&abuse=yes\" class='motd'>$report</a></td>");
+			OutputClass::rawoutput("<td><a href=\"petition.php?problem=".rawurlencode($problem)."&abuse=yes\" class='motd'>$report</a></td>");
 		} else {
-			rawoutput("<td align='right'>&nbsp;</td>");
+			OutputClass::rawoutput("<td align='right'>&nbsp;</td>");
 		}
-		rawoutput("</tr><tr>");
+		OutputClass::rawoutput("</tr><tr>");
 		$sql = "SELECT messageid FROM ".db_prefix("mail")." WHERE msgto='{$session['user']['acctid']}' AND messageid < '$id' ORDER BY messageid DESC LIMIT 1";
 		$result = db_query($sql);
 		if (db_num_rows($result)>0){
@@ -233,14 +233,14 @@ if ($op==""){
 		}
 		$prev = Translator::translate_inline("< Previous");
 		$next = Translator::translate_inline("Next >");
-		rawoutput("<td nowrap='true'>");
-		if ($pid > 0) rawoutput("<a href='mail.php?op=read&id=$pid' class='motd'>".htmlentities($prev)."</a>");
-		else rawoutput(htmlentities($prev));
-		rawoutput("</td><td nowrap='true'>");
-		if ($nid > 0) rawoutput("<a href='mail.php?op=read&id=$nid' class='motd'>".htmlentities($next)."</a>");
-		else rawoutput(htmlentities($next));
-		rawoutput("</td>");
-		rawoutput("</tr></table>");
+		OutputClass::rawoutput("<td nowrap='true'>");
+		if ($pid > 0) OutputClass::rawoutput("<a href='mail.php?op=read&id=$pid' class='motd'>".htmlentities($prev)."</a>");
+		else OutputClass::rawoutput(htmlentities($prev));
+		OutputClass::rawoutput("</td><td nowrap='true'>");
+		if ($nid > 0) OutputClass::rawoutput("<a href='mail.php?op=read&id=$nid' class='motd'>".htmlentities($next)."</a>");
+		else OutputClass::rawoutput(htmlentities($next));
+		OutputClass::rawoutput("</td>");
+		OutputClass::rawoutput("</tr></table>");
 	}else{
 		OutputClass::output("Eek, no such message was found!");
 	}
@@ -305,7 +305,7 @@ if ($op==""){
 			$body="\n\n---".Translator::translate_inline("Original Message")."---\n".$row['body'];
 		}
 	}
-	rawoutput("<input type='hidden' name='returnto' value=\"".htmlentities(stripslashes(Http::httpget("replyto")))."\">");
+	OutputClass::rawoutput("<input type='hidden' name='returnto' value=\"".htmlentities(stripslashes(Http::httpget("replyto")))."\">");
 	$superusers = array();
 	if (isset($row['login']) && $row['login']!=""){
 		OutputClass::output_notl("<input type='hidden' name='to' id='to' value=\"".htmlentities($row['login'])."\">",true);
@@ -352,21 +352,21 @@ if ($op==""){
 			OutputClass::output_notl("</select>`n",true);
 		}
 	}
-	rawoutput("<script language='JavaScript'>
+	OutputClass::rawoutput("<script language='JavaScript'>
 	var superusers = new Array();");
 	while (list($key,$val)=each($superusers)){
-		rawoutput("	superusers['".addslashes($val)."'] = true;");
+		OutputClass::rawoutput("	superusers['".addslashes($val)."'] = true;");
 	}
-	rawoutput("</script>");
+	OutputClass::rawoutput("</script>");
 	OutputClass::output("`2Subject:");
-	rawoutput("<input name='subject' value=\"".HTMLEntities($subject).HTMLEntities(stripslashes(Http::httpget('subject')))."\"><br>");
-	rawoutput("<div id='warning' style='visibility: hidden; display: none;'>");
+	OutputClass::rawoutput("<input name='subject' value=\"".HTMLEntities($subject).HTMLEntities(stripslashes(Http::httpget('subject')))."\"><br>");
+	OutputClass::rawoutput("<div id='warning' style='visibility: hidden; display: none;'>");
 	OutputClass::output("`2Notice: `^$superusermessage`n");
-	rawoutput("</div>");
+	OutputClass::rawoutput("</div>");
 	OutputClass::output("`2Body:`n");
-	rawoutput("<textarea name='body' id='textarea' class='input' cols='60' rows='9' onKeyUp='sizeCount(this);'>".HTMLEntities($body).HTMLEntities(stripslashes(Http::httpget('body')))."</textarea><br>");
+	OutputClass::rawoutput("<textarea name='body' id='textarea' class='input' cols='60' rows='9' onKeyUp='sizeCount(this);'>".HTMLEntities($body).HTMLEntities(stripslashes(Http::httpget('body')))."</textarea><br>");
 	$send = Translator::translate_inline("Send");
-	rawoutput("<table border='0' cellpadding='0' cellspacing='0' width='100%'><tr><td><input type='submit' class='button' value='$send'></td><td align='right'><div id='sizemsg'></div></td></tr></table>");
+	OutputClass::rawoutput("<table border='0' cellpadding='0' cellspacing='0' width='100%'><tr><td><input type='submit' class='button' value='$send'></td><td align='right'><div id='sizemsg'></div></td></tr></table>");
 	OutputClass::output_notl("</form>",true);
 	$sizemsg = "`#Max message size is `@%s`#, you have `^XX`# characters left.";
 	$sizemsg = Translator::translate_inline($sizemsg);
@@ -381,7 +381,7 @@ if ($op==""){
 	$osize1 = addslashes("<span>".appoencode($sizemsgover[0])."</span>");
 	$osize2 = addslashes("<span>".appoencode($sizemsgover[1])."</span>");
 
-	rawoutput("
+	OutputClass::rawoutput("
 	<script language='JavaScript'>
 		var maxlen = ".Settings::getsetting("mailsizelimit",1024).";
 		function sizeCount(box){

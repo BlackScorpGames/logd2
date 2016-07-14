@@ -40,15 +40,15 @@ if ($op==""){
 		}
 		OutputClass::output_notl("`n");
 		$preview = Translator::translate_inline("Preview Transfer");
-		rawoutput("<form action='bank.php?op=transfer2' method='POST'>");
+		OutputClass::rawoutput("<form action='bank.php?op=transfer2' method='POST'>");
 		OutputClass::output("Transfer how much: ");
-		rawoutput("<input name='amount' id='amount' width='5'>");
+		OutputClass::rawoutput("<input name='amount' id='amount' width='5'>");
 		OutputClass::output_notl("`n");
 		OutputClass::output("To: ");
-		rawoutput("<input name='to'>");
+		OutputClass::rawoutput("<input name='to'>");
 		OutputClass::output(" (partial names are ok, you will be asked to confirm the transaction before it occurs).`n");
-		rawoutput("<input type='submit' class='button' value='$preview'></form>");
-		rawoutput("<script language='javascript'>document.getElementById('amount').focus();</script>");
+		OutputClass::rawoutput("<input type='submit' class='button' value='$preview'></form>");
+		OutputClass::rawoutput("<script language='javascript'>document.getElementById('amount').focus();</script>");
 		OutputClass::addnav("","bank.php?op=transfer2");
 	}else{
 		OutputClass::output("`@Elessa`6 tells you that she refuses to transfer money for someone who is in debt.");
@@ -66,33 +66,33 @@ if ($op==""){
 	if (db_num_rows($result)==1){
 		$row = db_fetch_assoc($result);
 		$msg = Translator::translate_inline("Complete Transfer");
-		rawoutput("<form action='bank.php?op=transfer3' method='POST'>");
+		OutputClass::rawoutput("<form action='bank.php?op=transfer3' method='POST'>");
 		OutputClass::output("`6Transfer `^%s`6 to `&%s`6.",$amt,$row['name']);
-		rawoutput("<input type='hidden' name='to' value='".HTMLEntities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."'><input type='hidden' name='amount' value='$amt'><input type='submit' class='button' value='$msg'></form>",true);
+		OutputClass::rawoutput("<input type='hidden' name='to' value='".HTMLEntities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."'><input type='hidden' name='amount' value='$amt'><input type='submit' class='button' value='$msg'></form>",true);
 		OutputClass::addnav("","bank.php?op=transfer3");
 	}elseif(db_num_rows($result)>100){
 		OutputClass::output("`@Elessa`6 looks at you disdainfully and coldly, but politely, suggests you try narrowing down the field of who you want to send money to just a little bit!`n`n");
 		$msg = Translator::translate_inline("Preview Transfer");
-		rawoutput("<form action='bank.php?op=transfer2' method='POST'>");
+		OutputClass::rawoutput("<form action='bank.php?op=transfer2' method='POST'>");
 		OutputClass::output("Transfer how much: ");
-		rawoutput("<input name='amount' id='amount' width='5' value='$amt'><br>");
+		OutputClass::rawoutput("<input name='amount' id='amount' width='5' value='$amt'><br>");
 		OutputClass::output("To: ");
-		rawoutput("<input name='to' value='$to'>");
+		OutputClass::rawoutput("<input name='to' value='$to'>");
 		OutputClass::output(" (partial names are ok, you will be asked to confirm the transaction before it occurs).`n");
-		rawoutput("<input type='submit' class='button' value='$msg'></form>");
-		rawoutput("<script language='javascript'>document.getElementById('amount').focus();</script>",true);
+		OutputClass::rawoutput("<input type='submit' class='button' value='$msg'></form>");
+		OutputClass::rawoutput("<script language='javascript'>document.getElementById('amount').focus();</script>",true);
 		OutputClass::addnav("","bank.php?op=transfer2");
 	}elseif(db_num_rows($result)>1){
-		rawoutput("<form action='bank.php?op=transfer3' method='POST'>");
+		OutputClass::rawoutput("<form action='bank.php?op=transfer3' method='POST'>");
 		OutputClass::output("`6Transfer `^%s`6 to ",$amt);
-		rawoutput("<select name='to' class='input'>");
+		OutputClass::rawoutput("<select name='to' class='input'>");
 		$number=db_num_rows($result);
 		for ($i=0;$i<$number;$i++){
 			$row = db_fetch_assoc($result);
-			rawoutput("<option value=\"".HTMLEntities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">".full_sanitize($row['name'])."</option>");
+			OutputClass::rawoutput("<option value=\"".HTMLEntities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">".full_sanitize($row['name'])."</option>");
 		}
 		$msg = Translator::translate_inline("Complete Transfer");
-		rawoutput("</select><input type='hidden' name='amount' value='$amt'><input type='submit' class='button' value='$msg'></form>",true);
+		OutputClass::rawoutput("</select><input type='hidden' name='amount' value='$amt'><input type='submit' class='button' value='$msg'></form>",true);
 		OutputClass::addnav("","bank.php?op=transfer3");
 	}else{
 		OutputClass::output("`@Elessa`6 blinks at you from behind her spectacles, \"`@I'm sorry, but I can find no one matching that name who does business with our bank!  Please try again.`6\"");
@@ -142,7 +142,7 @@ if ($op==""){
 	}
 }elseif($op=="deposit"){
 	OutputClass::output("`0");
-	rawoutput("<form action='bank.php?op=depositfinish' method='POST'>");
+	OutputClass::rawoutput("<form action='bank.php?op=depositfinish' method='POST'>");
 	$balance = Translator::translate_inline("`@Elessa`6 says, \"`@You have a balance of `^%s`@ gold in the bank.`6\"`n");
 	$debt = Translator::translate_inline("`@Elessa`6 says, \"`@You have a `\$debt`@ of `^%s`@ gold to the bank.`6\"`n");
 	OutputClass::output_notl($session['user']['goldinbank']>=0?$balance:$debt,abs($session['user']['goldinbank']));
@@ -151,10 +151,10 @@ if ($op==""){
 	$pay = Translator::translate_inline("`^Pay off how much?");
 	OutputClass::output_notl($session['user']['goldinbank']>=0?$dep:$pay);
 	$dep = Translator::translate_inline("Deposit");
-	rawoutput(" <input id='input' name='amount' width=5 > <input type='submit' class='button' value='$dep'>");
+	OutputClass::rawoutput(" <input id='input' name='amount' width=5 > <input type='submit' class='button' value='$dep'>");
 	OutputClass::output("`n`iEnter 0 or nothing to deposit it all`i");
-	rawoutput("</form>");
-	rawoutput("<script language='javascript'>document.getElementById('input').focus();</script>",true);
+	OutputClass::rawoutput("</form>");
+	OutputClass::rawoutput("<script language='javascript'>document.getElementById('input').focus();</script>",true);
   OutputClass::addnav("","bank.php?op=depositfinish");
 }elseif($op=="depositfinish"){
 	$amount = abs((int)httppost('amount'));
@@ -177,25 +177,25 @@ if ($op==""){
 	$borrow = Translator::translate_inline("Borrow");
 	$balance = Translator::translate_inline("`@Elessa`6 scans through her ledger, \"`@You have a balance of `^%s`@ gold in the bank.`6\"`n");
 	$debt = Translator::translate_inline("`@Elessa`6 scans through her ledger, \"`@You have a `\$debt`@ of `^%s`@ gold to the bank.`6\"`n");
-	rawoutput("<form action='bank.php?op=withdrawfinish' method='POST'>");
+	OutputClass::rawoutput("<form action='bank.php?op=withdrawfinish' method='POST'>");
 	OutputClass::output_notl($session['user']['goldinbank']>=0?$balance:$debt,abs($session['user']['goldinbank']));
 	OutputClass::output("`6\"`@How much would you like to borrow `&%s`@?  At your level, you may borrow up to a total of `^%s`@ from the bank.`6\"`n`n",$session['user']['name'], $maxborrow);
-	rawoutput(" <input id='input' name='amount' width=5 > <input type='hidden' name='borrow' value='x'><input type='submit' class='button' value='$borrow'>");
+	OutputClass::rawoutput(" <input id='input' name='amount' width=5 > <input type='hidden' name='borrow' value='x'><input type='submit' class='button' value='$borrow'>");
 	OutputClass::output("`n(Money will be withdrawn until you have none left, the remainder will be borrowed)");
-	rawoutput("</form>");
-	rawoutput("<script language='javascript'>document.getElementById('input').focus();</script>");
+	OutputClass::rawoutput("</form>");
+	OutputClass::rawoutput("<script language='javascript'>document.getElementById('input').focus();</script>");
 	OutputClass::addnav("","bank.php?op=withdrawfinish");
 }elseif($op=="withdraw"){
 	$withdraw = Translator::translate_inline("Withdraw");
 	$balance = Translator::translate_inline("`@Elessa`6 scans through her ledger, \"`@You have a balance of `^%s`@ gold in the bank.`6\"`n");
 	$debt = Translator::translate_inline("`@Elessa`6 scans through her ledger, \"`@You have a `\$debt`@ of `^%s`@ gold in the bank.`6\"`n");
-	rawoutput("<form action='bank.php?op=withdrawfinish' method='POST'>");
+	OutputClass::rawoutput("<form action='bank.php?op=withdrawfinish' method='POST'>");
 	OutputClass::output_notl($session['user']['goldinbank']>=0?$balance:$debt,abs($session['user']['goldinbank']));
 	OutputClass::output("`6\"`@How much would you like to withdraw `&%s`@?`6\"`n`n",$session['user']['name']);
-	rawoutput("<input id='input' name='amount' width=5 > <input type='submit' class='button' value='$withdraw'>");
+	OutputClass::rawoutput("<input id='input' name='amount' width=5 > <input type='submit' class='button' value='$withdraw'>");
 	OutputClass::output("`n`iEnter 0 or nothing to withdraw it all`i");
-	rawoutput("</form>");
-	rawoutput("<script language='javascript'>document.getElementById('input').focus();</script>");
+	OutputClass::rawoutput("</form>");
+	OutputClass::rawoutput("<script language='javascript'>document.getElementById('input').focus();</script>");
 	OutputClass::addnav("","bank.php?op=withdrawfinish");
 }elseif($op=="withdrawfinish"){
 	$amount=abs((int)httppost('amount'));

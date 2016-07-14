@@ -110,10 +110,10 @@ if ($op==""){
 		$installstr = Translator::translate_inline("by %s");
 		$active = Translator::translate_inline("`@Active`0");
 		$inactive = Translator::translate_inline("`\$Inactive`0");
-		rawoutput("<form action='modules.php?op=mass&cat=$cat' method='POST'>");
+		OutputClass::rawoutput("<form action='modules.php?op=mass&cat=$cat' method='POST'>");
 		OutputClass::addnav("","modules.php?op=mass&cat=$cat");
-		rawoutput("<table border='0' cellpadding='2' cellspacing='1' bgcolor='#999999'>",true);
-		rawoutput("<tr class='trhead'><td>&nbsp;</td><td>$ops</td><td><a href='modules.php?cat=$cat&sortby=active&order=".($sortby=="active"?!$order:1)."'>$status</a></td><td><a href='modules.php?cat=$cat&sortby=formalname&order=".($sortby=="formalname"?!$order:1)."'>$mname</a></td><td><a href='modules.php?cat=$cat&sortby=moduleauthor&order=".($sortby=="moduleauthor"?!$order:1)."'>$mauth</a></td><td><a href='modules.php?cat=$cat&sortby=installdate&order=".($sortby=="installdate"?!$order:0)."'>$inon</a></td></tr>");
+		OutputClass::rawoutput("<table border='0' cellpadding='2' cellspacing='1' bgcolor='#999999'>",true);
+		OutputClass::rawoutput("<tr class='trhead'><td>&nbsp;</td><td>$ops</td><td><a href='modules.php?cat=$cat&sortby=active&order=".($sortby=="active"?!$order:1)."'>$status</a></td><td><a href='modules.php?cat=$cat&sortby=formalname&order=".($sortby=="formalname"?!$order:1)."'>$mname</a></td><td><a href='modules.php?cat=$cat&sortby=moduleauthor&order=".($sortby=="moduleauthor"?!$order:1)."'>$mauth</a></td><td><a href='modules.php?cat=$cat&sortby=installdate&order=".($sortby=="installdate"?!$order:0)."'>$inon</a></td></tr>");
 		OutputClass::addnav("","modules.php?cat=$cat&sortby=active&order=".($sortby=="active"?!$order:1));
 		OutputClass::addnav("","modules.php?cat=$cat&sortby=formalname&order=".($sortby=="formalname"?!$order:1));
 		OutputClass::addnav("","modules.php?cat=$cat&sortby=moduleauthor&order=".($sortby=="moduleauthor"?!$order:1));
@@ -121,76 +121,76 @@ if ($op==""){
 		$sql = "SELECT * FROM " . db_prefix("modules") . " WHERE category='$cat' ORDER BY ".$sortby." ".($order?"ASC":"DESC");
 		$result = db_query($sql);
 		if (db_num_rows($result)==0){
-			rawoutput("<tr class='trlight'><td colspan='6' align='center'>");
+			OutputClass::rawoutput("<tr class='trlight'><td colspan='6' align='center'>");
 			OutputClass::output("`i-- No Modules Installed--`i");
-			rawoutput("</td></tr>");
+			OutputClass::rawoutput("</td></tr>");
 		}
 		$number=db_num_rows($result);
 		for ($i=0;$i<$number;$i++){
 			$row = db_fetch_assoc($result);
-			rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>",true);
-			rawoutput("<td nowrap valign='top'>");
-			rawoutput("<input type='checkbox' name='module[]' value=\"{$row['modulename']}\">");
-			rawoutput("</td><td valign='top' nowrap>[ ");
+			OutputClass::rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>",true);
+			OutputClass::rawoutput("<td nowrap valign='top'>");
+			OutputClass::rawoutput("<input type='checkbox' name='module[]' value=\"{$row['modulename']}\">");
+			OutputClass::rawoutput("</td><td valign='top' nowrap>[ ");
 			if ($row['active']){
-				rawoutput("<a href='modules.php?op=deactivate&module={$row['modulename']}&cat=$cat'>");
+				OutputClass::rawoutput("<a href='modules.php?op=deactivate&module={$row['modulename']}&cat=$cat'>");
 				OutputClass::output_notl($deactivate);
-				rawoutput("</a>");
+				OutputClass::rawoutput("</a>");
 				OutputClass::addnav("","modules.php?op=deactivate&module={$row['modulename']}&cat=$cat");
 			}else{
-				rawoutput("<a href='modules.php?op=activate&module={$row['modulename']}&cat=$cat'>");
+				OutputClass::rawoutput("<a href='modules.php?op=activate&module={$row['modulename']}&cat=$cat'>");
 				OutputClass::output_notl($activate);
-				rawoutput("</a>");
+				OutputClass::rawoutput("</a>");
 				OutputClass::addnav("","modules.php?op=activate&module={$row['modulename']}&cat=$cat");
 			}
-			rawoutput(" |<a href='modules.php?op=uninstall&module={$row['modulename']}&cat=$cat' onClick='return confirm(\"$uninstallconfirm\");'>");
+			OutputClass::rawoutput(" |<a href='modules.php?op=uninstall&module={$row['modulename']}&cat=$cat' onClick='return confirm(\"$uninstallconfirm\");'>");
 			OutputClass::output_notl($uninstall);
-			rawoutput("</a>");
+			OutputClass::rawoutput("</a>");
 			OutputClass::addnav("","modules.php?op=uninstall&module={$row['modulename']}&cat=$cat");
-			rawoutput(" | <a href='modules.php?op=reinstall&module={$row['modulename']}&cat=$cat'>");
+			OutputClass::rawoutput(" | <a href='modules.php?op=reinstall&module={$row['modulename']}&cat=$cat'>");
 			OutputClass::output_notl($reinstall);
-			rawoutput("</a>");
+			OutputClass::rawoutput("</a>");
 			OutputClass::addnav("","modules.php?op=reinstall&module={$row['modulename']}&cat=$cat");
 
 			if ($session['user']['superuser'] & SU_EDIT_CONFIG) {
 				if (strstr($row['infokeys'], "|settings|")) {
-					rawoutput(" | <a href='configuration.php?op=modulesettings&module={$row['modulename']}'>");
+					OutputClass::rawoutput(" | <a href='configuration.php?op=modulesettings&module={$row['modulename']}'>");
 					OutputClass::output_notl($strsettings);
-					rawoutput("</a>");
+					OutputClass::rawoutput("</a>");
 					OutputClass::addnav("","configuration.php?op=modulesettings&module={$row['modulename']}");
 				} else {
 					OutputClass::output_notl(" | %s", $strnosettings);
 				}
 			}
 
-			rawoutput(" ]</td><td valign='top'>");
+			OutputClass::rawoutput(" ]</td><td valign='top'>");
 			OutputClass::output_notl($row['active']?$active:$inactive);
 			require_once("lib/sanitize.php");
-			rawoutput("</td><td nowrap valign='top'><span title=\"".
+			OutputClass::rawoutput("</td><td nowrap valign='top'><span title=\"".
 					(isset($row['description'])&&$row['description']?
 					 $row['description']:sanitize($row['formalname']))."\">");
 			OutputClass::output_notl("%s %s", $row['formalname'], $row['version']);
-			rawoutput("<br>");
+			OutputClass::rawoutput("<br>");
 			OutputClass::output_notl("(%s) ", $row['modulename'], $row['version']);
-			rawoutput("</span></td><td valign='top'>");
+			OutputClass::rawoutput("</span></td><td valign='top'>");
 			OutputClass::output_notl("`#%s`0", $row['moduleauthor'], true);
-			rawoutput("</td><td nowrap valign='top'>");
+			OutputClass::rawoutput("</td><td nowrap valign='top'>");
 			$line = sprintf($installstr, $row['installedby']);
 			OutputClass::output_notl("%s", $row['installdate']);
-			rawoutput("<br>");
+			OutputClass::rawoutput("<br>");
 			OutputClass::output_notl("%s", $line);
-			rawoutput("</td></tr>");
+			OutputClass::rawoutput("</td></tr>");
 		}
-		rawoutput("</table><br />");
+		OutputClass::rawoutput("</table><br />");
 		$activate = Translator::translate_inline("Activate");
 		$deactivate = Translator::translate_inline("Deactivate");
 		$reinstall = Translator::translate_inline("Reinstall");
 		$uninstall = Translator::translate_inline("Uninstall");
-		rawoutput("<input type='submit' name='activate' class='button' value='$activate'>");
-		rawoutput("<input type='submit' name='deactivate' class='button' value='$deactivate'>");
-		rawoutput("<input type='submit' name='reinstall' class='button' value='$reinstall'>");
-		rawoutput("<input type='submit' name='uninstall' class='button' value='$uninstall'>");
-		rawoutput("</form>");
+		OutputClass::rawoutput("<input type='submit' name='activate' class='button' value='$activate'>");
+		OutputClass::rawoutput("<input type='submit' name='deactivate' class='button' value='$deactivate'>");
+		OutputClass::rawoutput("<input type='submit' name='reinstall' class='button' value='$reinstall'>");
+		OutputClass::rawoutput("<input type='submit' name='uninstall' class='button' value='$uninstall'>");
+		OutputClass::rawoutput("</form>");
 	} else {
 		$sorting=Http::httpget('sorting');
 		if (!$sorting) $sorting="shortname";
@@ -202,10 +202,10 @@ if ($op==""){
 		$mauth = Translator::translate_inline("Module Author");
 		$categ = Translator::translate_inline("Category");
 		$fname = Translator::translate_inline("Filename");
-		rawoutput("<form action='modules.php?op=mass&cat=$cat' method='POST'>");
+		OutputClass::rawoutput("<form action='modules.php?op=mass&cat=$cat' method='POST'>");
 		OutputClass::addnav("","modules.php?op=mass&cat=$cat");
-		rawoutput("<table border='0' cellpadding='2' cellspacing='1' bgcolor='#999999'>",true);
-		rawoutput("<tr class='trhead'><td>&nbsp;</td><td>$ops</td><td><a href='modules.php?sorting=name&order=".($sorting=="name"?!$order:0)."'>$mname</a></td><td><a href='modules.php?sorting=author&order=".($sorting=="author"?!$order:0)."'>$mauth</a></td><td><a href='modules.php?sorting=category&order=".($sorting=="category"?!$order:0)."'>$categ</a></td><td><a href='modules.php?sorting=shortname&order=".($sorting=="shortname"?!$order:0)."'>$fname</a></td></tr>");
+		OutputClass::rawoutput("<table border='0' cellpadding='2' cellspacing='1' bgcolor='#999999'>",true);
+		OutputClass::rawoutput("<tr class='trhead'><td>&nbsp;</td><td>$ops</td><td><a href='modules.php?sorting=name&order=".($sorting=="name"?!$order:0)."'>$mname</a></td><td><a href='modules.php?sorting=author&order=".($sorting=="author"?!$order:0)."'>$mauth</a></td><td><a href='modules.php?sorting=category&order=".($sorting=="category"?!$order:0)."'>$categ</a></td><td><a href='modules.php?sorting=shortname&order=".($sorting=="shortname"?!$order:0)."'>$fname</a></td></tr>");
 		OutputClass::addnav("","modules.php?sorting=name&order=".($sorting=="name"?!$order:0));
 		OutputClass::addnav("","modules.php?sorting=author&order=".($sorting=="author"?!$order:0));
 		OutputClass::addnav("","modules.php?sorting=category&order=".($sorting=="category"?!$order:0));
@@ -247,37 +247,37 @@ if ($op==""){
 			array_multisort($sortby,($order?SORT_DESC:SORT_ASC),$numberarray,($order?SORT_DESC:SORT_ASC));
 			for ($a=0;$a<count($moduleinfo);$a++) {
 				$i=$numberarray[$a];
-				rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+				OutputClass::rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
 				if (isset($moduleinfo[$i]['invalid']) && $moduleinfo[$i]['invalid']===true) {
-					rawoutput("<td></td><td nowrap valign='top'>");
+					OutputClass::rawoutput("<td></td><td nowrap valign='top'>");
 						OutputClass::output("Not installable");
-						rawoutput("</td>");
+						OutputClass::rawoutput("</td>");
 				} else {
-					rawoutput("<td><input type='checkbox' name='module[]' value='{$moduleinfo[$i]['shortname']}'></td>");
-					rawoutput("<td nowrap valign='top'>");
-					rawoutput("[ <a href='modules.php?op=install&module={$moduleinfo[$i]['shortname']}&cat={$moduleinfo[$i]['category']}'>");
+					OutputClass::rawoutput("<td><input type='checkbox' name='module[]' value='{$moduleinfo[$i]['shortname']}'></td>");
+					OutputClass::rawoutput("<td nowrap valign='top'>");
+					OutputClass::rawoutput("[ <a href='modules.php?op=install&module={$moduleinfo[$i]['shortname']}&cat={$moduleinfo[$i]['category']}'>");
 					OutputClass::output_notl($install);
-					rawoutput("</a>]</td>");
+					OutputClass::rawoutput("</a>]</td>");
 					OutputClass::addnav("","modules.php?op=install&module={$moduleinfo[$i]['shortname']}&cat={$moduleinfo[$i]['category']}");
 				}
-			    rawoutput("<td nowrap valign='top'><span title=\"".
+			    OutputClass::rawoutput("<td nowrap valign='top'><span title=\"".
 					(isset($moduleinfo[$i]['description'])&&
 					     $moduleinfo[$i]['description'] ?
 					 $moduleinfo[$i]['description'] :
 					 sanitize($moduleinfo[$i]['name']))."\">");
-				rawoutput($moduleinfo[$i]['name']." ".$moduleinfo[$i]['version']);
-				rawoutput("</span></td><td valign='top'>");
+				OutputClass::rawoutput($moduleinfo[$i]['name']." ".$moduleinfo[$i]['version']);
+				OutputClass::rawoutput("</span></td><td valign='top'>");
 				OutputClass::output_notl("`#%s`0", $moduleinfo[$i]['author'], true);
-				rawoutput("</td><td valign='top'>");
-				rawoutput($moduleinfo[$i]['category']);
-				rawoutput("</td><td valign='top'>");
-				rawoutput($moduleinfo[$i]['shortname'] . ".php");
-				rawoutput("</td>");
-				rawoutput("</tr>");
+				OutputClass::rawoutput("</td><td valign='top'>");
+				OutputClass::rawoutput($moduleinfo[$i]['category']);
+				OutputClass::rawoutput("</td><td valign='top'>");
+				OutputClass::rawoutput($moduleinfo[$i]['shortname'] . ".php");
+				OutputClass::rawoutput("</td>");
+				OutputClass::rawoutput("</tr>");
 				if (isset($moduleinfo[$i]['requires']) && count($moduleinfo[$i]['requires'])){
-					rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
-					rawoutput("<td>&nbsp;</td>");
-					rawoutput("<td colspan='6'>");
+					OutputClass::rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
+					OutputClass::rawoutput("<td>&nbsp;</td>");
+					OutputClass::rawoutput("<td colspan='6'>");
 					OutputClass::output("`bRequires:`b`n");
 					reset($moduleinfo[$i]['requires']);
 					while (list($key,$val)=each($moduleinfo[$i]['requires'])){
@@ -290,19 +290,19 @@ if ($op==""){
 						if(isset($info[1])) OutputClass::output_notl("$key {$info[0]} -- {$info[1]}`n");
 						else OutputClass::output_notl("$key {$info[0]}`n");
 					}
-					rawoutput("</td>");
-					rawoutput("</tr>");
+					OutputClass::rawoutput("</td>");
+					OutputClass::rawoutput("</tr>");
 				}
 				$count++;
 			}
 		} else {
-			rawoutput("<tr class='trlight'><td colspan='6' align='center'>");
+			OutputClass::rawoutput("<tr class='trlight'><td colspan='6' align='center'>");
 			OutputClass::output("`i--No uninstalled modules were found--`i");
-			rawoutput("</td></tr>");
+			OutputClass::rawoutput("</td></tr>");
 		}
-		rawoutput("</table><br />");
+		OutputClass::rawoutput("</table><br />");
 		$install = Translator::translate_inline("Install");
-		rawoutput("<input type='submit' name='install' class='button' value='$install'>");
+		OutputClass::rawoutput("<input type='submit' name='install' class='button' value='$install'>");
 	}
 }
 
