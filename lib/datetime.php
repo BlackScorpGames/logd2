@@ -97,10 +97,21 @@ function is_new_day($now=0){
 	}
 	return false;
 }
-class GameDateTime{
-public static function getgametime(){
-	return gmdate("g:i a",gametime());
-}
+
+class GameDateTime
+{
+	public static function getgametime()
+	{
+		return gmdate("g:i a", gametime());
+	}
+
+	public static function secondstonextgameday($details = false)
+	{
+		if ($details === false) {
+			$details = gametimedetails();
+		}
+		return strtotime("{$details['now']} + {$details['realsecstotomorrow']} seconds");
+	}
 }
 function gametime(){
 	$time = convertgametime(strtotime("now"));
@@ -145,10 +156,7 @@ function gametimedetails(){
 	return $ret;
 }
 
-function secondstonextgameday($details=false) {
-	if ($details===false) $details = gametimedetails();
-	return strtotime("{$details['now']} + {$details['realsecstotomorrow']} seconds");
-}
+
 
 function getmicrotime(){
 	list($usec, $sec) = explode(" ",microtime());

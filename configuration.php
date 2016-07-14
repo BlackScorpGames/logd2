@@ -428,7 +428,7 @@ if ($op == "") {
 		"allowspecialswitch"=>"The Barkeeper may help you to switch your specialty?,bool",
 		"maxlistsize"=>"Maximum number of items to be shown in the warrior list,int",
 	);
-	$secstonewday = secondstonextgameday($details);
+	$secstonewday = GameDateTime::secondstonextgameday($details);
 	$useful_vals = array(
 		"dayduration"=>round(($details['dayduration']/60/60),0)." hours",
 		"curgametime"=>GameDateTime::getgametime(),

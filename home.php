@@ -33,7 +33,7 @@ if (Settings::getsetting("homecurtime", 1)) {
 }
 
 if (Settings::getsetting("homenewdaytime", 1)) {
-	$secstonewday = secondstonextgameday();
+	$secstonewday = GameDateTime::secondstonextgameday();
 	OutputClass::output("`@Next new game day in: `\$%s (real time)`0`n`n",
 			date("G\\".translate_inline("h","datetime").", i\\".translate_inline("m","datetime").", s\\".translate_inline("s","datetime"),
 				$secstonewday));

@@ -66,7 +66,7 @@ $useful = array(
 	"nextnewday"=>"Next new day,viewonly"
 );
 
-$secstonextday = secondstonextgameday($details);
+$secstonextday = GameDateTime::secondstonextgameday($details);
 $useful_vals = array(
 	"dayduration"=>round(($details['dayduration']/60/60),0)." hours",
 	"curgametime"=>GameDateTime::getgametime(),
