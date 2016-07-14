@@ -49,7 +49,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 	}
 	$level = $session['user']['level'];
 	$dks = $session['user']['dragonkills'];
-	$exprequired=exp_for_next_level($level, $dks);
+	$exprequired=Experience::exp_for_next_level($level, $dks);
 
 	$op = Http::httpget('op');
 	if ($op==""){
