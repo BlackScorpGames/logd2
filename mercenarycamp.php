@@ -92,7 +92,7 @@ $schemas = $texts['schemas'];
 
 Translator::tlschema($schemas['title']);
 PageParts::page_header($texts['title']);
-output("`c`b`&".$texts['title']."`0`b`c");
+OutputClass::output("`c`b`&".$texts['title']."`0`b`c");
 Translator::tlschema();
 
 $op = Http::httpget("op");
@@ -105,7 +105,7 @@ if ($op==""){
 	  			output_notl(sprintf_translate($description));
 	  		}
 	  	} else {
-	  		output($texts['desc']);
+	  		OutputClass::output($texts['desc']);
 	  	}
 	  	Translator::tlschema();
   	}
@@ -125,7 +125,7 @@ if ($op==""){
 					output_notl(sprintf_translate($description));
 				}
 			} else {
-				output($texts['nocompanions']);
+				OutputClass::output($texts['nocompanions']);
 			}
 			break;
 		case 1:
@@ -134,7 +134,7 @@ if ($op==""){
 					output_notl(sprintf_translate($description));
 				}
 			} else {
-				output($texts['onecompanion']);
+				OutputClass::output($texts['onecompanion']);
 			}
 			break;
 		default:
@@ -143,7 +143,7 @@ if ($op==""){
 					output_notl(sprintf_translate($description));
 				}
 			} else {
-				output($texts['manycompanions']);
+				OutputClass::output($texts['manycompanions']);
 			}
 			break;
 	}
@@ -170,7 +170,7 @@ if ($op==""){
 		} else if (!isset($companions[$row['name']])) {
 			addnav(array("%s",$row['name']), "mercenarycamp.php?op=buy&id={$row['companionid']}");
 		}
-		output("`#%s`n`7%s`n`n",$row['name'], $row['description']);
+		OutputClass::output("`#%s`n`7%s`n`n",$row['name'], $row['description']);
 	}
 	healnav($companions, $texts, $schemas);
 } else if ($op == "heal") {
@@ -182,7 +182,7 @@ if ($op==""){
 	  			output_notl(sprintf_translate($healnotenough));
 	  		}
 	  	} else {
-	  		output($texts['healnotenough']);
+	  		OutputClass::output($texts['healnotenough']);
 	  	}
 		Translator::tlschema();
 	} else {
@@ -195,7 +195,7 @@ if ($op==""){
 	  			output_notl(sprintf_translate($healpaid));
 	  		}
 	  	} else {
-	  		output($texts['healpaid']);
+	  		OutputClass::output($texts['healpaid']);
 	  	}
 		Translator::tlschema();
 	}
@@ -215,9 +215,9 @@ if ($op==""){
 		$row['abilities'] = @unserialize($row['abilities']);
 		require_once("lib/buffs.php");
 		if (apply_companion($row['name'], $row)) {
-			output("`QYou hand over `^%s gold`Q and `%%s %s`Q.`n`n", (int)$row['companioncostgold'], (int)$row['companioncostgems'],translate_inline($row['companioncostgems'] == 1?"gem":"gems"));
+			OutputClass::output("`QYou hand over `^%s gold`Q and `%%s %s`Q.`n`n", (int)$row['companioncostgold'], (int)$row['companioncostgems'],translate_inline($row['companioncostgems'] == 1?"gem":"gems"));
 			if (isset($row['jointext']) && $row['jointext'] > "") {
-				output($row['jointext']);
+				OutputClass::output($row['jointext']);
 			}
 			$session['user']['gold'] -= $row['companioncostgold'];
 			$session['user']['gems'] -= $row['companioncostgems'];
@@ -230,7 +230,7 @@ if ($op==""){
 					output_notl(sprintf_translate($toomanycompanions));
 				}
 			} else {
-				output($texts['toomanycompanions']);
+				OutputClass::output($texts['toomanycompanions']);
 			}
 			Translator::tlschema();
 		}
@@ -271,7 +271,7 @@ function healnav($companions, $texts, $schemas) {
 	  			output_notl(sprintf_translate($healtext));
 	  		}
 	  	} else {
-	  		output($texts['healtext']);
+	  		OutputClass::output($texts['healtext']);
 	  	}
 		Translator::tlschema();
 	}

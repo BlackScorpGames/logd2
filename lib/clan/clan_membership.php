@@ -1,7 +1,7 @@
 <?php
 		addnav("Clan Hall","clan.php");
 		addnav("Clan Options");
-		output("This is your current clan membership:`n");
+		OutputClass::output("This is your current clan membership:`n");
 		$setrank = Http::httpget('setrank');
 		$whoacctid = (int)Http::httpget('whoacctid');
 		if ($setrank>"") {
@@ -103,5 +103,5 @@
 			rawoutput("</tr>");
 		}
 		rawoutput("</table>");
-		output("`n`n`^This clan has a total of `\$%s`^ dragon kills.",$tot);
+		OutputClass::output("`n`n`^This clan has a total of `\$%s`^ dragon kills.",$tot);
 ?>

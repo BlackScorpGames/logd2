@@ -29,13 +29,13 @@ function addnews(){
 	//					  [, $sprintf_style_replacement2...]]
 	//					  [, $hidefrombio]);
 	// We can pass arrays for the sprintf style replacements, which
-	// represent separate translation sets in the same format as output().
+	// represent separate translation sets in the same format as OutputClass::output().
 	// Eg:
 	//   addnews("%s defeated %s in %s `n%s","Joe","Hank","the Inn",
 	//		   array("\"Your mother smelt of elderberries,\" taunted %s.",
 	//				 "Joe"));
 	// Note that the sub-translation does need its own %s location in the
-	// master output.
+	// master OutputClass::output.
 	global $session;
 	$args = func_get_args();
 	array_unshift($args, $session['user']['acctid']);

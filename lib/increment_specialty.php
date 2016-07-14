@@ -14,7 +14,7 @@ function increment_specialty($colorcode, $spec=false){
 		$specialties = modulehook("incrementspecialty",
 				array("color"=>$colorcode));
 	}else{
-		output("`7You have no direction in the world, you should rest and make some important decisions about your life.`0`n");
+		OutputClass::output("`7You have no direction in the world, you should rest and make some important decisions about your life.`0`n");
 	}
 	Translator::tlschema();
 	if ($spec !== false) {

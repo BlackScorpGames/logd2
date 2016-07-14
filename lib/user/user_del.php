@@ -9,5 +9,5 @@ while ($row = db_fetch_assoc($res)) {
 }
 $sql = "DELETE FROM " . db_prefix("accounts") . " WHERE acctid='$userid'";
 db_query($sql);
-output( db_affected_rows()." user deleted.");
+OutputClass::output( db_affected_rows()." user deleted.");
 ?>

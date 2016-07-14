@@ -10,9 +10,9 @@ function redirect($location,$reason=false){
 		//deliberately html in translations so admins can personalize this, also in once scheme
 		$session['allowednavs']=array();
 		addnav("",$location);
-		$session['output']=
+		$session['OutputClass::output']=
 			"<a href=\"".HTMLEntities($location, ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\">".translate_inline("Click here.","badnav")."</a>";
-		$session['output'].=translate_inline("<br><br>If you cannot leave this page, notify the staff via <a href='petition.php'>petition</a> and tell them where this happened and what you did. Thanks.","badnav");
+		$session['OutputClass::output'].=translate_inline("<br><br>If you cannot leave this page, notify the staff via <a href='petition.php'>petition</a> and tell them where this happened and what you did. Thanks.","badnav");
 	}
 	restore_buff_fields();
 	$session['debug'].="Redirected to $location from $REQUEST_URI.  $reason<br>";

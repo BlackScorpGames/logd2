@@ -258,12 +258,12 @@ addnav("","weaponeditor.php");
 if (!$skipvillagedesc) {
 	modulehook("collapse{", array("name"=>"villagedesc-".$session['user']['location']));
 	Translator::tlschema($schemas['text']);
-	output($texts['text']);
+	OutputClass::output($texts['text']);
 	Translator::tlschema();
 	modulehook("}collapse");
 	modulehook("collapse{", array("name"=>"villageclock-".$session['user']['location']));
 	Translator::tlschema($schemas['clock']);
-	output($texts['clock'],getgametime());
+	OutputClass::output($texts['clock'],getgametime());
 	Translator::tlschema();
 	modulehook("}collapse");
 	modulehook("village-desc",$texts);
@@ -272,7 +272,7 @@ if (!$skipvillagedesc) {
 	if ($texts['newestplayer'] > "" && $texts['newest']) {
 		modulehook("collapse{", array("name"=>"villagenewest-".$session['user']['location']));
 		Translator::tlschema($schemas['newest']);
-		output($texts['newest'], $texts['newestplayer']);
+		OutputClass::output($texts['newest'], $texts['newestplayer']);
 		Translator::tlschema();
 		$id = $texts['newestid'];
 		if ($session['user']['superuser'] & SU_EDIT_USERS && $id) {
@@ -288,12 +288,12 @@ modulehook("village",$texts);
 //special hook for all villages... saves queries...
 modulehook("village-{$session['user']['location']}",$texts);
 
-if ($skipvillagedesc) output("`n");
+if ($skipvillagedesc) OutputClass::output("`n");
 
 $args = modulehook("blockcommentarea", array("section"=>$texts['section']));
 if (!isset($args['block']) || $args['block'] != 'yes') {
 		Translator::tlschema($schemas['talk']);
-		output($texts['talk']);
+		OutputClass::output($texts['talk']);
 		Translator::tlschema();
 		commentdisplay("",$texts['section'],"Speak",25,$texts['sayline'], $schemas['sayline']);
 }

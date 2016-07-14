@@ -9,18 +9,18 @@ if ($setrace!=""){
 	modulehook("setrace");
 	addnav("Continue","newday.php?continue=1$resline");
 }else{
-	output("Where do you recall growing up?`n`n");
+	OutputClass::output("Where do you recall growing up?`n`n");
 	modulehook("chooserace");
 }
 if (navcount()==0){
 	clearoutput();
 	PageParts::page_header("No Races Installed");
-	output("No races were installed in this game.");
-	output("So we'll call you a 'human' and get on with it.");
+	OutputClass::output("No races were installed in this game.");
+	OutputClass::output("So we'll call you a 'human' and get on with it.");
 	if ($session['user']['superuser'] & (SU_MEGAUSER|SU_MANAGE_MODULES)) {
-		output("You should go into the module manager off of the super user grotto, install and activate some races.");
+		OutputClass::output("You should go into the module manager off of the super user grotto, install and activate some races.");
 	} else {
-		output("You might want to ask your admin to install some races, they're really quite fun.");
+		OutputClass::output("You might want to ask your admin to install some races, they're really quite fun.");
 	}
 	$session['user']['race']="Human";
 	addnav("Continue","newday.php?continue=1$resline");

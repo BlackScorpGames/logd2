@@ -70,21 +70,21 @@
 							$session['user']['gold']-=$gold;
 							$session['user']['gems']-=$gems;
 							debuglog("has started a new clan (<$clanshort> $clanname) for $gold gold and $gems gems.");
-							output("%s`7 looks over your form, and finding that everything seems to be in order, she takes your fees, stamps the form \"`\$APPROVED`7\" and files it in a drawer.`n`n",$registrar);
-							output("Congratulations, you've created a new clan named %s!",stripslashes($clanname));
+							OutputClass::output("%s`7 looks over your form, and finding that everything seems to be in order, she takes your fees, stamps the form \"`\$APPROVED`7\" and files it in a drawer.`n`n",$registrar);
+							OutputClass::output("Congratulations, you've created a new clan named %s!",stripslashes($clanname));
 							addnav("Enter your clan hall","clan.php");
 /*//*/						}
 					}
 				}
 			}
 		}else{
-			output("`7You approach %s`7 and inquire about starting a new clan.",$registrar);
-			output("She tells you that there are three requirements to starting a clan.");
-			output("First, you have to decide on a full name for your clan.");
-			output("Second, you have to decide on an abbreviation for your clan.");
-			output("Third you have to decide on whether or not you're willing to give up the fees that are required to start the clan.");
-			output("This fee is used to tailor the locks on your clan door to you and your members.`n");
-			output("The fees are as follows:`nGold: `^%s`7`nGems: `%%s`7",$gold,$gems);
+			OutputClass::output("`7You approach %s`7 and inquire about starting a new clan.",$registrar);
+			OutputClass::output("She tells you that there are three requirements to starting a clan.");
+			OutputClass::output("First, you have to decide on a full name for your clan.");
+			OutputClass::output("Second, you have to decide on an abbreviation for your clan.");
+			OutputClass::output("Third you have to decide on whether or not you're willing to give up the fees that are required to start the clan.");
+			OutputClass::output("This fee is used to tailor the locks on your clan door to you and your members.`n");
+			OutputClass::output("The fees are as follows:`nGold: `^%s`7`nGems: `%%s`7",$gold,$gems);
 			addnav("Return to the Lobby","clan.php");
 			$e1 = translate_inline("`n`n\"`5Since you do not have enough gold with you, I cannot allow you to apply for a clan,`7\" she says.");
 			$e2 = translate_inline("`n`n\"`5Since you do not have enough gems with you, I cannot allow you to apply for a clan,`7\" she says.");

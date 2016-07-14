@@ -82,7 +82,7 @@ function outhouse_install(){
 }
 
 function outhouse_uninstall(){
-	output("Uninstalling this module.`n");
+	OutputClass::output("Uninstalling this module.`n");
 	return true;
 }
 
@@ -114,8 +114,8 @@ function outhouse_run(){
 	if ($op == "pay"){
 		if (!$canpay) {
 			PageParts::page_header("Private Toilet");
-			output("`7You reach into your pocket and find that your gold has vanished!");
-			output("Dejected, you return to the forest.");
+			OutputClass::output("`7You reach into your pocket and find that your gold has vanished!");
+			OutputClass::output("Dejected, you return to the forest.");
 			require_once("lib/forest.php");
 			forest(true);
 			page_footer();
@@ -124,13 +124,13 @@ function outhouse_run(){
 		PageParts::page_header("Private Toilet");
 		//$session['user']['usedouthouse'] = 1;
 		set_module_pref("usedouthouse",1);
-		output("`7You pay your %s gold to the Toilet Gnome for the privilege of using the paid outhouse.`n", $cost);
-		output("This is the cleanest outhouse in the land!`n");
-		output("The Toilet Paper Gnome tells you if you need anything, just ask.`n");
+		OutputClass::output("`7You pay your %s gold to the Toilet Gnome for the privilege of using the paid outhouse.`n", $cost);
+		OutputClass::output("This is the cleanest outhouse in the land!`n");
+		OutputClass::output("The Toilet Paper Gnome tells you if you need anything, just ask.`n");
 		if ($session['user']['sex']) {
-			output("She politely turns her back to you and finishes cleaning the wash stand.`n");
+			OutputClass::output("She politely turns her back to you and finishes cleaning the wash stand.`n");
 		} else {
-			output("He politely turns his back to you and finishes cleaning the wash stand.`n");
+			OutputClass::output("He politely turns his back to you and finishes cleaning the wash stand.`n");
 		}
 		$session['user']['gold'] -= $cost;
 		debuglog("spent $cost gold to use the outhouse");
@@ -139,36 +139,36 @@ function outhouse_run(){
 	}elseif ($op == "free"){
 		PageParts::page_header("Public Toilet!");
 		set_module_pref("usedouthouse",1);
-		output("`2The smell is so strong your eyes tear up and your nose hair curls!`n");
-		output("After blowing his nose with it, the Toilet Paper Gnome gives you 1 sheet of single-ply TP to use.`n");
-		output("After looking at the stuff covering his hands, you think you might not want to use it.`n`n");
-		output("While %s over the big hole in the middle of the room with the TP Gnome observing you closely, you almost slip in.`n", translate_inline($session['user']['sex']?"squatting":"standing"));
-		output("You go ahead and take care of business as fast as you can; you can only hold your breath so long.`n");
+		OutputClass::output("`2The smell is so strong your eyes tear up and your nose hair curls!`n");
+		OutputClass::output("After blowing his nose with it, the Toilet Paper Gnome gives you 1 sheet of single-ply TP to use.`n");
+		OutputClass::output("After looking at the stuff covering his hands, you think you might not want to use it.`n`n");
+		OutputClass::output("While %s over the big hole in the middle of the room with the TP Gnome observing you closely, you almost slip in.`n", translate_inline($session['user']['sex']?"squatting":"standing"));
+		OutputClass::output("You go ahead and take care of business as fast as you can; you can only hold your breath so long.`n");
 		addnav("Wash your hands", "runmodule.php?module=outhouse&op=washfree");
 		addnav("Leave", "runmodule.php?module=outhouse&op=nowash");
 	}elseif ($op == "washpay"|| $op == "washfree"){
 		PageParts::page_header("Wash Stand");
-		output("`2Washing your hands is always a good thing.  You tidy up, straighten your %s in your reflection in the water, and head on your way.`0`n", $session['user']['armor']);
+		OutputClass::output("`2Washing your hands is always a good thing.  You tidy up, straighten your %s in your reflection in the water, and head on your way.`0`n", $session['user']['armor']);
 		$goodhabits = e_rand(1, 100);
 		if ($goodhabits <= $goodmusthit && $op=="washpay"){
-			output("`^The Wash Room Fairy blesses you!`n");
-			output("`7You receive `^%s`7 gold for being sanitary and clean!`0`n", $giveback);
+			OutputClass::output("`^The Wash Room Fairy blesses you!`n");
+			OutputClass::output("`7You receive `^%s`7 gold for being sanitary and clean!`0`n", $giveback);
 			$session['user']['gold'] += $giveback;
 			debuglog("got $giveback gold in the outhouse for washing");
 			$givegemtemp = e_rand(1, 100);
 			if ($givegemtemp <= $givegempercent){
 				$session['user']['gems']++;
 				debuglog("gained 1 gem in the outhouse");
-				output("`&Aren't you the lucky one to find a `%gem`& there by the doorway!`0`n");
+				OutputClass::output("`&Aren't you the lucky one to find a `%gem`& there by the doorway!`0`n");
 			}
 			$giveturntemp = e_rand(1, 100);
 			if ($giveturntemp <= $giveturnchance) {
 				$session['user']['turns']++;
-				output("`&You gained a turn!`0`n");
+				OutputClass::output("`&You gained a turn!`0`n");
 			}
 		}elseif ($goodhabits <= $goodmusthit && $op == "washfree"){
 			if (e_rand(1, 3)==1) {
-				output("`&You notice a small bag containing `^%s`7 gold that someone left by the washstand.`0", $giveback);
+				OutputClass::output("`&You notice a small bag containing `^%s`7 gold that someone left by the washstand.`0", $giveback);
 				$session['user']['gold'] += $giveback;
 				debuglog("got $giveback gold in the outhouse for washing");
 			}
@@ -183,16 +183,16 @@ function outhouse_run(){
 		forest(true);
 	}elseif (($op == "nowash")){
 		PageParts::page_header("Stinky Hands");
-		output("`2Your hands are soiled and real stinky!`n");
-		output("Didn't your mother teach you any better?`n");
+		OutputClass::output("`2Your hands are soiled and real stinky!`n");
+		OutputClass::output("Didn't your mother teach you any better?`n");
 		$takeaway = e_rand(1, 100);
 		if ($takeaway >= $badmusthit){
 			if ($session['user']['gold'] >= $goldinhand){
 				$session['user']['gold'] -= $takeback;
 				debuglog("lost $takeback gold in the outhouse for not washing");
-				output("`nThe Toilet Paper Gnome has thrown you to the slimy, filthy floor and extracted `\$%s gold`2 %s from you due to your slovenliness!`n", $takeback, translate_inline($takeback ==1?"piece":"pieces"));
+				OutputClass::output("`nThe Toilet Paper Gnome has thrown you to the slimy, filthy floor and extracted `\$%s gold`2 %s from you due to your slovenliness!`n", $takeback, translate_inline($takeback ==1?"piece":"pieces"));
 			}
-			output("Aren't you glad an embarrassing moment like this isn't in the news?`n");
+			OutputClass::output("Aren't you glad an embarrassing moment like this isn't in the news?`n");
 			if ($session['user']['sex']) {
 				$msg = "`2Always cool, %s`2 was seen walking around with a long string of toilet paper stuck to her foot.`n";
 			} else {
@@ -204,34 +204,34 @@ function outhouse_run(){
 		forest(true);
 	}else{
 		PageParts::page_header("The Outhouses");
-		output("`2The nearby village has two outhouses, which it keeps way out here in the forest because of the warding effect of their smell on creatures.`n`n");
+		OutputClass::output("`2The nearby village has two outhouses, which it keeps way out here in the forest because of the warding effect of their smell on creatures.`n`n");
 		if (get_module_pref("usedouthouse")==0){
-			output("In typical caste style, there is a privileged outhouse, and an underprivileged outhouse.");
-			output("The choice is yours!`0`n`n");
+			OutputClass::output("In typical caste style, there is a privileged outhouse, and an underprivileged outhouse.");
+			OutputClass::output("The choice is yours!`0`n`n");
 			addnav("Toilets");
 			if ($canpay){
 				addnav(array("Private Toilet: (%s gold)", $cost),
 						"runmodule.php?module=outhouse&op=pay");
 			}else{
-				output("`2The Private Toilet costs `^%s`2 gold.", $cost);
-				output("Looks like you are going to have to hold it or use the Public Toilet!");
+				OutputClass::output("`2The Private Toilet costs `^%s`2 gold.", $cost);
+				OutputClass::output("Looks like you are going to have to hold it or use the Public Toilet!");
 			}
 			addnav("Public Toilet: (free)", "runmodule.php?module=outhouse&op=free");
 			addnav("Hold it", "forest.php");
 		}else{
 			switch(e_rand(1,3)){
 			case 1:
-				output("The Outhouses are closed for repairs.`n");
-				output("You will have to hold it till tomorrow!");
+				OutputClass::output("The Outhouses are closed for repairs.`n");
+				OutputClass::output("You will have to hold it till tomorrow!");
 				break;
 			case 2:
-				output("As you draw close to the Outhouses, you realize that you simply don't think you can bear the smell of another visit to the Outhouses today.");
+				OutputClass::output("As you draw close to the Outhouses, you realize that you simply don't think you can bear the smell of another visit to the Outhouses today.");
 				break;
 			case 3:
-				output("You really don't have anything left to relieve today!");
+				OutputClass::output("You really don't have anything left to relieve today!");
 				break;
 			}
-			output("`n`n`7You return to the forest.`0");
+			OutputClass::output("`n`n`7You return to the forest.`0");
 			require_once("lib/forest.php");
 			forest(true);
 		}

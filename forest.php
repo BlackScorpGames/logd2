@@ -22,7 +22,7 @@ $battle = false;
 
 if ($op=="run"){
 	if (e_rand()%3 == 0){
-		output ("`c`b`&You have successfully fled your opponent!`0`b`c`n");
+		OutputClass::output ("`c`b`&You have successfully fled your opponent!`0`b`c`n");
 		$op="";
 		httpset('op', "");
 		unsuspend_buffs();
@@ -32,7 +32,7 @@ if ($op=="run"){
 			}
 		}
 	}else{
-		output("`c`b`\$You failed to flee your opponent!`0`b`c");
+		OutputClass::output("`c`b`\$You failed to flee your opponent!`0`b`c");
 	}
 }
 
@@ -40,22 +40,22 @@ if ($op=="dragon"){
 	require_once("lib/partner.php");
 	addnav("Enter the cave","dragon.php");
 	addnav("Run away like a baby","inn.php?op=fleedragon");
-	output("`\$You approach the blackened entrance of a cave deep in the forest, though the trees are scorched to stumps for a hundred yards all around.");
-	output("A thin tendril of smoke escapes the roof of the cave's entrance, and is whisked away by a suddenly cold and brisk wind.");
-	output("The mouth of the cave lies up a dozen feet from the forest floor, set in the side of a cliff, with debris making a conical ramp to the opening.");
-	output("Stalactites and stalagmites near the entrance trigger your imagination to inspire thoughts that the opening is really the mouth of a great leech.`n`n");
-	output("You cautiously approach the entrance of the cave, and as you do, you hear, or perhaps feel a deep rumble that lasts thirty seconds or so, before silencing to a breeze of sulfur-air which wafts out of the cave.");
-	output("The sound starts again, and stops again in a regular rhythm.`n`n");
-	output("You clamber up the debris pile leading to the mouth of the cave, your feet crunching on the apparent remains of previous heroes, or perhaps hors d'oeuvres.`n`n");
-	output("Every instinct in your body wants to run, and run quickly, back to the warm inn, and the even warmer %s`\$.", get_partner());
-	output("What do you do?`0");
+	OutputClass::output("`\$You approach the blackened entrance of a cave deep in the forest, though the trees are scorched to stumps for a hundred yards all around.");
+	OutputClass::output("A thin tendril of smoke escapes the roof of the cave's entrance, and is whisked away by a suddenly cold and brisk wind.");
+	OutputClass::output("The mouth of the cave lies up a dozen feet from the forest floor, set in the side of a cliff, with debris making a conical ramp to the opening.");
+	OutputClass::output("Stalactites and stalagmites near the entrance trigger your imagination to inspire thoughts that the opening is really the mouth of a great leech.`n`n");
+	OutputClass::output("You cautiously approach the entrance of the cave, and as you do, you hear, or perhaps feel a deep rumble that lasts thirty seconds or so, before silencing to a breeze of sulfur-air which wafts out of the cave.");
+	OutputClass::output("The sound starts again, and stops again in a regular rhythm.`n`n");
+	OutputClass::output("You clamber up the debris pile leading to the mouth of the cave, your feet crunching on the apparent remains of previous heroes, or perhaps hors d'oeuvres.`n`n");
+	OutputClass::output("Every instinct in your body wants to run, and run quickly, back to the warm inn, and the even warmer %s`\$.", get_partner());
+	OutputClass::output("What do you do?`0");
 	$session['user']['seendragon']=1;
 }
 
 if ($op=="search"){
 	checkday();
 	if ($session['user']['turns']<=0){
-		output("`\$`bYou are too tired to search the forest any longer today.  Perhaps tomorrow you will have more energy.`b`0");
+		OutputClass::output("`\$`bYou are too tired to search the forest any longer today.  Perhaps tomorrow you will have more energy.`b`0");
 		$op="";
 		httpset('op', "");
 	}else{
@@ -90,11 +90,11 @@ if ($op=="search"){
 			$type = Http::httpget('type');
 			if ($type=="slum"){
 				$nlev++;
-				output("`\$You head for the section of forest you know to contain foes that you're a bit more comfortable with.`0`n");
+				OutputClass::output("`\$You head for the section of forest you know to contain foes that you're a bit more comfortable with.`0`n");
 			}
 			if ($type=="thrill"){
 				$plev++;
-				output("`\$You head for the section of forest which contains creatures of your nightmares, hoping to find one of them injured.`0`n");
+				OutputClass::output("`\$You head for the section of forest which contains creatures of your nightmares, hoping to find one of them injured.`0`n");
 			}
 			$extrabuff = 0;
 			if ($type=="suicide"){
@@ -108,7 +108,7 @@ if ($op=="search"){
 					$plev++;
 					$extrabuff = .4;
 				}
-				output("`\$You head for the section of forest which contains creatures of your nightmares, looking for the biggest and baddest ones there.`0`n");
+				OutputClass::output("`\$You head for the section of forest which contains creatures of your nightmares, looking for the biggest and baddest ones there.`0`n");
 			}
 			$multi = 1;
 			$targetlevel = ($session['user']['level'] + $plev - $nlev );
@@ -222,7 +222,7 @@ if ($op=="search"){
 						$stack[$i] = $badguy;
 					}
 					if ($multi > 1) {
-						output("`2You encounter a group of `^%i`2 %s`2.`n`n", $multi, $badguy['creaturename']);
+						OutputClass::output("`2You encounter a group of `^%i`2 %s`2.`n`n", $multi, $badguy['creaturename']);
 					}
 				} else {
 					while ($badguy = db_fetch_assoc($result)) {

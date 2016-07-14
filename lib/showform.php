@@ -72,7 +72,7 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 		    $handle = @opendir("templates");
 			// Template directory open failed
 			if (!$handle) {
-				output("None available");
+				OutputClass::output("None available");
 				break;
 			}
 			while (false != ($file = @readdir($handle))) {
@@ -82,7 +82,7 @@ function showform($layout,$row,$nosave=false,$keypref=false){
 			}
 			// No templates installed!
 			if (count($skins) == 0) {
-				output("None available");
+				OutputClass::output("None available");
 				break;
 			}
 			natcasesort($skins); //sort them in natural order

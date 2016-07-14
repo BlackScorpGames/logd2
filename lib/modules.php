@@ -37,7 +37,7 @@ function injectmodule($modulename,$force=false){
 			$row = db_fetch_assoc($result);
 			if ($row['active']){ } else {
 				Translator::tlschema();
-			 	output("`n`3Module `#%s`3 is not active, but was attempted to be injected.`n",$modulename);
+			 	OutputClass::output("`n`3Module `#%s`3 is not active, but was attempted to be injected.`n",$modulename);
 				$injected_modules[$force][$modulename]=false;
 				return false;
 			}
@@ -56,7 +56,7 @@ function injectmodule($modulename,$force=false){
 			if (!module_check_requirements($info['requires'])) {
 				$injected_modules[$force][$modulename]=false;
 				Translator::tlschema();
-				output("`n`3Module `#%s`3 does not meet its prerequisites.`n",$modulename);
+				OutputClass::output("`n`3Module `#%s`3 does not meet its prerequisites.`n",$modulename);
 				return false;
 			}
 		}
@@ -123,7 +123,7 @@ function injectmodule($modulename,$force=false){
 		$injected_modules[$force][$modulename]=true;
 		return true;
 	}else{
-	 	output("`n`\$Module `^%s`\$ was not found in the modules directory.`n",$modulename);
+	 	OutputClass::output("`n`\$Module `^%s`\$ was not found in the modules directory.`n",$modulename);
 		$injected_modules[$force][$modulename]=false;
 		return false;
 	}
@@ -460,7 +460,7 @@ function modulehook($hookname, $args=false, $allowinactive=false, $only=false){
 				" . db_prefix("module_hooks") . ".modulename";
 		$result = db_query_cached($sql,"hook-".$hookname);
 	}
-	// $args is an array passed by value and we take the output and pass it
+	// $args is an array passed by value and we take the OutputClass::output and pass it
 	// back through
 	// Try at least and fix up a bogus arg so it doesn't cause additional
 	// problems later.
@@ -523,7 +523,7 @@ function modulehook($hookname, $args=false, $allowinactive=false, $only=false){
 /*******************************************************/
 				$outputafterhook = $output;
 				$output=$outputbeforehook;
-				// test to see if we had any output and if the module allows
+				// test to see if we had any OutputClass::output and if the module allows
 				// us to collapse it
 				$testout = trim(sanitize_html($outputafterhook));
 				if (!is_array($res)) {
@@ -536,7 +536,7 @@ function modulehook($hookname, $args=false, $allowinactive=false, $only=false){
 						$hookname!="collapse-nav{" &&
 						$hookname!="}collapse-nav" &&
 						!array_key_exists('nocollapse',$res)) {
-					//restore the original output's reference
+					//restore the original OutputClass::output's reference
 					modulehook("collapse{",
 						array("name"=>'a-'.$row['modulename']));
 					$output .= $outputafterhook;
@@ -1086,7 +1086,7 @@ function module_events($eventtype, $basechance, $baseLink = false) {
 			if ($chance > $sum && $chance <= $sum + $event['normchance']) {
 				$_POST['i_am_a_hack'] = 'true';
 				Translator::tlschema("events");
-				output("`^`c`bSomething Special!`c`b`0");
+				OutputClass::output("`^`c`bSomething Special!`c`b`0");
 				Translator::tlschema();
 				$op = Http::httpget('op');
 				httpset('op', "");
@@ -1150,7 +1150,7 @@ function module_display_events($eventtype, $forcescript=false) {
 	usort($events, "event_sort");
 
 	Translator::tlschema("events");
-	output("`n`nSpecial event triggers:`n");
+	OutputClass::output("`n`nSpecial event triggers:`n");
 	$name = translate_inline("Name");
 	$rchance = translate_inline("Raw Chance");
 	$nchance = translate_inline("Normalized Chance");
@@ -1282,31 +1282,31 @@ function deactivate_module($module){
 function uninstall_module($module){
 	if (injectmodule($module,true)) {
 		$fname = $module."_uninstall";
-		output("Running module uninstall script`n");
+		OutputClass::output("Running module uninstall script`n");
 		Translator::tlschema("module-{$module}");
 		$fname();
 		Translator::tlschema();
 
-		output("Deleting module entry`n");
+		OutputClass::output("Deleting module entry`n");
 		$sql = "DELETE FROM " . db_prefix("modules") .
 			" WHERE modulename='$module'";
 		db_query($sql);
 
-		output("Deleting module hooks`n");
+		OutputClass::output("Deleting module hooks`n");
 		module_wipehooks();
 
-		output("Deleting module settings`n");
+		OutputClass::output("Deleting module settings`n");
 		$sql = "DELETE FROM " . db_prefix("module_settings") .
 			" WHERE modulename='$module'";
 		db_query($sql);
 		invalidatedatacache("modulesettings-$module");
 
-		output("Deleting module user prefs`n");
+		OutputClass::output("Deleting module user prefs`n");
 		$sql = "DELETE FROM " . db_prefix("module_userprefs") .
 			" WHERE modulename='$module'";
 		db_query($sql);
 
-		output("Deleting module object prefs`n");
+		OutputClass::output("Deleting module object prefs`n");
 		$sql = "DELETE FROM " . db_prefix("module_objprefs") .
 			" WHERE modulename='$module'";
 		db_query($sql);
@@ -1325,7 +1325,7 @@ function install_module($module, $force=true){
 
 	require_once("lib/sanitize.php");
 	if (modulename_sanitize($module)!=$module){
-		output("Error, module file names can only contain alpha numeric characters and underscores before the trailing .php`n`nGood module names include 'testmodule.php', 'joesmodule2.php', while bad module names include, 'test.module.php' or 'joes module.php'`n");
+		OutputClass::output("Error, module file names can only contain alpha numeric characters and underscores before the trailing .php`n`nGood module names include 'testmodule.php', 'joesmodule2.php', while bad module names include, 'test.module.php' or 'joes module.php'`n");
 		return false;
 	}else{
 		// If we are forcing an install, then whack the old version.
@@ -1342,7 +1342,7 @@ function install_module($module, $force=true){
 			$info = get_module_info($module);
 			//check installation requirements
 			if (!module_check_requirements($info['requires'])){
-				output("`\$Module could not installed -- it did not meet its prerequisites.`n");
+				OutputClass::output("`\$Module could not installed -- it did not meet its prerequisites.`n");
 				return false;
 			}else{
 				$keys = "|".join(array_keys($info), "|")."|";
@@ -1365,15 +1365,15 @@ function install_module($module, $force=true){
 				if ($fname() === false) {
 					return false;
 				}
-				output("`^Module installed.  It is not yet active.`n");
+				OutputClass::output("`^Module installed.  It is not yet active.`n");
 				invalidatedatacache("inject-$mostrecentmodule");
 				massinvalidate("moduleprepare");
 				return true;
 			}
 		} else {
-			output("`\$Module could not be injected.");
-			output("Module not installed.");
-			output("This is probably due to the module file having a parse error or not existing in the filesystem.`n");
+			OutputClass::output("`\$Module could not be injected.");
+			OutputClass::output("Module not installed.");
+			OutputClass::output("This is probably due to the module file having a parse error or not existing in the filesystem.`n");
 			return false;
 		}
 	}

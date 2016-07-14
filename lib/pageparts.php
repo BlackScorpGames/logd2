@@ -1,6 +1,6 @@
 <?php
 /**
- * Library (supporting) functions for page output
+ * Library (supporting) functions for page OutputClass::output
  *		addnews ready
  *		translator ready
  *		mail ready
@@ -13,7 +13,7 @@
 $nopopups = array();
 $runheaders = array();
 /**
- * Starts page output.  Inits the template and translator modules.
+ * Starts page OutputClass::output.  Inits the template and translator modules.
  *
  * @param array|string $title
  * Hooks provided:
@@ -62,7 +62,7 @@ public static function page_header(){
 }
 }
 /**
- * Returns an output formatted popup link based on JavaScript
+ * Returns an OutputClass::output formatted popup link based on JavaScript
  *
  * @param string $page The URL to open
  * @param string $size The size of the popup window (Default: 550x300)
@@ -74,7 +74,7 @@ function popup($page,$size="550x300"){
 }
 
 /**
- * Brings all the output elements together and terminates the rendering of the page.  Saves the current user info and updates the rendering statistics
+ * Brings all the OutputClass::output elements together and terminates the rendering of the page.  Saves the current user info and updates the rendering statistics
  * Hooks provided:
  *	footer-{$script name}
  *	everyfooter
@@ -107,7 +107,7 @@ function page_footer($saveuser=true){
 		$replacementbits = modulehook("everyfooter-loggedin", $replacementbits);
 	}
 	unset($replacementbits['__scriptfile__']);
-	//output any template part replacements that above hooks need (eg,
+	//OutputClass::output any template part replacements that above hooks need (eg,
 	//advertising)
 	reset($replacementbits);
 	while (list($key,$val)=each($replacementbits)){
@@ -152,13 +152,13 @@ function page_footer($saveuser=true){
 	if (!isset($session['user']['name'])) $session['user']['name']="";
 	if (!isset($session['user']['login'])) $session['user']['login']="";
 
-	//clean up unclosed output tags.
+	//clean up unclosed OutputClass::output tags.
 	while (list($key,$val)=each($nestedtags)){
 		if ($nestedtags[$key] === true) $output.="</$key>";
 
 		unset($nestedtags[$key]);
 	}
-	//output keypress script
+	//OutputClass::output keypress script
 	$script.="<script language='JavaScript'>
 	<!--
 	document.onkeypress=keyevent;
@@ -301,15 +301,15 @@ function page_footer($saveuser=true){
 	//NOTICE | which I made available for free to you that you leave it in.
 	//NOTICE |
 
-	//output the nav
+	//OutputClass::output the nav
 	$footer = str_replace("{".($z)."}",$$z,$footer);
 	$header=str_replace("{nav}",$builtnavs,$header);
 	$footer=str_replace("{nav}",$builtnavs,$footer);
-	//output the motd
+	//OutputClass::output the motd
 
 	$header = str_replace("{motd}", motdlink(), $header);
 	$footer = str_replace("{motd}", motdlink(), $footer);
-	//output the mail link
+	//OutputClass::output the mail link
 	if (isset($session['user']['acctid']) && $session['user']['acctid']>0 && $session['user']['loggedin']) {
 		$header=str_replace("{mail}",maillink(),$header);
 		$footer=str_replace("{mail}",maillink(),$footer);
@@ -317,7 +317,7 @@ function page_footer($saveuser=true){
 		$header=str_replace("{mail}","",$header);
 		$footer=str_replace("{mail}","",$footer);
 	}
-	//output petition count
+	//OutputClass::output petition count
 
 	$header=str_replace("{petition}","<a href='petition.php' onClick=\"".popup("petition.php").";return false;\" target='_blank' align='right' class='motd'>".translate_inline("Petition for Help")."</a>",$header);
 	$footer=str_replace("{petition}","<a href='petition.php' onClick=\"".popup("petition.php").";return false;\" target='_blank' align='right' class='motd'>".translate_inline("Petition for Help")."</a>",$footer);
@@ -347,18 +347,18 @@ function page_footer($saveuser=true){
 		$footer = str_replace("{petitiondisplay}", "", $footer);
 		$header = str_replace("{petitiondisplay}", "", $header);
 	}
-	//output character stats
+	//OutputClass::output character stats
 	$footer=str_replace("{stats}",$charstats,$footer);
 	$header=str_replace("{stats}",$charstats,$header);
 	//do something -- I don't know what
 	$header=str_replace("{script}",$script,$header);
-	//output view PHP source link
+	//OutputClass::output view PHP source link
 	$sourcelink = "source.php?url=".preg_replace("/[?].*/","",($_SERVER['REQUEST_URI']));
 	$footer=str_replace("{source}","<a href='$sourcelink' onclick=\"".popup($sourcelink).";return false;\" target='_blank'>".translate_inline("View PHP Source")."</a>",$footer);
 	$header=str_replace("{source}","<a href='$sourcelink' onclick=\"".popup($sourcelink).";return false;\" target='_blank'>".translate_inline("View PHP Source")."</a>",$header);
-	//output version
+	//OutputClass::output version
 	$footer=str_replace("{version}", "Version: $logd_version", $footer);
-	//output page generation time
+	//OutputClass::output page generation time
 	$gentime = getmicrotime()-$pagestarttime;
 	$session['user']['gentime']+=$gentime;
 	$session['user']['gentimecount']++;
@@ -370,14 +370,14 @@ function page_footer($saveuser=true){
 	$footer = preg_replace("/{[^} \t\n\r]*}/i","",$footer);
 	$header = preg_replace("/{[^} \t\n\r]*}/i","",$header);
 
-	//finalize output
+	//finalize OutputClass::output
 	$output=$header.$output.$footer;
 	$session['user']['gensize']+=strlen($output);
-	$session['output']=$output;
+	$session['OutputClass::output']=$output;
 	if ($saveuser === true) {
 		saveuser();
 	}
-	unset($session['output']);
+	unset($session['OutputClass::output']);
 	//this somehow allows some frames to load before the user's navs say it can
 	//session_write_close();
 	echo $output;
@@ -427,7 +427,7 @@ function popup_footer(){
 	// Problem is 'script' is a valid replacement token, so.. use an
 	// invalid one which we can then blow away.
 	$replacementbits = modulehook("footer-popup",array());
-	//output any template part replacements that above hooks need
+	//OutputClass::output any template part replacements that above hooks need
 	reset($replacementbits);
 	while (list($key,$val)=each($replacementbits)){
 		$header = str_replace("{".$key."}","{".$key."}".join($val,""),$header);
@@ -513,13 +513,13 @@ function setcharstat($cat, $label, $val) {
 }
 
 /**
- * Returns output formatted character stats
+ * Returns OutputClass::output formatted character stats
  *
  * @param array $buffs
  * @return string
  */
 function getcharstats($buffs){
-	//returns output formatted character statistics.
+	//returns OutputClass::output formatted character statistics.
 	global $charstat_info;
 	$charstat_str = templatereplace("statstart");
 	reset($charstat_info);

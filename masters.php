@@ -20,7 +20,7 @@ superusernav();
 if ($op == "del") {
 	$sql = "DELETE FROM " . db_prefix("masters") . " WHERE creatureid=$id";
 	db_query($sql);
-	output("`^Master deleted.`0");
+	OutputClass::output("`^Master deleted.`0");
 	$op = "";
 	httpset("op", "");
 } elseif ($op == "save") {
@@ -40,9 +40,9 @@ if ($op == "del") {
 	}
 	db_query($sql);
 	if ($id == 0) {
-		output("`^Master %s`^ added.", stripslashes($name));
+		OutputClass::output("`^Master %s`^ added.", stripslashes($name));
 	} else {
-		output("`^Master %s`^ updated.", stripslashes($name));
+		OutputClass::output("`^Master %s`^ updated.", stripslashes($name));
 	}
 	$op = "";
 	httpset("op", "");
@@ -64,34 +64,34 @@ if ($op == "del") {
 	}
 	addnav("","masters.php?op=save&id=$id");
 	rawoutput("<form action='masters.php?op=save&id=$id' method='POST'>");
-	output("`^Master's level:`n");
+	OutputClass::output("`^Master's level:`n");
 	rawoutput("<input id='input' name='level' value='".htmlentities($row['creaturelevel'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."' SIZE=5>");
 	output_notl("`n");
-	output("`^Master's name:`n");
+	OutputClass::output("`^Master's name:`n");
 	rawoutput("<input id='input' name='name' value='".htmlentities($row['creaturename'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."'>");
 	output_notl("`n");
-	output("`^Master's weapon:`n");
+	OutputClass::output("`^Master's weapon:`n");
 	rawoutput("<input id='input' name='weapon' value='".htmlentities($row['creatureweapon'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."'>");
 	output_notl("`n");
-	output("`^Master's speech when player wins:`n");
+	OutputClass::output("`^Master's speech when player wins:`n");
 	rawoutput("<textarea name='lose' rows='5' cols='30' class='input'>".htmlentities($row['creaturelose'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."</textarea>");
 	output_notl("`n");
-	output("`^Master's speech when player loses:`n");
+	OutputClass::output("`^Master's speech when player loses:`n");
 	rawoutput("<textarea name='win' rows='5' cols='30' class='input'>".htmlentities($row['creaturewin'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."</textarea>");
 	output_notl("`n");
 	$submit = translate_inline("Submit");
 	rawoutput("<input type='submit' class='button' value='$submit'>");
 	rawoutput("</form>");
 	output_notl("`n`n");
-	output("`#The following codes are supported in both the win and lose speeches (case matters):`n");
-	output("%w = The players's name (can be specified as {goodguy}`n");
-	output("%W = The masters's name (can be specified as {badguy}`n");
-	output("%x = The players's weapon (can be specified as {weapon}`n");
-	output("%X = The master's weapon (can be specified as {creatureweapon}`n");
-	output("%a = The players's armor (can be specified as {armor}`n");
-	output("%s = Subjective pronoun for the player (him her)`n");
-	output("%p = Possessive pronoun for the player (his her)`n");
-	output("%o = Objective pronoun for the player (he she)`n");
+	OutputClass::output("`#The following codes are supported in both the win and lose speeches (case matters):`n");
+	OutputClass::output("%w = The players's name (can be specified as {goodguy}`n");
+	OutputClass::output("%W = The masters's name (can be specified as {badguy}`n");
+	OutputClass::output("%x = The players's weapon (can be specified as {weapon}`n");
+	OutputClass::output("%X = The master's weapon (can be specified as {creatureweapon}`n");
+	OutputClass::output("%a = The players's armor (can be specified as {armor}`n");
+	OutputClass::output("%s = Subjective pronoun for the player (him her)`n");
+	OutputClass::output("%p = Possessive pronoun for the player (his her)`n");
+	OutputClass::output("%o = Objective pronoun for the player (he she)`n");
 }
 
 if ($op == "") {
@@ -137,8 +137,8 @@ if ($op == "") {
 		$i++;
 	}
 	rawoutput("</table>");
-	output("`n`#You can change the names, weapons and messages of all of the Training Masters.");
-	output("It is suggested, that you do not toy around with this, unless you know what you are doing.`0`n");
+	OutputClass::output("`n`#You can change the names, weapons and messages of all of the Training Masters.");
+	OutputClass::output("It is suggested, that you do not toy around with this, unless you know what you are doing.`0`n");
 }
 page_footer();
 ?>

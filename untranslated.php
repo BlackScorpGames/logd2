@@ -47,7 +47,7 @@ if ($op == "list") {
 	$sql = "SELECT namespace,count(*) AS c FROM " . db_prefix("untranslated") . " WHERE language='".$session['user']['prefs']['language']."' GROUP BY namespace ORDER BY namespace ASC";
 	$result = db_query($sql);
 	rawoutput("<input type='hidden' name='op' value='list'>");
-	output("Known Namespaces:");
+	OutputClass::output("Known Namespaces:");
 	rawoutput("<select name='ns'>");
 	while ($row = db_fetch_assoc($result)){
 		rawoutput("<option value=\"".htmlentities($row['namespace'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\"".((htmlentities($row['namespace'], ENT_COMPAT, getsetting("charset", "ISO-8859-1")) == $namespace) ? "selected" : "").">".htmlentities($row['namespace'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))." ({$row['c']})</option>");
@@ -113,13 +113,13 @@ if ($op == "list") {
 			$submit = translate_inline("Save Translation");
 			$skip = translate_inline("Skip Translation");
 			rawoutput("<form action='untranslated.php?op=step2' method='post'>");
-			output("`^`cThere are `&%s`^ untranslated texts in the database.`c`n`n", $count['count']);
+			OutputClass::output("`^`cThere are `&%s`^ untranslated texts in the database.`c`n`n", $count['count']);
 			rawoutput("<table width='80%'>");
 			rawoutput("<tr><td width='30%'>");
-			output("Target Language: %s", $row['language']);
+			OutputClass::output("Target Language: %s", $row['language']);
 			rawoutput("</td><td></td></tr>");
 			rawoutput("<tr><td width='30%'>");
-			output("Namespace: %s", $row['namespace']);
+			OutputClass::output("Namespace: %s", $row['namespace']);
 			rawoutput("</td><td></td></tr>");
 			rawoutput("<tr><td width='30%'><textarea cols='35' rows='4' name='intext'>".$row['intext']."</textarea></td>");
 			rawoutput("<td width='30%'><textarea cols='25' rows='4' name='outtext'></textarea></td></tr></table>");
@@ -134,12 +134,12 @@ if ($op == "list") {
 			addnav("", "untranslated.php?op=step2");
 			addnav("", "untranslated.php");
 		} else {
-			output("There are `&%s`^ untranslated texts in the database, but none for your selected language.", $count['count']);
-			output("Please change your language to translate these texts.");
+			OutputClass::output("There are `&%s`^ untranslated texts in the database, but none for your selected language.", $count['count']);
+			OutputClass::output("Please change your language to translate these texts.");
 		}
 	} else {
-		output("There are no untranslated texts in the database!");
-		output("Congratulations!!!");
+		OutputClass::output("There are no untranslated texts in the database!");
+		OutputClass::output("Congratulations!!!");
 	} // end if
 } // end list if
 addnav("R?Restart Translator", "untranslated.php");

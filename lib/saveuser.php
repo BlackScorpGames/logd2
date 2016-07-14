@@ -24,17 +24,17 @@ function saveuser(){
 				$sql.="$key='".addslashes($val)."', ";
 			}
 		}
-		//due to the change in the accounts table -> moved output -> save everyhit
+		//due to the change in the accounts table -> moved OutputClass::output -> save everyhit
 		$sql.="laston='".date("Y-m-d H:i:s")."', ";
 		$sql = substr($sql,0,strlen($sql)-2);
 		$sql="UPDATE " . db_prefix("accounts") . " SET " . $sql .
 			" WHERE acctid = ".$session['user']['acctid'];
 		db_query($sql);
-		if (isset($session['output']) && $session['output']) {
-			$sql_output="UPDATE " . db_prefix("accounts_output") . " SET output='".addslashes($session['output'])."' WHERE acctid={$session['user']['acctid']};";
+		if (isset($session['OutputClass::output']) && $session['OutputClass::output']) {
+			$sql_output="UPDATE " . db_prefix("accounts_output") . " SET OutputClass::output='".addslashes($session['OutputClass::output'])."' WHERE acctid={$session['user']['acctid']};";
 			$result=db_query($sql_output);
 			if (db_affected_rows($result)<1) {
-				$sql_output="REPLACE INTO " . db_prefix("accounts_output") . " VALUES ({$session['user']['acctid']},'".addslashes($session['output'])."');";
+				$sql_output="REPLACE INTO " . db_prefix("accounts_output") . " VALUES ({$session['user']['acctid']},'".addslashes($session['OutputClass::output'])."');";
 				db_query($sql_output);
 			}
 		}

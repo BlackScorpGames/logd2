@@ -18,12 +18,12 @@ if ($op=="save"){
 	if ((int)httppost('blockdupemail') == 1 &&
 			(int)httppost('requirevalidemail') != 1) {
 		httppostset('requirevalidemail', "1");
-		output("`brequirevalidemail has been set since blockdupemail was set.`b`n");
+		OutputClass::output("`brequirevalidemail has been set since blockdupemail was set.`b`n");
 	}
 	if ((int)httppost('requirevalidemail') == 1 &&
 			(int)httppost('requireemail') != 1) {
 		httppostset('requireemail', "1");
-		output("`brequireemail has been set since requirevalidemail was set.`b`n");
+		OutputClass::output("`brequireemail has been set since requirevalidemail was set.`b`n");
 	}
 	$defsup = httppost("defaultsuperuser");
 	if ($defsup != "") {
@@ -71,7 +71,7 @@ if ($op=="save"){
 			if (!isset($old[$key]))
 				$old[$key] = "";
 			savesetting($key,stripslashes($val));
-			output("Setting %s to %s`n", $key, stripslashes($val));
+			OutputClass::output("Setting %s to %s`n", $key, stripslashes($val));
 			gamelog("`@Changed core setting `^$key`@ from `#{$old[$key]}`@ to `&$val`0","settings");
 			// Notify every module
 			modulehook("changesetting",
@@ -79,7 +79,7 @@ if ($op=="save"){
 						"old"=>$old[$key], "new"=>$val), true);
 		}
 	}
-	output("`^Settings saved.`0");
+	OutputClass::output("`^Settings saved.`0");
 	$op = "";
 	httpset($op, "");
 }elseif($op=="modulesettings"){
@@ -94,7 +94,7 @@ if ($op=="save"){
 			if (isset($post['validation_error'])) {
 				$post['validation_error'] =
 					translate_inline($post['validation_error']);
-				output("Unable to change settings:`\$%s`0",
+				OutputClass::output("Unable to change settings:`\$%s`0",
 						$post['validation_error']);
 			} else {
 				reset($post);
@@ -103,7 +103,7 @@ if ($op=="save"){
 					$val = stripslashes($val);
 					set_module_setting($key,$val);
 					if (!isset($old[$key]) || $old[$key] != $val) {
-						output("Setting %s to %s`n", $key, $val);
+						OutputClass::output("Setting %s to %s`n", $key, $val);
 						// Notify modules
 						if($key == "villagename") {
 							debug("Moving companions");
@@ -120,7 +120,7 @@ if ($op=="save"){
 									"old"=>$oldval, "new"=>$val), true);
 					}
 				}
-				output("`^Module %s settings saved.`0`n", $module);
+				OutputClass::output("`^Module %s settings saved.`0`n", $module);
 			}
 			$save = "";
 			httpset('save', "");
@@ -147,14 +147,14 @@ if ($op=="save"){
 				}
 				$msettings = modulehook("mod-dyn-settings", $msettings);
 				if (is_module_active($module)){
-					output("This module is currently active: ");
+					OutputClass::output("This module is currently active: ");
 					$deactivate = translate_inline("Deactivate");
 					rawoutput("<a href='modules.php?op=deactivate&module={$module}&cat={$info['category']}'>");
 					output_notl($deactivate);
 					rawoutput("</a>");
 					addnav("","modules.php?op=deactivate&module={$module}&cat={$info['category']}");
 				}else{
-					output("This module is currently deactivated: ");
+					OutputClass::output("This module is currently deactivated: ");
 					$deactivate = translate_inline("Activate");
 					rawoutput("<a href='modules.php?op=activate&module={$module}&cat={$info['category']}'>");
 					output_notl($deactivate);
@@ -168,11 +168,11 @@ if ($op=="save"){
 				Translator::tlschema();
 				rawoutput("</form>",true);
 			}else{
-				output("The %s module does not appear to define any module settings.", $module);
+				OutputClass::output("The %s module does not appear to define any module settings.", $module);
 			}
 		}
 	}else{
-		output("I was not able to inject the module %s. Sorry it didn't work out.", htmlentities($module, ENT_COMPAT, getsetting("charset", "ISO-8859-1")));
+		OutputClass::output("I was not able to inject the module %s. Sorry it didn't work out.", htmlentities($module, ENT_COMPAT, getsetting("charset", "ISO-8859-1")));
 	}
 }
 
@@ -237,7 +237,7 @@ if ($op == "") {
 			SU_INFINITE_DAYS.",Infinite Days,".
 			SU_VIEW_SOURCE.",View Source Code,".
 			SU_DEVELOPER.",Developer Super Powers (special inc list; god mode; auto defeat master; etc),".
-			SU_DEBUG_OUTPUT. ",Debug Output",
+			SU_DEBUG_OUTPUT. ",Debug OutputClass::output",
 		"newplayerstartgold"=>"Amount of gold to start a new character with,int",
 		"maxrestartgold"=>"Maximum amount of gold a player will get after a dragonkill,int",
 		"maxrestartgems"=>"Maximum number of gems a player will get after a dragonkill,int",
@@ -418,7 +418,7 @@ if ($op == "") {
 
 		"Error Notification,title",
 		"Note: you MUST have data caching turned on if you want to use this feature.  Also the first error within any 24 hour period will not generate a notice; I'm sorry: that's really just how it is for technical reasons.,note",
-		"show_notices"=>"Show PHP Notice output?,bool",
+		"show_notices"=>"Show PHP Notice OutputClass::output?,bool",
 		"notify_on_warn"=>"Send notification on site warnings?,bool",
 		"notify_on_error"=>"Send notification on site errors?,bool",
 		"notify_address"=>"Address to notify",

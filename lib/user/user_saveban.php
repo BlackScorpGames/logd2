@@ -21,19 +21,19 @@ if ($type=="ip"){
 	if (substr($_SERVER['REMOTE_ADDR'],0,strlen(httppost("ip"))) ==
 			httppost("ip")){
 		$sql = "";
-		output("You don't really want to ban yourself now do you??");
-		output("That's your own IP address!");
+		OutputClass::output("You don't really want to ban yourself now do you??");
+		OutputClass::output("That's your own IP address!");
 	}
 }else{
 	if ($_COOKIE['lgi']==httppost("id")){
 		$sql = "";
-		output("You don't really want to ban yourself now do you??");
-		output("That's your own ID!");
+		OutputClass::output("You don't really want to ban yourself now do you??");
+		OutputClass::output("That's your own ID!");
 	}
 }
 if ($sql!=""){
 	db_query($sql);
-	output("%s ban rows entered.`n`n", db_affected_rows());
+	OutputClass::output("%s ban rows entered.`n`n", db_affected_rows());
 	output_notl("%s", db_error(LINK));
 	debuglog("entered a ban: " .  ($type=="ip"?  "IP: ".httppost("ip"): "ID: ".httppost("id")) . " Ends after: $duration  Reason: \"" .  httppost("reason")."\"");
 }

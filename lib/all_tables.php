@@ -341,8 +341,8 @@ return array(
 		'acctid'=>array(
 			'name'=>'acctid', 'type'=>'int(11) unsigned'
 			),
-		'output'=>array(
-			'name'=>'output', 'type'=>'mediumtext'
+		'OutputClass::output'=>array(
+			'name'=>'OutputClass::output', 'type'=>'mediumtext'
 			),
 		'key-PRIMARY'=>array(
 			'name'=>'PRIMARY',

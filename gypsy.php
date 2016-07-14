@@ -22,7 +22,7 @@ if ($op=="pay"){
 	}else{
 		PageParts::page_header("Gypsy Seer's tent");
 		villagenav();
-		output("`5You offer the old gypsy woman your `^%s`5 gold for your gen-u-wine say-ance, however she informs you that the dead may be dead, but they ain't cheap.", $session['user']['gold']);
+		OutputClass::output("`5You offer the old gypsy woman your `^%s`5 gold for your gen-u-wine say-ance, however she informs you that the dead may be dead, but they ain't cheap.", $session['user']['gold']);
 	}
 }elseif ($op=="talk"){
 	PageParts::page_header("In a deep trance, you talk with the shades");
@@ -31,11 +31,11 @@ if ($op=="pay"){
 }else{
 	checkday();
 	PageParts::page_header("Gypsy Seer's tent");
-	output("`5You duck into a gypsy tent like many you have seen throughout the realm.");
-	output("All of them promise to let you talk with the deceased, and most of them surprisingly seem to work.");
-	output("There are also rumors that the gypsy have the power to speak over distances other than just those of the afterlife.");
-	output("In typical gypsy style, the old woman sitting behind a somewhat smudgy crystal ball informs you that the dead only speak with the paying.");
-	output("\"`!For you, %s, the price is a trifling `^%s`! gold.`5\", she rasps.", translate_inline($session['user']['sex']?"my pretty":"my handsome"), $cost);
+	OutputClass::output("`5You duck into a gypsy tent like many you have seen throughout the realm.");
+	OutputClass::output("All of them promise to let you talk with the deceased, and most of them surprisingly seem to work.");
+	OutputClass::output("There are also rumors that the gypsy have the power to speak over distances other than just those of the afterlife.");
+	OutputClass::output("In typical gypsy style, the old woman sitting behind a somewhat smudgy crystal ball informs you that the dead only speak with the paying.");
+	OutputClass::output("\"`!For you, %s, the price is a trifling `^%s`! gold.`5\", she rasps.", translate_inline($session['user']['sex']?"my pretty":"my handsome"), $cost);
 	addnav("Seance");
 	addnav(array("Pay to talk to the dead (%s gold)", $cost),"gypsy.php?op=pay");
 	if ($session['user']['superuser'] & SU_EDIT_COMMENTS)

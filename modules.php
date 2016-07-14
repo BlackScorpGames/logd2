@@ -37,7 +37,7 @@ if (is_array($module)){
 reset($modules);
 while (list($key,$module)=each($modules)){
 	$op = $theOp;
-	output("`2Performing `^%s`2 on `%%s`0`n", translate_inline($op), $module);
+	OutputClass::output("`2Performing `^%s`2 on `%%s`0`n", translate_inline($op), $module);
 	if($op=="install"){
 		if (install_module($module)){
 
@@ -49,7 +49,7 @@ while (list($key,$module)=each($modules)){
 	}elseif($op=="uninstall"){
 		if (uninstall_module($module)) {
 		} else {
-			output("Unable to inject module.  Module not uninstalled.`n");
+			OutputClass::output("Unable to inject module.  Module not uninstalled.`n");
 		}
 		$op="";
 		httpset('op', "");
@@ -94,7 +94,7 @@ if ($op==""){
 		if (!$sortby) $sortby="installdate";
 		$order=Http::httpget('order');
 		$tcat = translate_inline($cat);
-		output("`n`b%s Modules`b`n", $tcat);
+		OutputClass::output("`n`b%s Modules`b`n", $tcat);
 		$deactivate = translate_inline("Deactivate");
 		$activate = translate_inline("Activate");
 		$uninstall = translate_inline("Uninstall");
@@ -122,7 +122,7 @@ if ($op==""){
 		$result = db_query($sql);
 		if (db_num_rows($result)==0){
 			rawoutput("<tr class='trlight'><td colspan='6' align='center'>");
-			output("`i-- No Modules Installed--`i");
+			OutputClass::output("`i-- No Modules Installed--`i");
 			rawoutput("</td></tr>");
 		}
 		$number=db_num_rows($result);
@@ -195,7 +195,7 @@ if ($op==""){
 		$sorting=Http::httpget('sorting');
 		if (!$sorting) $sorting="shortname";
 		$order=Http::httpget('order');
-		output("`bUninstalled Modules`b`n");
+		OutputClass::output("`bUninstalled Modules`b`n");
 		$install = translate_inline("Install");
 		$mname = translate_inline("Module Name");
 		$ops = translate_inline("Ops");
@@ -250,7 +250,7 @@ if ($op==""){
 				rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
 				if (isset($moduleinfo[$i]['invalid']) && $moduleinfo[$i]['invalid']===true) {
 					rawoutput("<td></td><td nowrap valign='top'>");
-						output("Not installable");
+						OutputClass::output("Not installable");
 						rawoutput("</td>");
 				} else {
 					rawoutput("<td><input type='checkbox' name='module[]' value='{$moduleinfo[$i]['shortname']}'></td>");
@@ -278,7 +278,7 @@ if ($op==""){
 					rawoutput("<tr class='".($i%2?"trlight":"trdark")."'>");
 					rawoutput("<td>&nbsp;</td>");
 					rawoutput("<td colspan='6'>");
-					output("`bRequires:`b`n");
+					OutputClass::output("`bRequires:`b`n");
 					reset($moduleinfo[$i]['requires']);
 					while (list($key,$val)=each($moduleinfo[$i]['requires'])){
 						$info = explode("|",$val);
@@ -297,7 +297,7 @@ if ($op==""){
 			}
 		} else {
 			rawoutput("<tr class='trlight'><td colspan='6' align='center'>");
-			output("`i--No uninstalled modules were found--`i");
+			OutputClass::output("`i--No uninstalled modules were found--`i");
 			rawoutput("</td></tr>");
 		}
 		rawoutput("</table><br />");

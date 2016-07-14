@@ -25,10 +25,10 @@ if ($op=="" || $op=="sql"){
 		$r = db_query($sql, false);
 		debuglog('Ran Raw SQL: ' . $sql);
 		if (!$r) {
-			output("`\$SQL Error:`& %s`0`n`n",db_error($r));
+			OutputClass::output("`\$SQL Error:`& %s`0`n`n",db_error($r));
 		} else {
 			if (db_affected_rows() > 0) {
-				output("`&%s rows affected.`n`n",db_affected_rows());
+				OutputClass::output("`&%s rows affected.`n`n",db_affected_rows());
 			}
 			rawoutput("<table cellspacing='1' cellpadding='2' border='0' bgcolor='#999999'>");
 			$number = db_num_rows($r);
@@ -52,7 +52,7 @@ if ($op=="" || $op=="sql"){
 		}
 	}
 
-	output("Type your query");
+	OutputClass::output("Type your query");
 	$execute = translate_inline("Execute");
 	$ret = modulehook("rawsql-modsql",array("sql"=>$sql));
 	$sql = $ret['sql'];
@@ -69,7 +69,7 @@ if ($op=="" || $op=="sql"){
 		rawoutput("<div style='background-color: #FFFFFF; color: #000000; width: 100%'><b>$source</b><br>");
 		rawoutput(highlight_string("<?php\n$php\n?>",true));
 		rawoutput("</div>");
-		output("`bResults:`b`n");
+		OutputClass::output("`bResults:`b`n");
 		modulehook("rawsql-execphp",array("php"=>$php));
 		ob_start();
 		eval($php);
@@ -77,7 +77,7 @@ if ($op=="" || $op=="sql"){
 		ob_end_clean();
 		debuglog('Ran Raw PHP: ' . $php);
 	}
-	output("`n`nType your code:");
+	OutputClass::output("`n`nType your code:");
 	$ret = modulehook("rawsql-modphp",array("php"=>$php));
 	$php = $ret['php'];
 	rawoutput("<form action='rawsql.php?op=php' method='post'>");

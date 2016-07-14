@@ -46,7 +46,7 @@ $schemas = $texts['schemas'];
 
 Translator::tlschema($schemas['title']);
 PageParts::page_header($texts['title']);
-output("`c`b`&".$texts['title']."`0`b`c");
+OutputClass::output("`c`b`&".$texts['title']."`0`b`c");
 Translator::tlschema();
 
 $op = Http::httpget("op");
@@ -58,7 +58,7 @@ if ($op==""){
   			output_notl(sprintf_translate($description));
   		}
   	} else {
-  		output($texts['desc']);
+  		OutputClass::output($texts['desc']);
   	}
   	Translator::tlschema();
 
@@ -76,7 +76,7 @@ if ($op==""){
   			output_notl(sprintf_translate($description));
   		}
   	} else {
-  		output($texts['tradein']);
+  		OutputClass::output($texts['tradein']);
   	}
   	Translator::tlschema();
 
@@ -124,7 +124,7 @@ if ($op==""){
 		output_notl("%s%s`0",$color,$row['damage']);
 		rawoutput("</td><td align='right'>");
 		if (isset($row['alternatetext']) && $row['alternatetext'] > "") {
-			output("%s%s`0", $color, $row['alternatetext']);
+			OutputClass::output("%s%s`0", $color, $row['alternatetext']);
 		} else {
 			output_notl("%s%s`0",$color,$row['value']);
 		}
@@ -139,7 +139,7 @@ if ($op==""){
 	$result = db_query($sql);
 	if (db_num_rows($result)==0){
 		Translator::tlschema($schemas['nosuchweapon']);
-		output($texts['nosuchweapon']);
+		OutputClass::output($texts['nosuchweapon']);
 		Translator::tlschema();
 		Translator::tlschema($schemas['tryagain']);
 		addnav($texts['tryagain'],"weapons.php");
@@ -150,12 +150,12 @@ if ($op==""){
 		$row = modulehook("modify-weapon", $row);
 		if ($row['value']>($session['user']['gold']+$tradeinvalue)){
 			Translator::tlschema($schemas['notenoughgold']);
-			output($texts['notenoughgold'],$row['weaponname']);
+			OutputClass::output($texts['notenoughgold'],$row['weaponname']);
 			Translator::tlschema();
 			villagenav();
 		}else{
 			Translator::tlschema($schemas['payweapon']);
-			output($texts['payweapon'],$session['user']['weapon'],$row['weaponname']);
+			OutputClass::output($texts['payweapon'],$session['user']['weapon'],$row['weaponname']);
 			Translator::tlschema();
 			debuglog("spent " . ($row['value']-$tradeinvalue) . " gold on the " . $row['weaponname'] . " weapon");
 			$session['user']['gold']-=$row['value'];

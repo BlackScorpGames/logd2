@@ -1,6 +1,6 @@
 <?php
 /**
- * Library Functions for page output.
+ * Library Functions for page OutputClass::output.
  *		translator ready
  *		addnews ready
  *		mail ready
@@ -14,9 +14,9 @@ $output="";
 $block_new_output = false;
 
 /**
- * Block any output statements temporarily
+ * Block any OutputClass::output statements temporarily
  *
- * @param bool $block should output be blocked
+ * @param bool $block should OutputClass::output be blocked
  */
 function set_block_new_output($block)
 {
@@ -25,7 +25,7 @@ function set_block_new_output($block)
 }
 
 /**
- * Raw output (unprocessed) appended to the output buffer
+ * Raw OutputClass::output (unprocessed) appended to the OutputClass::output buffer
  *
  * @param string $indata
  */
@@ -38,7 +38,7 @@ function rawoutput($indata) {
 }
 
 /**
- * Handles color and style encoding, and appends to the output buffer ($output)
+ * Handles color and style encoding, and appends to the OutputClass::output buffer ($output)
  *
  * @param string|array $indata If an array is passed then the format for sprintf is assumed otherwise a simple string is assumed
  *
@@ -67,7 +67,7 @@ function output_notl($indata){
 		$out = call_user_func_array("sprintf",$args);
 	}
 	//holiday text
-	if ($priv==false) $out = holidayize($out,'output');
+	if ($priv==false) $out = holidayize($out,'OutputClass::output');
 	//`1`2 etc color & formatting
 	$out = appoencode($out,$priv);
 	//apply to the page.
@@ -78,12 +78,13 @@ function output_notl($indata){
 /**
  * Outputs a translated, color/style encoded string to the browser.
  *
- * @param string|array What to output. If an array is passed then the format used by sprintf is assumed
+ * @param string|array What to OutputClass::output. If an array is passed then the format used by sprintf is assumed
  *
  * @see output_notl
  *
  */
-function output(){
+class OutputClass{
+public static function output(){
 	global $block_new_output;
 
 	if ($block_new_output) return;
@@ -97,12 +98,12 @@ function output(){
 	}
 	call_user_func_array("output_notl",$args);
 }
-
+}
 /**
- * Generate debug output for players who have the SU_DEBUG_OUTPUT flag set in the superuser mask
+ * Generate debug OutputClass::output for players who have the SU_DEBUG_OUTPUT flag set in the superuser mask
  *
- * @param string $text The string to output
- * @param bool   $force If true, force debug output even for non SU/non flagged
+ * @param string $text The string to OutputClass::output
+ * @param bool   $force If true, force debug OutputClass::output even for non SU/non flagged
  */
 function debug($text, $force=false){
 	global $session, $block_new_output;
@@ -119,11 +120,11 @@ function debug($text, $force=false){
 }
 
 /**
- * Generates the appropriate output based on the LOGD coding system (ie: `b: Bold, `i: Italic)
+ * Generates the appropriate OutputClass::output based on the LOGD coding system (ie: `b: Bold, `i: Italic)
  *
- * @param string $data The string to be output
+ * @param string $data The string to be OutputClass::output
  * @param bool $priv Indicates if the passed string ($data) contains HTML
- * @return string An output (HTML) formatted string
+ * @return string An OutputClass::output (HTML) formatted string
  */
 function appoencode($data,$priv=false){
 	global $nestedtags,$session;
@@ -602,7 +603,7 @@ function checknavs() {
 /**
  * Builds navs for display
  *
- * @return string Output formatted navs
+ * @return string OutputClass::output formatted navs
  */
 function buildnavs(){
 	global $navbysection, $navschema, $session, $navnocollapse;
@@ -886,7 +887,7 @@ function clearnav(){
 }
 
 /**
- * Reset the output and wipe the navs
+ * Reset the OutputClass::output and wipe the navs
  *
  */
 function clearoutput(){

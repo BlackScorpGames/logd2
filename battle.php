@@ -79,7 +79,7 @@ if ($op=="fight"){
 						$msg = $badguy['cannotbetarget'];
 					}
 					$msg = substitute_array("`5".$msg."`0`n");
-					output($msg);
+					OutputClass::output($msg);
 				}
 			}
 		} else {
@@ -92,11 +92,11 @@ $victory = false;
 $defeat = false;
 
 if ($enemycounter > 0) {
-	output ("`\$`c`b~ ~ ~ Fight ~ ~ ~`b`c`0");
+	OutputClass::output ("`\$`c`b~ ~ ~ Fight ~ ~ ~`b`c`0");
 	modulehook("battle", $enemies);
 	foreach ($enemies as $index=>$badguy) {
 		if ($badguy['creaturehealth']>0 && $session['user']['hitpoints']>0) {
-			output("`@You have encountered `^%s`@ which lunges at you with `%%s`@!`0`n",$badguy['creaturename'],$badguy['creatureweapon']);
+			OutputClass::output("`@You have encountered `^%s`@ which lunges at you with `%%s`@!`0`n",$badguy['creaturename'],$badguy['creatureweapon']);
 		}
 	}
 	output_notl("`n");
@@ -116,7 +116,7 @@ $surprised = false;
 if ($op != "run" && $op != "fight" && $op != "newtarget") {
 	if (count($enemies) > 1) {
 		$surprised = true;
-		output("`b`^YOUR ENEMIES`\$ surprise you and get the first round of attack!`0`b`n`n");
+		OutputClass::output("`b`^YOUR ENEMIES`\$ surprise you and get the first round of attack!`0`b`n`n");
 	} else {
 		// Let's try this instead.Biggest change is that it adds possibility of
 		// being surprised to all fights.
@@ -134,12 +134,12 @@ if ($op != "run" && $op != "fight" && $op != "newtarget") {
 				$surprised = false;
 			}
 			if (!$surprised) {
-				output("`b`\$Your skill allows you to get the first attack!`0`b`n`n");
+				OutputClass::output("`b`\$Your skill allows you to get the first attack!`0`b`n`n");
 			} else {
 				if ($options['type'] == 'pvp') {
-					output("`b`^%s`\$'s skill allows them to get the first round of attack!`0`b`n`n",$badguy['creaturename']);
+					OutputClass::output("`b`^%s`\$'s skill allows them to get the first round of attack!`0`b`n`n",$badguy['creaturename']);
 				}else{
-					output("`b`^%s`\$ surprises you and gets the first round of attack!`0`b`n`n",$badguy['creaturename']);
+					OutputClass::output("`b`^%s`\$ surprises you and gets the first round of attack!`0`b`n`n",$badguy['creaturename']);
 				}
 				$op = "run";
 			}
@@ -283,7 +283,7 @@ if ($op != "newtarget") {
 									}
 								}
 							}else if($op=="run" && !$surprised){
-								output("`4You are too busy trying to run away like a cowardly dog to try to fight `^%s`4.`n",$badguy['creaturename']);
+								OutputClass::output("`4You are too busy trying to run away like a cowardly dog to try to fight `^%s`4.`n",$badguy['creaturename']);
 							}
 
 							//Need to insert this here because of auto-fighting!
@@ -361,7 +361,7 @@ if ($op != "newtarget") {
 		$selfdmg=0;
 
 		if (($count != 1 || ($needtostopfighting && $count > 1)) && $session['user']['hitpoints'] > 0 && count($enemies) > 0) {
-			output("`2`bNext round:`b`n");
+			OutputClass::output("`2`bNext round:`b`n");
 		}
 
 		if (count($newenemies) > 0) {
@@ -387,7 +387,7 @@ if ($op != "newtarget") {
 						if (!isset($badguy['expgained']) || $badguy['expgained'] == false) {
 							if (!isset($badguy['creatureexp'])) $badguy['creatureexp'] = 0;
 							$session['user']['experience'] += round($badguy['creatureexp']/count($newenemies));
-							output("`#You receive `^%s`# experience!`n`0",round($badguy['creatureexp']/count($newenemies)));
+							OutputClass::output("`#You receive `^%s`# experience!`n`0",round($badguy['creatureexp']/count($newenemies)));
 							$options['experience'][$index] = $badguy['creatureexp'];
 							$options['experiencegained'][$index] = round($badguy['creatureexp']/count($newenemies));
 							$badguy['expgained']=true;
@@ -441,7 +441,7 @@ if ($op != "newtarget") {
 							$msg = $badguy['fleesifalone'];
 						}
 						$msg = substitute_array("`5".$msg."`0`n");
-						output($msg);
+						OutputClass::output($msg);
 					}
 				} else {
 					$newenemies[$index]=$badguy;
@@ -459,7 +459,7 @@ if ($op != "newtarget") {
 					$msg = $badguy['essentialleader'];
 				}
 				$msg = substitute_array("`5".$msg."`0`n");
-				output($msg);
+				OutputClass::output($msg);
 			}
 		}
 		if (is_array($newenemies)) {
@@ -475,7 +475,7 @@ if ($op != "newtarget") {
 $newenemies = autosettarget($newenemies);
 
 if ($session['user']['hitpoints']>0 && count($newenemies)>0 && ($op=="fight" || $op=="run")){
-	output("`2`bEnd of Round:`b`n");
+	OutputClass::output("`2`bEnd of Round:`b`n");
 	show_enemies($newenemies);
 }
 
@@ -524,11 +524,11 @@ function battle_player_attacks() {
 		$creaturedmg = report_power_move($atk, $creaturedmg);
 	}
 	if ($creaturedmg==0){
-		output("`4You try to hit `^%s`4 but `\$MISS!`n",$badguy['creaturename']);
+		OutputClass::output("`4You try to hit `^%s`4 but `\$MISS!`n",$badguy['creaturename']);
 		process_dmgshield($buffset['dmgshield'], 0);
 		process_lifetaps($buffset['lifetap'], 0);
 	}else if ($creaturedmg<0){
-		output("`4You try to hit `^%s`4 but are `\$RIPOSTED `4for `\$%s`4 points of damage!`n",$badguy['creaturename'],(0-$creaturedmg));
+		OutputClass::output("`4You try to hit `^%s`4 but are `\$RIPOSTED `4for `\$%s`4 points of damage!`n",$badguy['creaturename'],(0-$creaturedmg));
 		$badguy['diddamage']=1;
 		$session['user']['hitpoints']+=$creaturedmg;
 		if ($session['user']['hitpoints'] <= 0) {
@@ -540,7 +540,7 @@ function battle_player_attacks() {
 		process_dmgshield($buffset['dmgshield'],-$creaturedmg);
 		process_lifetaps($buffset['lifetap'],$creaturedmg);
 	}else{
-		output("`4You hit `^%s`4 for `^%s`4 points of damage!`n",$badguy['creaturename'],$creaturedmg);
+		OutputClass::output("`4You hit `^%s`4 for `^%s`4 points of damage!`n",$badguy['creaturename'],$creaturedmg);
 		$badguy['creaturehealth']-=$creaturedmg;
 		process_dmgshield($buffset['dmgshield'],-$creaturedmg);
 		process_lifetaps($buffset['lifetap'],$creaturedmg);
@@ -598,16 +598,16 @@ function battle_badguy_attacks() {
 		$companions = $newcompanions;
 		if ($defended == false) {
 			if ($selfdmg==0){
-				output("`^%s`4 tries to hit you but `^MISSES!`n",$badguy['creaturename']);
+				OutputClass::output("`^%s`4 tries to hit you but `^MISSES!`n",$badguy['creaturename']);
 				process_dmgshield($buffset['dmgshield'], 0);
 				process_lifetaps($buffset['lifetap'], 0);
 			}else if ($selfdmg<0){
-				output("`^%s`4 tries to hit you but you `^RIPOSTE`4 for `^%s`4 points of damage!`n",$badguy['creaturename'],(0-$selfdmg));
+				OutputClass::output("`^%s`4 tries to hit you but you `^RIPOSTE`4 for `^%s`4 points of damage!`n",$badguy['creaturename'],(0-$selfdmg));
 				$badguy['creaturehealth']+=$selfdmg;
 				process_lifetaps($buffset['lifetap'], -$selfdmg);
 				process_dmgshield($buffset['dmgshield'], $selfdmg);
 			}else{
-				output("`^%s`4 hits you for `\$%s`4 points of damage!`n",$badguy['creaturename'],$selfdmg);
+				OutputClass::output("`^%s`4 hits you for `\$%s`4 points of damage!`n",$badguy['creaturename'],$selfdmg);
 				$session['user']['hitpoints']-=$selfdmg;
 				if ($session['user']['hitpoints'] <= 0) {
 					$badguy['killedplayer'] = true;

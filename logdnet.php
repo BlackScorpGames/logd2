@@ -182,7 +182,7 @@ if ($op==""){
 	$rows = apply_logdnet_bans($rows);
 	usort($rows, "lotgdsort");
 
-	// Okay, they are now sorted, so output them
+	// Okay, they are now sorted, so OutputClass::output them
 	for ($i = 0; $i < count($rows); $i++) {
 		$row = serialize($rows[$i]);
 		echo $row."\n";
@@ -190,24 +190,24 @@ if ($op==""){
 }else{
 	PageParts::page_header("LoGD Net");
 	addnav("Login page","index.php");
-	output("`@Below are a list of other LoGD servers that have registered with the LoGD Net.`n");
-	output("`2It should be noted that this list is subject to editing and culling by the administrators of logdnet.logd.com. ");
-	output("Normally this list is a comprehensive list of all servers that have elected to register with LoGDnet, but I'm making changes to that. ");
-	output("Because this list is a free service provided by logdnet.logd.com, we reserve the right to remove those who we don't want in the list.`n");
-	output("Reasons we might remove a server:`n");
-	output("&#149; Altering our copyright statement outside of the provisions we have provided within the code,`n", true);
-	output("&#149; Removing our PayPal link,`n", true);
-	output("&#149; Providing deceptive, inappropriate, or false information in the server listing,`n", true);
-	output("&#149; Not linking back to LoGDnet`n", true);
-	output("Or really, any other reason that we want.`n");
-	output("If you've been banned already, chances are you know why, and chances are we've got no interest in removing the ban.");
-	output("We provide this free of charge, at the expense of considerable bandwidth and server load, so if you've had the gall to abuse our charity, don't expect it to be won back very easily.`n`n");
-	output("If you are well behaved, we don't have an interest in blocking you from this listing. `0`n");
+	OutputClass::output("`@Below are a list of other LoGD servers that have registered with the LoGD Net.`n");
+	OutputClass::output("`2It should be noted that this list is subject to editing and culling by the administrators of logdnet.logd.com. ");
+	OutputClass::output("Normally this list is a comprehensive list of all servers that have elected to register with LoGDnet, but I'm making changes to that. ");
+	OutputClass::output("Because this list is a free service provided by logdnet.logd.com, we reserve the right to remove those who we don't want in the list.`n");
+	OutputClass::output("Reasons we might remove a server:`n");
+	OutputClass::output("&#149; Altering our copyright statement outside of the provisions we have provided within the code,`n", true);
+	OutputClass::output("&#149; Removing our PayPal link,`n", true);
+	OutputClass::output("&#149; Providing deceptive, inappropriate, or false information in the server listing,`n", true);
+	OutputClass::output("&#149; Not linking back to LoGDnet`n", true);
+	OutputClass::output("Or really, any other reason that we want.`n");
+	OutputClass::output("If you've been banned already, chances are you know why, and chances are we've got no interest in removing the ban.");
+	OutputClass::output("We provide this free of charge, at the expense of considerable bandwidth and server load, so if you've had the gall to abuse our charity, don't expect it to be won back very easily.`n`n");
+	OutputClass::output("If you are well behaved, we don't have an interest in blocking you from this listing. `0`n");
 	rawoutput("<table border='0' cellpadding='1' cellspacing='0'>");
 	rawoutput("<tr class='trhead'><td>");
-	output("Server");
+	OutputClass::output("Server");
 	rawoutput("</td><td>");
-	output("Version");
+	OutputClass::output("Version");
 	rawoutput("</td>");
 	require_once("lib/pullurl.php");
 	$u = getsetting("logdnetserver", "http://logdnet.logd.com/");
@@ -248,7 +248,7 @@ if ($op==""){
 		// Correct for old logdnet servers
 		if ($row['version']=="") $row['version'] = translate_inline("Unknown");
 
-		// Output the information we have.
+		// OutputClass::output the information we have.
 		rawoutput("<tr class='" . ($i%2==0?"trlight":"trdark") . "'>");
 		rawoutput("<td><a href=\"".HTMLEntities($row['address'], ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\" target='_blank'>");
 		output_notl("`&%s`0",$row['description'], true);

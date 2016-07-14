@@ -101,7 +101,7 @@ function sprintf_translate(){
 		}
  	}
 	reset($args);
-	each($args);//skip the first entry which is the output text
+	each($args);//skip the first entry which is the OutputClass::output text
 	while (list($key,$val)=each($args)){
 		if (is_array($val)){
 			//When passed a sub-array this represents an independant

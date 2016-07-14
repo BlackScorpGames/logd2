@@ -95,7 +95,7 @@ session_name("session");
 session_start();
 $session =& $_SESSION['session'];
 
-// lets us provide output in dbconnect.php that only appears if there's a
+// lets us provide OutputClass::output in dbconnect.php that only appears if there's a
 // problem connecting to the database server.  Useful for migration moves
 // like LotGD.net experienced on 7/20/04.
 ob_start();
@@ -105,11 +105,11 @@ if (file_exists("dbconnect.php")){
 	if (!defined("IS_INSTALLER")){
 	 	if (!defined("DB_NODB")) define("DB_NODB",true);
 	 	PageParts::page_header("The game has not yet been installed");
-		output("`#Welcome to `@Legend of the Green Dragon`#, a game by Eric Stevens & JT Traub.`n`n");
-		output("You must run the game's installer, and follow its instructions in order to set up LoGD.  You can go to the installer <a href='installer.php'>here</a>.",true);
-		output("`n`nIf you're not sure why you're seeing this message, it's because this game is not properly configured right now. ");
-		output("If you've previously been running the game here, chances are that you lost a file called '`%dbconnect.php`#' from your site.");
-		output("If that's the case, no worries, we can get you back up and running in no time, and the installer can help!");
+		OutputClass::output("`#Welcome to `@Legend of the Green Dragon`#, a game by Eric Stevens & JT Traub.`n`n");
+		OutputClass::output("You must run the game's installer, and follow its instructions in order to set up LoGD.  You can go to the installer <a href='installer.php'>here</a>.",true);
+		OutputClass::output("`n`nIf you're not sure why you're seeing this message, it's because this game is not properly configured right now. ");
+		OutputClass::output("If you've previously been running the game here, chances are that you lost a file called '`%dbconnect.php`#' from your site.");
+		OutputClass::output("If that's the case, no worries, we can get you back up and running in no time, and the installer can help!");
 		addnav("Game Installer","installer.php");
 		page_footer();
 	}
@@ -143,7 +143,7 @@ if ($link===false){
 		// translation.
 	 	if (!defined("DB_NODB")) define("DB_NODB",true);
 		PageParts::page_header("Database Connection Error");
-		output("Unable to connect to the database server.  Sorry it didn't work out.");
+		OutputClass::output("Unable to connect to the database server.  Sorry it didn't work out.");
 		page_footer();
 	}
 	define("DB_CONNECTED",false);
@@ -162,7 +162,7 @@ if (!DB_CONNECTED || !db_select_db ($DB_NAME)){
 		// translation.
 	 	if (!defined("DB_NODB")) define("DB_NODB",true);
 		PageParts::page_header("Database Connection Error");
-		output("I was able to connect to the database server, but couldn't connect to the specified database.  Sorry it didn't work out.");
+		OutputClass::output("I was able to connect to the database server, but couldn't connect to the specified database.  Sorry it didn't work out.");
 		page_footer();
 	}
 	define("DB_CHOSEN",false);
@@ -227,10 +227,10 @@ if (!isset($nokeeprestore[$SCRIPT_NAME]) || !$nokeeprestore[$SCRIPT_NAME]) {
 }
 if ($logd_version != getsetting("installer_version","-1") && !defined("IS_INSTALLER")){
 	PageParts::page_header("Upgrade Needed");
-	output("`#The game is temporarily unavailable while a game upgrade is applied, please be patient, the upgrade will be completed soon.");
-	output("In order to perform the upgrade, an admin will have to run through the installer.");
-	output("If you are an admin, please <a href='installer.php'>visit the Installer</a> and complete the upgrade process.`n`n",true);
-	output("`@If you don't know what this all means, just sit tight, we're doing an upgrade and will be done soon, you will be automatically returned to the game when the upgrade is complete.");
+	OutputClass::output("`#The game is temporarily unavailable while a game upgrade is applied, please be patient, the upgrade will be completed soon.");
+	OutputClass::output("In order to perform the upgrade, an admin will have to run through the installer.");
+	OutputClass::output("If you are an admin, please <a href='installer.php'>visit the Installer</a> and complete the upgrade process.`n`n",true);
+	OutputClass::output("`@If you don't know what this all means, just sit tight, we're doing an upgrade and will be done soon, you will be automatically returned to the game when the upgrade is complete.");
 	rawoutput("<meta http-equiv='refresh' content='30; url={$session['user']['restorepage']}'>");
 	addnav("Installer (Admins only!)","installer.php");
 	define("NO_SAVE_USER",true);

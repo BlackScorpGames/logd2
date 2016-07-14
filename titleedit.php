@@ -43,16 +43,16 @@ if ($op=="save") {
 	}
 	db_query($sql);
 	if (db_affected_rows() == 0) {
-		output($errnote);
+		OutputClass::output($errnote);
 		rawoutput(db_error());
 	} else {
-		output($note);
+		OutputClass::output($note);
 	}
 	$op = "";
 } elseif ($op == "delete") {
 	$sql = "DELETE FROM ".db_prefix("titles")." WHERE titleid='$id'";
 	db_query($sql);
-	output("`^Title deleted.`0");
+	OutputClass::output("`^Title deleted.`0");
 	$op = "";
 }
 
@@ -60,11 +60,11 @@ if ($op == ""){
 	$sql = "SELECT * FROM ".db_prefix("titles")." ORDER BY dk, titleid";
 	$result = db_query($sql);
 	if (db_num_rows($result)<1){
-		output("");
+		OutputClass::output("");
 	}else{
 		$row = db_fetch_assoc($result);
 	}
-	output("`@`c`b-=Title Editor=-`b`c");
+	OutputClass::output("`@`c`b-=Title Editor=-`b`c");
 	$ops = translate_inline("Ops");
 	$dks = translate_inline("Dragon Kills");
 	// $ref is currently unused
@@ -90,8 +90,8 @@ if ($op == ""){
 		output_notl("`&%s`0",$row['dk']);
 		rawoutput("</td><td>");
 		// reftag is currently unused
-		// output("`^%s`0", $row['ref']);
-		// output("</td><td>");
+		// OutputClass::output("`^%s`0", $row['ref']);
+		// OutputClass::output("</td><td>");
 		output_notl("`2%s`0",$row['male']);
 		rawoutput("</td><td>");
 		output_notl("`6%s`0",$row['female']);
@@ -126,7 +126,7 @@ if ($op == ""){
 	require_once("lib/titles.php");
 	require_once("lib/names.php");
 
-	output("`^Rebuilding all titles.`0`n`n");
+	OutputClass::output("`^Rebuilding all titles.`0`n`n");
 	$sql = "SELECT name,title,dragonkills,acctid,sex,ctitle FROM " . db_prefix("accounts");
 	$result = db_query($sql);
 	$number=db_num_rows($result);
@@ -142,7 +142,7 @@ if ($op == ""){
 			$newname = change_player_title($newtitle, $row);
 			$id = $row['acctid'];
 			if ($oname != $newname) {
-				output("`@Changing `^%s`@ to `^%s `@(%s`@ [%s,%s])`n",
+				OutputClass::output("`@Changing `^%s`@ to `^%s `@(%s`@ [%s,%s])`n",
 						$oname,$newname,$newtitle,$dk,$sex);
 				if ($session['user']['acctid']==$row['acctid']){
 					$session['user']['title']=$newtitle;
@@ -154,7 +154,7 @@ if ($op == ""){
 					db_query($sql);
 				}
 			}elseif ($otitle != $newtitle){
-				output("`@Changing only the title (not the name) of `^%s`@ `@(%s`@ [%s,%s])`n",
+				OutputClass::output("`@Changing only the title (not the name) of `^%s`@ `@(%s`@ [%s,%s])`n",
 						$oname,$newtitle,$dk,$sex);
 				if ($session['user']['acctid']==$row['acctid']){
 					$session['user']['title']=$newtitle;
@@ -167,16 +167,16 @@ if ($op == ""){
 			}
 		}
 	}
-	output("`n`n`^Done.`0");
+	OutputClass::output("`n`n`^Done.`0");
 	addnav("Main Title Editor", "titleedit.php");
 }
 
 function title_help()
 {
-	output("`#You can have multiple titles for a given dragon kill rank.");
-	output("If you do, one of those titles will be chosen at random to give to the player when a title is assigned.`n`n");
-	output("You can have gaps in the title order.");
-	output("If you have a gap, the title given will be for the DK rank less than or equal to the players current number of DKs.`n");
+	OutputClass::output("`#You can have multiple titles for a given dragon kill rank.");
+	OutputClass::output("If you do, one of those titles will be chosen at random to give to the player when a title is assigned.`n`n");
+	OutputClass::output("You can have gaps in the title order.");
+	OutputClass::output("If you have a gap, the title given will be for the DK rank less than or equal to the players current number of DKs.`n");
 }
 
 page_footer();

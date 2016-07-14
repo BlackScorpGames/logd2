@@ -1,19 +1,19 @@
 <?php
 function create_db($dbname){
-	output("`n`2Attempting to create your database...`n");
+	OutputClass::output("`n`2Attempting to create your database...`n");
 	$sql = "CREATE DATABASE $dbname";
 	mysql_query($sql);
 	$error = mysql_error();
 	if ($error == ""){
 		if (mysql_select_db($dbname)){
-			output("`@Success!`2  I was able to create the database and connect to it!`n");
+			OutputClass::output("`@Success!`2  I was able to create the database and connect to it!`n");
 		}else{
-			output("`\$It seems I was not successful.`2  I didn't get any errors trying to create the database, but I was not able to connect to it.");
-			output("I'm not sure what would have caused this error, you might try asking around in <a href='http://lotgd.net/forum/' target='_blank'>the LotGD.net forums</a>.");
+			OutputClass::output("`\$It seems I was not successful.`2  I didn't get any errors trying to create the database, but I was not able to connect to it.");
+			OutputClass::output("I'm not sure what would have caused this error, you might try asking around in <a href='http://lotgd.net/forum/' target='_blank'>the LotGD.net forums</a>.");
 		}
 	}else{
-		output("`\$It seems I was not successful.`2 ");
-		output("The error returned by the database server was:");
+		OutputClass::output("`\$It seems I was not successful.`2 ");
+		OutputClass::output("The error returned by the database server was:");
 		rawoutput("<blockquote>$error</blockquote>");
 	}
 
@@ -26,7 +26,7 @@ function tip(){
 	output_notl("<div style='cursor: pointer; cursor: hand; display: inline;' onMouseOver=\"tip$tipid.style.visibility='visible'; tip$tipid.style.display='inline';\" onMouseOut=\"tip$tipid.style.visibility='hidden'; tip$tipid.style.display='none';\">`i[ `b{$tip}`b ]`i",true);
 	rawoutput("<div class='debug' id='tip$tipid' style='position: absolute; width: 200px; max-width: 200px; float: right;'>");
 	$args = func_get_args();
-	call_user_func_array("output",$args);
+	call_user_func_array("OutputClass::output",$args);
 	rawoutput("</div></div>");
 	rawoutput("<script language='JavaScript'>var tip$tipid = document.getElementById('tip$tipid'); tip$tipid.style.visibility='hidden'; tip$tipid.style.display='none';</script>");
 	$tipid++;

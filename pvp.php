@@ -29,7 +29,7 @@ if ($op=="" && $act!="attack"){
 	);
 	$args = modulehook("pvpstart", $args);
 	Translator::tlschema($args['schemas']['atkmsg']);
-	output($args['atkmsg'], $session['user']['playerfights']);
+	OutputClass::output($args['atkmsg'], $session['user']['playerfights']);
 	Translator::tlschema();
 	addnav("L?Refresh List of Warriors","pvp.php");
 	pvplist();
@@ -63,14 +63,14 @@ if ($op=="" && $act!="attack"){
 }
 
 if ($op=="run"){
-  output("Your pride prevents you from running");
+  OutputClass::output("Your pride prevents you from running");
   $op="fight";
   httpset('op', $op);
 }
 
 $skill = Http::httpget('skill');
 if ($skill!=""){
-  output("Your honor prevents you from using any special ability");
+  OutputClass::output("Your honor prevents you from using any special ability");
   $skill="";
   httpset('skill', $skill);
 }
@@ -103,7 +103,7 @@ if ($battle){
 			villagenav();
 		}
 		if ($session['user']['hitpoints'] <= 0) {
-			output("`n`n`&Using a bit of cloth nearby, you manage to staunch your wounds so that you do not die as well.");
+			OutputClass::output("`n`n`&Using a bit of cloth nearby, you manage to staunch your wounds so that you do not die as well.");
 			$session['user']['hitpoints'] = 1;
 		}
 	}elseif($defeat){

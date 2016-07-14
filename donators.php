@@ -36,16 +36,16 @@ if ($txnid=="") $txnid = Http::httpget("txnid");
 if ($reason == "") $reason = translate_inline("manual donation entry");
 
 
-output("`bAdd Donation Points:`b`n");
-output("Character: ");
+OutputClass::output("`bAdd Donation Points:`b`n");
+OutputClass::output("Character: ");
 rawoutput("<input name='name' value=\"".htmlentities($name, ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\">");
-output("`nPoints: ");
+OutputClass::output("`nPoints: ");
 rawoutput("<input name='amt' size='3' value=\"".htmlentities($amt, ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\">");
-output("`nReason: ");
+OutputClass::output("`nReason: ");
 rawoutput("<input name='reason' size='30' value=\"".htmlentities($reason, ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\">");
 rawoutput("<input type='hidden' name='txnid' value=\"".htmlentities($txnid, ENT_COMPAT, getsetting("charset", "ISO-8859-1"))."\">");
 output_notl("`n");
-if ($txnid>"") output("For transaction: %s`n",$txnid);
+if ($txnid>"") OutputClass::output("For transaction: %s`n",$txnid);
 rawoutput("<input type='submit' class='button' value='$add'>");
 rawoutput("</form>");
 
@@ -63,7 +63,7 @@ if ($op=="add2"){
 	$sql="SELECT name FROM ".db_prefix("accounts")." WHERE acctid=$id;";
 	$result=db_query($sql);
 	$row=db_fetch_assoc($result);
-	output("%s donation points added to %s`0, reason: `^%s`0",$amt,$row['name'],$reason);
+	OutputClass::output("%s donation points added to %s`0, reason: `^%s`0",$amt,$row['name'],$reason);
 
 	$txnid = Http::httpget("txnid");
 	$ret = Http::httpget('ret');
@@ -148,8 +148,8 @@ if ($op==""){
 	if ($reason=="") $reason = Http::httpget("reason");
 	$txnid = httppost('txnid');
 	if ($txnid=='') $txnid = Http::httpget("txnid");
-	output("Confirm the addition of %s points to:`n",$amt);
-	if ($reason) output("(Reason: `^`b`i%s`i`b`0)`n`n",$reason);
+	OutputClass::output("Confirm the addition of %s points to:`n",$amt);
+	if ($reason) OutputClass::output("(Reason: `^`b`i%s`i`b`0)`n`n",$reason);
 	$number=db_num_rows($result);
 	for ($i=0;$i<$number;$i++){
 		$row = db_fetch_assoc($result);

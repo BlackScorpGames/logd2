@@ -75,7 +75,7 @@ $useful_vals = array(
 	"nextnewday"=>date("h:i:s a",strtotime("+{$details['realsecstotomorrow']} seconds"))." (".date("H\\h i\\m s\\s",$secstonextday).")"
 );
 
-output("`@<h3>Settings for this game</h3>`n`n",true);
+OutputClass::output("`@<h3>Settings for this game</h3>`n`n",true);
 
 $args = array('settings'=>array(),'values'=>array());
 $args = modulehook("showsettings", $args);

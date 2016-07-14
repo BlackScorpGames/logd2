@@ -9,7 +9,7 @@ require_once("lib/villagenav.php");
 Translator::tlschema("badnav");
 
 if ($session['user']['loggedin'] && $session['loggedin']){
-	if (strpos($session['output'],"<!--CheckNewDay()-->")){
+	if (strpos($session['OutputClass::output'],"<!--CheckNewDay()-->")){
 		checkday();
 	}
 	while (list($key,$val)=each($session['allowednavs'])){
@@ -21,24 +21,24 @@ if ($session['user']['loggedin'] && $session['loggedin']){
 			substr($key,0,8)=="mail.php"
 		) unset($session['allowednavs'][$key]);
 	}
-	$sql="SELECT output FROM ".db_prefix("accounts_output")." WHERE acctid={$session['user']['acctid']};";
+	$sql="SELECT OutputClass::output FROM ".db_prefix("accounts_output")." WHERE acctid={$session['user']['acctid']};";
 	$result=db_query($sql);
 	$row=db_fetch_assoc($result);
 	if (!is_array($session['allowednavs']) ||
-			count($session['allowednavs'])==0 || $row['output']=="") {
+			count($session['allowednavs'])==0 || $row['OutputClass::output']=="") {
 		$session['allowednavs']=array();
 		PageParts::page_header("Your Navs Are Corrupted");
 		if ($session['user']['alive']) {
 			villagenav();
-			output("Your navs are corrupted, please return to %s.",
+			OutputClass::output("Your navs are corrupted, please return to %s.",
 					$session['user']['location']);
 		} else {
 			addnav("Return to Shades", "shades.php");
-			output("Your navs are corrupted, please return to the Shades.");
+			OutputClass::output("Your navs are corrupted, please return to the Shades.");
 		}
 		page_footer();
 	}
-	echo $row['output'];
+	echo $row['OutputClass::output'];
 	$session['debug']="";
 	$session['user']['allowednavs']=$session['allowednavs'];
 	saveuser();

@@ -34,13 +34,13 @@ function soap($input,$debug=false,$skiphook=false){
 						$x--;
 						$times--;
 						if ($debug)
-							output("This word is ok because it was caught by an exception: `b`^%s`7`b`n",$longword);
+							OutputClass::output("This word is ok because it was caught by an exception: `b`^%s`7`b`n",$longword);
 					}else{
 						if ($debug)
-							output("`7This word is not ok: \"`%%s`7\"; it blocks on the pattern `i%s`i at \"`\$%s`7\".`n",$longword,$word,$shortword);
+							OutputClass::output("`7This word is not ok: \"`%%s`7\"; it blocks on the pattern `i%s`i at \"`\$%s`7\".`n",$longword,$word,$shortword);
 						// if the word should be filtered, drop it from the
 						// search terms ($output), and mask its bytes out of
-						// the output mask.
+						// the OutputClass::output mask.
 						$len = strlen($shortword);
 						$pad = str_pad("",$len,"_");
 						//while (($p = strpos($output,$shortword))!==false){
@@ -55,7 +55,7 @@ function soap($input,$debug=false,$skiphook=false){
 				}//end for
 			} while ($times > 0);
 		}
-		$y = 0; //position within final output
+		$y = 0; //position within final OutputClass::output
 		$pad = '#@%$!';
 		for ($x=0; $x<strlen($mix_mask); $x++){
 			while (substr($final_output,$y,1)=="`"){
@@ -71,7 +71,7 @@ function soap($input,$debug=false,$skiphook=false){
 		}
 		if ($session['user']['superuser'] & SU_EDIT_COMMENTS &&
 				$changed_content){
-			output("`0The filter would have tripped on \"`#%s`0\" but since you're a moderator, I'm going to be lenient on you.  The text would have read, \"`#%s`0\"`n`n",$input,$final_output);
+			OutputClass::output("`0The filter would have tripped on \"`#%s`0\" but since you're a moderator, I'm going to be lenient on you.  The text would have read, \"`#%s`0\"`n`n",$input,$final_output);
 			return $input;
 		}else{
 			if ($changed_content && !$skiphook)
@@ -99,23 +99,23 @@ function nasty_word_list(){
 	$row = db_fetch_assoc($result);
 	$search = " ".$row['words']." ";
 	$search = preg_replace('/(?<=.)(?<!\\\\)\'(?=.)/', '\\\'', $search);
-	$search = str_replace("a",'[a4@ªÀÁÂÃÄÅàáâãäå]',$search);
-	$search = str_replace("b",'[bß]',$search);
-	$search = str_replace("d",'[dÐÞþ]',$search);
-	$search = str_replace("e",'[e3ÉÊËÈèéêë]',$search);
-	$search = str_replace("n",'[nÑñ]',$search);
-	$search = str_replace("o",'[o°º0ÒÓÔÕÖØðòóôõöø¤]',$search);
-	$search = str_replace("p",'[pÞþ¶]',$search);
-	$search = str_replace("r",'[r®]',$search);
-//	$search = str_replace("s",'[sz$§]',$search);
-	$search = preg_replace('/(?<!\\\\)s/','[sz$§]',$search);
+	$search = str_replace("a",'[a4@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]',$search);
+	$search = str_replace("b",'[bï¿½]',$search);
+	$search = str_replace("d",'[dï¿½ï¿½ï¿½]',$search);
+	$search = str_replace("e",'[e3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]',$search);
+	$search = str_replace("n",'[nï¿½ï¿½]',$search);
+	$search = str_replace("o",'[oï¿½ï¿½0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]',$search);
+	$search = str_replace("p",'[pï¿½ï¿½ï¿½]',$search);
+	$search = str_replace("r",'[rï¿½]',$search);
+//	$search = str_replace("s",'[sz$ï¿½]',$search);
+	$search = preg_replace('/(?<!\\\\)s/','[sz$ï¿½]',$search);
 	$search = str_replace("t",'[t7+]',$search);
-	$search = str_replace("u",'[uÛÜÙÚùúûüµ]',$search);
+	$search = str_replace("u",'[uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]',$search);
 	$search = str_replace("x",'[x×¤]',$search);
-	$search = str_replace("y",'[yÝ¥ýÿ]',$search);
+	$search = str_replace("y",'[yÝ¥ï¿½ï¿½]',$search);
 	//these must happen in exactly this order:
-	$search = str_replace("l",'[l1!£]',$search);
-	$search = str_replace("i",'[li1!¡ÌÍÎÏìíîï]',$search);
+	$search = str_replace("l",'[l1!ï¿½]',$search);
+	$search = str_replace("i",'[li1!ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]',$search);
 	$search = str_replace("k",'c',$search);
 	$search = str_replace("c",'[c\\(kç©¢]',$search);
 	$start = "'\\b";

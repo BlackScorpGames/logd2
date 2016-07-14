@@ -39,7 +39,7 @@ if ($op=="search" || $op== ""){
 	list($searchresult, $err) = lookup_user($query, $order);
 	$op = "";
 	if ($err) {
-		output($err);
+		OutputClass::output($err);
 	} else {
 		$display = 1;
 	}
@@ -49,7 +49,7 @@ if ($op=="search" || $op== ""){
 $m = Http::httpget("module");
 if ($m) $m = "&module=$m&subop=module";
 rawoutput("<form action='user.php?op=search$m' method='POST'>");
-output("Search by any field below: ");
+OutputClass::output("Search by any field below: ");
 rawoutput("<input name='q' id='q'>");
 $se = translate_inline("Search");
 rawoutput("<input type='submit' class='button' value='$se'>");
@@ -65,7 +65,7 @@ addnav("List/Remove bans","user.php?op=removeban");
 // This doesn't seem to be used, so I'm going to comment it out now
 //$msg = Http::httpget('msg');
 //if ($msg>"") {
-//	output("Message: %s`n", $msg);
+//	OutputClass::output("Message: %s`n", $msg);
 //}
 
 // Collect a list of the mounts
@@ -198,8 +198,8 @@ $userinfo = array(
 		SU_INFINITE_DAYS.   ",Infinite Days*,".
 		SU_DEVELOPER.       ",Game Developer* (super powers),".
 		SU_IS_TRANSLATOR.   ",Enable Translation Tool,".
-		SU_DEBUG_OUTPUT.    ",Debug Output,".
-		SU_SHOW_PHPNOTICE.  ",See PHP Notices in debug output,".
+		SU_DEBUG_OUTPUT.    ",Debug OutputClass::output,".
+		SU_SHOW_PHPNOTICE.  ",See PHP Notices in debug OutputClass::output,".
 		SU_RAW_SQL.         ",Execute Raw SQL*,".
 		SU_VIEW_SOURCE.     ",View source code,".
 		SU_GIVE_GROTTO.     ",Grotto access (only if not granted implicitly in another permission),".

@@ -42,7 +42,7 @@ function handle_event($location, $baseLink=false, $needHeader=false)
 			PageParts::page_header($needHeader);
 		}
 
-		output("`^`c`bSomething Special!`c`b`0");
+		OutputClass::output("`^`c`bSomething Special!`c`b`0");
 		if (strchr($specialinc, ":")) {
 			$array = split(":", $specialinc);
 			$starttime = getmicrotime();

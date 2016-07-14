@@ -111,7 +111,7 @@ function sanitize_colorname($spaceallowed, $inname, $admin = false)
 }
 
 // Strip out <script>...</script> blocks and other HTML tags to try and
-// detect if we have any actual output.  Used by the collapse code to try
+// detect if we have any actual OutputClass::output.  Used by the collapse code to try
 // and make sure we don't add spurious collapse boxes.
 // Also used by the rename code to remove HTML that some admins try to
 // insert.. Bah

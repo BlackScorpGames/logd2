@@ -10,7 +10,7 @@ function char_cleanup($id, $type)
 			
 	if(!$return['dodel']) return false;
 
-	// delete the output field from the accounts_output table introduced in 1.1.1
+	// delete the OutputClass::output field from the accounts_output table introduced in 1.1.1
 
 	db_query("DELETE FROM " . db_prefix("accounts_output") . " WHERE acctid=$id;");
 
