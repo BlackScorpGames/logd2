@@ -56,7 +56,7 @@ if (!$skipinndesc) {
 	$chats = modulehook("innchatter", $chats);
 	$talk = $chats[e_rand(0, count($chats)-1)];
 	OutputClass::output("You can't quite make out what he is saying, but it's something about %s`0.`n`n", $talk);
-	OutputClass::output("The clock on the mantle reads `6%s`0.`n", getgametime());
+	OutputClass::output("The clock on the mantle reads `6%s`0.`n", GameDateTime::getgametime());
 	modulehook("inn-desc", array());
 }
 modulehook("inn", array());

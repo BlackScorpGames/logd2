@@ -97,11 +97,11 @@ function is_new_day($now=0){
 	}
 	return false;
 }
-
-function getgametime(){
+class GameDateTime{
+public static function getgametime(){
 	return gmdate("g:i a",gametime());
 }
-
+}
 function gametime(){
 	$time = convertgametime(strtotime("now"));
 	return $time;

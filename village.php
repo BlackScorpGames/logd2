@@ -263,7 +263,7 @@ if (!$skipvillagedesc) {
 	modulehook("}collapse");
 	modulehook("collapse{", array("name"=>"villageclock-".$session['user']['location']));
 	Translator::tlschema($schemas['clock']);
-	OutputClass::output($texts['clock'],getgametime());
+	OutputClass::output($texts['clock'],GameDateTime::getgametime());
 	Translator::tlschema();
 	modulehook("}collapse");
 	modulehook("village-desc",$texts);

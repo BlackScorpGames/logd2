@@ -29,7 +29,7 @@ PageParts::page_header();
 OutputClass::output("`cWelcome to Legend of the Green Dragon, a browser based role playing game, based on Seth Able's Legend of the Red Dragon.`n");
 
 if (Settings::getsetting("homecurtime", 1)) {
-	OutputClass::output("`@The current time in %s is `%%s`@.`0`n", Settings::getsetting("villagename", LOCATION_FIELDS), getgametime());
+	OutputClass::output("`@The current time in %s is `%%s`@.`0`n", Settings::getsetting("villagename", LOCATION_FIELDS), GameDateTime::getgametime());
 }
 
 if (Settings::getsetting("homenewdaytime", 1)) {

@@ -431,7 +431,7 @@ if ($op == "") {
 	$secstonewday = secondstonextgameday($details);
 	$useful_vals = array(
 		"dayduration"=>round(($details['dayduration']/60/60),0)." hours",
-		"curgametime"=>getgametime(),
+		"curgametime"=>GameDateTime::getgametime(),
 		"curservertime"=>date("Y-m-d h:i:s a"),
 		"lastnewday"=>date("h:i:s a",
 			strtotime("-{$details['realsecssofartoday']} seconds")),
