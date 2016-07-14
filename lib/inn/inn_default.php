@@ -60,5 +60,5 @@ if (!$skipinndesc) {
 	Modules::modulehook("inn-desc", array());
 }
 Modules::modulehook("inn", array());
-module_display_events("inn", "inn.php");
+Modules::module_display_events("inn", "inn.php");
 ?>

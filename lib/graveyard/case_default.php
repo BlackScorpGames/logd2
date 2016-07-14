@@ -17,5 +17,5 @@ OutputClass::addnav("Places");
 OutputClass::addnav("W?List Warriors","list.php");
 OutputClass::addnav("S?Return to the Shades","shades.php");
 OutputClass::addnav("M?Enter the Mausoleum","graveyard.php?op=enter");
-module_display_events("graveyard", "graveyard.php");
+Modules::module_display_events("graveyard", "graveyard.php");
 ?>

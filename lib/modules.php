@@ -398,6 +398,60 @@ $currenthook = "";
 
 class Modules
 {
+    public static function module_display_events($eventtype, $forcescript = false)
+    {
+        global $PHP_SELF, $session;
+        if (!($session['user']['superuser'] & SU_DEVELOPER)) {
+            return;
+        }
+        if ($forcescript === false) {
+            $script = substr($PHP_SELF, strrpos($PHP_SELF, "/") + 1);
+        } else {
+            $script = $forcescript;
+        }
+        $events = module_collect_events($eventtype, true);
+
+        if (!is_array($events) || count($events) == 0) {
+            return;
+        }
+
+        usort($events, "event_sort");
+
+        Translator::tlschema("events");
+        OutputClass::output("`n`nSpecial event triggers:`n");
+        $name = Translator::translate_inline("Name");
+        $rchance = Translator::translate_inline("Raw Chance");
+        $nchance = Translator::translate_inline("Normalized Chance");
+        OutputClass::rawoutput("<table cellspacing='1' cellpadding='2' border='0' bgcolor='#999999'>");
+        OutputClass::rawoutput("<tr class='trhead'>");
+        OutputClass::rawoutput("<td>$name</td><td>$rchance</td><td>nchance</td>");
+        OutputClass::rawoutput("</tr>");
+        $i = 0;
+        foreach ($events as $event) {
+            // Each event is an associative array of 'modulename',
+            // 'rawchance' and 'normchance'
+            OutputClass::rawoutput("<tr class='" . ($i % 2 == 0 ? "trdark" : "trlight") . "'>");
+            $i++;
+            if ($event['modulename']) {
+                $link = "module-{$event['modulename']}";
+                $name = $event['modulename'];
+            }
+            $rlink = "$script?eventhandler=$link";
+            $rlink = str_replace("?&", "?", $rlink);
+            $first = strpos($rlink, "?");
+            $rl1 = substr($rlink, 0, $first + 1);
+            $rl2 = substr($rlink, $first + 1);
+            $rl2 = str_replace("?", "&", $rl2);
+            $rlink = $rl1 . $rl2;
+            OutputClass::rawoutput("<td><a href='$rlink'>$name</a></td>");
+            OutputClass::addnav("", "$rlink");
+            OutputClass::rawoutput("<td>{$event['rawchance']}</td>");
+            OutputClass::rawoutput("<td>{$event['normchance']}</td>");
+            OutputClass::rawoutput("</tr>");
+        }
+        OutputClass::rawoutput("</table>");
+    }
+
     public static function module_events($eventtype, $basechance, $baseLink = false)
     {
         if ($baseLink === false) {
@@ -1159,53 +1213,7 @@ function event_sort($a, $b)
 	return strcmp($a['modulename'], $b['modulename']);
 }
 
-function module_display_events($eventtype, $forcescript=false) {
-	global $PHP_SELF, $session;
-	if (!($session['user']['superuser'] & SU_DEVELOPER)) return;
-	if ($forcescript === false)
-		$script = substr($PHP_SELF,strrpos($PHP_SELF,"/")+1);
-	else
-		$script = $forcescript;
-	$events = module_collect_events($eventtype,true);
 
-	if (!is_array($events) || count($events) == 0) return;
-
-	usort($events, "event_sort");
-
-	Translator::tlschema("events");
-	OutputClass::output("`n`nSpecial event triggers:`n");
-	$name = Translator::translate_inline("Name");
-	$rchance = Translator::translate_inline("Raw Chance");
-	$nchance = Translator::translate_inline("Normalized Chance");
-	OutputClass::rawoutput("<table cellspacing='1' cellpadding='2' border='0' bgcolor='#999999'>");
-	OutputClass::rawoutput("<tr class='trhead'>");
-	OutputClass::rawoutput("<td>$name</td><td>$rchance</td><td>nchance</td>");
-	OutputClass::rawoutput("</tr>");
-	$i = 0;
-	foreach($events as $event) {
-		// Each event is an associative array of 'modulename',
-		// 'rawchance' and 'normchance'
-		OutputClass::rawoutput("<tr class='" . ($i%2==0?"trdark":"trlight")."'>");
-		$i++;
-		if ($event['modulename']) {
-			$link = "module-{$event['modulename']}";
-			$name = $event['modulename'];
-		}
-		$rlink = "$script?eventhandler=$link";
-		$rlink = str_replace("?&","?",$rlink);
-		$first = strpos($rlink, "?");
-		$rl1 = substr($rlink, 0, $first+1);
-		$rl2 = substr($rlink, $first+1);
-		$rl2 = str_replace("?", "&", $rl2);
-		$rlink = $rl1 . $rl2;
-		OutputClass::rawoutput("<td><a href='$rlink'>$name</a></td>");
-		OutputClass::addnav("", "$rlink");
-		OutputClass::rawoutput("<td>{$event['rawchance']}</td>");
-		OutputClass::rawoutput("<td>{$event['normchance']}</td>");
-		OutputClass::rawoutput("</tr>");
-	}
-	OutputClass::rawoutput("</table>");
-}
 
 function module_editor_navs($like, $linkprefix)
 {

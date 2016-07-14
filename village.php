@@ -298,6 +298,6 @@ if (!isset($args['block']) || $args['block'] != 'yes') {
 		Commentary::commentdisplay("",$texts['section'],"Speak",25,$texts['sayline'], $schemas['sayline']);
 }
 
-module_display_events("village", "village.php");
+Modules::module_display_events("village", "village.php");
 PageParts::page_footer();
 ?>

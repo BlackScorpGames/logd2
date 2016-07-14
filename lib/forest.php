@@ -49,7 +49,7 @@ function forest($noshowmessage=false) {
 		Modules::modulehook("forest-desc");
 	}
 	Modules::modulehook("forest", array());
-	module_display_events("forest", "forest.php");
+	Modules::module_display_events("forest", "forest.php");
 	Translator::tlschema();
 }
 

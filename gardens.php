@@ -50,6 +50,6 @@ Modules::modulehook("gardens", array());
 
 Commentary::commentdisplay("", "gardens","Whisper here",30,"whispers");
 
-module_display_events("gardens", "gardens.php");
+Modules::module_display_events("gardens", "gardens.php");
 PageParts::page_footer();
 ?>
