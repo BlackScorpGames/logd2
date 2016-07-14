@@ -311,6 +311,6 @@ if (Settings::getsetting("allowcreation",1)==0){
 		rawoutput("</form>");
 	}
 }
-addnav("Login","index.php");
+OutputClass::addnav("Login","index.php");
 page_footer();
 ?>

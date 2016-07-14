@@ -39,9 +39,9 @@ if ($op==""){
 	}
 	$sql = "SELECT substring(processdate,1,7) AS month, sum(amount)-sum(txfee) AS profit FROM ".db_prefix('paylog')." GROUP BY month DESC";
 	$result = db_query($sql);
-	addnav("Months");
+	OutputClass::addnav("Months");
 	while ($row = db_fetch_assoc($result)){
-		addnav(array("%s %s %s", date("M Y",strtotime($row['month']."-01")), Settings::getsetting("paypalcurrency", "USD"), $row['profit']),"paylog.php?month={$row['month']}");
+		OutputClass::addnav(array("%s %s %s", date("M Y",strtotime($row['month']."-01")), Settings::getsetting("paypalcurrency", "USD"), $row['profit']),"paylog.php?month={$row['month']}");
 	}
 	$month = Http::httpget('month');
 	if ($month=="") $month = date("Y-m");
@@ -82,7 +82,7 @@ if ($op==""){
 			output_notl("`&%s`0 (%d/%d)", $row['name'],  $row['donationspent'],
 					$row['donation']);
 			rawoutput("</a>");
-			addnav("","user.php?op=edit&userid={$row['acctid']}");
+			OutputClass::addnav("","user.php?op=edit&userid={$row['acctid']}");
 		}else{
 			$amt = round((float)$info['mc_gross'] * 100,0);
 			$memo = "";
@@ -91,12 +91,12 @@ if ($op==""){
 			}
 			$link = "donators.php?op=add1&name=".rawurlencode($memo)."&amt=$amt&txnid={$row['txnid']}";
 			rawoutput("-=( <a href='$link' title=\"".htmlentities($info['item_number'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\" alt=\"".htmlentities($info['item_number'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">[".htmlentities($memo, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."]</a> )=-");
-			addnav("",$link);
+			OutputClass::addnav("",$link);
 		}
 		rawoutput("</td></tr>");
 	}
 	rawoutput("</table>");
-	addnav("Refresh","paylog.php");
+	OutputClass::addnav("Refresh","paylog.php");
 }
 page_footer();
 ?>

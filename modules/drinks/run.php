@@ -139,12 +139,12 @@ function drinks_run_private(){
 		rawoutput("</span>");
 		if ($drinktext['return']>""){
 			Translator::tlschema($drinktext['schemas']['return']);
-			addnav($drinktext['return'],$drinktext['returnlink']);
+			OutputClass::addnav($drinktext['return'],$drinktext['returnlink']);
 			Translator::tlschema();
 		}else{
 			Translator::tlschema($drinktext['schemas']['return']);
-			addnav("I?Return to the Inn","inn.php");
-			addnav(array("Go back to talking to %s`0", Settings::getsetting("barkeep", "`tCedrik")),"inn.php?op=bartender");
+			OutputClass::addnav("I?Return to the Inn","inn.php");
+			OutputClass::addnav(array("Go back to talking to %s`0", Settings::getsetting("barkeep", "`tCedrik")),"inn.php?op=bartender");
 			Translator::tlschema();
 		}
 		require_once("lib/villagenav.php");

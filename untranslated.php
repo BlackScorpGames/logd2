@@ -38,10 +38,10 @@ if ($op == "list") {
 
 	if ($mode == "edit") {
 		rawoutput("<form action='untranslated.php?op=list&mode=save&ns=".rawurlencode($namespace)."' method='post'>");
-		addnav("", "untranslated.php?op=list&mode=save&ns=".rawurlencode($namespace));
+		OutputClass::addnav("", "untranslated.php?op=list&mode=save&ns=".rawurlencode($namespace));
 	} else {
 		rawoutput("<form action='untranslated.php?op=list' method='get'>");
-		addnav("", "untranslated.php?op=list");
+		OutputClass::addnav("", "untranslated.php?op=list");
 	}
 
 	$sql = "SELECT namespace,count(*) AS c FROM " . db_prefix("untranslated") . " WHERE language='".$session['user']['prefs']['language']."' GROUP BY namespace ORDER BY namespace ASC";
@@ -73,7 +73,7 @@ if ($op == "list") {
 				$i++;
 				rawoutput("<tr class='".($i%2?"trlight":"trdark")."'><td>");
 				rawoutput("<a href='untranslated.php?op=list&mode=edit&ns=". rawurlencode($row['namespace']) ."&intext=". rawurlencode($row['intext']) ."'>". Translator::translate_inline("Edit") ."</a>");
-				addnav("", "untranslated.php?op=list&mode=edit&ns=". rawurlencode($row['namespace']) ."&intext=". rawurlencode($row['intext']));
+				OutputClass::addnav("", "untranslated.php?op=list&mode=edit&ns=". rawurlencode($row['namespace']) ."&intext=". rawurlencode($row['intext']));
 				rawoutput("</td><td>");
 				rawoutput(htmlentities($row['intext'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
 				rawoutput("</td></tr>");
@@ -131,8 +131,8 @@ if ($op == "list") {
 			rawoutput("<form action='untranslated.php' method='post'>");
 			rawoutput("<input type='submit' value='$skip' class='button'>");
 			rawoutput("</form>");
-			addnav("", "untranslated.php?op=step2");
-			addnav("", "untranslated.php");
+			OutputClass::addnav("", "untranslated.php?op=step2");
+			OutputClass::addnav("", "untranslated.php");
 		} else {
 			OutputClass::output("There are `&%s`^ untranslated texts in the database, but none for your selected language.", $count['count']);
 			OutputClass::output("Please change your language to translate these texts.");
@@ -142,8 +142,8 @@ if ($op == "list") {
 		OutputClass::output("Congratulations!!!");
 	} // end if
 } // end list if
-addnav("R?Restart Translator", "untranslated.php");
-addnav("N?Translate by Namespace", "untranslated.php?op=list");
+OutputClass::addnav("R?Restart Translator", "untranslated.php");
+OutputClass::addnav("N?Translate by Namespace", "untranslated.php?op=list");
 require_once("lib/superusernav.php");
 superusernav();
 page_footer();

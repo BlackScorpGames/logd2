@@ -56,16 +56,16 @@ if (Settings::getsetting("homenewestplayer", 1)) {
 }
 
 OutputClass::clearnav();
-addnav("New to LoGD?");
-addnav("Create a character","create.php");
-addnav("Game Functions");
-addnav("Forgotten Password","create.php?op=forgot");
-addnav("List Warriors","list.php");
-addnav("Daily News", "news.php");
-addnav("Other Info");
-addnav("About LoGD","about.php");
-addnav("Game Setup Info", "about.php?op=setup");
-addnav("LoGD Net","logdnet.php?op=list");
+OutputClass::addnav("New to LoGD?");
+OutputClass::addnav("Create a character","create.php");
+OutputClass::addnav("Game Functions");
+OutputClass::addnav("Forgotten Password","create.php?op=forgot");
+OutputClass::addnav("List Warriors","list.php");
+OutputClass::addnav("Daily News", "news.php");
+OutputClass::addnav("Other Info");
+OutputClass::addnav("About LoGD","about.php");
+OutputClass::addnav("Game Setup Info", "about.php?op=setup");
+OutputClass::addnav("LoGD Net","logdnet.php?op=list");
 
 modulehook("index", array());
 
@@ -107,7 +107,7 @@ if ($onlinecount<Settings::getsetting("maxonline",0) || Settings::getsetting("ma
 	$butt = Translator::translate_inline("Log in");
 	rawoutput("<form action='login.php' method='POST' onSubmit=\"md5pass();\">".templatereplace("login",array("username"=>$uname,"password"=>$pass,"button"=>$butt))."</form>");
 	output_notl("`c");
-	addnav("","login.php");
+	OutputClass::addnav("","login.php");
 } else {
 	OutputClass::output("`\$`bServer full!`b`n`^Please wait until some users have logged out.`n`n`0");
 	if ($op=="timeout"){

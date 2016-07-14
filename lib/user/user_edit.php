@@ -5,22 +5,22 @@ $petition=Http::httpget("returnpetition");
 if ($petition != "")
 	$returnpetition = "&returnpetition=$petition";
 	if ($petition !=""){
-	addnav("Navigation");
-	addnav("Return to the petition","viewpetition.php?op=view&id=$petition");
+	OutputClass::addnav("Navigation");
+	OutputClass::addnav("Return to the petition","viewpetition.php?op=view&id=$petition");
 }
-	addnav("Operations");
-addnav("View last page hit","user.php?op=lasthit&userid=$userid",false,true);
-addnav("Display debug log","user.php?op=debuglog&userid=$userid$returnpetition");
-addnav("View user bio","bio.php?char=".$row['acctid']."&ret=".urlencode($_SERVER['REQUEST_URI']));
+	OutputClass::addnav("Operations");
+OutputClass::addnav("View last page hit","user.php?op=lasthit&userid=$userid",false,true);
+OutputClass::addnav("Display debug log","user.php?op=debuglog&userid=$userid$returnpetition");
+OutputClass::addnav("View user bio","bio.php?char=".$row['acctid']."&ret=".urlencode($_SERVER['REQUEST_URI']));
 if ($session['user']['superuser'] & SU_EDIT_DONATIONS) {
-	addnav("Add donation points","donators.php?op=add1&name=".rawurlencode($row['login'])."&ret=".urlencode($_SERVER['REQUEST_URI']));
+	OutputClass::addnav("Add donation points","donators.php?op=add1&name=".rawurlencode($row['login'])."&ret=".urlencode($_SERVER['REQUEST_URI']));
 }
-	addnav("","user.php?op=edit&userid=$userid$returnpetition");
-addnav("Bans");
-addnav("Set up ban","user.php?op=setupban&userid={$row['acctid']}");
+	OutputClass::addnav("","user.php?op=edit&userid=$userid$returnpetition");
+OutputClass::addnav("Bans");
+OutputClass::addnav("Set up ban","user.php?op=setupban&userid={$row['acctid']}");
 if (Http::httpget("subop")==""){
 	rawoutput("<form action='user.php?op=special&userid=$userid$returnpetition' method='POST'>");
-	addnav("","user.php?op=special&userid=$userid$returnpetition");
+	OutputClass::addnav("","user.php?op=special&userid=$userid$returnpetition");
 	$grant = Translator::translate_inline("Grant New Day");
 	rawoutput("<input type='submit' class='button' name='newday' value='$grant'>");
 	$fix = Translator::translate_inline("Fix Broken Navs");
@@ -30,7 +30,7 @@ if (Http::httpget("subop")==""){
 	rawoutput("</form>");
 		//Show a user's usertable
 	rawoutput("<form action='user.php?op=save&userid=$userid$returnpetition' method='POST'>");
-	addnav("","user.php?op=save&userid=$userid$returnpetition");
+	OutputClass::addnav("","user.php?op=save&userid=$userid$returnpetition");
 	$save = Translator::translate_inline("Save");
 	rawoutput("<input type='submit' class='button' value='$save'>");
 	if ($row['loggedin']==1 && $row['laston']>date("Y-m-d H:i:s",strtotime("-".Settings::getsetting("LOGINTIMEOUT",900)." seconds"))){
@@ -60,8 +60,8 @@ if (Http::httpget("subop")==""){
 	rawoutput("</iframe>");
 }elseif(Http::httpget("subop")=="module"){
 	//Show a user's prefs for a given module.
-	addnav("Operations");
-	addnav("Edit user","user.php?op=edit&userid=$userid$returnpetition");
+	OutputClass::addnav("Operations");
+	OutputClass::addnav("Edit user","user.php?op=edit&userid=$userid$returnpetition");
 	$module = Http::httpget('module');
 	$info = get_module_info($module);
 	if (count($info['prefs']) > 0) {
@@ -87,7 +87,7 @@ if (Http::httpget("subop")==""){
 			$data[$row['setting']] = $row['value'];
 		}
 		rawoutput("<form action='user.php?op=savemodule&module=$module&userid=$userid$returnpetition' method='POST'>");
-		addnav("","user.php?op=savemodule&module=$module&userid=$userid$returnpetition");
+		OutputClass::addnav("","user.php?op=savemodule&module=$module&userid=$userid$returnpetition");
 		Translator::tlschema("module-$module");
 		showform($msettings,$data);
 		Translator::tlschema();
@@ -97,5 +97,5 @@ if (Http::httpget("subop")==""){
 	}
 }
 module_editor_navs('prefs', "user.php?op=edit&subop=module&userid=$userid$returnpetition&module=");
-addnav("","user.php?op=lasthit&userid=$userid");
+OutputClass::addnav("","user.php?op=lasthit&userid=$userid");
 ?>

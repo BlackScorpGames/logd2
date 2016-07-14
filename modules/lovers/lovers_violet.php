@@ -34,14 +34,14 @@ function lovers_violet(){
 		}elseif (Http::httpget('flirt')==""){
 			OutputClass::output("You stare dreamily across the room at %s`0, who leans across a table to serve a patron a drink.",$partner);
 			OutputClass::output("In doing so, she shows perhaps a bit more skin than is necessary, but you don't feel the need to object.");
-			addnav("Flirt");
-			addnav("Wink","runmodule.php?module=lovers&op=flirt&flirt=1");
-			addnav("Kiss her hand","runmodule.php?module=lovers&op=flirt&flirt=2");
-			addnav("Peck her on the lips","runmodule.php?module=lovers&op=flirt&flirt=3");
-			addnav("Sit her on your lap","runmodule.php?module=lovers&op=flirt&flirt=4");
-			addnav("Grab her backside","runmodule.php?module=lovers&op=flirt&flirt=5");
-			addnav("Carry her upstairs","runmodule.php?module=lovers&op=flirt&flirt=6");
-			addnav("Marry her","runmodule.php?module=lovers&op=flirt&flirt=7");
+			OutputClass::addnav("Flirt");
+			OutputClass::addnav("Wink","runmodule.php?module=lovers&op=flirt&flirt=1");
+			OutputClass::addnav("Kiss her hand","runmodule.php?module=lovers&op=flirt&flirt=2");
+			OutputClass::addnav("Peck her on the lips","runmodule.php?module=lovers&op=flirt&flirt=3");
+			OutputClass::addnav("Sit her on your lap","runmodule.php?module=lovers&op=flirt&flirt=4");
+			OutputClass::addnav("Grab her backside","runmodule.php?module=lovers&op=flirt&flirt=5");
+			OutputClass::addnav("Carry her upstairs","runmodule.php?module=lovers&op=flirt&flirt=6");
+			OutputClass::addnav("Marry her","runmodule.php?module=lovers&op=flirt&flirt=7");
 		}else{
 			$c = $session['user']['charm'];
 			$seenlover = 1;

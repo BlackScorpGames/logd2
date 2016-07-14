@@ -159,101 +159,101 @@ if (!$op && $com=="" && !$comment && !$refresh && !$commenting) {
 }
 
 Translator::tlschema($schemas['gatenav']);
-addnav($texts['gatenav']);
+OutputClass::addnav($texts['gatenav']);
 Translator::tlschema();
 
-addnav("F?Forest","forest.php");
+OutputClass::addnav("F?Forest","forest.php");
 if (Settings::getsetting("pvp",1)){
-	addnav("S?Slay Other Players","pvp.php");
+	OutputClass::addnav("S?Slay Other Players","pvp.php");
 }
-addnav("Q?`%Quit`0 to the fields","login.php?op=logout",true);
+OutputClass::addnav("Q?`%Quit`0 to the fields","login.php?op=logout",true);
 if (Settings::getsetting("enablecompanions",true)) {
 	Translator::tlschema($schemas['mercenarycamp']);
-	addnav($texts['mercenarycamp'], "mercenarycamp.php");
+	OutputClass::addnav($texts['mercenarycamp'], "mercenarycamp.php");
 	Translator::tlschema();
 }
 
 Translator::tlschema($schemas['fightnav']);
-addnav($texts['fightnav']);
+OutputClass::addnav($texts['fightnav']);
 Translator::tlschema();
-addnav("u?Bluspring's Warrior Training","train.php");
+OutputClass::addnav("u?Bluspring's Warrior Training","train.php");
 if (@file_exists("lodge.php")) {
-	addnav("J?JCP's Hunter Lodge","lodge.php");
+	OutputClass::addnav("J?JCP's Hunter Lodge","lodge.php");
 }
 
 Translator::tlschema($schemas['marketnav']);
-addnav($texts['marketnav']);
+OutputClass::addnav($texts['marketnav']);
 Translator::tlschema();
 Translator::tlschema($schemas['weaponshop']);
-addnav("W?".$texts['weaponshop'],"weapons.php");
+OutputClass::addnav("W?".$texts['weaponshop'],"weapons.php");
 Translator::tlschema();
 Translator::tlschema($schemas['armorshop']);
-addnav("A?".$texts['armorshop'],"armor.php");
+OutputClass::addnav("A?".$texts['armorshop'],"armor.php");
 Translator::tlschema();
-addnav("B?Ye Olde Bank","bank.php");
-addnav("Z?Ze Gypsy Tent","gypsy.php");
+OutputClass::addnav("B?Ye Olde Bank","bank.php");
+OutputClass::addnav("Z?Ze Gypsy Tent","gypsy.php");
 if (Settings::getsetting("betaperplayer", 1) == 1 && @file_exists("pavilion.php")) {
-	addnav("E?Eye-catching Pavilion","pavilion.php");
+	OutputClass::addnav("E?Eye-catching Pavilion","pavilion.php");
 }
 
 Translator::tlschema($schemas['tavernnav']);
-addnav($texts['tavernnav']);
+OutputClass::addnav($texts['tavernnav']);
 Translator::tlschema();
 Translator::tlschema($schemas['innname']);
-addnav("I?".$texts['innname']."`0","inn.php",true);
+OutputClass::addnav("I?".$texts['innname']."`0","inn.php",true);
 Translator::tlschema();
 Translator::tlschema($schemas['stablename']);
-addnav("M?".$texts['stablename']."`0","stables.php");
+OutputClass::addnav("M?".$texts['stablename']."`0","stables.php");
 Translator::tlschema();
 
-addnav("G?The Gardens", "gardens.php");
-addnav("R?Curious Looking Rock", "rock.php");
-if (Settings::getsetting("allowclans",1)) addnav("C?Clan Halls","clan.php");
+OutputClass::addnav("G?The Gardens", "gardens.php");
+OutputClass::addnav("R?Curious Looking Rock", "rock.php");
+if (Settings::getsetting("allowclans",1)) OutputClass::addnav("C?Clan Halls","clan.php");
 
 Translator::tlschema($schemas['infonav']);
-addnav($texts['infonav']);
+OutputClass::addnav($texts['infonav']);
 Translator::tlschema();
-addnav("??F.A.Q. (newbies start here)", "petition.php?op=faq",false,true);
-addnav("N?Daily News","news.php");
-addnav("L?List Warriors","list.php");
-addnav("o?Hall o' Fame","hof.php");
+OutputClass::addnav("??F.A.Q. (newbies start here)", "petition.php?op=faq",false,true);
+OutputClass::addnav("N?Daily News","news.php");
+OutputClass::addnav("L?List Warriors","list.php");
+OutputClass::addnav("o?Hall o' Fame","hof.php");
 
 Translator::tlschema($schemas['othernav']);
-addnav($texts['othernav']);
+OutputClass::addnav($texts['othernav']);
 Translator::tlschema();
-addnav("P?Preferences","prefs.php");
+OutputClass::addnav("P?Preferences","prefs.php");
 if (!file_exists("lodge.php")) {
-	addnav("Refer a Friend", "referral.php");
+	OutputClass::addnav("Refer a Friend", "referral.php");
 }
 
 Translator::tlschema('nav');
-addnav("Superuser");
+OutputClass::addnav("Superuser");
 if ($session['user']['superuser'] & SU_EDIT_COMMENTS){
-	addnav(",?Comment Moderation","moderate.php");
+	OutputClass::addnav(",?Comment Moderation","moderate.php");
 }
 if ($session['user']['superuser']&~SU_DOESNT_GIVE_GROTTO){
-  addnav("X?`bSuperuser Grotto`b","superuser.php");
+  OutputClass::addnav("X?`bSuperuser Grotto`b","superuser.php");
 }
 if ($session['user']['superuser'] & SU_INFINITE_DAYS){
-  addnav("/?New Day","newday.php");
+  OutputClass::addnav("/?New Day","newday.php");
 }
 Translator::tlschema();
 //let users try to cheat, we protect against this and will know if they try.
-addnav("","superuser.php");
-addnav("","user.php");
-addnav("","taunt.php");
-addnav("","creatures.php");
-addnav("","configuration.php");
-addnav("","badword.php");
-addnav("","armoreditor.php");
-addnav("","bios.php");
-addnav("","badword.php");
-addnav("","donators.php");
-addnav("","referers.php");
-addnav("","retitle.php");
-addnav("","stats.php");
-addnav("","viewpetition.php");
-addnav("","weaponeditor.php");
+OutputClass::addnav("","superuser.php");
+OutputClass::addnav("","user.php");
+OutputClass::addnav("","taunt.php");
+OutputClass::addnav("","creatures.php");
+OutputClass::addnav("","configuration.php");
+OutputClass::addnav("","badword.php");
+OutputClass::addnav("","armoreditor.php");
+OutputClass::addnav("","bios.php");
+OutputClass::addnav("","badword.php");
+OutputClass::addnav("","donators.php");
+OutputClass::addnav("","referers.php");
+OutputClass::addnav("","retitle.php");
+OutputClass::addnav("","stats.php");
+OutputClass::addnav("","viewpetition.php");
+OutputClass::addnav("","weaponeditor.php");
 
 if (!$skipvillagedesc) {
 	modulehook("collapse{", array("name"=>"villagedesc-".$session['user']['location']));
@@ -278,7 +278,7 @@ if (!$skipvillagedesc) {
 		if ($session['user']['superuser'] & SU_EDIT_USERS && $id) {
 			$edit = Translator::translate_inline("Edit");
 			rawoutput(" [<a href='user.php?op=edit&userid=$id'>$edit</a>]");
-			addnav("","user.php?op=edit&userid=$id");
+			OutputClass::addnav("","user.php?op=edit&userid=$id");
 		}
 		output_notl("`n");
 		modulehook("}collapse");

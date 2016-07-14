@@ -29,15 +29,15 @@ if ($op=="rebuild"){
 }
 require_once("lib/superusernav.php");
 superusernav();
-addnav("Referer Options");
-addnav("",$_SERVER['REQUEST_URI']);
+OutputClass::addnav("Referer Options");
+OutputClass::addnav("",$_SERVER['REQUEST_URI']);
 $sort = Http::httpget('sort');
-addnav("Refresh","referers.php?sort=".URLEncode($sort)."");
-addnav("C?Sort by Count","referers.php?sort=count".($sort=="count DESC"?"":"+DESC"));
-addnav("U?Sort by URL","referers.php?sort=uri".($sort=="uri"?"+DESC":""));
-addnav("T?Sort by Time","referers.php?sort=last".($sort=="last DESC"?"":"+DESC"));
+OutputClass::addnav("Refresh","referers.php?sort=".URLEncode($sort)."");
+OutputClass::addnav("C?Sort by Count","referers.php?sort=count".($sort=="count DESC"?"":"+DESC"));
+OutputClass::addnav("U?Sort by URL","referers.php?sort=uri".($sort=="uri"?"+DESC":""));
+OutputClass::addnav("T?Sort by Time","referers.php?sort=last".($sort=="last DESC"?"":"+DESC"));
 
-addnav("Rebuild Sites","referers.php?op=rebuild");
+OutputClass::addnav("Rebuild Sites","referers.php?op=rebuild");
 
 PageParts::page_header("Referers");
 $order = "count DESC";

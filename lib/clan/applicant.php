@@ -1,7 +1,7 @@
 <?php
 	PageParts::page_header("Clan Halls");
 	$registrar=Settings::getsetting('clanregistrar','`%Karissa');
-	addnav("Clan Options");
+	OutputClass::addnav("Clan Options");
 	OutputClass::output("`b`c`&Clan Halls`c`b");
 	if ($op=="apply"){
 		require_once("lib/clan/applicant_apply.php");
@@ -26,20 +26,20 @@
 			$sql = "DELETE FROM " . db_prefix("mail") . " WHERE msgfrom=0 AND seen=0 AND subject='".serialize($apply_subj)."'";
 			db_query($sql);
 			OutputClass::output("You are not a member of any clan.");
-			addnav("Apply for Membership to a Clan","clan.php?op=apply");
-			addnav("Apply for a New Clan","clan.php?op=new");
+			OutputClass::addnav("Apply for Membership to a Clan","clan.php?op=apply");
+			OutputClass::addnav("Apply for a New Clan","clan.php?op=new");
 		}else{
 			if (isset($claninfo['clanid']) && $claninfo["clanid"]>0){
 				//applied for membership to a clan
 				OutputClass::output("`7You approach `%%s`7 who smiles at you, but lets you know that your application to %s hasn't yet been accepted.",$registrar,$claninfo['clanname']);
 				OutputClass::output("Perhaps you'd like to take a seat in the waiting area, she suggests.");
-				addnav("Waiting Area","clan.php?op=waiting");
-				addnav("Withdraw Application","clan.php?op=withdraw");
+				OutputClass::addnav("Waiting Area","clan.php?op=waiting");
+				OutputClass::addnav("Withdraw Application","clan.php?op=withdraw");
 			}else{
 				//hasn't applied for membership to any clan.
 				OutputClass::output("You are not a member of any clan.");
-				addnav("Apply for Membership to a Clan","clan.php?op=apply");
-				addnav("Apply for a New Clan","clan.php?op=new");
+				OutputClass::addnav("Apply for Membership to a Clan","clan.php?op=apply");
+				OutputClass::addnav("Apply for a New Clan","clan.php?op=new");
 			}
 		}
 	}

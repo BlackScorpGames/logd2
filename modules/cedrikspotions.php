@@ -72,7 +72,7 @@ function cedrikspotions_dohook($hookname,$args){
 		$act = Http::httpget("act");
 		if($op=="bartender" && $act == "") {
 			addnav_notl(sanitize(Settings::getsetting("barkeep","`tCedrik")));
-			addnav("Gems","runmodule.php?module=cedrikspotions&op=gems");
+			OutputClass::addnav("Gems","runmodule.php?module=cedrikspotions&op=gems");
 		}
 		break;
 	case "newday-runonce":
@@ -175,7 +175,7 @@ function cedrikspotions_run(){
 			OutputClass::output("`n`nGive him how many gems?");
 			$give = Translator::translate_inline("Give");
 			$link = appendcount("runmodule.php?module=cedrikspotions&op=gems");
-			addnav("", $link);
+			OutputClass::addnav("", $link);
 			rawoutput("<form action='$link' method='POST'>");
 			rawoutput("<input name='gemcount' value='0'>");
 			rawoutput("<input type='submit' class='button' value='$give'>");
@@ -345,7 +345,7 @@ function cedrikspotions_run(){
 				}
 			}
 		}
-		addnav("I?Return to the Inn","inn.php");
+		OutputClass::addnav("I?Return to the Inn","inn.php");
 		villagenav();
 	}
 	rawoutput("</span>");

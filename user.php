@@ -55,12 +55,12 @@ $se = Translator::translate_inline("Search");
 rawoutput("<input type='submit' class='button' value='$se'>");
 rawoutput("</form>");
 rawoutput("<script language='JavaScript'>document.getElementById('q').focus();</script>");
-addnav("","user.php?op=search$m");
+OutputClass::addnav("","user.php?op=search$m");
 require_once("lib/superusernav.php");
 superusernav();
-addnav("Bans");
-addnav("Add a ban","user.php?op=setupban");
-addnav("List/Remove bans","user.php?op=removeban");
+OutputClass::addnav("Bans");
+OutputClass::addnav("Add a ban","user.php?op=setupban");
+OutputClass::addnav("List/Remove bans","user.php?op=removeban");
 
 // This doesn't seem to be used, so I'm going to comment it out now
 //$msg = Http::httpget('msg');

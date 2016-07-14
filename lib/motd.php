@@ -124,7 +124,7 @@ function motd_form($id) {
 		rawoutput("[ <a href='motd.php'>$ret</a> ]<br>");
 
 		rawoutput("<form action='motd.php?op=add&id={$row['motditem']}' method='POST'>");
-		addnav("","motd.php?op=add&id={$row['motditem']}");
+		OutputClass::addnav("","motd.php?op=add&id={$row['motditem']}");
 		if ($row['motdauthorname']>"")
 			OutputClass::output("Originally by `@%s`0 on %s`n", $row['motdauthorname'],
 					$row['motddate']);
@@ -194,7 +194,7 @@ function motd_poll_form() {
 	if ($subject=="" || $body==""){
 		OutputClass::output("`\$NOTE:`^ Polls cannot be edited after they are begun in order to ensure fairness and accuracy of results.`0`n`n");
 		rawoutput("<form action='motd.php?op=addpoll' method='POST'>");
-		addnav("","motd.php?op=add");
+		OutputClass::addnav("","motd.php?op=add");
 		OutputClass::output("Subject: ");
 		rawoutput("<input type='text' size='50' name='subject' value=\"".HTMLEntities(stripslashes($subject), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"><br/>");
 		OutputClass::output("Body:`n");

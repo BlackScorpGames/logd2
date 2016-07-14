@@ -152,17 +152,17 @@ if ($op=="save"){
 					rawoutput("<a href='modules.php?op=deactivate&module={$module}&cat={$info['category']}'>");
 					output_notl($deactivate);
 					rawoutput("</a>");
-					addnav("","modules.php?op=deactivate&module={$module}&cat={$info['category']}");
+					OutputClass::addnav("","modules.php?op=deactivate&module={$module}&cat={$info['category']}");
 				}else{
 					OutputClass::output("This module is currently deactivated: ");
 					$deactivate = Translator::translate_inline("Activate");
 					rawoutput("<a href='modules.php?op=activate&module={$module}&cat={$info['category']}'>");
 					output_notl($deactivate);
 					rawoutput("</a>");
-					addnav("","modules.php?op=activate&module={$module}&cat={$info['category']}");
+					OutputClass::addnav("","modules.php?op=activate&module={$module}&cat={$info['category']}");
 				}
 				rawoutput("<form action='configuration.php?op=modulesettings&module=$module&save=1' method='POST'>",true);
-				addnav("","configuration.php?op=modulesettings&module=$module&save=1");
+				OutputClass::addnav("","configuration.php?op=modulesettings&module=$module&save=1");
 				Translator::tlschema("module-$module");
 				showform($msettings,$module_settings[$mostrecentmodule]);
 				Translator::tlschema();
@@ -179,15 +179,15 @@ if ($op=="save"){
 PageParts::page_header("Game Settings");
 require_once("lib/superusernav.php");
 superusernav();
-addnav("Module Manager", "modules.php");
+OutputClass::addnav("Module Manager", "modules.php");
 if ($module) {
 	$cat = $info['category'];
-	addnav(array("Module Category - `^%s`0", Translator::translate_inline($cat)), "modules.php?cat=$cat");
+	OutputClass::addnav(array("Module Category - `^%s`0", Translator::translate_inline($cat)), "modules.php?cat=$cat");
 }
 
-addnav("Game Settings");
-addnav("Standard settings", "configuration.php");
-addnav("",$REQUEST_URI);
+OutputClass::addnav("Game Settings");
+OutputClass::addnav("Standard settings", "configuration.php");
+OutputClass::addnav("",$REQUEST_URI);
 
 module_editor_navs('settings', 'configuration.php?op=modulesettings&module=');
 
@@ -443,7 +443,7 @@ if ($op == "") {
 	$vals = $settings + $useful_vals;
 
 	rawoutput("<form action='configuration.php?op=save' method='POST'>");
-	addnav("","configuration.php?op=save");
+	OutputClass::addnav("","configuration.php?op=save");
 	showform($setup,$vals);
 	rawoutput("</form>");
 }

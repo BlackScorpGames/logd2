@@ -92,9 +92,9 @@ while (list($key,$val)=each($order)){
 		break;
 	}
 }
-addnav("About LoGD");
-addnav("Game Setup Info","about.php?op=setup");
-addnav("Module Info","about.php?op=listmodules");
-addnav("License Info", "about.php?op=license");
+OutputClass::addnav("About LoGD");
+OutputClass::addnav("Game Setup Info","about.php?op=setup");
+OutputClass::addnav("Module Info","about.php?op=listmodules");
+OutputClass::addnav("License Info", "about.php?op=license");
 modulehook("about");
 ?>

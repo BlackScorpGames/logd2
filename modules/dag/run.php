@@ -12,10 +12,10 @@ function dag_run_private(){
 
 	$op = Http::httpget('op');
 
-	addnav("Navigation");
-	addnav("I?Return to the Inn","inn.php");
+	OutputClass::addnav("Navigation");
+	OutputClass::addnav("I?Return to the Inn","inn.php");
 	if ($op != '')
-		addnav("Talk to Dag Durnick", "runmodule.php?module=dag");
+		OutputClass::addnav("Talk to Dag Durnick", "runmodule.php?module=dag");
 
 	if ($op=="list"){
 		OutputClass::output("Dag fishes a small leather bound book out from under his cloak, flips through it to a certain page and holds it up for you to see.");
@@ -115,7 +115,7 @@ function dag_run_private(){
 			$final = Translator::translate_inline("Finalize Contract");
 			rawoutput("<input type='submit' class='button' value='$final'>");
 			rawoutput("</form>");
-			addnav("","runmodule.php?module=dag&op=finalize");
+			OutputClass::addnav("","runmodule.php?module=dag&op=finalize");
 		}
 	}elseif ($op=="finalize") {
 		if (Http::httpget('subfinal')==1){
@@ -151,7 +151,7 @@ function dag_run_private(){
 			$final = Translator::translate_inline("Finalize Contract");
 			rawoutput("<input type='submit' class='button' value='$final'>");
 			rawoutput("</form>");
-			addnav("","runmodule.php?module=dag&op=finalize&subfinal=1");
+			OutputClass::addnav("","runmodule.php?module=dag&op=finalize&subfinal=1");
 		} else {
 			// Now, we have just the one, so check it.
 			$row  = db_fetch_assoc($result);
@@ -228,16 +228,16 @@ function dag_run_private(){
 		 OutputClass::output("\"`3Well, it be lookin like ye have `^%s gold`3 on yer head currently. Ye might wanna be watchin yourself.\"", $curbounty);
 		}
 		// ***END ADD***
-		addnav("Bounties");
-		addnav("Check the Wanted List","runmodule.php?module=dag&op=list");
-		addnav("Set a Bounty","runmodule.php?module=dag&op=addbounty");
+		OutputClass::addnav("Bounties");
+		OutputClass::addnav("Check the Wanted List","runmodule.php?module=dag&op=list");
+		OutputClass::addnav("Set a Bounty","runmodule.php?module=dag&op=addbounty");
 	}
 	modulehook('dagnav');
 	if ($op == "list") {
-		addnav("Sort List");
-		addnav("View by Bounty",
+		OutputClass::addnav("Sort List");
+		OutputClass::addnav("View by Bounty",
 				"runmodule.php?module=dag&op=list&sort=bounty");
-		addnav("View by Level", "runmodule.php?module=dag&op=list&sort=level");
+		OutputClass::addnav("View by Level", "runmodule.php?module=dag&op=list&sort=level");
 	}
 	rawoutput("</span>");
 	page_footer();

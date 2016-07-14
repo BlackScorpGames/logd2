@@ -28,7 +28,7 @@ function game_stones_uninstall(){
 function game_stones_dohook($hookname, $args){
 	if ($hookname=="darkhorsegame"){
 		$ret = urlencode($args['return']);
-		addnav("S?Play Stones Game",
+		OutputClass::addnav("S?Play Stones Game",
 				"runmodule.php?module=game_stones&ret=$ret");
 	}
 	return $args;
@@ -48,10 +48,10 @@ function game_stones_run(){
 		$stones['bet'] = min($session['user']['gold'], abs((int)$bet));
 	if (!isset($stones['side']) || $stones['side']==""){
 		OutputClass::output("`3The old man explains his game, \"`7I have a bag with 6 red stones, and 10 blue stones in it.  You can choose between 'like pair' or 'unlike pair.'  I will then draw out pairs of stones two at a time.  If they are the same color as each other, they go to which ever of us is 'like pair,' and otherwise they go to which ever of us is 'unlike pair.'  Whoever has the most stones at the end will win.  If we have the same number, then it is a draw, and no one wins.`3\"");
-		addnav("Never Mind", appendlink(urldecode($ret), "op=oldman"));
-		addnav("Like Pair",
+		OutputClass::addnav("Never Mind", appendlink(urldecode($ret), "op=oldman"));
+		OutputClass::addnav("Like Pair",
 				"runmodule.php?module=game_stones&side=likepair&ret=$ret");
-		addnav("Unlike Pair",
+		OutputClass::addnav("Unlike Pair",
 				"runmodule.php?module=game_stones&side=unlikepair&ret=$ret");
 		$stones['red']=6;
 		$stones['blue']=10;
@@ -67,8 +67,8 @@ function game_stones_run(){
 		rawoutput("<input type='submit' class='button' value='$b'>");
 		rawoutput("</form>");
 		rawoutput("<script language='JavaScript'>document.getElementById('bet').focus();</script>");
-		addnav("","runmodule.php?module=game_stones&ret=$ret");
-		addnav("Never Mind", appendlink(urldecode($ret), "op=oldman"));
+		OutputClass::addnav("","runmodule.php?module=game_stones&ret=$ret");
+		OutputClass::addnav("Never Mind", appendlink(urldecode($ret), "op=oldman"));
 	}elseif ($stones['red']+$stones['blue'] > 0 &&
 			$stones['oldman']<=8 && $stones['player']<=8){
 		$s1="";
@@ -108,7 +108,7 @@ function game_stones_run(){
 
 		OutputClass::output("You currently have `^%s`3 stones in your pile, and the old man has `^%s`3 stones in his.`n`n", $stones['player'], $stones['oldman']);
 		OutputClass::output("There are %s %s stones and %s %s stones in the bag yet.", $stones['red'], $rstone, $stones['blue'], $bstone);
-		addnav("Continue","runmodule.php?module=game_stones&ret=$ret");
+		OutputClass::addnav("Continue","runmodule.php?module=game_stones&ret=$ret");
 	}else{
 		if ($stones['player']>$stones['oldman']){
 			OutputClass::output("`3Having defeated the old man at his game, you claim your `^%s`3 gold.", $stones['bet']);
@@ -122,9 +122,9 @@ function game_stones_run(){
 			OutputClass::output("`3Having tied the old man, you call it a draw.");
 		}
 		$stones=array();
-		addnav("Play again?","runmodule.php?module=game_stones&ret=$ret");
-		addnav("Other Games",appendlink(urldecode($ret), "op=oldman"));
-		addnav("Return to Main Room", appendlink(urldecode($ret), "op=tavern"));
+		OutputClass::addnav("Play again?","runmodule.php?module=game_stones&ret=$ret");
+		OutputClass::addnav("Other Games",appendlink(urldecode($ret), "op=oldman"));
+		OutputClass::addnav("Return to Main Room", appendlink(urldecode($ret), "op=tavern"));
 	}
 	$session['user']['specialmisc']=serialize($stones);
 	page_footer();

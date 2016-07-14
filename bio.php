@@ -33,12 +33,12 @@ if ($target = db_fetch_assoc($result)) {
   PageParts::page_header("Character Biography: %s", full_sanitize($target['name']));
 
   Translator::tlschema("nav");
-  addnav("Return");
+  OutputClass::addnav("Return");
   Translator::tlschema();
 
   if ($session['user']['superuser'] & SU_EDIT_USERS){
-	  addnav("Superuser");
-	  addnav("Edit User","user.php?op=edit&userid=$id");
+	  OutputClass::addnav("Superuser");
+	  OutputClass::addnav("Edit User","user.php?op=edit&userid=$id");
   }
 
   modulehook("biotop", $target);
@@ -142,17 +142,17 @@ if ($target = db_fetch_assoc($result)) {
   if ($ret==""){
 	  $return = substr($return,strrpos($return,"/")+1);
 	  Translator::tlschema("nav");
-	  addnav("Return");
-	  addnav("Return to the warrior list",$return);
+	  OutputClass::addnav("Return");
+	  OutputClass::addnav("Return to the warrior list",$return);
 	  Translator::tlschema();
   }else{
 	  $return = substr($return,strrpos($return,"/")+1);
 	  Translator::tlschema("nav");
-	  addnav("Return");
+	  OutputClass::addnav("Return");
 	  if ($return=="list.php") {
-		  addnav("Return to the warrior list",$return);
+		  OutputClass::addnav("Return to the warrior list",$return);
 	  } else {
-		  addnav("Return whence you came",$return);
+		  OutputClass::addnav("Return whence you came",$return);
 	  }
 	  Translator::tlschema();
   }
@@ -165,17 +165,17 @@ if ($target = db_fetch_assoc($result)) {
   if ($ret==""){
 	  $return = substr($return,strrpos($return,"/")+1);
 	  Translator::tlschema("nav");
-	  addnav("Return");
-	  addnav("Return to the warrior list",$return);
+	  OutputClass::addnav("Return");
+	  OutputClass::addnav("Return to the warrior list",$return);
 	  Translator::tlschema();
   }else{
 	  $return = substr($return,strrpos($return,"/")+1);
 	  Translator::tlschema("nav");
-	  addnav("Return");
+	  OutputClass::addnav("Return");
 	  if ($return=="list.php") {
-		  addnav("Return to the warrior list",$return);
+		  OutputClass::addnav("Return to the warrior list",$return);
 	  } else {
-		  addnav("Return whence you came",$return);
+		  OutputClass::addnav("Return whence you came",$return);
 	  }
 	  Translator::tlschema();
   }

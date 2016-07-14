@@ -40,8 +40,8 @@ function glowingstream_runevent($type,$link)
 		OutputClass::output("You can sense a magical power in the water.");
 		OutputClass::output("Drinking this water may yield untold powers, or it may result in crippling disability.");
 		OutputClass::output("Do you wish to take a drink?");
-		addnav("Drink", $from . "op=drink");
-		addnav("Don't Drink", $from . "op=nodrink");
+		OutputClass::addnav("Drink", $from . "op=drink");
+		OutputClass::addnav("Don't Drink", $from . "op=nodrink");
 	}elseif ($op=="drink"){
 		$session['user']['specialinc']="";
 		$rand = e_rand(1,10);
@@ -61,7 +61,7 @@ function glowingstream_runevent($type,$link)
 			OutputClass::output("You may continue playing again tomorrow.");
 			$session['user']['alive']=false;
 			$session['user']['hitpoints']=0;
-			addnav("Daily News","news.php");
+			OutputClass::addnav("Daily News","news.php");
 			addnews("%s encountered strange powers in the forest, and was not seen again.",$session['user']['name']);
 			break;
 		case 2:

@@ -67,10 +67,10 @@
 		modulehook("}collapse");
 
 		if ($session['user']['clanrank']>CLAN_MEMBER){
-			addnav("Update MoTD / Clan Desc","clan.php?op=motd");
+			OutputClass::addnav("Update MoTD / Clan Desc","clan.php?op=motd");
 		}
-		addnav("M?View Membership","clan.php?op=membership");
-		addnav("Online Members","list.php?op=clan");
-		addnav("Your Clan's Waiting Area","clan.php?op=waiting");
-		addnav("Withdraw From Your Clan","clan.php?op=withdrawconfirm");
+		OutputClass::addnav("M?View Membership","clan.php?op=membership");
+		OutputClass::addnav("Online Members","list.php?op=clan");
+		OutputClass::addnav("Your Clan's Waiting Area","clan.php?op=waiting");
+		OutputClass::addnav("Withdraw From Your Clan","clan.php?op=withdrawconfirm");
 ?>

@@ -59,8 +59,8 @@ function fairy_runevent($type)
 		OutputClass::output("`%You encounter a fairy in the forest.");
 		OutputClass::output("\"`^Give me a gem!`%\" she demands.");
 		OutputClass::output("What do you do?");
-		addnav("Give her a gem", $from."op=give");
-		addnav("Don't give her a gem", $from."op=dont");
+		OutputClass::addnav("Give her a gem", $from."op=give");
+		OutputClass::addnav("Don't give her a gem", $from."op=dont");
 	}elseif ($op=="give"){
 		$session['user']['specialinc'] = "";
 		if ($session['user']['gems']>0){

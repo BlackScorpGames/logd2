@@ -88,7 +88,7 @@ function outhouse_uninstall(){
 
 function outhouse_dohook($hookname, $args){
 	if ($hookname=="forest"){
-		addnav("O?The Outhouse","runmodule.php?module=outhouse");
+		OutputClass::addnav("O?The Outhouse","runmodule.php?module=outhouse");
 	}elseif ($hookname=="newday"){
 		set_module_pref("usedouthouse",0);
 	}
@@ -134,8 +134,8 @@ function outhouse_run(){
 		}
 		$session['user']['gold'] -= $cost;
 		debuglog("spent $cost gold to use the outhouse");
-		addnav("Wash your hands", "runmodule.php?module=outhouse&op=washpay");
-		addnav("Leave", "runmodule.php?module=outhouse&op=nowash");
+		OutputClass::addnav("Wash your hands", "runmodule.php?module=outhouse&op=washpay");
+		OutputClass::addnav("Leave", "runmodule.php?module=outhouse&op=nowash");
 	}elseif ($op == "free"){
 		PageParts::page_header("Public Toilet!");
 		set_module_pref("usedouthouse",1);
@@ -144,8 +144,8 @@ function outhouse_run(){
 		OutputClass::output("After looking at the stuff covering his hands, you think you might not want to use it.`n`n");
 		OutputClass::output("While %s over the big hole in the middle of the room with the TP Gnome observing you closely, you almost slip in.`n", Translator::translate_inline($session['user']['sex']?"squatting":"standing"));
 		OutputClass::output("You go ahead and take care of business as fast as you can; you can only hold your breath so long.`n");
-		addnav("Wash your hands", "runmodule.php?module=outhouse&op=washfree");
-		addnav("Leave", "runmodule.php?module=outhouse&op=nowash");
+		OutputClass::addnav("Wash your hands", "runmodule.php?module=outhouse&op=washfree");
+		OutputClass::addnav("Leave", "runmodule.php?module=outhouse&op=nowash");
 	}elseif ($op == "washpay"|| $op == "washfree"){
 		PageParts::page_header("Wash Stand");
 		OutputClass::output("`2Washing your hands is always a good thing.  You tidy up, straighten your %s in your reflection in the water, and head on your way.`0`n", $session['user']['armor']);
@@ -208,16 +208,16 @@ function outhouse_run(){
 		if (get_module_pref("usedouthouse")==0){
 			OutputClass::output("In typical caste style, there is a privileged outhouse, and an underprivileged outhouse.");
 			OutputClass::output("The choice is yours!`0`n`n");
-			addnav("Toilets");
+			OutputClass::addnav("Toilets");
 			if ($canpay){
-				addnav(array("Private Toilet: (%s gold)", $cost),
+				OutputClass::addnav(array("Private Toilet: (%s gold)", $cost),
 						"runmodule.php?module=outhouse&op=pay");
 			}else{
 				OutputClass::output("`2The Private Toilet costs `^%s`2 gold.", $cost);
 				OutputClass::output("Looks like you are going to have to hold it or use the Public Toilet!");
 			}
-			addnav("Public Toilet: (free)", "runmodule.php?module=outhouse&op=free");
-			addnav("Hold it", "forest.php");
+			OutputClass::addnav("Public Toilet: (free)", "runmodule.php?module=outhouse&op=free");
+			OutputClass::addnav("Hold it", "forest.php");
 		}else{
 			switch(e_rand(1,3)){
 			case 1:

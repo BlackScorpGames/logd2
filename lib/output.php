@@ -112,6 +112,42 @@ class OutputClass
     public static function clearnav(){
         $session['allowednavs']=array();
     }
+
+    public static function addnav($text, $link = false, $priv = false, $pop = false, $popsize = "500x300")
+    {
+        global $navsection, $navbysection, $translation_namespace, $navschema;
+        global $block_new_navs;
+
+        if ($block_new_navs) {
+            return;
+        }
+
+        if ($link === false) {
+            // Don't do anything if text is ""
+            if ($text != "") {
+                addnavheader($text);
+            }
+        } else {
+            $args = func_get_args();
+            if ($text == "") {
+                //if there's no text to display, may as well just stick this on
+                //the nav stack now.
+                call_user_func_array("private_addnav", $args);
+            } else {
+                if (!isset($navbysection[$navsection])) {
+                    $navbysection[$navsection] = array();
+                }
+                $t = $args[0];
+                if (is_array($t)) {
+                    $t = $t[0];
+                }
+                if (!array_key_exists($t, $navschema)) {
+                    $navschema[$t] = $translation_namespace;
+                }
+                array_push($navbysection[$navsection], array_merge($args, array("translate" => false)));
+            }
+        }
+    }
 }
 /**
  * Generate debug OutputClass::output for players who have the SU_DEBUG_OUTPUT flag set in the superuser mask
@@ -461,7 +497,7 @@ function addnavheader($text, $collapse=true,$translate=TRUE)
  * Generate and/or store the allowed navs or nav banners for the player.
  * If $link is missing - then a banner will be displayed in the nav list
  * If $text is missing - the nav will be stored in the allowed navs for the player but not displayed
- * <B>ALL</B> internal site links that are displayed <B>MUST</B> also call addnav or badnav will occur.
+ * <B>ALL</B> internal site links that are displayed <B>MUST</B> also call OutputClass::addnav or badnav will occur.
  *
  * @param string $text (optional) The display string for the nav or nav banner
  * @param string $link (optional) The URL of the link
@@ -499,36 +535,7 @@ function addnav_notl($text,$link=false,$priv=false,$pop=false,$popsize="500x300"
 		}
 	}
 }
-function addnav($text,$link=false,$priv=false,$pop=false,$popsize="500x300"){
-	global $navsection,$navbysection,$translation_namespace,$navschema;
-	global $block_new_navs;
 
-	if ($block_new_navs) return;
-
-	if ($link===false) {
-		// Don't do anything if text is ""
-		if ($text != "") {
-			addnavheader($text);
-		}
-	}else{
-		$args = func_get_args();
-		if ($text==""){
-			//if there's no text to display, may as well just stick this on
-			//the nav stack now.
-			call_user_func_array("private_addnav",$args);
-		}else{
-			if (!isset($navbysection[$navsection]))
-				$navbysection[$navsection] = array();
-			$t = $args[0];
-			if (is_array($t)) {
-				$t = $t[0];
-			}
-			if (!array_key_exists($t,$navschema))
-				$navschema[$t] = $translation_namespace;
-			array_push($navbysection[$navsection],array_merge($args,array("translate"=>false)));
-		}
-	}
-}
 /**
  * Determine if a nav/URL is blocked
  *

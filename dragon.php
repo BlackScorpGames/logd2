@@ -91,7 +91,7 @@ if ($op==""){
 	if ($flawless) {
 		OutputClass::output("`n`nYou fall forward, and remember at the last moment that you at least managed to grab some of the dragon's treasure, so maybe it wasn't all a total loss.");
 	}
-	addnav("It is a new day","news.php");
+	OutputClass::addnav("It is a new day","news.php");
 	strip_all_buffs();
 	$sql = "DESCRIBE " . db_prefix("accounts");
 	$result = db_query($sql);
@@ -268,12 +268,12 @@ if ($battle){
 		OutputClass::output("`&With a mighty final blow, `@The Green Dragon`& lets out a tremendous bellow and falls at your feet, dead at last.");
 		addnews("`&%s has slain the hideous creature known as `@The Green Dragon`&.  All across the land, people rejoice!",$session['user']['name']);
 		Translator::tlschema("nav");
-		addnav("Continue","dragon.php?op=prologue1&flawless=$flawless");
+		OutputClass::addnav("Continue","dragon.php?op=prologue1&flawless=$flawless");
 		Translator::tlschema();
 	}else{
 		if($defeat){
 			Translator::tlschema("nav");
-			addnav("Daily news","news.php");
+			OutputClass::addnav("Daily news","news.php");
 			Translator::tlschema();
 			$taunt = select_taunt_array();
 			if ($session['user']['sex']){

@@ -38,7 +38,7 @@ case "run":
 			$session['user']['deathpower']-=$favor;
 		}
 		Translator::tlschema("nav");
-		addnav("G?Return to the Graveyard","graveyard.php");
+		OutputClass::addnav("G?Return to the Graveyard","graveyard.php");
 		Translator::tlschema();
 	} else {
 		OutputClass::output("`)As you try to flee, you are summoned back to the fight!`n`n");
@@ -90,7 +90,7 @@ if ($battle){
 			OutputClass::output("You may not torment any more souls today.");
 			$session['user']['gravefights']=0;
 			Translator::tlschema("nav");
-			addnav("G?Return to the Graveyard","graveyard.php");
+			OutputClass::addnav("G?Return to the Graveyard","graveyard.php");
 			Translator::tlschema();
 		}else{
 			require_once("lib/fightnav.php");

@@ -116,7 +116,7 @@ if ($op==""){
 				AND companionactive = 1";
 	$result = db_query($sql);
   	Translator::tlschema($schemas['buynav']);
-	addnav($texts['buynav']);
+	OutputClass::addnav($texts['buynav']);
 	Translator::tlschema();
 	switch (db_num_rows($result)) {
 		case 0:
@@ -151,24 +151,24 @@ if ($op==""){
 		$row = modulehook("alter-companion", $row);
 		if ($row['companioncostgold'] && $row['companioncostgems']) {
 			if ($session['user']['gold'] >= $row['companioncostgold'] && $session['user']['gems'] >= $row['companioncostgems'] && !isset($companions[$row['name']])) {
-				addnav(array("%s`n`^%s Gold, `%%%s Gems`0",$row['name'], $row['companioncostgold'], $row['companioncostgems']), "mercenarycamp.php?op=buy&id={$row['companionid']}");
+				OutputClass::addnav(array("%s`n`^%s Gold, `%%%s Gems`0",$row['name'], $row['companioncostgold'], $row['companioncostgems']), "mercenarycamp.php?op=buy&id={$row['companionid']}");
 			} else {
-				addnav(array("%s`n`^%s Gold, `%%%s Gems`0",$row['name'], $row['companioncostgold'], $row['companioncostgems']), "");
+				OutputClass::addnav(array("%s`n`^%s Gold, `%%%s Gems`0",$row['name'], $row['companioncostgold'], $row['companioncostgems']), "");
 			}
 		} else if ($row['companioncostgold']) {
 			if ($session['user']['gold'] >= $row['companioncostgold'] && !isset($companions[$row['name']])) {
-				addnav(array("%s`n`^%s Gold`0",$row['name'], $row['companioncostgold']), "mercenarycamp.php?op=buy&id={$row['companionid']}");
+				OutputClass::addnav(array("%s`n`^%s Gold`0",$row['name'], $row['companioncostgold']), "mercenarycamp.php?op=buy&id={$row['companionid']}");
 			} else {
-				addnav(array("%s`n`^%s Gold`0",$row['name'], $row['companioncostgold']), "");
+				OutputClass::addnav(array("%s`n`^%s Gold`0",$row['name'], $row['companioncostgold']), "");
 			}
 		} else if ($row['companioncostgems']) {
 			if ($session['user']['gems'] >= $row['companioncostgems'] && !isset($companions[$row['name']])) {
-				addnav(array("%s`n`%%%s Gems`0",$row['name'], $row['companioncostgems']), "mercenarycamp.php?op=buy&id={$row['companionid']}");
+				OutputClass::addnav(array("%s`n`%%%s Gems`0",$row['name'], $row['companioncostgems']), "mercenarycamp.php?op=buy&id={$row['companionid']}");
 			} else {
-				addnav(array("%s`n`%%%s Gems`0",$row['name'], $row['companioncostgems']), "");
+				OutputClass::addnav(array("%s`n`%%%s Gems`0",$row['name'], $row['companioncostgems']), "");
 			}
 		} else if (!isset($companions[$row['name']])) {
-			addnav(array("%s",$row['name']), "mercenarycamp.php?op=buy&id={$row['companionid']}");
+			OutputClass::addnav(array("%s",$row['name']), "mercenarycamp.php?op=buy&id={$row['companionid']}");
 		}
 		OutputClass::output("`#%s`n`7%s`n`n",$row['name'], $row['description']);
 	}
@@ -200,8 +200,8 @@ if ($op==""){
 		Translator::tlschema();
 	}
 	healnav($companions, $texts, $schemas);
-	addnav("Navigation");
-	addnav("Return to the camp", "mercenarycamp.php?skip=1");
+	OutputClass::addnav("Navigation");
+	OutputClass::addnav("Return to the camp", "mercenarycamp.php?skip=1");
 } else if ($op == "buy") {
 	$id = Http::httpget('id');
 	$sql = "SELECT * FROM ".db_prefix("companions")." WHERE companionid = $id";
@@ -235,10 +235,10 @@ if ($op==""){
 			Translator::tlschema();
 		}
 	}
-	addnav("Navigation");
-	addnav("Return to the camp", "mercenarycamp.php?skip=1");
+	OutputClass::addnav("Navigation");
+	OutputClass::addnav("Return to the camp", "mercenarycamp.php?skip=1");
 }
-addnav("Navigation");
+OutputClass::addnav("Navigation");
 villagenav();
 page_footer();
 
@@ -246,7 +246,7 @@ page_footer();
 function healnav($companions, $texts, $schemas) {
 	global $session;
 	Translator::tlschema($schemas['healnav']);
-	addnav($texts['healnav']);
+	OutputClass::addnav($texts['healnav']);
 	Translator::tlschema();
 	$healable = false;
 	foreach ($companions as $name => $companion) {
@@ -257,9 +257,9 @@ function healnav($companions, $texts, $schemas) {
 				$healable = true;
 				$costtoheal = round(log($session['user']['level']+1) * ($pointstoheal + 10)*1.33);
 				if ($session['user']['gold'] >= $costtoheal) {
-					addnav(array("%s`0 (`^%s Gold`0)", $companion['name'], $costtoheal), "mercenarycamp.php?op=heal&name=".rawurlencode($name)."&cost=$costtoheal");
+					OutputClass::addnav(array("%s`0 (`^%s Gold`0)", $companion['name'], $costtoheal), "mercenarycamp.php?op=heal&name=".rawurlencode($name)."&cost=$costtoheal");
 				} else {
-					addnav(array("%s`0 (`\$Not enough gold`0)", $companion['name']), "mercenarycamp.php?op=heal&name=".rawurlencode($name)."&cost=notenough");
+					OutputClass::addnav(array("%s`0 (`\$Not enough gold`0)", $companion['name']), "mercenarycamp.php?op=heal&name=".rawurlencode($name)."&cost=notenough");
 				}
 			}
 		}

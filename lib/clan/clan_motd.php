@@ -1,6 +1,6 @@
 <?php
 		PageParts::page_header("Update Clan Description / MoTD");
-		addnav("Clan Options");
+		OutputClass::addnav("Clan Options");
 		if ($session['user']['clanrank']>=CLAN_OFFICER){
 			$clanmotd = substr(httppost('clanmotd'),0,4096);
 			if (httppostisset('clanmotd') &&
@@ -47,7 +47,7 @@
 			output_notl(nltoappon($claninfo['clandesc'])."`n");
 
 			rawoutput("<form action='clan.php?op=motd' method='POST'>");
-			addnav("","clan.php?op=motd");
+			OutputClass::addnav("","clan.php?op=motd");
 			OutputClass::output("`&`bMoTD:`b `7(4096 chars)`n");
 			rawoutput("<textarea name='clanmotd' cols='50' rows='10' class='input' style='width: 66%'>".htmlentities($claninfo['clanmotd'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br>");
 			OutputClass::output("`n`&`bDescription:`b `7(4096 chars)`n");
@@ -67,5 +67,5 @@
 		}else{
 			OutputClass::output("You do not have authority to change your clan's motd or description.");
 		}
-		addnav("Return to your clan hall","clan.php");
+		OutputClass::addnav("Return to your clan hall","clan.php");
 ?>

@@ -7,8 +7,8 @@ if ($act==""){
 	OutputClass::output("He then makes a face, spits on the glass and goes back to polishing it.");
 	OutputClass::output("\"`%What d'ya want?`0\" he asks gruffly.");
 	addnav_notl(sanitize($barkeep));
-	addnav("Bribe","inn.php?op=bartender&act=bribe");
-	addnav("Drinks");
+	OutputClass::addnav("Bribe","inn.php?op=bartender&act=bribe");
+	OutputClass::addnav("Drinks");
 	modulehook("ale", array());
 }elseif ($act=="bribe"){
 	$g1 = $session['user']['level']*10;
@@ -19,12 +19,12 @@ if ($act==""){
 		OutputClass::output("While you know that you won't always get what you want, sometimes the way to a man's information is through your purse.");
 		OutputClass::output("It's also always been said that more is better.`n`n");
 		OutputClass::output("How much would you like to offer him?");
-		addnav("1 gem","inn.php?op=bartender&act=bribe&type=gem&amt=1");
-		addnav("2 gems","inn.php?op=bartender&act=bribe&type=gem&amt=2");
-		addnav("3 gems","inn.php?op=bartender&act=bribe&type=gem&amt=3");
-		addnav(array("%s gold", $g1),"inn.php?op=bartender&act=bribe&type=gold&amt=$g1");
-		addnav(array("%s gold", $g2),"inn.php?op=bartender&act=bribe&type=gold&amt=$g2");
-		addnav(array("%s gold", $g3),"inn.php?op=bartender&act=bribe&type=gold&amt=$g3");
+		OutputClass::addnav("1 gem","inn.php?op=bartender&act=bribe&type=gem&amt=1");
+		OutputClass::addnav("2 gems","inn.php?op=bartender&act=bribe&type=gem&amt=2");
+		OutputClass::addnav("3 gems","inn.php?op=bartender&act=bribe&type=gem&amt=3");
+		OutputClass::addnav(array("%s gold", $g1),"inn.php?op=bartender&act=bribe&type=gold&amt=$g1");
+		OutputClass::addnav(array("%s gold", $g2),"inn.php?op=bartender&act=bribe&type=gold&amt=$g2");
+		OutputClass::addnav(array("%s gold", $g3),"inn.php?op=bartender&act=bribe&type=gold&amt=$g3");
 	}else{
 		$amt = Http::httpget('amt');
 		if ($type=="gem"){
@@ -53,13 +53,13 @@ if ($act==""){
 		if ($try){
 			if (e_rand(0,100)<$chance){
 				OutputClass::output("%s`0 leans over the counter toward you.  \"`%What can I do for you, kid?`0\" he asks.",$barkeep);
-				addnav("What do you want?");
+				OutputClass::addnav("What do you want?");
 				if (Settings::getsetting("pvp",1)) {
-					addnav("Who's upstairs?","inn.php?op=bartender&act=listupstairs");
+					OutputClass::addnav("Who's upstairs?","inn.php?op=bartender&act=listupstairs");
 				}
-				addnav("Tell me about colors","inn.php?op=bartender&act=colors");
+				OutputClass::addnav("Tell me about colors","inn.php?op=bartender&act=colors");
 				if (Settings::getsetting("allowspecialswitch", true))
-					addnav("Switch specialty","inn.php?op=bartender&act=specialty");
+					OutputClass::addnav("Switch specialty","inn.php?op=bartender&act=specialty");
 			}else{
 				OutputClass::output("%s`0 begins to wipe down the counter top, an act that really needed doing a long time ago.",$barkeep);
 				if ($type == "gem") {
@@ -72,15 +72,15 @@ if ($act==""){
 					OutputClass::output("When he's finished, your gold is gone.");
 				}
 				OutputClass::output("You inquire about the loss, and he stares blankly back at you.");
-				addnav(array("B?Talk to %s`0 again",$barkeep),"inn.php?op=bartender");
+				OutputClass::addnav(array("B?Talk to %s`0 again",$barkeep),"inn.php?op=bartender");
 			}
 		}else{
 			OutputClass::output("`n`n%s`0 stands there staring at you blankly.",$barkeep);
-			addnav(array("B?Talk to %s`0 the Barkeep",$barkeep),"inn.php?op=bartender");
+			OutputClass::addnav(array("B?Talk to %s`0 the Barkeep",$barkeep),"inn.php?op=bartender");
 		}
 	}
 }else if ($act=="listupstairs"){
-	addnav("Refresh the list","inn.php?op=bartender&act=listupstairs");
+	OutputClass::addnav("Refresh the list","inn.php?op=bartender&act=listupstairs");
 	OutputClass::output("%s`0 lays out a set of keys on the counter top, and tells you which key opens whose room.  The choice is yours, you may sneak in and attack any one of them.",$barkeep);
 	pvplist($iname,"pvp.php", "?act=attack&inn=1");
 }else if($act=="colors"){
@@ -102,7 +102,7 @@ if ($act==""){
 	rawoutput("</form>");
 	rawoutput("<script language='javascript'>document.getElementById('input').focus();</script>");
 		OutputClass::output("`0`n`nThese colors can be used in your name, and in any conversations you have.");
-	addnav("",$REQUEST_URI);
+	OutputClass::addnav("",$REQUEST_URI);
 }else if($act=="specialty"){
 	$specialty = Http::httpget('specialty');
 	if ($specialty==""){
@@ -114,7 +114,7 @@ if ($act==""){
 		OutputClass::output("`0\"`3What new specialty did you have in mind?`0\"");
 		$specialities = modulehook("specialtynames");
 		foreach($specialities as $key=>$name) {
-			addnav($name,cmd_sanitize($REQUEST_URI)."&specialty=$key");
+			OutputClass::addnav($name,cmd_sanitize($REQUEST_URI)."&specialty=$key");
 		}
 	}else{
 		OutputClass::output("\"`3Ok then,`0\" %s`0 says, \"`3You're all set.`0\"`n`n\"`2That's it?`0\" you ask him.`n`n",$barkeep);

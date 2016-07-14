@@ -8,16 +8,16 @@ function forest($noshowmessage=false) {
 	global $session,$playermount;
 	Translator::tlschema("forest");
 //	mass_module_prepare(array("forest", "validforestloc"));
-	addnav("Heal");
-	addnav("H?Healer's Hut","healer.php");
-	addnav("Fight");
-	addnav("L?Look for Something to Kill","forest.php?op=search");
+	OutputClass::addnav("Heal");
+	OutputClass::addnav("H?Healer's Hut","healer.php");
+	OutputClass::addnav("Fight");
+	OutputClass::addnav("L?Look for Something to Kill","forest.php?op=search");
 	if ($session['user']['level']>1)
-		addnav("S?Go Slumming","forest.php?op=search&type=slum");
-	addnav("T?Go Thrillseeking","forest.php?op=search&type=thrill");
+		OutputClass::addnav("S?Go Slumming","forest.php?op=search&type=slum");
+	OutputClass::addnav("T?Go Thrillseeking","forest.php?op=search&type=thrill");
 	if (Settings::getsetting("suicide", 0)) {
 		if (Settings::getsetting("suicidedk", 10) <= $session['user']['dragonkills']) {
-			addnav("*?Search `\$Suicidally`0", "forest.php?op=search&type=suicide");
+			OutputClass::addnav("*?Search `\$Suicidally`0", "forest.php?op=search&type=suicide");
 		}
 	}
 	if ($session['user']['level']>=15  && $session['user']['seendragon']==0){
@@ -35,10 +35,10 @@ function forest($noshowmessage=false) {
 			}
 		}
 		if ($isforest || count($vloc)==0) {
-			addnav("G?`@Seek Out the Green Dragon","forest.php?op=dragon");
+			OutputClass::addnav("G?`@Seek Out the Green Dragon","forest.php?op=dragon");
 		}
 	}
-	addnav("Other");
+	OutputClass::addnav("Other");
 	villagenav();
 	if ($noshowmessage!=true){
 		OutputClass::output("`c`7`bThe Forest`b`0`c");

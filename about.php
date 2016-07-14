@@ -24,9 +24,9 @@ switch ($op) {
 		break;
 }
 if ($session['user']['loggedin']) {
-	addnav("Return to the news","news.php");
+	OutputClass::addnav("Return to the news","news.php");
 }else{
-	addnav("Login Page","index.php");
+	OutputClass::addnav("Login Page","index.php");
 }
 page_footer();
 ?>

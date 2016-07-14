@@ -11,7 +11,7 @@ Translator::tlschema("referral");
 if ($session['user']['loggedin']){
 	PageParts::page_header("Referral Page");
 	if (file_exists("lodge.php")) {
-		addnav("L?Return to the Lodge","lodge.php");
+		OutputClass::addnav("L?Return to the Lodge","lodge.php");
 	} else {
 		require_once("lib/villagenav.php");
 		villagenav();
@@ -65,8 +65,8 @@ if ($session['user']['loggedin']){
 	PageParts::page_header("Welcome to Legend of the Green Dragon");
 	OutputClass::output("`@Legend of the Green Dragon is a remake of the classic BBS Door Game Legend of the Red Dragon.");
 	OutputClass::output("Adventure into the classic realm that was one of the world's very first multiplayer roleplaying games!");
-	addnav("Create a character","create.php?r=".HTMLEntities(Http::httpget('r'), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
-	addnav("Login Page","index.php");
+	OutputClass::addnav("Create a character","create.php?r=".HTMLEntities(Http::httpget('r'), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")));
+	OutputClass::addnav("Login Page","index.php");
 	page_footer();
 }
 ?>

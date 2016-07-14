@@ -12,11 +12,11 @@ check_su_access(SU_EDIT_CONFIG);
 PageParts::page_header("Stats");
 require_once("lib/superusernav.php");
 superusernav();
-//addnav("Refresh the stats","stats.php");
-addnav("Stats Types");
-addnav("Totals & Averages","stats.php?op=stats");
-addnav("Top Referers","stats.php?op=referers");
-addnav("Logon Graph","stats.php?op=graph");
+//OutputClass::addnav("Refresh the stats","stats.php");
+OutputClass::addnav("Stats Types");
+OutputClass::addnav("Totals & Averages","stats.php?op=stats");
+OutputClass::addnav("Top Referers","stats.php?op=referers");
+OutputClass::addnav("Logon Graph","stats.php?op=graph");
 
 $op = Http::httpget("op");
 

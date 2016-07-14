@@ -11,10 +11,10 @@ function villagenav($extra=false)
 	if (array_key_exists('handled', $args) && $args['handled']) return;
 	Translator::tlschema("nav");
 	if ($session['user']['alive']) {
-		addnav(array("V?Return to %s", $loc), "village.php$extra");
+		OutputClass::addnav(array("V?Return to %s", $loc), "village.php$extra");
 	} else {
 		// user is dead
-		addnav("S?Return to the Shades","shades.php");
+		OutputClass::addnav("S?Return to the Shades","shades.php");
 	}
 	Translator::tlschema();
 }

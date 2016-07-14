@@ -11,11 +11,11 @@ if (!$skipgraveyardtext) {
 }
 modulehook("graveyard");
 	if ($session['user']['gravefights']) {
-	addnav("Look for Something to Torment","graveyard.php?op=search");
+	OutputClass::addnav("Look for Something to Torment","graveyard.php?op=search");
 }
-addnav("Places");
-addnav("W?List Warriors","list.php");
-addnav("S?Return to the Shades","shades.php");
-addnav("M?Enter the Mausoleum","graveyard.php?op=enter");
+OutputClass::addnav("Places");
+OutputClass::addnav("W?List Warriors","list.php");
+OutputClass::addnav("S?Return to the Shades","shades.php");
+OutputClass::addnav("M?Enter the Mausoleum","graveyard.php?op=enter");
 module_display_events("graveyard", "graveyard.php");
 ?>

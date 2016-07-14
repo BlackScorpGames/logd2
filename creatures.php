@@ -126,20 +126,20 @@ if ($op=="" || $op=="search"){
 	rawoutput("<input type='submit' class='button' value='$search'>");
 	rawoutput("</form>");
 	rawoutput("<script language='JavaScript'>document.getElementById('q').focus();</script>",true);
-	addnav("","creatures.php?op=search");
+	OutputClass::addnav("","creatures.php?op=search");
 
-	addnav("Levels");
+	OutputClass::addnav("Levels");
 	$sql1 = "SELECT count(creatureid) AS n,creaturelevel FROM " . db_prefix("creatures") . " group by creaturelevel order by creaturelevel";
 	$result1 = db_query($sql1);
 	while ($row = db_fetch_assoc($result1)) {
-		addnav(array("Level %s: (%s creatures)", $row['creaturelevel'], $row['n']),
+		OutputClass::addnav(array("Level %s: (%s creatures)", $row['creaturelevel'], $row['n']),
 				"creatures.php?level={$row['creaturelevel']}");
 	}
 	// There is no reason to allow players to add creatures to level 17 and 18.
 	// Players aren't supposed to stay at level 15 at all.
 	if ($level <= 16) {
-		addnav("Edit");
-		addnav("Add a creature","creatures.php?op=add&level=$level");
+		OutputClass::addnav("Edit");
+		OutputClass::addnav("Add a creature","creatures.php?op=add&level=$level");
 	}
 	$opshead = Translator::translate_inline("Ops");
 	$idhead = Translator::translate_inline("ID");
@@ -156,7 +156,7 @@ if ($op=="" || $op=="search"){
 	rawoutput("<table border=0 cellpadding=2 cellspacing=1 bgcolor='#999999'>");
 	rawoutput("<tr class='trhead'>");
 	rawoutput("<td>$opshead</td><td>$idhead</td><td>$name</td><td>$lev</td><td>$weapon</td><td>$winmsg</td><td>$diemsg</td><td>$author</td></tr>");
-	addnav("","creatures.php");
+	OutputClass::addnav("","creatures.php");
 	$number=db_num_rows($result);
 	for ($i=0;$i<$number;$i++){
 		$row = db_fetch_assoc($result);
@@ -166,8 +166,8 @@ if ($op=="" || $op=="search"){
 		rawoutput("</a> | <a href='creatures.php?op=del&creatureid={$row['creatureid']}&level={$row['creaturelevel']}' onClick='return confirm(\"$confirm\");'>");
 		output_notl("%s", $del);
 		rawoutput("</a> ]</td><td>");
-		addnav("","creatures.php?op=edit&creatureid={$row['creatureid']}");
-		addnav("","creatures.php?op=del&creatureid={$row['creatureid']}&level={$row['creaturelevel']}");
+		OutputClass::addnav("","creatures.php?op=edit&creatureid={$row['creatureid']}");
+		OutputClass::addnav("","creatures.php?op=del&creatureid={$row['creatureid']}&level={$row['creaturelevel']}");
 		output_notl("%s", $row['creatureid']);
 		rawoutput("</td><td>");
 		output_notl("%s", $row['creaturename']);
@@ -189,17 +189,17 @@ if ($op=="" || $op=="search"){
 	if (!$level) $level = 1;
 	if ($op=="edit" || $op=="add"){
 		require_once("lib/showform.php");
-		addnav("Edit");
-		addnav("Creature properties", "creatures.php?op=edit&creatureid=$id");
-		addnav("Add");
-		addnav("Add Another Creature", "creatures.php?op=add&level=$level");
+		OutputClass::addnav("Edit");
+		OutputClass::addnav("Creature properties", "creatures.php?op=edit&creatureid=$id");
+		OutputClass::addnav("Add");
+		OutputClass::addnav("Add Another Creature", "creatures.php?op=add&level=$level");
 		module_editor_navs("prefs-creatures", "creatures.php?op=edit&subop=module&creatureid=$id&module=");
 		if ($subop == "module") {
 			$module = Http::httpget("module");
 			rawoutput("<form action='creatures.php?op=save&subop=module&creatureid=$id&module=$module' method='POST'>");
 			module_objpref_edit("creatures", $module, $id);
 			rawoutput("</form>");
-			addnav("", "creatures.php?op=save&subop=module&creatureid=$id&module=$module");
+			OutputClass::addnav("", "creatures.php?op=save&subop=module&creatureid=$id&module=$module");
 		} else {
 			if ($op=="edit" && $id!=""){
 				$sql = "SELECT * FROM " . db_prefix("creatures") . " WHERE creatureid=$id";
@@ -230,17 +230,17 @@ if ($op=="" || $op=="search"){
 			rawoutput("<form action='creatures.php?op=save' method='POST'>");
 			showform($form, $row);
 			rawoutput("</form>");
-			addnav("","creatures.php?op=save");
+			OutputClass::addnav("","creatures.php?op=save");
 		}
 	}else{
 		$module = Http::httpget("module");
 		rawoutput("<form action='mounts.php?op=save&subop=module&creatureid=$id&module=$module' method='POST'>");
 		module_objpref_edit("creatures", $module, $id);
 		rawoutput("</form>");
-		addnav("", "creatures.php?op=save&subop=module&creatureid=$id&module=$module");
+		OutputClass::addnav("", "creatures.php?op=save&subop=module&creatureid=$id&module=$module");
 	}
-	addnav("Navigation");
-	addnav("Return to the creature editor","creatures.php?level=$level");
+	OutputClass::addnav("Navigation");
+	OutputClass::addnav("Return to the creature editor","creatures.php?level=$level");
 }
 page_footer();
 ?>

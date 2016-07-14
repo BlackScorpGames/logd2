@@ -37,14 +37,14 @@ function lovers_seth(){
 			//not married.
 			if (Http::httpget("flirt")==""){
 				//haven't flirted yet
-				addnav("Flirt");
-				addnav("Wink","runmodule.php?module=lovers&op=flirt&flirt=1");
-				addnav("Flutter Eyelashes","runmodule.php?module=lovers&op=flirt&flirt=2");
-				addnav("Drop Hanky","runmodule.php?module=lovers&op=flirt&flirt=3");
-				addnav("Ask him to buy you a drink","runmodule.php?module=lovers&op=flirt&flirt=4");
-				addnav("Kiss him soundly","runmodule.php?module=lovers&op=flirt&flirt=5");
-				addnav("Completely seduce him","runmodule.php?module=lovers&op=flirt&flirt=6");
-				addnav("Marry him","runmodule.php?module=lovers&op=flirt&flirt=7");
+				OutputClass::addnav("Flirt");
+				OutputClass::addnav("Wink","runmodule.php?module=lovers&op=flirt&flirt=1");
+				OutputClass::addnav("Flutter Eyelashes","runmodule.php?module=lovers&op=flirt&flirt=2");
+				OutputClass::addnav("Drop Hanky","runmodule.php?module=lovers&op=flirt&flirt=3");
+				OutputClass::addnav("Ask him to buy you a drink","runmodule.php?module=lovers&op=flirt&flirt=4");
+				OutputClass::addnav("Kiss him soundly","runmodule.php?module=lovers&op=flirt&flirt=5");
+				OutputClass::addnav("Completely seduce him","runmodule.php?module=lovers&op=flirt&flirt=6");
+				OutputClass::addnav("Marry him","runmodule.php?module=lovers&op=flirt&flirt=7");
 			}else{
 				//flirting now
 				$c = $session['user']['charm'];

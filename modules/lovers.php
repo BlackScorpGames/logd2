@@ -81,16 +81,16 @@ function lovers_dohook($hookname, $args){
 		}
 		break;
 	case "inn":
-		addnav("Things to do");
+		OutputClass::addnav("Things to do");
 		if ($session['user']['sex']==SEX_MALE){
-			addnav(array("F?Flirt with %s", $partner),
+			OutputClass::addnav(array("F?Flirt with %s", $partner),
 					"runmodule.php?module=lovers&op=flirt");
-			addnav(array("Chat with %s",Translator::translate_inline(Settings::getsetting("bard", "`^Seth"))),
+			OutputClass::addnav(array("Chat with %s",Translator::translate_inline(Settings::getsetting("bard", "`^Seth"))),
 					"runmodule.php?module=lovers&op=chat");
 		}else{
-			addnav(array("F?Flirt with %s", $partner),
+			OutputClass::addnav(array("F?Flirt with %s", $partner),
 					"runmodule.php?module=lovers&op=flirt");
-			addnav(array("Gossip with %s",Translator::translate_inline(Settings::getsetting("barmaid", "`%Violet"))),
+			OutputClass::addnav(array("Gossip with %s",Translator::translate_inline(Settings::getsetting("barmaid", "`%Violet"))),
 					"runmodule.php?module=lovers&op=chat");
 		}
 		break;
@@ -127,8 +127,8 @@ function lovers_run(){
 		}
 		break;
 	}
-	addnav("Return");
-	addnav("I?Return to the Inn","inn.php");
+	OutputClass::addnav("Return");
+	OutputClass::addnav("I?Return to the Inn","inn.php");
 	villagenav();
 	rawoutput("</span>");
 	page_footer();

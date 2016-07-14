@@ -13,10 +13,10 @@
  * @subpackage Library
  * @license http://creativecommons.org/licenses/by-nc-sa/2.0/legalcode
  */
-addnav("About LoGD");
-addnav("About LoGD","about.php");
-addnav("Module Info","about.php?op=listmodules");
-addnav("License Info", "about.php?op=license");
+OutputClass::addnav("About LoGD");
+OutputClass::addnav("About LoGD","about.php");
+OutputClass::addnav("Module Info","about.php?op=listmodules");
+OutputClass::addnav("License Info", "about.php?op=license");
 $setup = array(
 	"Game Setup,title",
 	"pvp"=>"Enable Slay Other Players,viewonly",

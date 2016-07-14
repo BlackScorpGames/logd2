@@ -108,8 +108,8 @@ function racedwarf_dohook($hookname,$args){
 		break;
 	case "chooserace":
 		OutputClass::output("<a href='newday.php?setrace=$race$resline'>Deep in the subterranean strongholds of %s</a>, home to the noble and fierce `#Dwarven`0 people whose desire for privacy and treasure bears no resemblance to their tiny stature.`n`n", $city, true);
-		addnav("`#Dwarf`0","newday.php?setrace=$race$resline");
-		addnav("","newday.php?setrace=$race$resline");
+		OutputClass::addnav("`#Dwarf`0","newday.php?setrace=$race$resline");
+		OutputClass::addnav("","newday.php?setrace=$race$resline");
 		break;
 	case "setrace":
 		if ($session['user']['race']==$race){
@@ -153,15 +153,15 @@ function racedwarf_dohook($hookname,$args){
 		$ccity = urlencode($city);
 		Translator::tlschema("module-cities");
 		if ($session['user']['location']==$capital){
-			addnav("Safer Travel");
-			addnav(array("%s?Go to %s", $hotkey, $city),"runmodule.php?module=cities&op=travel&city=$ccity");
+			OutputClass::addnav("Safer Travel");
+			OutputClass::addnav(array("%s?Go to %s", $hotkey, $city),"runmodule.php?module=cities&op=travel&city=$ccity");
 		}elseif ($session['user']['location']!=$city){
-			addnav("More Dangerous Travel");
-			addnav(array("%s?Go to %s", $hotkey, $city),"runmodule.php?module=cities&op=travel&city=$ccity&d=1");
+			OutputClass::addnav("More Dangerous Travel");
+			OutputClass::addnav(array("%s?Go to %s", $hotkey, $city),"runmodule.php?module=cities&op=travel&city=$ccity&d=1");
 		}
 		if ($session['user']['superuser'] & SU_EDIT_USERS){
-			addnav("Superuser");
-			addnav(array("%s?Go to %s", $hotkey, $city),"runmodule.php?module=cities&op=travel&city=$ccity&su=1");
+			OutputClass::addnav("Superuser");
+			OutputClass::addnav(array("%s?Go to %s", $hotkey, $city),"runmodule.php?module=cities&op=travel&city=$ccity&su=1");
 		}
 		Translator::tlschema();
 		break;
@@ -218,9 +218,9 @@ function racedwarf_dohook($hookname,$args){
 	case "village":
 		if ($session['user']['location'] == $city) {
 			Translator::tlschema($args['schemas']['tavernnav']);
-			addnav($args['tavernnav']);
+			OutputClass::addnav($args['tavernnav']);
 			Translator::tlschema();
-			addnav("K?Great Kegs of Ale","runmodule.php?module=racedwarf&op=ale");
+			OutputClass::addnav("K?Great Kegs of Ale","runmodule.php?module=racedwarf&op=ale");
 		}
 		break;
 	case "drinks-text":
@@ -330,9 +330,9 @@ function racedwarf_run(){
 		PageParts::page_header("Great Kegs of Ale");
 		OutputClass::output("`3You make your way over to the great kegs of ale lined up near by, looking to score a hearty draught from their mighty reserves.");
 		OutputClass::output("A mighty dwarven barkeep named `\$G`4argoyle`3 stands at least 4 feet tall, and is serving out the drinks to the boisterous crowd.");
-		addnav("Drinks");
+		OutputClass::addnav("Drinks");
 		modulehook("ale");
-		addnav("Other");
+		OutputClass::addnav("Other");
 		villagenav();
 		page_footer();
 		break;

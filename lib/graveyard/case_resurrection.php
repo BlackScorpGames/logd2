@@ -15,5 +15,5 @@ OutputClass::output("\"`)Tnavres o htaed eht morf esir.`\$\" Your soul begins to
 OutputClass::output("\"`)Enim si htaed revo rewop.`\$\" Gradually you begin to become aware that the fires are dimming and are replaced by the blinding pain last known by your body before it fell.`n`n");
 OutputClass::output("\"`)Niaga ut tnarg oge efil ruoy.`\$\" You begin to look around you, and you watch as your muscles knit themselves back together.`n`n");
 OutputClass::output("\"`)Niaga em ot nruter llahs ut wonk oge rof.`\$\" With a gasp, you laboriously again draw your first breath.");
-addnav("Continue","newday.php?resurrection=true");
+OutputClass::addnav("Continue","newday.php?resurrection=true");
 ?>

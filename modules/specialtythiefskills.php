@@ -81,11 +81,11 @@ function specialtythiefskills_dohook($hookname,$args){
 	case "choose-specialty":
 		if ($session['user']['specialty'] == "" ||
 				$session['user']['specialty'] == '0') {
-			addnav("$ccode$name`0","newday.php?setspecialty=".$spec."$resline");
+			OutputClass::addnav("$ccode$name`0","newday.php?setspecialty=".$spec."$resline");
 			$t1 = Translator::translate_inline("Stealing from the rich and giving to yourself");
 			$t2 = appoencode(Translator::translate_inline("$ccode$name`0"));
 			rawoutput("<a href='newday.php?setspecialty=$spec$resline'>$t1 ($t2)</a><br>");
-			addnav("","newday.php?setspecialty=$spec$resline");
+			OutputClass::addnav("","newday.php?setspecialty=$spec$resline");
 		}
 		break;
 	case "set-specialty":
@@ -144,20 +144,20 @@ function specialtythiefskills_dohook($hookname,$args){
 		$uses = get_module_pref("uses");
 		$script = $args['script'];
 		if ($uses > 0) {
-			addnav(array("$ccode$name (%s points)`0", $uses), "");
-			addnav(array("$ccode &#149; Insult`7 (%s)`0", 1), 
+			OutputClass::addnav(array("$ccode$name (%s points)`0", $uses), "");
+			OutputClass::addnav(array("$ccode &#149; Insult`7 (%s)`0", 1), 
 					$script."op=fight&skill=$spec&l=1", true);
 		}
 		if ($uses > 1) {
-			addnav(array("$ccode &#149; Poison Blade`7 (%s)`0", 2),
+			OutputClass::addnav(array("$ccode &#149; Poison Blade`7 (%s)`0", 2),
 					$script."op=fight&skill=$spec&l=2",true);
 		}
 		if ($uses > 2) {
-			addnav(array("$ccode &#149; Hidden Attack`7 (%s)`0", 3),
+			OutputClass::addnav(array("$ccode &#149; Hidden Attack`7 (%s)`0", 3),
 					$script."op=fight&skill=$spec&l=3",true);
 		}
 		if ($uses > 4) {
-			addnav(array("$ccode &#149; Backstab`7 (%s)`0", 5),
+			OutputClass::addnav(array("$ccode &#149; Backstab`7 (%s)`0", 5),
 					$script."op=fight&skill=$spec&l=5",true);
 		}
 		break;

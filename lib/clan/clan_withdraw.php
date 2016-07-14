@@ -51,6 +51,6 @@
 		$session['user']['clanrank']=CLAN_APPLICANT;
 		$session['user']['clanjoindate']="0000-00-00 00:00:00";
 		OutputClass::output("`&You have withdrawn from your clan.");
-		addnav("Clan Options");
-		addnav("Return to the Lobby","clan.php");
+		OutputClass::addnav("Clan Options");
+		OutputClass::addnav("Return to the Lobby","clan.php");
 ?>

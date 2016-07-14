@@ -222,9 +222,9 @@ if ($dp < $dkills) {
 	$x = max(strrpos("&",$rp),strrpos("?",$rp));
 	if ($x>0) $rp = substr($rp,0,$x);
 	if (substr($rp,0,10)=="badnav.php"){
-		addnav("Continue","news.php");
+		OutputClass::addnav("Continue","news.php");
 	}else{
-		addnav("Continue", cmd_sanitize($rp));
+		OutputClass::addnav("Continue", cmd_sanitize($rp));
 	}
 
 	$session['user']['laston'] = date("Y-m-d H:i:s");

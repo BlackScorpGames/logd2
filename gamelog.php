@@ -13,7 +13,7 @@ check_su_access(SU_EDIT_CONFIG);
 Translator::tlschema("gamelog");
 
 PageParts::page_header("Game Log");
-addnav("Navigation");
+OutputClass::addnav("Navigation");
 require_once("lib/superusernav.php");
 superusernav();
 
@@ -35,15 +35,15 @@ $start = (int)Http::httpget('start');
 $sql = "SELECT ".db_prefix("gamelog").".*, ".db_prefix("accounts").".name AS name FROM ".db_prefix("gamelog")." LEFT JOIN ".db_prefix("accounts")." ON ".db_prefix("gamelog").".who = ".db_prefix("accounts").".acctid $sqlcat LIMIT $start,500";
 $next = $start+500;
 $prev = $start-500;
-addnav("Operations");
-addnav("Refresh", "gamelog.php?start=$start$cat");
-if ($category > "") addnav("View all", "gamelog.php");
-addnav("Game Log");
+OutputClass::addnav("Operations");
+OutputClass::addnav("Refresh", "gamelog.php?start=$start$cat");
+if ($category > "") OutputClass::addnav("View all", "gamelog.php");
+OutputClass::addnav("Game Log");
 if ($next < $max) {
-	addnav("Next page","gamelog.php?start=$next$cat");
+	OutputClass::addnav("Next page","gamelog.php?start=$next$cat");
 }
 if ($start > 0) {
-	addnav("Previous page", "gamelog.php?start=$prev$cat");
+	OutputClass::addnav("Previous page", "gamelog.php?start=$prev$cat");
 }
 $result = db_query($sql);
 $odate = "";
@@ -59,8 +59,8 @@ while ($row = db_fetch_assoc($result)) {
 	$time = date("H:i:s", strtotime($row['date']))." (".reltime(strtotime($row['date'])).")";
 	output_notl("`7(%s) %s `7(`&%s`7)", $row['category'], $row['message'], $row['name']);
 	if (!isset($categories[$row['category']]) && $category == "") {
-		addnav("Operations");
-		addnav(array("View by `i%s`i", $row['category']), "gamelog.php?cat=".$row['category']);
+		OutputClass::addnav("Operations");
+		OutputClass::addnav(array("View by `i%s`i", $row['category']), "gamelog.php?cat=".$row['category']);
 		$categories[$row['category']] = 1;
 	}
 	output_notl("`n");

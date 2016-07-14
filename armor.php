@@ -108,10 +108,10 @@ if ($op==""){
 			if ($link) {
 				rawoutput("</a>");
 			}
-			addnav("","armor.php?op=buy&id={$row['armorid']}");
+			OutputClass::addnav("","armor.php?op=buy&id={$row['armorid']}");
 		}else{
 			output_notl("%s%s`0", $color, $row['armorname']);
-			addnav("","armor.php?op=buy&id={$row['armorid']}");
+			OutputClass::addnav("","armor.php?op=buy&id={$row['armorid']}");
 		}
 		rawoutput("</td><td align='center'>");
 		output_notl("%s%s`0", $color, $row['defense']);
@@ -135,7 +135,7 @@ if ($op==""){
 		OutputClass::output($texts['nosuchweapon']);
 		Translator::tlschema();
 		Translator::tlschema($schemas['tryagain']);
-		addnav($texts['tryagain'],"armor.php");
+		OutputClass::addnav($texts['tryagain'],"armor.php");
 		Translator::tlschema();
 		villagenav();
 	}else{

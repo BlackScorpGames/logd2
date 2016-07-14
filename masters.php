@@ -47,8 +47,8 @@ if ($op == "del") {
 	$op = "";
 	httpset("op", "");
 } elseif ($op == "edit") {
-	addnav("Functions");
-	addnav("Return to Masters Editor", "masters.php");
+	OutputClass::addnav("Functions");
+	OutputClass::addnav("Return to Masters Editor", "masters.php");
 	$sql = "SELECT * FROM ".db_prefix("masters")." WHERE creatureid=$id";
 	$res = db_query($sql);
 	if (db_num_rows($res) == 0) {
@@ -62,7 +62,7 @@ if ($op == "del") {
 	} else {
 		$row = db_fetch_assoc($res);
 	}
-	addnav("","masters.php?op=save&id=$id");
+	OutputClass::addnav("","masters.php?op=save&id=$id");
 	rawoutput("<form action='masters.php?op=save&id=$id' method='POST'>");
 	OutputClass::output("`^Master's level:`n");
 	rawoutput("<input id='input' name='level' value='".htmlentities($row['creaturelevel'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."' SIZE=5>");
@@ -95,9 +95,9 @@ if ($op == "del") {
 }
 
 if ($op == "") {
-	addnav("Functions");
-	addnav("Refresh list", "masters.php");
-	addnav("Add master", "masters.php?op=edit&id=0");
+	OutputClass::addnav("Functions");
+	OutputClass::addnav("Refresh list", "masters.php");
+	OutputClass::addnav("Add master", "masters.php?op=edit&id=0");
 	$sql = "SELECT * FROM ".db_prefix("masters")." ORDER BY creaturelevel";
 	$res = db_query($sql);
 	$count = db_num_rows($res);
@@ -121,8 +121,8 @@ if ($op == "") {
 		rawoutput("</a> | <a href='masters.php?op=del&id=$id' onClick='return confirm(\"$delconfirm\");'>");
 		output_notl($del);
 		rawoutput("] </a>");
-		addnav("","masters.php?op=edit&id=$id");
-		addnav("","masters.php?op=del&id=$id");
+		OutputClass::addnav("","masters.php?op=edit&id=$id");
+		OutputClass::addnav("","masters.php?op=del&id=$id");
 		rawoutput("</td><td>");
 		output_notl("`%%s`0",$row['creaturelevel']);
 		rawoutput("</td><td>");

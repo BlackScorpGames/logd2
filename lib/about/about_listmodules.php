@@ -14,10 +14,10 @@
  * @subpackage Library
  * @license http://creativecommons.org/licenses/by-nc-sa/2.0/legalcode
  */
-addnav("About LoGD");
-addnav("About LoGD","about.php");
-addnav("Game Setup Info","about.php?op=setup");
-addnav("License Info", "about.php?op=license");
+OutputClass::addnav("About LoGD");
+OutputClass::addnav("About LoGD","about.php");
+OutputClass::addnav("Game Setup Info","about.php?op=setup");
+OutputClass::addnav("License Info", "about.php?op=license");
 $sql = "SELECT * from " . db_prefix("modules") . " WHERE active=1 ORDER BY category,formalname";
 $result = db_query($sql);
 $mname = Translator::translate_inline("Module Name");
