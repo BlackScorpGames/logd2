@@ -18,7 +18,7 @@ require_once("lib/http.php");
 
 if (!isset($session['loggedin'])) $session['loggedin']=false;
 if ($session['loggedin']){
-	redirect("badnav.php");
+	RedirectClass::redirect("badnav.php");
 }
 
 Translator::tlschema("home");

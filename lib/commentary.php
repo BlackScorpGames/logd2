@@ -72,7 +72,7 @@ function addcommentary() {
 			$return = substr($return,0,$x-1)."?".substr($return,$x+1);
 		}
 		debug($return);
-		redirect($return);
+		RedirectClass::redirect($return);
 	}
 	if (array_key_exists('commentcounter',$session) &&
 			$session['commentcounter']==$counter) {

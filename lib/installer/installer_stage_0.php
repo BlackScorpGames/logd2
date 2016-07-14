@@ -47,7 +47,7 @@ if (DB_CHOSEN){
 				$needsauthentication = false;
 			}
 			if ($needsauthentication === false) {
-				redirect("installer.php?stage=1");
+				RedirectClass::redirect("installer.php?stage=1");
 			}
 			OutputClass::output("`\$That username / password was not found, or is not an account with sufficient privileges to perform the upgrade.`n");
 		}else{

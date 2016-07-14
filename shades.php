@@ -12,7 +12,7 @@ PageParts::page_header("Land of the Shades");
 addcommentary();
 checkday();
 
-if ($session['user']['alive']) redirect("village.php");
+if ($session['user']['alive']) RedirectClass::redirect("village.php");
 OutputClass::output("`\$You walk among the dead now, you are a shade. ");
 OutputClass::output("Everywhere around you are the souls of those who have fallen in battle, in old age, and in grievous accidents. ");
 OutputClass::output("Each bears telltale signs of the means by which they met their end.`n`n");

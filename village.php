@@ -121,7 +121,7 @@ if ($session['user']['slaydragon'] == 1) {
 
 
 if ($session['user']['alive']){ }else{
-	redirect("shades.php");
+	RedirectClass::redirect("shades.php");
 }
 
 if (Settings::getsetting("automaster",1) && $session['user']['seenmaster']!=1){
@@ -131,7 +131,7 @@ if (Settings::getsetting("automaster",1) && $session['user']['seenmaster']!=1){
 	$expreqd = exp_for_next_level($level, $dks);
 	if ($session['user']['experience']>$expreqd &&
 			$session['user']['level']<15){
-		redirect("train.php?op=autochallenge");
+		RedirectClass::redirect("train.php?op=autochallenge");
 	}
 }
 

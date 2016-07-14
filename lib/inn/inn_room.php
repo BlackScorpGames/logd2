@@ -26,7 +26,7 @@ if ($pay){
 			saveuser();
 		}
 		$session=array();
-		redirect("index.php");
+		RedirectClass::redirect("index.php");
 	}else{
 		OutputClass::output("\"Aah, so that's how it is,\" %s`0 says as he puts the key he had retrieved back on to its hook behind his counter.",$barkeep);
 		OutputClass::output("Perhaps you'd like to get sufficient funds before you attempt to engage in local commerce.");

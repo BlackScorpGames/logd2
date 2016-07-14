@@ -17,7 +17,7 @@ $vname = Settings::getsetting("villagename", LOCATION_FIELDS);
 
 if ($name!=""){
 	if ($session['loggedin']){
-		redirect("badnav.php");
+		RedirectClass::redirect("badnav.php");
 	}else{
 		$password = httppost('password');
 		$password = stripslashes($password);
@@ -93,12 +93,12 @@ if ($name!=""){
 					$session['user']['location']=$vname;
 
 				if ($session['user']['restorepage']>""){
-					redirect($session['user']['restorepage']);
+					RedirectClass::redirect($session['user']['restorepage']);
 				}else{
 					if ($location == $iname) {
-						redirect("inn.php?op=strolldown");
+						RedirectClass::redirect("inn.php?op=strolldown");
 					}else{
-						redirect("news.php");
+						RedirectClass::redirect("news.php");
 					}
 				}
 			}
@@ -153,7 +153,7 @@ if ($name!=""){
 					}//end if($c>=10)
 				}//end while
 			}//end if (db_num_rows)
-			redirect("index.php");
+			RedirectClass::redirect("index.php");
 		}
 	}
 }else if ($op=="logout"){
@@ -179,10 +179,10 @@ if ($name!=""){
 		saveuser();
 	}
 	$session=array();
-	redirect("index.php");
+	RedirectClass::redirect("index.php");
 }
 // If you enter an empty username, don't just say oops.. do something useful.
 $session=array();
 $session['message']=Translator::translate_inline("`4Error, your login was incorrect`0");
-redirect("index.php");
+RedirectClass::redirect("index.php");
 ?>

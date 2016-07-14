@@ -79,7 +79,7 @@ if(!defined("ALLOW_ANONYMOUS")) define("ALLOW_ANONYMOUS",false);
 
 require_once("lib/template.php");
 require_once("lib/settings.php");
-require_once("lib/redirect.php");
+require_once("lib/RedirectClass::redirect.php");
 require_once("lib/censor.php");
 require_once("lib/saveuser.php");
 require_once("lib/arrayutil.php");
@@ -209,7 +209,7 @@ if (!$session['user']['loggedin']) $session['loggedin'] = false;
 else $session['loggedin'] = true;
 
 if ($session['user']['loggedin']!=true && !ALLOW_ANONYMOUS){
-	redirect("login.php?op=logout");
+	RedirectClass::redirect("login.php?op=logout");
 }
 
 if (!isset($session['user']['gentime'])) $session['user']['gentime'] = 0;

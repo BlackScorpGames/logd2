@@ -93,7 +93,7 @@ if ($op=="add2"){
 		$sql = "UPDATE ".db_prefix("paylog")." SET acctid='$id', processed=1 WHERE txnid='$txnid'";
 		db_query($sql);
 		debuglog("Received donator points for donating -- Credited manually [$reason]",false,$id,"donation",$points,false);
-		redirect("paylog.php");
+		RedirectClass::redirect("paylog.php");
 	}else{
 		debuglog("Received donator points -- Manually assigned, not based on a known dollar donation [$reason]",false,$id,"donation",$amt,false);
 	}

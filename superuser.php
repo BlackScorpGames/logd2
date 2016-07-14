@@ -27,7 +27,7 @@ if ($op=="keepalive"){
 	$return = Http::httpget('return');
 	$return = cmd_sanitize($return);
 	$return = substr($return,strrpos($return,"/")+1);
-	redirect($return);
+	RedirectClass::redirect($return);
 }
 
 PageParts::page_header("Superuser Grotto");

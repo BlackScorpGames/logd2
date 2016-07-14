@@ -45,7 +45,7 @@ if ($session['user']['loggedin'] && $session['loggedin']){
 }else{
 	$session=array();
 	translator_setup();
-	redirect("index.php");
+	RedirectClass::redirect("index.php");
 }
 
 ?>

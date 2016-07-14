@@ -25,25 +25,25 @@ function do_forced_nav($anonymous,$overrideforced){
 			}
 			if (!$session['user']['loggedin'] || ( (date("U") - strtotime($session['user']['laston'])) > Settings::getsetting("LOGINTIMEOUT",900)) ){
 				$session=array();
-				redirect("index.php?op=timeout","Account not logged in but session thinks they are.");
+				RedirectClass::redirect("index.php?op=timeout","Account not logged in but session thinks they are.");
 			}
 		}else{
 			$session=array();
 			$session['message']=Translator::translate_inline("`4Error, your login was incorrect`0","login");
-			redirect("index.php","Account Disappeared!");
+			RedirectClass::redirect("index.php","Account Disappeared!");
 		}
 		db_free_result($result);
 		if (isset($session['allowednavs'][$REQUEST_URI]) && $session['allowednavs'][$REQUEST_URI] && $overrideforced!==true){
 			$session['allowednavs']=array();
 		}else{
 			if ($overrideforced!==true){
-				redirect("badnav.php","Navigation not allowed to $REQUEST_URI");
+				RedirectClass::redirect("badnav.php","Navigation not allowed to $REQUEST_URI");
 			}
 		}
 	}else{
 		if (!$anonymous){
 			$session['message']=Translator::translate_inline("You are not logged in, this may be because your session timed out.","login");
-			redirect("index.php?op=timeout","Not logged in: $REQUEST_URI");
+			RedirectClass::redirect("index.php?op=timeout","Not logged in: $REQUEST_URI");
 		}
 	}
 }

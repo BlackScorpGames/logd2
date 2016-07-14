@@ -92,7 +92,7 @@ if ($op=="commentdelete"){
 	}
 	//update moderation cache
 	invalidatedatacache("comments-or11");
-	redirect($return);
+	RedirectClass::redirect($return);
 }
 
 $seen = Http::httpget("seen");
