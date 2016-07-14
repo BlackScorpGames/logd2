@@ -79,7 +79,7 @@ if(!defined("ALLOW_ANONYMOUS")) define("ALLOW_ANONYMOUS",false);
 
 require_once("lib/template.php");
 require_once("lib/settings.php");
-require_once("lib/RedirectClass::redirect.php");
+require_once("lib/redirect.php");
 require_once("lib/censor.php");
 require_once("lib/saveuser.php");
 require_once("lib/arrayutil.php");
