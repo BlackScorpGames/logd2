@@ -27,7 +27,7 @@ if ($op == "fleedragon") {
 }
 
 PageParts::page_header(array("%s",sanitize($iname)));
-$skipinndesc = handle_event("inn");
+$skipinndesc = Events::handle_event("inn");
 
 if (!$skipinndesc) {
 	checkday();

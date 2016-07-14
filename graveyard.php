@@ -10,7 +10,7 @@ require_once("lib/events.php");
 Translator::tlschema("graveyard");
 
 PageParts::page_header("The Graveyard");
-$skipgraveyardtext = handle_event("graveyard");
+$skipgraveyardtext = Events::handle_event("graveyard");
 $deathoverlord=Settings::getsetting('deathoverlord','`$Ramius');
 if (!$skipgraveyardtext) {
 	if ($session['user']['alive']) {

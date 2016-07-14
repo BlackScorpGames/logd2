@@ -13,7 +13,7 @@ Translator::tlschema("gardens");
 PageParts::page_header("The Gardens");
 
 Commentary::addcommentary();
-$skipgardendesc = handle_event("gardens");
+$skipgardendesc = Events::handle_event("gardens");
 $op = Http::httpget('op');
 $com = Http::httpget('comscroll');
 $refresh = Http::httpget("refresh");

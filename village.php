@@ -112,7 +112,7 @@ PageParts::page_header($texts['title']);
 Translator::tlschema();
 
 Commentary::addcommentary();
-$skipvillagedesc = handle_event("village");
+$skipvillagedesc = Events::handle_event("village");
 checkday();
 
 if ($session['user']['slaydragon'] == 1) {

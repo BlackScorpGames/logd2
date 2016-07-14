@@ -14,7 +14,7 @@ Translator::tlschema("forest");
 
 $fight = false;
 PageParts::page_header("The Forest");
-$dontdisplayforestmessage=handle_event("forest");
+$dontdisplayforestmessage=Events::handle_event("forest");
 
 $op = Http::httpget("op");
 
