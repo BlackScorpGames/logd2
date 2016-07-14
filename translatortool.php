@@ -7,11 +7,11 @@ require_once("common.php");
 Translator::tlschema("translatortool");
 
 check_su_access(SU_IS_TRANSLATOR);
-$op=httpget("op");
+$op=Http::httpget("op");
 if ($op==""){
 	popup_header("Translator Tool");
-	$uri = rawurldecode(httpget('u'));
-	$text = stripslashes(rawurldecode(httpget('t')));
+	$uri = rawurldecode(Http::httpget('u'));
+	$text = stripslashes(rawurldecode(Http::httpget('t')));
 	
 	$translation = translate_loadnamespace($uri);
 	if (isset($translation[$text]))
@@ -114,7 +114,7 @@ if ($op==""){
 	$norows = translate_inline("No rows found");
 	rawoutput("<table border='0' cellpadding='2' cellspacing='0'>");
 	rawoutput("<tr class='trhead'><td>$ops</td><td>$from</td><td>$to</td><td>$version</td><td>$author</td></tr>");
-	$sql = "SELECT * FROM " . db_prefix("translations") . " WHERE language='".LANGUAGE."' AND uri='".httpget("u")."'";
+	$sql = "SELECT * FROM " . db_prefix("translations") . " WHERE language='".LANGUAGE."' AND uri='".Http::httpget("u")."'";
 	$result = db_query($sql);
 	if (db_num_rows($result)>0){
 		$i=0;

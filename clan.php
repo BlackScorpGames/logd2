@@ -27,9 +27,9 @@ $ranks = translate_inline($args['ranks']);
 $apply_short = "`@Clan App: `&%s`0";
 $apply_subj = array($apply_short, $session['user']['name']);
 
-$op = httpget('op');
+$op = Http::Http::httpget('op');
 
-$detail = httpget('detail');
+$detail = Http::Http::httpget('detail');
 if ($detail>0){
 	require_once("lib/clan/detail.php");
 }elseif ($op=="list"){

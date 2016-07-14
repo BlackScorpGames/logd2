@@ -68,8 +68,8 @@ function cedrikspotions_uninstall(){
 function cedrikspotions_dohook($hookname,$args){
 	switch($hookname){
 	case "header-inn":
-		$op = httpget("op");
-		$act = httpget("act");
+		$op = Http::httpget("op");
+		$act = Http::httpget("act");
 		if($op=="bartender" && $act == "") {
 			addnav_notl(sanitize(getsetting("barkeep","`tCedrik")));
 			addnav("Gems","runmodule.php?module=cedrikspotions&op=gems");
@@ -96,7 +96,7 @@ function cedrikspotions_dohook($hookname,$args){
 function cedrikspotions_run(){
 	global $session;
 	$wish = httppost('wish');
-	$op = httpget("op");
+	$op = Http::httpget("op");
 	$iname = getsetting("innname", LOCATION_INN);
 	Translator::tlschema("inn");
 	page_header($iname);

@@ -17,8 +17,8 @@ $iname = getsetting("innname", LOCATION_INN);
 $battle = false;
 
 page_header("PvP Combat!");
-$op = httpget('op');
-$act = httpget('act');
+$op = Http::httpget('op');
+$act = Http::httpget('act');
 
 if ($op=="" && $act!="attack"){
 	checkday();
@@ -35,7 +35,7 @@ if ($op=="" && $act!="attack"){
 	pvplist();
 	villagenav();
 } else if ($act == "attack") {
-	$name = httpget('name');
+	$name = Http::httpget('name');
 	$badguy = setup_target($name);
 	$options['type'] = "pvp";
 	$failedattack = false;
@@ -54,7 +54,7 @@ if ($op=="" && $act!="attack"){
 	}
 
 	if ($failedattack){
-		if (httpget('inn') > ""){
+		if (Http::httpget('inn') > ""){
 			addnav("Return to Listing","inn.php?op=bartender&act=listupstairs");
 		}else{
 			addnav("Return to Listing","pvp.php");
@@ -68,7 +68,7 @@ if ($op=="run"){
   httpset('op', $op);
 }
 
-$skill = httpget('skill');
+$skill = Http::httpget('skill');
 if ($skill!=""){
   output("Your honor prevents you from using any special ability");
   $skill="";
@@ -123,7 +123,7 @@ if ($battle){
 		}
 	}else{
 		$extra = "";
-		if (httpget('inn')) $extra = "?inn=1";
+		if (Http::httpget('inn')) $extra = "?inn=1";
 		fightnav(false,false, "pvp.php$extra");
 	}
 }

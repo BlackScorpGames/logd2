@@ -21,13 +21,13 @@ page_header("Creature Editor");
 require_once("lib/superusernav.php");
 superusernav();
 
-$op = httpget("op");
-$subop = httpget("subop");
+$op = Http::httpget("op");
+$subop = Http::httpget("subop");
 if ($op == "save"){
 	$forest = (int)(httppost('forest'));
 	$grave = (int)(httppost('graveyard'));
 	$id = httppost('creatureid');
-	if (!$id) $id = httpget("creatureid");
+	if (!$id) $id = Http::httpget("creatureid");
 	if ($subop == "") {
 		$post = httpallpost();
 		$lev = (int)httppost('creaturelevel');
@@ -80,7 +80,7 @@ if ($op == "save"){
 		}
 	} elseif ($subop == "module") {
 		// Save module settings
-		$module = httpget("module");
+		$module = Http::httpget("module");
 		$post = httpallpost();
 		reset($post);
 		while(list($key, $val) = each($post)) {
@@ -88,14 +88,14 @@ if ($op == "save"){
 		}
 		output("`^Saved!`0`n");
 	}
-	// Set the httpget id so that we can do the editor once we save
+	// Set the Http::httpget id so that we can do the editor once we save
 	httpset("creatureid", $id, true);
-	// Set the httpget op so we drop back into the editor
+	// Set the Http::httpget op so we drop back into the editor
 	httpset("op", "edit");
 }
 
-$op = httpget('op');
-$id = httpget('creatureid');
+$op = Http::httpget('op');
+$id = Http::httpget('creatureid');
 if ($op=="del"){
 	$sql = "DELETE FROM " . db_prefix("creatures") . " WHERE creatureid = '$id'";
 	db_query($sql);
@@ -108,7 +108,7 @@ if ($op=="del"){
 	httpset('op', "");
 }
 if ($op=="" || $op=="search"){
-	$level = httpget("level");
+	$level = Http::httpget("level");
 	if (!$level) $level = 1;
 	$q = httppost("q");
 	if ($q) {
@@ -185,7 +185,7 @@ if ($op=="" || $op=="search"){
 	}
 	rawoutput("</table>");
 }else{
-	$level = httpget('level');
+	$level = Http::httpget('level');
 	if (!$level) $level = 1;
 	if ($op=="edit" || $op=="add"){
 		require_once("lib/showform.php");
@@ -195,7 +195,7 @@ if ($op=="" || $op=="search"){
 		addnav("Add Another Creature", "creatures.php?op=add&level=$level");
 		module_editor_navs("prefs-creatures", "creatures.php?op=edit&subop=module&creatureid=$id&module=");
 		if ($subop == "module") {
-			$module = httpget("module");
+			$module = Http::httpget("module");
 			rawoutput("<form action='creatures.php?op=save&subop=module&creatureid=$id&module=$module' method='POST'>");
 			module_objpref_edit("creatures", $module, $id);
 			rawoutput("</form>");
@@ -233,7 +233,7 @@ if ($op=="" || $op=="search"){
 			addnav("","creatures.php?op=save");
 		}
 	}else{
-		$module = httpget("module");
+		$module = Http::httpget("module");
 		rawoutput("<form action='mounts.php?op=save&subop=module&creatureid=$id&module=$module' method='POST'>");
 		module_objpref_edit("creatures", $module, $id);
 		rawoutput("</form>");

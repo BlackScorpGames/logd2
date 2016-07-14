@@ -19,8 +19,8 @@ db_query($sql);
 //
 
 
-$op = httpget('op');
-$id = httpget('id');
+$op = Http::httpget('op');
+$id = Http::httpget('id');
 if($op=="del"){
 	$sql = "DELETE FROM " . db_prefix("mail") . " WHERE msgto='".$session['user']['acctid']."' AND messageid='$id'";
 	db_query($sql);
@@ -249,13 +249,13 @@ if ($op==""){
 	output("`b`2Address:`b`n");
 	$to = translate_inline("To: ");
 	$search = htmlentities(translate_inline("Search"));
-	output_notl("`2$to <input name='to' value=\"".htmlentities(stripslashes(httpget('prepop')))."\"> <input type='submit' class='button' value=\"$search\"></form>",true);
+	output_notl("`2$to <input name='to' value=\"".htmlentities(stripslashes(Http::httpget('prepop')))."\"> <input type='submit' class='button' value=\"$search\"></form>",true);
 }elseif($op=="write"){
 	$subject=httppost('subject');
 	$body="";
 	$row = "";
 	output_notl("<form action='mail.php?op=send' method='POST'>",true);
-	$replyto = httpget('replyto');
+	$replyto = Http::httpget('replyto');
 	if ($replyto!=""){
 		$sql = "SELECT ". db_prefix("mail") . ".body," . db_prefix("mail") . ".msgfrom, " . db_prefix("mail") . ".subject,". db_prefix("accounts") . ".login, superuser, " . db_prefix("accounts"). ".name FROM " . db_prefix("mail") . " LEFT JOIN " . db_prefix("accounts") . " ON " . db_prefix("accounts") . ".acctid=" . db_prefix("mail") . ".msgfrom WHERE msgto=\"".$session['user']['acctid']."\" AND messageid=\"".$replyto."\"";
 		$result = db_query($sql);
@@ -269,7 +269,7 @@ if ($op==""){
 			output("Eek, no such message was found!`n");
 		}
 	}
-	$to = httpget('to');
+	$to = Http::httpget('to');
 	if ($to!=""){
 		$sql = "SELECT login,name, superuser FROM " . db_prefix("accounts") . " WHERE login=\"$to\"";
 		$result = db_query($sql);
@@ -305,7 +305,7 @@ if ($op==""){
 			$body="\n\n---".translate_inline("Original Message")."---\n".$row['body'];
 		}
 	}
-	rawoutput("<input type='hidden' name='returnto' value=\"".htmlentities(stripslashes(httpget("replyto")))."\">");
+	rawoutput("<input type='hidden' name='returnto' value=\"".htmlentities(stripslashes(Http::httpget("replyto")))."\">");
 	$superusers = array();
 	if (isset($row['login']) && $row['login']!=""){
 		output_notl("<input type='hidden' name='to' id='to' value=\"".htmlentities($row['login'])."\">",true);
@@ -359,12 +359,12 @@ if ($op==""){
 	}
 	rawoutput("</script>");
 	output("`2Subject:");
-	rawoutput("<input name='subject' value=\"".HTMLEntities($subject).HTMLEntities(stripslashes(httpget('subject')))."\"><br>");
+	rawoutput("<input name='subject' value=\"".HTMLEntities($subject).HTMLEntities(stripslashes(Http::httpget('subject')))."\"><br>");
 	rawoutput("<div id='warning' style='visibility: hidden; display: none;'>");
 	output("`2Notice: `^$superusermessage`n");
 	rawoutput("</div>");
 	output("`2Body:`n");
-	rawoutput("<textarea name='body' id='textarea' class='input' cols='60' rows='9' onKeyUp='sizeCount(this);'>".HTMLEntities($body).HTMLEntities(stripslashes(httpget('body')))."</textarea><br>");
+	rawoutput("<textarea name='body' id='textarea' class='input' cols='60' rows='9' onKeyUp='sizeCount(this);'>".HTMLEntities($body).HTMLEntities(stripslashes(Http::httpget('body')))."</textarea><br>");
 	$send = translate_inline("Send");
 	rawoutput("<table border='0' cellpadding='0' cellspacing='0' width='100%'><tr><td><input type='submit' class='button' value='$send'></td><td align='right'><div id='sizemsg'></div></td></tr></table>");
 	output_notl("</form>",true);

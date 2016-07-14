@@ -85,8 +85,8 @@ if ($playermount) {
 }
 $confirm = 0;
 
-$op = httpget('op');
-$id = httpget('id');
+$op = Http::httpget('op');
+$id = Http::httpget('id');
 
 global $playermount;
 

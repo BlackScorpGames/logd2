@@ -71,7 +71,7 @@ function dag_manage(){
 	rawoutput("<input type='submit' class='button' value='$search'>");
 	rawoutput("</form>");
 
-	$op = httpget('op');
+	$op = Http::httpget('op');
 	if ($op == "") {
 		// ***ADDED***
 		// By Andrew Senger
@@ -149,7 +149,7 @@ function dag_manage(){
 		rawoutput("</form>");
 		addnav("","runmodule.php?module=dag&manage=true&op=addbounty&admin=true");
 	}else if ($op == "addbounty") {
-		if (httpget('subfinal')==1){
+		if (Http::httpget('subfinal')==1){
 			$sql = "SELECT acctid,name,login,level,locked,age,dragonkills,pk,experience FROM " . db_prefix("accounts") . " WHERE name='".addslashes(rawurldecode(stripslashes(httppost('contractname'))))."' AND locked=0";
 		}else{
 			$contractname = stripslashes(rawurldecode(httppost('contractname')));
@@ -200,9 +200,9 @@ function dag_manage(){
 			}
 		}
 	} else if ($op == "viewbounties") {
-		$type = httpget('type');
-		$sort = httpget('sort');
-		$dir = httpget('dir');
+		$type = Http::httpget('type');
+		$sort = Http::httpget('sort');
+		$dir = Http::httpget('dir');
 		output("`c`bThe Bounty List`b`c`n");
 		if ($type == 1) {
 			output("`c`bViewing: `3All Bounties`b`c");
@@ -483,7 +483,7 @@ function dag_manage(){
 		rawoutput("</table>");
 	} else if ($op == "closebounty") {
 		$windate = date("Y-m-d H:i:s");
-		$bountyid = (int)httpget('id');
+		$bountyid = (int)Http::httpget('id');
 		$sql = "UPDATE " . db_prefix("bounty") . " SET status=1,winner=0,windate=\"$windate\" WHERE bountyid=$bountyid";
 		db_query($sql);
 		output("Bounty closed.");

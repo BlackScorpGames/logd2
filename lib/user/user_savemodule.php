@@ -1,7 +1,7 @@
 <?php
 //save module settings.
-$userid = httpget('userid');
-$module = httpget('module');
+$userid = Http::httpget('userid');
+$module = Http::httpget('module');
 $post = httpallpost();
 $post = modulehook("validateprefs", $post, true, $module);
 if (isset($post['validation_error']) && $post['validation_error']) {

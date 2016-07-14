@@ -13,8 +13,8 @@ require_once("lib/dump_item.php");
 require_once("lib/modules.php");
 require_once("lib/villagenav.php");
 
-if (injectmodule(httpget('module'), (httpget('admin')?true:false))){
-	$info = get_module_info(httpget('module'));
+if (injectmodule(Http::httpget('module'), (Http::httpget('admin')?true:false))){
+	$info = get_module_info(Http::httpget('module'));
 	if (!isset($info['allowanonymous'])){
 		$allowanonymous=false;
 	}else{

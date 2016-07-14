@@ -9,14 +9,14 @@ Translator::tlschema("bio");
 
 checkday();
 
-$ret = httpget('ret');
+$ret = Http::Http::httpget('ret');
 if ($ret==""){
 	$return = "/list.php";
 }else{
 	$return = cmd_sanitize($ret);
 }
 
-$char = httpget('char');
+$char = Http::Http::httpget('char');
 //Legacy support
 if (is_numeric($char)){
 	$where = "acctid = $char";

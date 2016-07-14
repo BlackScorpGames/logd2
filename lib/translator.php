@@ -241,9 +241,10 @@ function enable_translation($enable=true){
 
 $translation_namespace = "";
 $translation_namespace_stack = array();
-class Translator{
+class Translator {
 public static function tlschema($schema=false){
 	global $translation_namespace,$translation_namespace_stack,$REQUEST_URI;
+    //var_dump($translation_namespace_stack);
 	if ($schema===false){
 		$translation_namespace = array_pop($translation_namespace_stack);
 		if ($translation_namespace=="")

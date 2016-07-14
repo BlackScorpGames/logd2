@@ -13,7 +13,7 @@ Translator::tlschema("lodge");
 
 addcommentary();
 
-$op = httpget('op');
+$op = Http::httpget('op');
 if ($op == "") checkday();
 
 $pointsavailable =

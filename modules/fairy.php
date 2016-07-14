@@ -54,7 +54,7 @@ function fairy_runevent($type)
 	$from = "forest.php?";
 	$session['user']['specialinc'] = "module:fairy";
 
-	$op = httpget('op');
+	$op = Http::httpget('op');
 	if ($op=="" || $op=="search"){
 		output("`%You encounter a fairy in the forest.");
 		output("\"`^Give me a gem!`%\" she demands.");

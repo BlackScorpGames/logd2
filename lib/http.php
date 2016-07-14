@@ -2,16 +2,20 @@
 // translator ready
 // addnews ready
 // mail ready
-function httpget($var){
-	global $HTTP_GET_VARS;
+class Http
+{
+    public static function httpget($var)
+    {
 
-	$res = isset($_GET[$var]) ? $_GET[$var] : false;
-	if ($res === false) {
-		$res = isset($HTTP_GET_VARS[$var]) ? $HTTP_GET_VARS[$var] : false;
-	}
-	return $res;
+        global $HTTP_GET_VARS;
+
+        $res = isset($_GET[$var]) ? $_GET[$var] : false;
+        if ($res === false) {
+            $res = isset($HTTP_GET_VARS[$var]) ? $HTTP_GET_VARS[$var] : false;
+        }
+        return $res;
+    }
 }
-
 function httpallget() {
 	return $_GET;
 }

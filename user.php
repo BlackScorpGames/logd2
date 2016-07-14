@@ -11,8 +11,8 @@ require_once("lib/names.php");
 Translator::tlschema("user");
 check_su_access(SU_EDIT_USERS);
 
-$op = httpget('op');
-$userid=httpget("userid");
+$op = Http::httpget('op');
+$userid=Http::httpget("userid");
 
 if ($op == "lasthit") {
 	// Try and keep user editor and captcha from breaking each other.
@@ -20,8 +20,8 @@ if ($op == "lasthit") {
 }
 page_header("User Editor");
 
-$sort = httpget('sort');
-$petition=httpget("returnpetition");
+$sort = Http::httpget('sort');
+$petition=Http::httpget("returnpetition");
 $returnpetition="";
 if ($petition != "") $returnpetition = "&returnpetition=$petition";
 
@@ -32,7 +32,7 @@ $order = "acctid";
 if ($sort!="") $order = "$sort";
 $display = 0;
 $query = httppost('q');
-if ($query === false) $query = httpget('q');
+if ($query === false) $query = Http::httpget('q');
 
 if ($op=="search" || $op== ""){
 	require_once("lib/lookup_user.php");
@@ -46,7 +46,7 @@ if ($op=="search" || $op== ""){
 }
 
 
-$m = httpget("module");
+$m = Http::httpget("module");
 if ($m) $m = "&module=$m&subop=module";
 rawoutput("<form action='user.php?op=search$m' method='POST'>");
 output("Search by any field below: ");
@@ -63,7 +63,7 @@ addnav("Add a ban","user.php?op=setupban");
 addnav("List/Remove bans","user.php?op=removeban");
 
 // This doesn't seem to be used, so I'm going to comment it out now
-//$msg = httpget('msg');
+//$msg = Http::httpget('msg');
 //if ($msg>"") {
 //	output("Message: %s`n", $msg);
 //}

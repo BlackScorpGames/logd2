@@ -85,12 +85,12 @@ if (count($post)>0){
 		rawoutput("<input name='unverified' type='hidden' value='$nolog'>");
 	}
 	output("`nDescription of the problem:`n");
-	$abuse = httpget("abuse");
+	$abuse = Http::httpget("abuse");
 	if ($abuse == "yes") {
 		rawoutput("<textarea name='description' cols='55' rows='7' class='input'></textarea>");
-		rawoutput("<input type='hidden' name='abuse' value=\"".stripslashes_deep(htmlentities(httpget("problem"), ENT_COMPAT, getsetting("charset", "ISO-8859-1")))."\"><br><hr><pre>".stripslashes(htmlentities(httpget("problem")))."</pre><hr><br>");
+		rawoutput("<input type='hidden' name='abuse' value=\"".stripslashes_deep(htmlentities(Http::httpget("problem"), ENT_COMPAT, getsetting("charset", "ISO-8859-1")))."\"><br><hr><pre>".stripslashes(htmlentities(Http::httpget("problem")))."</pre><hr><br>");
 	} else {
-		rawoutput("<textarea name='description' cols='55' rows='7' class='input'>".stripslashes_deep(htmlentities(httpget("problem"), ENT_COMPAT, getsetting("charset", "ISO-8859-1")))."</textarea>");
+		rawoutput("<textarea name='description' cols='55' rows='7' class='input'>".stripslashes_deep(htmlentities(Http::httpget("problem"), ENT_COMPAT, getsetting("charset", "ISO-8859-1")))."</textarea>");
 	}
 	modulehook("petitionform",array());
 	$submit = translate_inline("Submit");

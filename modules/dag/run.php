@@ -2,7 +2,7 @@
 function dag_run_private(){
 	require_once("modules/dag/misc_functions.php");
 	global $session;
-	if (httpget('manage')!="true"){
+	if (Http::httpget('manage')!="true"){
 		page_header("Dag Durnick's Table");
 		output("<span style='color: #9900FF'>",true);
 		output("`c`bDag Durnick's Table`b`c");
@@ -10,7 +10,7 @@ function dag_run_private(){
 		dag_manage();
 	}
 
-	$op = httpget('op');
+	$op = Http::httpget('op');
 
 	addnav("Navigation");
 	addnav("I?Return to the Inn","inn.php");
@@ -64,7 +64,7 @@ function dag_run_private(){
 				$totlist = $totlist + 1;
 			}
 		}
-		$sort = httpget("sort");
+		$sort = Http::httpget("sort");
 		if ($sort=="level")
 			usort($listing, 'dag_sortbountieslevel');
 		elseif ($sort != "")
@@ -118,7 +118,7 @@ function dag_run_private(){
 			addnav("","runmodule.php?module=dag&op=finalize");
 		}
 	}elseif ($op=="finalize") {
-		if (httpget('subfinal')==1){
+		if (Http::httpget('subfinal')==1){
 			$sql = "SELECT acctid,name,login,level,locked,age,dragonkills,pk,experience FROM " . db_prefix("accounts") . " WHERE name='".addslashes(rawurldecode(stripslashes(httppost('contractname'))))."' AND locked=0";
 		}else{
 			$contractname = stripslashes(rawurldecode(httppost('contractname')));

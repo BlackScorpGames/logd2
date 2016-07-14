@@ -15,7 +15,7 @@ require_once("lib/superusernav.php");
 superusernav();
 
 
-$ret=httpget('ret');
+$ret=Http::httpget('ret');
 $return = cmd_sanitize($ret);
 $return = substr($return,strrpos($return,"/")+1);
 Translator::tlschema("nav");
@@ -26,13 +26,13 @@ $add = translate_inline("Add Donation");
 rawoutput("<form action='donators.php?op=add1&ret=".rawurlencode($ret)."' method='POST'>");
 addnav("","donators.php?op=add1&ret=".rawurlencode($ret)."");
 $name = httppost("name");
-if ($name=="") $name = httpget("name");
+if ($name=="") $name = Http::httpget("name");
 $amt = httppost("amt");
-if ($amt=="") $amt = httpget("amt");
+if ($amt=="") $amt = Http::httpget("amt");
 $reason = httppost("reason");
-if ($reason=="") $reason = httpget("reason");
+if ($reason=="") $reason = Http::httpget("reason");
 $txnid = httppost("txnid");
-if ($txnid=="") $txnid = httpget("txnid");
+if ($txnid=="") $txnid = Http::httpget("txnid");
 if ($reason == "") $reason = translate_inline("manual donation entry");
 
 
@@ -54,19 +54,19 @@ if (($session['user']['superuser'] & SU_EDIT_PAYLOG) &&
 		file_exists("paylog.php")){
 	addnav("Payment Log","paylog.php");
 }
-$op = httpget('op');
+$op = Http::httpget('op');
 if ($op=="add2"){
-	$id = httpget('id');
-	$amt = httpget('amt');
-	$reason = httpget('reason');
+	$id = Http::httpget('id');
+	$amt = Http::httpget('amt');
+	$reason = Http::httpget('reason');
 
 	$sql="SELECT name FROM ".db_prefix("accounts")." WHERE acctid=$id;";
 	$result=db_query($sql);
 	$row=db_fetch_assoc($result);
 	output("%s donation points added to %s`0, reason: `^%s`0",$amt,$row['name'],$reason);
 
-	$txnid = httpget("txnid");
-	$ret = httpget('ret');
+	$txnid = Http::httpget("txnid");
+	$ret = Http::httpget('ret');
 	if ($id==$session['user']['acctid']){
 		$session['user']['donation']+=$amt;
 	}
@@ -133,7 +133,7 @@ if ($op==""){
 }else if ($op=="add1"){
 	$search="%";
 	$name = httppost('name');
-	if ($name=='') $name = httpget('name');
+	if ($name=='') $name = Http::httpget('name');
 	for ($i=0;$i<strlen($name);$i++){
 		$z = substr($name, $i, 1);
 		if ($z == "'") $z = "\\'";
@@ -141,13 +141,13 @@ if ($op==""){
 	}
 	$sql = "SELECT name,acctid,donation,donationspent FROM " . db_prefix("accounts") . " WHERE login LIKE '$search' or name LIKE '$search' LIMIT 100";
 	$result = db_query($sql);
-	$ret = httpget('ret');
+	$ret = Http::httpget('ret');
 	$amt = httppost('amt');
-	if ($amt=='') $amt = httpget("amt");
+	if ($amt=='') $amt = Http::httpget("amt");
 	$reason = httppost("reason");
-	if ($reason=="") $reason = httpget("reason");
+	if ($reason=="") $reason = Http::httpget("reason");
 	$txnid = httppost('txnid');
-	if ($txnid=='') $txnid = httpget("txnid");
+	if ($txnid=='') $txnid = Http::httpget("txnid");
 	output("Confirm the addition of %s points to:`n",$amt);
 	if ($reason) output("(Reason: `^`b`i%s`i`b`0)`n`n",$reason);
 	$number=db_num_rows($result);

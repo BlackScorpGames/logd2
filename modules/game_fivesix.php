@@ -65,13 +65,13 @@ function game_fivesix_dohook($hookname, $args){
 
 function game_fivesix_run(){
 	global $session;
-	$ret = urlencode(httpget("ret"));
+	$ret = urlencode(Http::httpget("ret"));
 	page_header("A Game of Dice");
 
 	$prize=get_module_setting("jackpot");
 	$cost=get_module_setting("cost");
 
-	$what = httpget('what');
+	$what = Http::httpget('what');
 	if ($what=="play"){
 		output("`n`@So you'd like to try your hand to rolling five sixes, would you?`n");
 		output("The game is quite simple, really - you roll five dice.");

@@ -5,7 +5,7 @@ function drinks_run_private(){
 
 	global $session;
 	$partner = get_partner();
-	$act = httpget('act');
+	$act = Http::httpget('act');
 	if ($act=="editor"){
 		drinks_editor();
 	}elseif ($act=="buy"){
@@ -39,7 +39,7 @@ function drinks_run_private(){
 			output($remark);
 			Translator::tlschema();
 		} else {
-			$sql = "SELECT * FROM " . db_prefix("drinks") . " WHERE drinkid='".httpget('id')."'";
+			$sql = "SELECT * FROM " . db_prefix("drinks") . " WHERE drinkid='".Http::httpget('id')."'";
 			$result = db_query($sql);
 			$row = db_fetch_assoc($result);
 			$drinkcost = $session['user']['level'] * $row['costperlevel'];

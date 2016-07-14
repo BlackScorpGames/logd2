@@ -22,10 +22,10 @@ require_once("lib/sanitize.php");
 
 page_header("Preferences");
 
-$op = httpget('op');
+$op = Http::httpget('op');
 
 if ($op=="suicide" && getsetting("selfdelete",0)!=0) {
-	$userid = httpget('userid');
+	$userid = Http::httpget('userid');
 	require_once("lib/charcleanup.php");
 	char_cleanup($userid, CHAR_DELETE_SUICIDE);
 	$sql = "DELETE FROM " . db_prefix("accounts") . " WHERE acctid='$userid'";

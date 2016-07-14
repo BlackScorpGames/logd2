@@ -23,7 +23,7 @@ $result = db_query($sql);
 $row = db_fetch_assoc($result);
 $max += $row['c'];
 
-$start = (int)httpget('start');
+$start = (int)Http::httpget('start');
 
 $sql = "(
 			SELECT $debuglog. * , a1.name AS actorname, a2.name AS targetname

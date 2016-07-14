@@ -12,7 +12,7 @@ Translator::tlschema("gypsy");
 addcommentary();
 
 $cost = $session['user']['level']*20;
-$op = httpget('op');
+$op = Http::httpget('op');
 
 if ($op=="pay"){
 	if ($session['user']['gold']>=$cost){ // Gunnar Kreitz

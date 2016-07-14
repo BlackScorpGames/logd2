@@ -20,8 +20,8 @@ superusernav();
 addnav("Companion Editor");
 addnav("Add a companion","companions.php?op=add");
 
-$op = httpget('op');
-$id = httpget('id');
+$op = Http::Http::httpget('op');
+$id = Http::Http::httpget('id');
 if ($op=="deactivate"){
 	$sql = "UPDATE " . db_prefix("companions") . " SET companionactive=0 WHERE companionid='$id'";
 	db_query($sql);
@@ -59,7 +59,7 @@ if ($op=="deactivate"){
 	$op = "";
 	httpset("op", "");
 } elseif ($op=="save"){
-	$subop = httpget("subop");
+	$subop = Http::Http::httpget("subop");
 	if ($subop == "") {
 		$companion = httppost('companion');
 		if ($companion) {
@@ -113,7 +113,7 @@ if ($op=="deactivate"){
 		}
 	} elseif ($subop=="module") {
 		// Save modules settings
-		$module = httpget("module");
+		$module = Http::Http::httpget("module");
 		$post = httpallpost();
 		reset($post);
 		while(list($key, $val) = each($post)) {
@@ -202,9 +202,9 @@ if ($op==""){
 	}else{
 		addnav("Companion properties", "companions.php?op=edit&id=$id");
 		module_editor_navs("prefs-companions", "companions.php?op=edit&subop=module&id=$id&module=");
-		$subop=httpget("subop");
+		$subop=Http::Http::httpget("subop");
 		if ($subop=="module") {
-			$module = httpget("module");
+			$module = Http::Http::httpget("module");
 			rawoutput("<form action='companions.php?op=save&subop=module&id=$id&module=$module' method='POST'>");
 			module_objpref_edit("companions", $module, $id);
 			rawoutput("</form>");

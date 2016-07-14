@@ -71,14 +71,14 @@ function lotgdsort($a, $b)
 	return (($costa < $costb) ? -1 : 1);
 }
 
-$op = httpget('op');
+$op = Http::httpget('op');
 if ($op==""){
-	$addy = httpget('addy');
-	$desc = httpget('desc');
-	$vers = httpget('version');
-	$admin = httpget('admin');
-	$count = httpget('c')*1;
-	$lang = httpget('l');
+	$addy = Http::httpget('addy');
+	$desc = Http::httpget('desc');
+	$vers = Http::httpget('version');
+	$admin = Http::httpget('admin');
+	$count = Http::httpget('c')*1;
+	$lang = Http::httpget('l');
 
 	if ($vers == "") $vers = "Unknown";
 	if ($admin == "" || $admin=="postmaster@localhost.com")
@@ -144,7 +144,7 @@ if ($op==""){
 	db_query($sql);
 
 	//Now, if we're using version 2 of LoGDnet, we'll return the appropriate code.
-	$v = httpget("v");
+	$v = Http::httpget("v");
 	if ((int)$v>=2){
 		$currency = getsetting("paypalcurrency", "USD");
 		$info = array();

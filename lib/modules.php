@@ -1088,7 +1088,7 @@ function module_events($eventtype, $basechance, $baseLink = false) {
 				Translator::tlschema("events");
 				output("`^`c`bSomething Special!`c`b`0");
 				Translator::tlschema();
-				$op = httpget('op');
+				$op = Http::httpget('op');
 				httpset('op', "");
 				module_do_event($eventtype, $event['modulename'], false, $baseLink);
 				httpset('op', $op);
