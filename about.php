@@ -9,11 +9,11 @@ require_once("lib/http.php");
 
 Translator::tlschema("about");
 
-page_header("About Legend of the Green Dragon");
+PageParts::page_header("About Legend of the Green Dragon");
 $details = gametimedetails();
 
 checkday();
-$op = Http::Http::httpget('op');
+$op = Http::httpget('op');
 
 switch ($op) {
 	case "setup": case "listmodules": case "license":

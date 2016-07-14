@@ -16,7 +16,7 @@ Translator::tlschema("pvp");
 $iname = getsetting("innname", LOCATION_INN);
 $battle = false;
 
-page_header("PvP Combat!");
+PageParts::page_header("PvP Combat!");
 $op = Http::httpget('op');
 $act = Http::httpget('act');
 

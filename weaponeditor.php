@@ -10,7 +10,7 @@ check_su_access(SU_EDIT_EQUIPMENT);
 
 Translator::tlschema("weapon");
 
-page_header("Weapon Editor");
+PageParts::page_header("Weapon Editor");
 $weaponlevel = (int)Http::httpget("level");
 require_once("lib/superusernav.php");
 superusernav();

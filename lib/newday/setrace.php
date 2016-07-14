@@ -14,7 +14,7 @@ if ($setrace!=""){
 }
 if (navcount()==0){
 	clearoutput();
-	page_header("No Races Installed");
+	PageParts::page_header("No Races Installed");
 	output("No races were installed in this game.");
 	output("So we'll call you a 'human' and get on with it.");
 	if ($session['user']['superuser'] & (SU_MEGAUSER|SU_MANAGE_MODULES)) {
@@ -26,7 +26,7 @@ if (navcount()==0){
 	addnav("Continue","newday.php?continue=1$resline");
 	page_footer();
 }else{
-	page_header("A little history about yourself");
+	PageParts::page_header("A little history about yourself");
 	page_footer();
 }
 ?>

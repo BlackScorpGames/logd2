@@ -3,7 +3,7 @@ function dag_run_private(){
 	require_once("modules/dag/misc_functions.php");
 	global $session;
 	if (Http::httpget('manage')!="true"){
-		page_header("Dag Durnick's Table");
+		PageParts::page_header("Dag Durnick's Table");
 		output("<span style='color: #9900FF'>",true);
 		output("`c`bDag Durnick's Table`b`c");
 	}else{

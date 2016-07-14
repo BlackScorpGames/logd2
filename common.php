@@ -104,7 +104,7 @@ if (file_exists("dbconnect.php")){
 }else{
 	if (!defined("IS_INSTALLER")){
 	 	if (!defined("DB_NODB")) define("DB_NODB",true);
-	 	page_header("The game has not yet been installed");
+	 	PageParts::page_header("The game has not yet been installed");
 		output("`#Welcome to `@Legend of the Green Dragon`#, a game by Eric Stevens & JT Traub.`n`n");
 		output("You must run the game's installer, and follow its instructions in order to set up LoGD.  You can go to the installer <a href='installer.php'>here</a>.",true);
 		output("`n`nIf you're not sure why you're seeing this message, it's because this game is not properly configured right now. ");
@@ -142,7 +142,7 @@ if ($link===false){
 		// And tell the user it died.  No translation here, we need the DB for
 		// translation.
 	 	if (!defined("DB_NODB")) define("DB_NODB",true);
-		page_header("Database Connection Error");
+		PageParts::page_header("Database Connection Error");
 		output("Unable to connect to the database server.  Sorry it didn't work out.");
 		page_footer();
 	}
@@ -161,7 +161,7 @@ if (!DB_CONNECTED || !db_select_db ($DB_NAME)){
 		// And tell the user it died.  No translation here, we need the DB for
 		// translation.
 	 	if (!defined("DB_NODB")) define("DB_NODB",true);
-		page_header("Database Connection Error");
+		PageParts::page_header("Database Connection Error");
 		output("I was able to connect to the database server, but couldn't connect to the specified database.  Sorry it didn't work out.");
 		page_footer();
 	}
@@ -226,7 +226,7 @@ if (!isset($nokeeprestore[$SCRIPT_NAME]) || !$nokeeprestore[$SCRIPT_NAME]) {
 
 }
 if ($logd_version != getsetting("installer_version","-1") && !defined("IS_INSTALLER")){
-	page_header("Upgrade Needed");
+	PageParts::page_header("Upgrade Needed");
 	output("`#The game is temporarily unavailable while a game upgrade is applied, please be patient, the upgrade will be completed soon.");
 	output("In order to perform the upgrade, an admin will have to run through the installer.");
 	output("If you are an admin, please <a href='installer.php'>visit the Installer</a> and complete the upgrade process.`n`n",true);

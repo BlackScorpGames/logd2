@@ -10,7 +10,7 @@ require_once("lib/http.php");
 
 Translator::tlschema("gardens");
 
-page_header("The Gardens");
+PageParts::page_header("The Gardens");
 
 addcommentary();
 $skipgardendesc = handle_event("gardens");

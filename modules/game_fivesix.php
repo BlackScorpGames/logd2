@@ -66,7 +66,7 @@ function game_fivesix_dohook($hookname, $args){
 function game_fivesix_run(){
 	global $session;
 	$ret = urlencode(Http::httpget("ret"));
-	page_header("A Game of Dice");
+	PageParts::page_header("A Game of Dice");
 
 	$prize=get_module_setting("jackpot");
 	$cost=get_module_setting("cost");

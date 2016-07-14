@@ -13,7 +13,7 @@ require_once("lib/battle-skills.php");
 Translator::tlschema("forest");
 
 $fight = false;
-page_header("The Forest");
+PageParts::page_header("The Forest");
 $dontdisplayforestmessage=handle_event("forest");
 
 $op = Http::httpget("op");

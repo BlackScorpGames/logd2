@@ -9,7 +9,7 @@ Translator::tlschema("taunt");
 
 check_su_access(SU_EDIT_CREATURES);
 
-page_header("Taunt Editor");
+PageParts::page_header("Taunt Editor");
 require_once("lib/superusernav.php");
 superusernav();
 $op = Http::httpget('op');

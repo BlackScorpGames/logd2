@@ -9,14 +9,14 @@ Translator::tlschema("bio");
 
 checkday();
 
-$ret = Http::Http::httpget('ret');
+$ret = Http::httpget('ret');
 if ($ret==""){
 	$return = "/list.php";
 }else{
 	$return = cmd_sanitize($ret);
 }
 
-$char = Http::Http::httpget('char');
+$char = Http::httpget('char');
 //Legacy support
 if (is_numeric($char)){
 	$where = "acctid = $char";
@@ -30,7 +30,7 @@ if ($target = db_fetch_assoc($result)) {
   $id = $target['acctid'];
   $target['return_link']=$return;
 
-  page_header("Character Biography: %s", full_sanitize($target['name']));
+  PageParts::page_header("Character Biography: %s", full_sanitize($target['name']));
 
   Translator::tlschema("nav");
   addnav("Return");
@@ -160,7 +160,7 @@ if ($target = db_fetch_assoc($result)) {
   modulehook("bioend", $target);
   page_footer();
 } else {
-	page_header("Character has been deleted");
+	PageParts::page_header("Character has been deleted");
 	output("This character is already deleted.");
   if ($ret==""){
 	  $return = substr($return,strrpos($return,"/")+1);

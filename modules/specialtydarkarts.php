@@ -90,7 +90,7 @@ function specialtydarkarts_dohook($hookname,$args){
 		break;
 	case "set-specialty":
 		if($session['user']['specialty'] == $spec) {
-			page_header($name);
+			PageParts::page_header($name);
 			output("`5Growing up, you recall killing many small woodland creatures, insisting that they were plotting against you.");
 			output("Your parents, concerned that you had taken to killing the creatures barehanded, bought you your very first pointy twig.");
 			output("It wasn't until your teenage years that you began performing dark rituals with the creatures, disappearing into the forest for days on end, no one quite knowing where those sounds came from.");

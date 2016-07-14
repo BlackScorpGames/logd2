@@ -30,7 +30,7 @@ function drinks_editor(){
 	global $mostrecentmodule;
 	if (!get_module_pref("canedit")) check_su_access(SU_EDIT_USERS);
 
-	page_header("Drink Editor");
+	PageParts::page_header("Drink Editor");
 	require_once("lib/superusernav.php");
 	superusernav();
 	addnav("Drink Editor");

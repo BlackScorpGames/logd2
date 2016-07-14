@@ -1,6 +1,6 @@
 <?php
 if ($dkills-$dp > 1) {
-	page_header("Dragon Points");
+	PageParts::page_header("Dragon Points");
 	output("`@You earn one dragon point each time you slay the dragon.");
 	output("Advancements made by spending dragon points are permanent!");
 	output("`n`nYou have `^%s`@ unspent dragon points.", $dkills-$dp);
@@ -79,7 +79,7 @@ if ($dkills-$dp > 1) {
 		}
 	}
 }else{
-	page_header("Dragon Points");
+	PageParts::page_header("Dragon Points");
 	reset ($labels);
 	$dist = array();
 	foreach ($labels as $type=>$label) {

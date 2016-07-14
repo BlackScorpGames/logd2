@@ -20,17 +20,17 @@ if ($op=="pay"){
 		debuglog("spent $cost gold to speak to the dead");
 		redirect("gypsy.php?op=talk");
 	}else{
-		page_header("Gypsy Seer's tent");
+		PageParts::page_header("Gypsy Seer's tent");
 		villagenav();
 		output("`5You offer the old gypsy woman your `^%s`5 gold for your gen-u-wine say-ance, however she informs you that the dead may be dead, but they ain't cheap.", $session['user']['gold']);
 	}
 }elseif ($op=="talk"){
-	page_header("In a deep trance, you talk with the shades");
+	PageParts::page_header("In a deep trance, you talk with the shades");
 	commentdisplay("`5While in a deep trance, you are able to talk with the dead:`n", "shade","Project",25,"projects");
 	addnav("Snap out of your trance","gypsy.php");
 }else{
 	checkday();
-	page_header("Gypsy Seer's tent");
+	PageParts::page_header("Gypsy Seer's tent");
 	output("`5You duck into a gypsy tent like many you have seen throughout the realm.");
 	output("All of them promise to let you talk with the deceased, and most of them surprisingly seem to work.");
 	output("There are also rumors that the gypsy have the power to speak over distances other than just those of the afterlife.");

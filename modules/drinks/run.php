@@ -13,7 +13,7 @@ function drinks_run_private(){
 		$drinktext = modulehook("drinks-text",$texts);
 
 		Translator::tlschema($drinktext['schemas']['title']);
-		page_header($drinktext['title']);
+		PageParts::page_header($drinktext['title']);
 		rawoutput("<span style='color: #9900FF'>");
 		output_notl("`c`b");
 		output($drinktext['title']);

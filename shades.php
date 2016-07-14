@@ -8,7 +8,7 @@ require_once("lib/commentary.php");
 
 Translator::tlschema("shades");
 
-page_header("Land of the Shades");
+PageParts::page_header("Land of the Shades");
 addcommentary();
 checkday();
 

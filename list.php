@@ -9,7 +9,7 @@ require_once("lib/villagenav.php");
 
 Translator::tlschema("list");
 
-page_header("List Warriors");
+PageParts::page_header("List Warriors");
 if ($session['user']['loggedin']) {
 	checkday();
 	if ($session['user']['alive']) {

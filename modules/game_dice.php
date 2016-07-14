@@ -37,7 +37,7 @@ function game_dice_dohook($hookname, $args){
 function game_dice_run(){
 	global $session;
 	$ret = urlencode(Http::httpget("ret"));
-	page_header("A Game of Dice");
+	PageParts::page_header("A Game of Dice");
 
 	if ($session['user']['gold']>0){
 		$bet = abs((int)Http::httpget('bet') + (int)httppost('bet'));

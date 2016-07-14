@@ -10,9 +10,9 @@ require_once("lib/villagenav.php");
 
 Translator::tlschema("bank");
 
-page_header("Ye Olde Bank");
+PageParts::page_header("Ye Olde Bank");
 output("`^`c`bYe Olde Bank`b`c");
-$op = Http::Http::httpget('op');
+$op = Http::httpget('op');
 if ($op==""){
   checkday();
   output("`6As you approach the pair of impressive carved rock crystal doors, they part to allow you entrance into the bank.");

@@ -1,5 +1,5 @@
 <?php
-	page_header("Clan Halls");
+	PageParts::page_header("Clan Halls");
 	$registrar=getsetting('clanregistrar','`%Karissa');
 	addnav("Clan Options");
 	output("`b`c`&Clan Halls`c`b");

@@ -10,8 +10,8 @@ check_su_access(SU_EDIT_CONFIG);
 
 Translator::tlschema("configuration");
 
-$op = Http::Http::httpget('op');
-$module=Http::Http::httpget('module');
+$op = Http::httpget('op');
+$module=Http::httpget('module');
 if ($op=="save"){
 	include_once("lib/gamelog.php");
 	//loadsettings();
@@ -85,7 +85,7 @@ if ($op=="save"){
 }elseif($op=="modulesettings"){
 	include_once("lib/gamelog.php");
 	if (injectmodule($module,true)){
-		$save = Http::Http::httpget('save');
+		$save = Http::httpget('save');
 		if ($save!=""){
 			load_module_settings($module);
 			$old = $module_settings[$module];
@@ -176,7 +176,7 @@ if ($op=="save"){
 	}
 }
 
-page_header("Game Settings");
+PageParts::page_header("Game Settings");
 require_once("lib/superusernav.php");
 superusernav();
 addnav("Module Manager", "modules.php");

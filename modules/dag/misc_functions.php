@@ -20,7 +20,7 @@ function dag_sortbountieslevel($x, $y) {
 }
 
 function dag_manage(){
-	page_header("Dag's Bounty Lists");
+	PageParts::page_header("Dag's Bounty Lists");
 	require_once("lib/superusernav.php");
 	superusernav();
 

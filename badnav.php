@@ -27,7 +27,7 @@ if ($session['user']['loggedin'] && $session['loggedin']){
 	if (!is_array($session['allowednavs']) ||
 			count($session['allowednavs'])==0 || $row['output']=="") {
 		$session['allowednavs']=array();
-		page_header("Your Navs Are Corrupted");
+		PageParts::page_header("Your Navs Are Corrupted");
 		if ($session['user']['alive']) {
 			villagenav();
 			output("Your navs are corrupted, please return to %s.",

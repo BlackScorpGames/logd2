@@ -8,7 +8,7 @@ check_su_access(SU_EDIT_USERS);
 
 Translator::tlschema("retitle");
 
-page_header("Title Editor");
+PageParts::page_header("Title Editor");
 $op = Http::httpget('op');
 $id = Http::httpget('id');
 $editarray=array(

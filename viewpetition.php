@@ -47,7 +47,7 @@ if (trim(httppost('insertcommentary'))!="") {
 //	invalidatedatacache("petition_counts");
 //	$op="";
 //}
-page_header("Petition Viewer");
+PageParts::page_header("Petition Viewer");
 require_once("lib/superusernav.php");
 superusernav();
 if ($op==""){

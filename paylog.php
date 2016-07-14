@@ -24,7 +24,7 @@ check_su_access(SU_EDIT_PAYLOG);
 | txfee     | float(9,2)          |      |     | 0.00    |                |
 +-----------+---------------------+------+-----+---------+----------------+
 */
-page_header("Payment Log");
+PageParts::page_header("Payment Log");
 require_once("lib/superusernav.php");
 superusernav();
 

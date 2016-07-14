@@ -9,8 +9,8 @@ require_once("lib/http.php");
 Translator::tlschema("bio");
 check_su_access(SU_EDIT_COMMENTS);
 
-$op = Http::Http::httpget('op');
-$userid = Http::Http::httpget('userid');
+$op = Http::httpget('op');
+$userid = Http::httpget('userid');
 if ($op=="block"){
 	$sql = "UPDATE " . db_prefix("accounts") . " SET bio='`iBlocked for inappropriate usage`i',biotime='9999-12-31 23:59:59' WHERE acctid='$userid'";
 	$subj = array("Your bio has been blocked");
@@ -27,7 +27,7 @@ if ($op=="unblock"){
 }
 $sql = "SELECT name,acctid,bio,biotime FROM " . db_prefix("accounts") . " WHERE biotime<'9999-12-31' AND bio>'' ORDER BY biotime DESC LIMIT 100";
 $result = db_query($sql);
-page_header("User Bios");
+PageParts::page_header("User Bios");
 $block = translate_inline("Block");
 output("`b`&Player Bios:`0`b`n");
 $number=db_num_rows($result);

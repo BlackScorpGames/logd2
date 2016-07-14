@@ -231,7 +231,7 @@ function crazyaudrey_run(){
 	global $session;
 	$op = Http::httpget('op');
 	if ($op=="pet"){
-		page_header("Crazy Audrey's Zoo");
+		PageParts::page_header("Crazy Audrey's Zoo");
 		$cost = get_module_setting("cost");
 		$animal = get_module_setting("animal");
 		$lcanimal = get_module_setting("lanimal");
@@ -260,7 +260,7 @@ function crazyaudrey_run(){
 			output("Not having `^%s`5 gold, you wander sadly away.",$cost);
 		}
 	}elseif ($op=="baskets" || $op == "play" || $op == "run"){
-		page_header("Crazy Audrey");
+		PageParts::page_header("Crazy Audrey");
 		crazyaudrey_baskets("module-internal",
 				"runmodule.php?module=crazyaudrey");
 	}

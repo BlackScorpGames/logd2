@@ -20,7 +20,8 @@ $runheaders = array();
  *		everyheader
  *		header-{scriptname}
  */
-function page_header(){
+class PageParts{
+public static function page_header(){
 	global $header,$SCRIPT_NAME,$session,$template, $runheaders, $nopopups;
 	$nopopups["login.php"]=1;
 	$nopopups["motd.php"]=1;
@@ -59,7 +60,7 @@ function page_header(){
 	$header=str_replace("{title}",$title,$header);
 	$header.=tlbutton_pop();
 }
-
+}
 /**
  * Returns an output formatted popup link based on JavaScript
  *

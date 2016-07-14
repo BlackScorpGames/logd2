@@ -91,7 +91,7 @@ function specialtymysticpower_dohook($hookname,$args){
 		break;
 	case "set-specialty":
 		if($session['user']['specialty'] == $spec) {
-			page_header($name);
+			PageParts::page_header($name);
 			output("`3Growing up, you remember knowing there was more to the world than the physical, and what you could place your hands on.");
 			output("You realized that your mind itself, with training, could be turned into a weapon.");
 			output("Over time, you began to control the thoughts of small creatures, commanding them to do your bidding, and also to begin to tap into the mystical force known as mana, which could be shaped into the elemental forms of fire, water, ice, earth, and wind.");

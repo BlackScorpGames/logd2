@@ -97,7 +97,7 @@ function sethsong_run(){
 	$been=get_module_pref("been");
 	$iname = getsetting("innname", LOCATION_INN);
 	Translator::tlschema("inn");
-	page_header($iname);
+	PageParts::page_header($iname);
 
 	rawoutput("<span style='color: #9900FF'>");
 	output_notl("`c`b");

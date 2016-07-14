@@ -18,7 +18,7 @@ if ($op == "lasthit") {
 	// Try and keep user editor and captcha from breaking each other.
 	$_POST['i_am_a_hack'] = 'true';
 }
-page_header("User Editor");
+PageParts::page_header("User Editor");
 
 $sort = Http::httpget('sort');
 $petition=Http::httpget("returnpetition");

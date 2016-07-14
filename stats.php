@@ -9,7 +9,7 @@ Translator::tlschema("stats");
 
 check_su_access(SU_EDIT_CONFIG);
 
-page_header("Stats");
+PageParts::page_header("Stats");
 require_once("lib/superusernav.php");
 superusernav();
 //addnav("Refresh the stats","stats.php");

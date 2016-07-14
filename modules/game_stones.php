@@ -37,7 +37,7 @@ function game_stones_dohook($hookname, $args){
 function game_stones_run(){
 	global $session;
 	$ret = urlencode(Http::httpget("ret"));
-	page_header("A Game of Stones");
+	PageParts::page_header("A Game of Stones");
 	$stones = unserialize($session['user']['specialmisc']);
 	if (!is_array($stones)) $stones = array();
 	$side = Http::httpget('side');

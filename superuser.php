@@ -30,7 +30,7 @@ if ($op=="keepalive"){
 	redirect($return);
 }
 
-page_header("Superuser Grotto");
+PageParts::page_header("Superuser Grotto");
 
 output("`^You duck into a secret cave that few know about. ");
 if ($session['user']['sex']){

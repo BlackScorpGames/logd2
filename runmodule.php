@@ -41,7 +41,7 @@ if (injectmodule(Http::httpget('module'), (Http::httpget('admin')?true:false))){
 
 	Translator::tlschema("badnav");
 
-	page_header("Error");
+	PageParts::page_header("Error");
 	if ($session['user']['loggedin']){
 		villagenav();
 	}else{

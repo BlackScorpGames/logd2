@@ -33,7 +33,7 @@ if ($pageoffset>0) $pageoffset--;
 $pageoffset*=$newsperpage;
 $sql = "SELECT * FROM " . db_prefix("news") . " WHERE newsdate='".date("Y-m-d",$timestamp)."' ORDER BY newsid DESC LIMIT $pageoffset,$newsperpage";
 $result = db_query($sql);
-page_header("LoGD News");
+PageParts::page_header("LoGD News");
 $date=date("D, M j, Y",$timestamp);
 
 $pagestr = "";

@@ -14,7 +14,7 @@ $config = unserialize($session['user']['donationconfig']);
 $return = Http::httpget("return");
 $returnline = $return>""?"&return=$return":"";
 
-page_header("Healer's Hut");
+PageParts::page_header("Healer's Hut");
 output("`#`b`cHealer's Hut`c`b`n");
 
 $cost = log($session['user']['level']) * (($session['user']['maxhitpoints']-$session['user']['hitpoints']) + 10);

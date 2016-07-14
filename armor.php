@@ -41,10 +41,10 @@ $texts = modulehook("armortext",$basetext);
 $schemas = $texts['schemas'];
 
 Translator::tlschema($schemas['title']);
-page_header($texts['title']);
+PageParts::page_header($texts['title']);
 output("`c`b`%".$texts['title']."`0`b`c");
 Translator::tlschema();
-$op = Http::Http::httpget('op');
+$op = Http::httpget('op');
 if ($op==""){
   	Translator::tlschema($schemas['desc']);
   	if (is_array($texts['desc'])) {
@@ -127,7 +127,7 @@ if ($op==""){
 	rawoutput("</table>",true);
 	villagenav();
 }elseif ($op=="buy"){
-	$id = Http::Http::httpget('id');
+	$id = Http::httpget('id');
 	$sql = "SELECT * FROM " . db_prefix("armor") . " WHERE armorid='$id'";
 	$result = db_query($sql);
 	if (db_num_rows($result)==0){

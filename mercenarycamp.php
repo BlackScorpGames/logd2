@@ -91,7 +91,7 @@ $texts = modulehook("mercenarycamptext",$basetext);
 $schemas = $texts['schemas'];
 
 Translator::tlschema($schemas['title']);
-page_header($texts['title']);
+PageParts::page_header($texts['title']);
 output("`c`b`&".$texts['title']."`0`b`c");
 Translator::tlschema();
 

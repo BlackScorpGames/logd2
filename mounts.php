@@ -31,7 +31,7 @@ check_su_access(SU_EDIT_MOUNTS);
 
 Translator::tlschema("mounts");
 
-page_header("Mount Editor");
+PageParts::page_header("Mount Editor");
 
 require_once("lib/superusernav.php");
 superusernav();

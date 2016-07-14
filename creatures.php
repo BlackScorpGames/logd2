@@ -16,7 +16,7 @@ for ($i=1;$i<18;$i++){
 	$creaturestats[$i] = creature_stats($i);
 }
 
-page_header("Creature Editor");
+PageParts::page_header("Creature Editor");
 
 require_once("lib/superusernav.php");
 superusernav();

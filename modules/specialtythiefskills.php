@@ -90,7 +90,7 @@ function specialtythiefskills_dohook($hookname,$args){
 		break;
 	case "set-specialty":
 		if($session['user']['specialty'] == $spec) {
-			page_header($name);
+			PageParts::page_header($name);
 			output("`6Growing up, you recall discovering that a casual bump in a crowded room could earn you the coin purse of someone otherwise more fortunate than you.");
 			output("You also discovered that the back side of your enemies were considerably more prone to a narrow blade than the front side was to even a powerful weapon.");
 		}

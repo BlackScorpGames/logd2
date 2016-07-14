@@ -9,9 +9,9 @@ check_su_access(SU_EDIT_COMMENTS);
 
 Translator::tlschema("badword");
 
-$op = Http::Http::httpget('op');
+$op = Http::httpget('op');
 //yuck, this page is a mess, but it gets the job done.
-page_header("Bad word editor");
+PageParts::page_header("Bad word editor");
 
 require_once("lib/superusernav.php");
 superusernav();

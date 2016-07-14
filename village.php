@@ -108,7 +108,7 @@ $texts = modulehook("villagetext-{$session['user']['location']}",$texts);
 $schemas = $texts['schemas'];
 
 Translator::tlschema($schemas['title']);
-page_header($texts['title']);
+PageParts::page_header($texts['title']);
 Translator::tlschema();
 
 addcommentary();

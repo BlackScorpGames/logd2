@@ -17,7 +17,7 @@ if ($session['user']['dragonkills']>0 ||
 checkday();
 if ($session['user']['dragonkills']>0 ||
 		$session['user']['superuser'] & SU_EDIT_COMMENTS){
-	page_header("The Veteran's Club");
+	PageParts::page_header("The Veteran's Club");
 
 	output("`b`c`2The Veteran's Club`0`c`b");
 
@@ -32,7 +32,7 @@ if ($session['user']['dragonkills']>0 ||
 
 	commentdisplay("", "veterans","Boast here",30,"boasts");
 }else{
-	page_header("Curious looking rock");
+	PageParts::page_header("Curious looking rock");
 	output("You approach the curious looking rock.  ");
 	output("After staring and looking at it for a little while, it continues to look just like a curious looking rock.`n`n");
 	output("Bored, you decide to leave the rock alone.");
