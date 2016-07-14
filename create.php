@@ -14,7 +14,7 @@ $trash = Settings::getsetting("expiretrashacct",1);
 $new = Settings::getsetting("expirenewacct",10);
 $old = Settings::getsetting("expireoldacct",45);
 
-checkban();
+CheckBanClass::checkban();
 $op = Http::httpget('op');
 
 if ($op=="val"){

@@ -40,8 +40,8 @@ if ($name!=""){
 			$companions = @unserialize($session['user']['companions']);
 			if (!is_array($companions)) $companions = array();
 			$baseaccount = $session['user'];
-			checkban($session['user']['login']); //check if this account is banned
-			checkban(); //check if this computer is banned
+			CheckBanClass::checkban($session['user']['login']); //check if this account is banned
+			CheckBanClass::checkban(); //check if this computer is banned
 			// If the player isn't allowed on for some reason, anything on
 			// this hook should automatically call PageParts::page_footer and exit
 			// itself.
@@ -107,7 +107,7 @@ if ($name!=""){
 			//now we'll log the failed attempt and begin to issue bans if
 			//there are too many, plus notify the admins.
 			$sql = "DELETE FROM " . db_prefix("faillog") . " WHERE date<'".date("Y-m-d H:i:s",strtotime("-".(Settings::getsetting("expirecontent",180)/4)." days"))."'";
-			checkban();
+			CheckBanClass::checkban();
 			db_query($sql);
 			$sql = "SELECT acctid FROM " . db_prefix("accounts") . " WHERE login='$name'";
 			$result = db_query($sql);
