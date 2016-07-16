@@ -2,7 +2,7 @@
 // translator ready
 // addnews ready
 // mail ready
-require_once("lib/e_rand.php");
+require_once("lib/Erand::e_rand.php");
 require_once("lib/showform.php");
 require_once("lib/http.php");
 require_once("lib/buffs.php");

@@ -51,7 +51,7 @@ if ($act==""){
 			}
 		}
 		if ($try){
-			if (e_rand(0,100)<$chance){
+			if (Erand::e_rand(0,100)<$chance){
 				OutputClass::output("%s`0 leans over the counter toward you.  \"`%What can I do for you, kid?`0\" he asks.",$barkeep);
 				OutputClass::addnav("What do you want?");
 				if (Settings::getsetting("pvp",1)) {

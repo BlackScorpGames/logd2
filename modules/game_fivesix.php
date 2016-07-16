@@ -121,15 +121,15 @@ function game_fivesix_run(){
 				set_module_setting("jackpot",$prize);
 
 				$almost=0;
-				$one=e_rand(1,6);
+				$one=Erand::e_rand(1,6);
 				if ($one==6) $almost++;
-				$two=e_rand(1,6);
+				$two=Erand::e_rand(1,6);
 				if ($two==6) $almost++;
-				$three=e_rand(1,6);
+				$three=Erand::e_rand(1,6);
 				if ($three==6) $almost++;
-				$four=e_rand(1,6);
+				$four=Erand::e_rand(1,6);
 				if ($four==6) $almost++;
-				$five=e_rand(1,6);
+				$five=Erand::e_rand(1,6);
 				if ($five==6) $almost++;
 
 				OutputClass::output("`n`@You gather the dice in an old leather cup, shake them, and hold your breath as you spill them onto the table.`n");

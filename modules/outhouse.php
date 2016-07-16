@@ -149,25 +149,25 @@ function outhouse_run(){
 	}elseif ($op == "washpay"|| $op == "washfree"){
 		PageParts::page_header("Wash Stand");
 		OutputClass::output("`2Washing your hands is always a good thing.  You tidy up, straighten your %s in your reflection in the water, and head on your way.`0`n", $session['user']['armor']);
-		$goodhabits = e_rand(1, 100);
+		$goodhabits = Erand::e_rand(1, 100);
 		if ($goodhabits <= $goodmusthit && $op=="washpay"){
 			OutputClass::output("`^The Wash Room Fairy blesses you!`n");
 			OutputClass::output("`7You receive `^%s`7 gold for being sanitary and clean!`0`n", $giveback);
 			$session['user']['gold'] += $giveback;
 			debuglog("got $giveback gold in the outhouse for washing");
-			$givegemtemp = e_rand(1, 100);
+			$givegemtemp = Erand::e_rand(1, 100);
 			if ($givegemtemp <= $givegempercent){
 				$session['user']['gems']++;
 				debuglog("gained 1 gem in the outhouse");
 				OutputClass::output("`&Aren't you the lucky one to find a `%gem`& there by the doorway!`0`n");
 			}
-			$giveturntemp = e_rand(1, 100);
+			$giveturntemp = Erand::e_rand(1, 100);
 			if ($giveturntemp <= $giveturnchance) {
 				$session['user']['turns']++;
 				OutputClass::output("`&You gained a turn!`0`n");
 			}
 		}elseif ($goodhabits <= $goodmusthit && $op == "washfree"){
-			if (e_rand(1, 3)==1) {
+			if (Erand::e_rand(1, 3)==1) {
 				OutputClass::output("`&You notice a small bag containing `^%s`7 gold that someone left by the washstand.`0", $giveback);
 				$session['user']['gold'] += $giveback;
 				debuglog("got $giveback gold in the outhouse for washing");
@@ -185,7 +185,7 @@ function outhouse_run(){
 		PageParts::page_header("Stinky Hands");
 		OutputClass::output("`2Your hands are soiled and real stinky!`n");
 		OutputClass::output("Didn't your mother teach you any better?`n");
-		$takeaway = e_rand(1, 100);
+		$takeaway = Erand::e_rand(1, 100);
 		if ($takeaway >= $badmusthit){
 			if ($session['user']['gold'] >= $goldinhand){
 				$session['user']['gold'] -= $takeback;
@@ -219,7 +219,7 @@ function outhouse_run(){
 			OutputClass::addnav("Public Toilet: (free)", "runmodule.php?module=outhouse&op=free");
 			OutputClass::addnav("Hold it", "forest.php");
 		}else{
-			switch(e_rand(1,3)){
+			switch(Erand::e_rand(1,3)){
 			case 1:
 				OutputClass::output("The Outhouses are closed for repairs.`n");
 				OutputClass::output("You will have to hold it till tomorrow!");

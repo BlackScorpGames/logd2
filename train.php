@@ -31,7 +31,7 @@ if ($mid) {
 	$row = db_fetch_assoc($res);
 	$l = $row['level'];
 
-	$sql = "SELECT * FROM " . db_prefix("masters") . " WHERE creaturelevel=$l ORDER BY RAND(".e_rand().") LIMIT 1";
+	$sql = "SELECT * FROM " . db_prefix("masters") . " WHERE creaturelevel=$l ORDER BY RAND(".Erand::e_rand().") LIMIT 1";
 }
 
 $result = db_query($sql);
@@ -90,9 +90,9 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 
 				$dk = round($dk * .33, 0);
 
-				$atkflux = e_rand(0, $dk);
+				$atkflux = Erand::e_rand(0, $dk);
 				$atkflux = min($atkflux, round($dk*.25));
-				$defflux = e_rand(0, ($dk-$atkflux));
+				$defflux = Erand::e_rand(0, ($dk-$atkflux));
 				$defflux = min($defflux, round($dk*.25));
 
 				$hpflux = ($dk - ($atkflux+$defflux)) * 5;

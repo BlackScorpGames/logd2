@@ -52,7 +52,7 @@ require_once("lib/constants.php");
 require_once("lib/datacache.php");
 require_once("lib/modules.php");
 require_once("lib/http.php");
-require_once("lib/e_rand.php");
+require_once("lib/Erand::e_rand.php");
 require_once("lib/buffs.php");
 require_once("lib/pageparts.php");
 require_once("lib/output.php");
@@ -290,7 +290,7 @@ if (
 			$sql = "UPDATE " . db_prefix("referers") . " SET count=count+1,last='".date("Y-m-d H:i:s")."',site='".addslashes($site)."',dest='".addslashes($host)."/".addslashes($REQUEST_URI)."',ip='{$_SERVER['REMOTE_ADDR']}' WHERE refererid='{$row['refererid']}'";
 		}else{
 			$sql = "INSERT INTO " . db_prefix("referers") . " (uri,count,last,site,dest,ip) VALUES ('{$_SERVER['HTTP_REFERER']}',1,'".date("Y-m-d H:i:s")."','".addslashes($site)."','".addslashes($host)."/".addslashes($REQUEST_URI)."','{$_SERVER['REMOTE_ADDR']}')";
-			if (e_rand(1,100)==2){
+			if (Erand::e_rand(1,100)==2){
 				$timestamp = date("Y-m-d H:i:s",strtotime("-1 month"));
 				db_query("DELETE FROM ".db_prefix("referers")." WHERE last < '$timestamp' LIMIT 300");
 				require_once("lib/gamelog.php");

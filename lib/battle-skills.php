@@ -3,7 +3,7 @@
 // addnews ready
 // mail ready
 require_once("lib/bell_rand.php");
-require_once("lib/e_rand.php");
+require_once("lib/Erand::e_rand.php");
 require_once("lib/buffs.php");
 
 function rolldamage(){
@@ -33,7 +33,7 @@ function rolldamage(){
 
 		while(!isset($creaturedmg) || !isset($selfdmg) || $creaturedmg==0 && $selfdmg==0){
 			$atk = $session['user']['attack']*$atkmod;
-			if (e_rand(1,20)==1 && $options['type'] != "pvp") $atk*=3;
+			if (Erand::e_rand(1,20)==1 && $options['type'] != "pvp") $atk*=3;
 			/*
 			debug("Attack score: $atk");
 			*/
@@ -110,7 +110,7 @@ function report_power_move($crit, $dmg) {
 			OutputClass::output($msg);
 			Translator::tlschema();
 
-			$dmg += e_rand($crit/4, $crit/2);
+			$dmg += Erand::e_rand($crit/4, $crit/2);
 			$dmg = max($dmg, 1);
 		}
 	}

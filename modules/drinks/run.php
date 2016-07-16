@@ -66,7 +66,7 @@ function drinks_run_private(){
 				$giveturn = 0;
 				if ($row['hpchance']>0 || $row['turnchance']>0) {
 					$tot = $row['hpchance'] + $row['turnchance'];
-					$c = e_rand(1, $tot);
+					$c = Erand::e_rand(1, $tot);
 					if ($c <= $row['hpchance'] && $row['hpchance']>0)
 						$givehp = 1;
 					else
@@ -75,7 +75,7 @@ function drinks_run_private(){
 				if ($row['alwayshp']) $givehp = 1;
 				if ($row['alwaysturn'])  $giveturn = 1;
 				if ($giveturn) {
-					$turns = e_rand($row['turnmin'], $row['turnmax']);
+					$turns = Erand::e_rand($row['turnmin'], $row['turnmax']);
 					$oldturns = $session['user']['turns'];
 					$session['user']['turns'] += $turns;
 					// sanity check
@@ -96,7 +96,7 @@ function drinks_run_private(){
 						$hp = round($session['user']['maxhitpoints'] *
 								($row['hppercent']/100), 0);
 					} else {
-						$hp = e_rand($row['hpmin'], $row['hpmax']);
+						$hp = Erand::e_rand($row['hpmin'], $row['hpmax']);
 					}
 					$session['user']['hitpoints'] += $hp;
 					// Sanity check

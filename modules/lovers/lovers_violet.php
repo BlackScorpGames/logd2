@@ -6,8 +6,8 @@ function lovers_violet(){
 
 	if ($seenlover==0){
 		if ($session['user']['marriedto']==INT_MAX){
-			if (e_rand(1, 4)==1){
-				switch(e_rand(1,4)){
+			if (Erand::e_rand(1, 4)==1){
+				switch(Erand::e_rand(1,4)){
 				case 1:
 					$msg = Translator::translate_inline("being too busy serving these pigs,");
 					break;
@@ -47,7 +47,7 @@ function lovers_violet(){
 			$seenlover = 1;
 			switch(Http::httpget('flirt')){
 				case 1:
-					if (e_rand($c,2)>=2){
+					if (Erand::e_rand($c,2)>=2){
 						OutputClass::output("You wink at %s`0, and she gives you a warm smile in return.",$partner);
 						if ($c<4) $c++;
 					}else{
@@ -56,7 +56,7 @@ function lovers_violet(){
 					break;
 				case 2:
 					OutputClass::output("You stroll confidently across the room toward %s`0.",$partner);
-					if (e_rand($c,4)>=4){
+					if (Erand::e_rand($c,4)>=4){
 						OutputClass::output("Taking hold of her hand, you kiss it gently, your lips remaining for only a few seconds.");
 						OutputClass::output("%s`0 blushes and tucks a strand of hair behind her ear as you walk away, then presses the back side of her hand longingly against her cheek while watching your retreat.",$partner);
 						if ($c<7) $c++;
@@ -66,7 +66,7 @@ function lovers_violet(){
 					break;
 				case 3:
 					OutputClass::output("Standing with your back against a wooden column, you wait for %s`0 to wander your way when you call her name.",$partner);
-					if (e_rand($c,7)>=7){
+					if (Erand::e_rand($c,7)>=7){
 						OutputClass::output("She approaches, a hint of a smile on her face.");
 						OutputClass::output("You grab her chin, lift it slightly, and place a firm but quick kiss on her plump lips.");
 						if ($c<11) $c++;
@@ -76,7 +76,7 @@ function lovers_violet(){
 					break;
 				case 4:
 					OutputClass::output("Sitting at a table, you wait for %s`0 to come your way.",$partner);
-					if (e_rand($c,11)>=11){
+					if (Erand::e_rand($c,11)>=11){
 						OutputClass::output("When she does so, you reach up and grab her firmly by the waist, pulling her down on to your lap.");
 						OutputClass::output("She laughs and throws her arms around your neck in a warm hug before thumping you on the chest, standing up, and insisting that she really must get back to work.");
 						if ($c<14) $c++;
@@ -87,7 +87,7 @@ function lovers_violet(){
 					break;
 				case 5:
 					OutputClass::output("Waiting for %s`0 to brush by you, you firmly palm her backside.",$partner);
-					if (e_rand($c,14)>=14){
+					if (Erand::e_rand($c,14)>=14){
 						OutputClass::output("She turns and gives you a warm, knowing smile.");
 						if ($c<18) $c++;
 					}else{
@@ -97,7 +97,7 @@ function lovers_violet(){
 					}
 					break;
 				case 6:
-					if (e_rand($c,18)>=18){
+					if (Erand::e_rand($c,18)>=18){
 						OutputClass::output("Like a whirlwind, you sweep through the inn, grabbing %s`0, who throws her arms around your neck, and whisk her upstairs to her room there.",$partner);
 						OutputClass::output("Not more than 10 minutes later you stroll down the stairs, smoking a pipe, and grinning from ear to ear.");
 						if ($session['user']['turns']>0){

@@ -111,7 +111,7 @@ if ($op==""){
 		Translator::tlschema();
 	}else{
 		// Idea taken from Robert of dragonprime.cawsquad.net
-		$t = e_rand(0,count($texts['finebeast'])-1);
+		$t = Erand::e_rand(0,count($texts['finebeast'])-1);
 		Translator::tlschema($schemas['finebeast']);
 		OutputClass::output($texts['finebeast'][$t]);
 		Translator::tlschema();

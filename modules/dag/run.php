@@ -200,7 +200,7 @@ function dag_run_private(){
 					// Adding for new Bounty Code
 					$setdate = time();
 					// random set date up to 4 hours in the future.
-					$setdate += e_rand(0,14400);
+					$setdate += Erand::e_rand(0,14400);
 					$sql = "INSERT INTO ". db_prefix("bounty") . " (amount, target, setter, setdate) VALUES ($amt, ".$row['acctid'].", ".(int)$session['user']['acctid'].", '".date("Y-m-d H:i:s",$setdate)."')";
 					db_query($sql);
 					// ***END ADD***

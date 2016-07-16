@@ -9,8 +9,8 @@ if (db_num_rows($result)>0){
 		OutputClass::output("That person has already been haunted, please select another target");
 	}else{
 		$session['user']['deathpower']-=25;
-		$roll1 = e_rand(0,$row['level']);
-		$roll2 = e_rand(0,$session['user']['level']);
+		$roll1 = Erand::e_rand(0,$row['level']);
+		$roll2 = Erand::e_rand(0,$session['user']['level']);
 		if ($roll2>$roll1){
 			OutputClass::output("You have successfully haunted `7%s`)!", $row['name']);
 			$sql = "UPDATE " . db_prefix("accounts") . " SET hauntedby='".addslashes($session['user']['name'])."' WHERE login='$name'";
@@ -22,7 +22,7 @@ if (db_num_rows($result)>0){
 			systemmail($row['acctid'], $subj, $body);
 		}else{
 			addnews("`7%s`) unsuccessfully haunted `7%s`)!",$session['user']['name'],$row['name']);
-			switch (e_rand(0,5)){
+			switch (Erand::e_rand(0,5)){
 			case 0:
 				$msg = "Just as you were about to haunt `7%s`) good, they sneezed, and missed it completely.";
 				break;

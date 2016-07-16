@@ -59,7 +59,7 @@ function crazyaudrey_dohook($hookname,$args){
 	$lcanimals = get_module_setting("lanimals");
 	switch($hookname){
 	case "village-desc":
-		if (e_rand(1, 100) <= get_module_setting("villagepercent")) {
+		if (Erand::e_rand(1, 100) <= get_module_setting("villagepercent")) {
 			OutputClass::output("`n`%Crazy Audrey is here with her `#%s`%!`n",$lcanimals);
 			$args['doaudrey'] = 1;
 		}
@@ -158,10 +158,10 @@ function crazyaudrey_baskets($type)
 		}
 		$colors = array("`^C`&a`Ql`6i`7c`qo","`7T`&i`7g`&e`7r","`QGinger","`&White","`^`bHedgehog!`b");
 		$colors = Translator::translate_inline($colors);
-		$c1 = e_rand(0,3);
-		$c2 = e_rand(0,3);
-		$c3 = e_rand(0,3);
-		if (e_rand(1,20)==1) {
+		$c1 = Erand::e_rand(0,3);
+		$c2 = Erand::e_rand(0,3);
+		$c3 = Erand::e_rand(0,3);
+		if (Erand::e_rand(1,20)==1) {
 			$c1=4; $c2=4; $c3=4;
 		}
 		OutputClass::output("`5You agree to Crazy Audrey's preposterous game and she thumps the first basket on the lid.");

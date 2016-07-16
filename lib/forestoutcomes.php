@@ -3,7 +3,7 @@
 // translator ready
 // mail ready
 require_once("lib/taunt.php");
-require_once("lib/e_rand.php");
+require_once("lib/Erand::e_rand.php");
 require_once("lib/pageparts.php");
 require_once("lib/output.php");
 
@@ -18,9 +18,9 @@ function forestvictory($enemies,$denyflawless=false){
 	$totalbackup = 0;
 	foreach ($enemies as $index=>$badguy) {
 		if (Settings::getsetting("dropmingold",0)){
-			$badguy['creaturegold']= e_rand(round($badguy['creaturegold']/4), round(3*$badguy['creaturegold']/4));
+			$badguy['creaturegold']= Erand::e_rand(round($badguy['creaturegold']/4), round(3*$badguy['creaturegold']/4));
 		}else{
-			$badguy['creaturegold']=e_rand(0,$badguy['creaturegold']);
+			$badguy['creaturegold']=Erand::e_rand(0,$badguy['creaturegold']);
 		}
 		$gold += $badguy['creaturegold'];
 		Translator::tlschema("battle");
@@ -48,7 +48,7 @@ function forestvictory($enemies,$denyflawless=false){
 	// We now have the total experience which should have been gained during the fight.
 	// Now we will calculate the average exp per enemy.
 	$exp = round($totalexp / $count);
-	$gold = e_rand(round($gold/$count),round($gold/$count)*round(($count+1)*pow(1.2, $count-1),0));
+	$gold = Erand::e_rand(round($gold/$count),round($gold/$count)*round(($count+1)*pow(1.2, $count-1),0));
 	$expbonus = round ($expbonus/$count,0);
 
 	if ($gold) {
@@ -58,7 +58,7 @@ function forestvictory($enemies,$denyflawless=false){
 	// No gem hunters allowed!
 	$args = Modules::modulehook("alter-gemchance", array("chance"=>Settings::getsetting("forestgemchance", 25)));
 	$gemchances = $args['chance'];
-	if ($session['user']['level'] < 15 && e_rand(1,$gemchances) == 1) {
+	if ($session['user']['level'] < 15 && Erand::e_rand(1,$gemchances) == 1) {
 		OutputClass::output("`&You find A GEM!`n`#");
 		$session['user']['gems']++;
 		debuglog("found gem when slaying a monster.",false,false,"forestwingem",1);
@@ -180,11 +180,11 @@ function buffbadguy($badguy){
 	}
 
 	$expflux = round($badguy['creatureexp']/10,0);
-	$expflux = e_rand(-$expflux,$expflux);
+	$expflux = Erand::e_rand(-$expflux,$expflux);
 	$badguy['creatureexp']+=$expflux;
 
-	$atkflux = e_rand(0, $dk);
-	$defflux = e_rand(0, ($dk-$atkflux));
+	$atkflux = Erand::e_rand(0, $dk);
+	$defflux = Erand::e_rand(0, ($dk-$atkflux));
 
 	$hpflux = ($dk - ($atkflux+$defflux)) * 5;
 	$badguy['creatureattack']+=$atkflux;

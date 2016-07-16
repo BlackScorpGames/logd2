@@ -61,7 +61,7 @@ function game_dice_run(){
 		} else {
 			$what = Http::httpget('what');
 			if ($what!="keep"){
-				$session['user']['specialmisc']=e_rand(1,6);
+				$session['user']['specialmisc']=Erand::e_rand(1,6);
 				$try=(int)Http::httpget('try');
 				$try++;
 				switch ($try) {
@@ -78,17 +78,17 @@ function game_dice_run(){
 					OutputClass::addnav("Pass","runmodule.php?module=game_dice&what=pass&try=$try&bet=$bet&ret=$ret");
 			}else{
 				OutputClass::output("Your final roll was `b%s`b, the old man will now try to beat it:`n`n", $session['user']['specialmisc']);
-				$r = e_rand(1,6);
+				$r = Erand::e_rand(1,6);
 				OutputClass::output("The old man rolls a %s...`n", $r);
 				if ($r>$session['user']['specialmisc'] || $r==6){
 					OutputClass::output("\"`7I think I'll stick with that roll!`0\" he says.`n");
 				}else{
-					$r = e_rand(1,6);
+					$r = Erand::e_rand(1,6);
 					OutputClass::output("The old man rolls again and gets a %s...`n", $r);
 					if ($r>=$session['user']['specialmisc']){
 						OutputClass::output("\"`7I think I'll stick with that roll!`0\" he says.`n");
 					}else{
-						$r = e_rand(1,6);
+						$r = Erand::e_rand(1,6);
 						OutputClass::output("The old man rolls his final roll and gets a %s...`n", $r);
 					}
 				}

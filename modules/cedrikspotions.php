@@ -79,7 +79,7 @@ function cedrikspotions_dohook($hookname,$args){
 		if (get_module_setting("random")){
 			$min = get_module_setting("minrand");
 			$max = get_module_setting("maxrand");
-			$randcost = e_rand($min,$max);
+			$randcost = Erand::e_rand($min,$max);
 			set_module_setting("randcost",$randcost);
 		}
 		break;

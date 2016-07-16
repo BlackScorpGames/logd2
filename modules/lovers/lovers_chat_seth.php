@@ -10,7 +10,7 @@ function lovers_chat_seth(){
 		OutputClass::output("You and %s`0 spend some time talking about the recent dwarf tossing competition.", Settings::getsetting("bard", "`^Seth"));
 		OutputClass::output("Not wanting to linger around another man for too long, so no one \"wonders\", you decide you should find something else to do.");
 	}else{
-		$charm = $session['user']['charm']+e_rand(-1,1);
+		$charm = $session['user']['charm']+Erand::e_rand(-1,1);
 		OutputClass::output("%s`0 looks you up and down very seriously.", Settings::getsetting("bard", "`^Seth"));
 		OutputClass::output("Only a friend can be truly honest, and that is why you asked him.");
 		switch($charm){

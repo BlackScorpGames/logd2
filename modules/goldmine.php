@@ -106,7 +106,7 @@ function goldmine_runevent($type)
 	if ($hashorse) {
 		$horsecanenter = get_module_objpref('mounts', $hashorse, 'entermine');
 		// See if we automatically tether;
-		if (e_rand(1, 100) <= get_module_setting("alwaystether"))
+		if (Erand::e_rand(1, 100) <= get_module_setting("alwaystether"))
 			$horsecanenter = 0;
 		if ($horsecanenter) {
 			// The mount cannot die or save you if it cannot enter
@@ -137,7 +137,7 @@ function goldmine_runevent($type)
 			// Horsecanenter is a percent, so, if rand(1-100) > enterpercent,
 			// tether it.  Set enter percent to 0 (the default), to always
 			// tether.
-			if (e_rand(1, 100) > $horsecanenter && $hashorse) {
+			if (Erand::e_rand(1, 100) > $horsecanenter && $hashorse) {
 				$msg = get_module_objpref('mounts',$hashorse, 'tethermsg');
 				if ($msg) OutputClass::output ($msg);
 				else {
@@ -149,7 +149,7 @@ function goldmine_runevent($type)
 				$horsecansave = 0;
 			}
 			OutputClass::output("`2You pick up the mining equipment and start mining for gold and gems...`n`n");
-			$rand = e_rand(1,20);
+			$rand = Erand::e_rand(1,20);
 			switch ($rand){
 			case 1:case 2:case 3:case 4: case 5:
 				OutputClass::output("`2After a few hours of hard work you have only found worthless stones and one skull...`n`n");
@@ -158,7 +158,7 @@ function goldmine_runevent($type)
 				$session['user']['specialinc']="";
 				break;
 			case 6: case 7: case 8:case 9: case 10:
-				$gold = e_rand($session['user']['level']*5, $session['user']['level']*20);
+				$gold = Erand::e_rand($session['user']['level']*5, $session['user']['level']*20);
 				OutputClass::output("`^After a few hours of hard work, you find %s gold!`n`n", $gold);
 				$session['user']['gold'] += $gold;
 				debuglog("found $gold gold in the goldmine");
@@ -167,7 +167,7 @@ function goldmine_runevent($type)
 				$session['user']['specialinc']="";
 				break;
 			case 11: case 12: case 13: case 14: case 15:
-				$gems = e_rand(1, round($session['user']['level']/7)+1);
+				$gems = Erand::e_rand(1, round($session['user']['level']/7)+1);
 				OutputClass::output("`^After a few hours of hard work, you find `%%s %s`^!`n`n", $gems, Translator::translate_inline($gems == 1 ? "gem" : "gems"));
 				$session['user']['gems'] += $gems;
 				debuglog("found $gems gems in the goldmine");
@@ -176,8 +176,8 @@ function goldmine_runevent($type)
 				$session['user']['specialinc']="";
 				break;
 			case 16: case 17: case 18:
-				$gold = e_rand($session['user']['level']*10, $session['user']['level']*40);
-				$gems = e_rand(1, round($session['user']['level']/3)+1);
+				$gold = Erand::e_rand($session['user']['level']*10, $session['user']['level']*40);
+				$gems = Erand::e_rand(1, round($session['user']['level']/3)+1);
 				OutputClass::output("`^You have found the mother lode!`n`n");
 				OutputClass::output("`^After a few hours of hard work, you find `%%s %s`^ and %s gold!`n`n", $gems, Translator::translate_inline($gems==1?"gem":"gems"), $gold);
 				$session['user']['gems'] += $gems;
@@ -202,14 +202,14 @@ function goldmine_runevent($type)
 					if ($vals['schema']) Translator::tlschema();
 				}
 
-				if (isset($vals['chance']) && (e_rand(1, 100) < $vals['chance'])) {
+				if (isset($vals['chance']) && (Erand::e_rand(1, 100) < $vals['chance'])) {
 					$dead = 1;
 					$racesave = 0;
 					$racemsg = "";
 				}
 				if ($dead) {
 					// The player has died, see if their horse saves them
-					if (isset($horsecansave) && (e_rand(1,100) <= $horsecansave)) {
+					if (isset($horsecansave) && (Erand::e_rand(1,100) <= $horsecansave)) {
 						$dead = 0;
 						$horsesave = 1;
 					}
@@ -217,7 +217,7 @@ function goldmine_runevent($type)
 				// If we are still dead, see if the horse dies too.
 				$session['user']['specialinc']="";
 				if ($dead) {
-					if (e_rand(1,100) <= $horsecandie) $horsedead = 1;
+					if (Erand::e_rand(1,100) <= $horsecandie) $horsedead = 1;
 					OutputClass::output("You have been crushed under a ton of rock.`n`nPerhaps the next adventurer will recover your body and bury it properly.`n");
 					if ($horsedead) {
 						$msg = get_module_objpref('mounts', $hashorse, 'deathmsg');

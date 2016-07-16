@@ -3,14 +3,14 @@
 // addnews ready
 // mail ready
 require_once("lib/dbwrapper.php");
-require_once("lib/e_rand.php");
+require_once("lib/Erand::e_rand.php");
 require_once("lib/substitute.php");
 
 function select_taunt() {
 	global $session, $badguy;
 
 	$sql = "SELECT taunt FROM " . db_prefix("taunts") .
-		" ORDER BY rand(".e_rand() . ") LIMIT 1";
+		" ORDER BY rand(".Erand::e_rand() . ") LIMIT 1";
 
 	$result = db_query($sql);
 	if ($result) {
@@ -28,7 +28,7 @@ function select_taunt_array(){
 	global $session, $badguy;
 
 	$sql = "SELECT taunt FROM " . db_prefix("taunts") .
-		" ORDER BY rand(".e_rand() . ") LIMIT 1";
+		" ORDER BY rand(".Erand::e_rand() . ") LIMIT 1";
 
 	$result = db_query($sql);
 	if ($result) {

@@ -4,7 +4,7 @@
 // mail ready
 
 require_once("lib/dbwrapper.php");
-require_once("lib/e_rand.php");
+require_once("lib/Erand::e_rand.php");
 
 function valid_dk_title($title, $dks, $gender)
 {
@@ -59,7 +59,7 @@ function get_dk_title($dks, $gender, $ref=false)
 	// match the ref if possible.
 	$sql = "SELECT male,female FROM " . db_prefix("titles") .
 		" WHERE dk='$targetdk' $useref ORDER BY RAND(" .
-		e_rand() . ") LIMIT 1";
+		Erand::e_rand() . ") LIMIT 1";
 	$res = db_query($sql);
 	$row = array('male'=>'God', 'female'=>'Goddess');
 	if (db_num_rows($res) != 0) {

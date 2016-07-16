@@ -21,7 +21,7 @@ $op = Http::httpget("op");
 $battle = false;
 
 if ($op=="run"){
-	if (e_rand()%3 == 0){
+	if (Erand::e_rand()%3 == 0){
 		OutputClass::output ("`c`b`&You have successfully fled your opponent!`0`b`c`n");
 		$op="";
 		Http::httpset('op', "");
@@ -80,9 +80,9 @@ if ($op=="search"){
 		}else{
 			$session['user']['turns']--;
 			$battle=true;
-			if (e_rand(0,2)==1){
-				$plev = (e_rand(1,5)==1?1:0);
-				$nlev = (e_rand(1,3)==1?1:0);
+			if (Erand::e_rand(0,2)==1){
+				$plev = (Erand::e_rand(1,5)==1?1:0);
+				$nlev = (Erand::e_rand(1,3)==1?1:0);
 			}else{
 				$plev=0;
 				$nlev=0;
@@ -114,26 +114,26 @@ if ($op=="search"){
 			$targetlevel = ($session['user']['level'] + $plev - $nlev );
 			$mintargetlevel = $targetlevel;
 			if (Settings::getsetting("multifightdk", 10) <= $session['user']['dragonkills']) {
-				if (e_rand(1,100) <= Settings::getsetting("multichance", 25)) {
-					$multi = e_rand(Settings::getsetting("multibasemin", 2),Settings::getsetting("multibasemax", 3));
+				if (Erand::e_rand(1,100) <= Settings::getsetting("multichance", 25)) {
+					$multi = Erand::e_rand(Settings::getsetting("multibasemin", 2),Settings::getsetting("multibasemax", 3));
 					if ($type=="slum") {
-						$multi -= e_rand(Settings::getsetting("multislummin", 0),Settings::getsetting("multislummax", 1));
-						if (e_rand(0,1)) {
+						$multi -= Erand::e_rand(Settings::getsetting("multislummin", 0),Settings::getsetting("multislummax", 1));
+						if (Erand::e_rand(0,1)) {
 							$mintargetlevel = $targetlevel - 1;
 						} else {
 							$mintargetlevel = $targetlevel - 2;
 						}
 					} else if ($type == "thrill") {
-						$multi += e_rand(Settings::getsetting("multithrillmin", 1),Settings::getsetting("multithrillmax", 2));
-						if (e_rand(0,1)) {
+						$multi += Erand::e_rand(Settings::getsetting("multithrillmin", 1),Settings::getsetting("multithrillmax", 2));
+						if (Erand::e_rand(0,1)) {
 							$targetlevel++;
 							$mintargetlevel = $targetlevel - 1;
 						} else {
 							$mintargetlevel = $targetlevel-1;
 						}
 					} else if ($type == "suicide") {
-						$multi += e_rand(Settings::getsetting("multisuimin", 2),Settings::getsetting("multisuimax", 4));
-						if (e_rand(0,1)) {
+						$multi += Erand::e_rand(Settings::getsetting("multisuimin", 2),Settings::getsetting("multisuimax", 4));
+						if (Erand::e_rand(0,1)) {
 							$mintargetlevel = $targetlevel - 1;
 						} else {
 							$targetlevel++;
@@ -155,17 +155,17 @@ if ($op=="search"){
 			}
 			debug("Creatures: $multi Targetlevel: $targetlevel Mintargetlevel: $mintargetlevel");
 			if ($multi > 1) {
-				$packofmonsters = (bool)(e_rand(0,5) == 0 && Settings::getsetting("allowpackofmonsters", true)); // true or false
+				$packofmonsters = (bool)(Erand::e_rand(0,5) == 0 && Settings::getsetting("allowpackofmonsters", true)); // true or false
 				switch($packofmonsters) {
 					case false:
-						$sql = "SELECT * FROM " . db_prefix("creatures") . " WHERE creaturelevel <= $targetlevel AND creaturelevel >= $mintargetlevel AND forest=1 ORDER BY rand(".e_rand().") LIMIT $multi";
+						$sql = "SELECT * FROM " . db_prefix("creatures") . " WHERE creaturelevel <= $targetlevel AND creaturelevel >= $mintargetlevel AND forest=1 ORDER BY rand(".Erand::e_rand().") LIMIT $multi";
 						break;
 					case true:
-						$sql = "SELECT * FROM " . db_prefix("creatures") . " WHERE creaturelevel <= $targetlevel AND creaturelevel >= $mintargetlevel AND forest=1 ORDER BY rand(".e_rand().") LIMIT 1";
+						$sql = "SELECT * FROM " . db_prefix("creatures") . " WHERE creaturelevel <= $targetlevel AND creaturelevel >= $mintargetlevel AND forest=1 ORDER BY rand(".Erand::e_rand().") LIMIT 1";
 						break;
 				}
 			} else {
-				$sql = "SELECT * FROM " . db_prefix("creatures") . " WHERE creaturelevel <= $targetlevel AND creaturelevel >= $mintargetlevel AND forest=1 ORDER BY rand(".e_rand().") LIMIT 1";
+				$sql = "SELECT * FROM " . db_prefix("creatures") . " WHERE creaturelevel <= $targetlevel AND creaturelevel >= $mintargetlevel AND forest=1 ORDER BY rand(".Erand::e_rand().") LIMIT 1";
 				$packofmonsters = 0;
 			}
 			$result = db_query($sql);
@@ -191,7 +191,7 @@ if ($op=="search"){
 					$initialbadguy = db_fetch_assoc($result);
 					$prefixs = array("Elite","Dangerous","Lethal","Savage","Deadly","Malevolent","Malignant");
 					for($i=0;$i<$multi;$i++) {
-						$initialbadguy['creaturelevel'] = e_rand($mintargetlevel, $targetlevel);
+						$initialbadguy['creaturelevel'] = Erand::e_rand($mintargetlevel, $targetlevel);
 						$initialbadguy['playerstarthp']=$session['user']['hitpoints'];
 						$initialbadguy['diddamage']=0;
 						$badguy = buffbadguy($initialbadguy);

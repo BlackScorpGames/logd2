@@ -70,7 +70,7 @@ function fairy_runevent($type)
 			OutputClass::output("You discover that ...`n`n`^");
 			$session['user']['gems']--;
 			debuglog("gave 1 gem to a fairy");
-			switch(e_rand(1,7)){
+			switch(Erand::e_rand(1,7)){
 			case 1:
 				$extra = get_module_setting("fftoaward");
 				if ($extra == 1) OutputClass::output("You receive an extra forest fight!");

@@ -76,7 +76,7 @@ function game_stones_run(){
 		$rstone = Translator::translate_inline("`\$red`3");
 		$bstone = Translator::translate_inline("`!blue`3");
 		while ($s1=="" || $s2==""){
-			$s1 = e_rand(1,($stones['red']+$stones['blue']));
+			$s1 = Erand::e_rand(1,($stones['red']+$stones['blue']));
 			if ($s1<=$stones['red']) {
 				$s1=$rstone;
 				$stones['red']--;

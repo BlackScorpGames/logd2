@@ -420,7 +420,7 @@ function rollcompaniondamage($companion){
 
 		while(!isset($creaturedmg) || !isset($selfdmg) || $creaturedmg==0 && $selfdmg==0){
 			$atk = $companion['attack']*$compatkmod;
-			if (e_rand(1,20)==1 && $options['type'] != "pvp") $atk*=3;
+			if (Erand::e_rand(1,20)==1 && $options['type'] != "pvp") $atk*=3;
 			/*
 			debug("Attack score: $atk");
 			*/

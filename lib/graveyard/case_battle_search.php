@@ -21,7 +21,7 @@ if ($session['user']['gravefights']<=0){
 	} else {
 		$session['user']['gravefights']--;
  			$battle=true;
- 			$sql = "SELECT * FROM " . db_prefix("creatures") . " WHERE graveyard=1 ORDER BY rand(".e_rand().") LIMIT 1";
+ 			$sql = "SELECT * FROM " . db_prefix("creatures") . " WHERE graveyard=1 ORDER BY rand(".Erand::e_rand().") LIMIT 1";
 		$result = db_query($sql);
 		$badguy = db_fetch_assoc($result);
 		$level = $session['user']['level'];
@@ -32,7 +32,7 @@ if ($session['user']['gravefights']<=0){
 		$badguy['creaturedefense'] = (int)((9 + $shift + (($level-1) * 1.5)));
 		$badguy['creaturedefense'] *= .7;
 		$badguy['creaturehealth'] = $level * 5 + 50;
-		$badguy['creatureexp'] = e_rand(10 + round($level/3),20 + round($level/3));
+		$badguy['creatureexp'] = Erand::e_rand(10 + round($level/3),20 + round($level/3));
 		$badguy['creaturelevel'] = $level;
 		$attackstack['enemies'][0] = $badguy;
 		$attackstack['options']['type'] = 'graveyard';

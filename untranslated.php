@@ -105,7 +105,7 @@ if ($op == "list") {
 	$sql = "SELECT count(intext) AS count FROM " . db_prefix("untranslated");
 	$count = db_fetch_assoc(db_query($sql));
 	if ($count['count'] > 0) {
-		$sql = "SELECT * FROM " . db_prefix("untranslated") . " WHERE language = '" . $session['user']['prefs']['language'] . "' ORDER BY rand(".e_rand().") LIMIT 1";
+		$sql = "SELECT * FROM " . db_prefix("untranslated") . " WHERE language = '" . $session['user']['prefs']['language'] . "' ORDER BY rand(".Erand::e_rand().") LIMIT 1";
 		$result = db_query($sql);
 		if (db_num_rows($result) == 1) {
 			$row = db_fetch_assoc($result);

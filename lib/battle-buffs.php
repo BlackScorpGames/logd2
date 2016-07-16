@@ -193,7 +193,7 @@ function activate_buffs($tag) {
 			}
 			$minioncounter = 1;
 			while ($minioncounter <= $buff['minioncount'] && $who >= 0) {
-				$damage = e_rand($min, $max);
+				$damage = Erand::e_rand($min, $max);
 				if ($who == 0) {
 					$badguy['creaturehealth'] -= $damage;
 					if ($badguy['creaturehealth'] <= 0) {

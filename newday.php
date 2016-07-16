@@ -126,7 +126,7 @@ if ($dp < $dkills) {
 			array("resurrection"=>$resurrection, "turnstoday"=>$turnstoday));
 	$turnstoday = $args['turnstoday'];
 
-	$interestrate = e_rand($mininterest*100,$maxinterest*100)/(float)100;
+	$interestrate = Erand::e_rand($mininterest*100,$maxinterest*100)/(float)100;
 	if ($session['user']['turns']>Settings::getsetting("fightsforinterest",4) && $session['user']['goldinbank']>=0) {
 		$interestrate=1;
 		OutputClass::output("`2Today's interest rate: `^0% (Bankers in this village only give interest to those who work for it)`2.`n");
@@ -184,8 +184,8 @@ if ($dp < $dkills) {
 		OutputClass::output("`n`2You gain `^%s`2 forest %s from spent dragon points!",
 				$dkff, Translator::translate_inline($dkff == 1?"fight":"fights"));
 	}
-	$r1 = e_rand(-1,1);
-	$r2 = e_rand(-1,1);
+	$r1 = Erand::e_rand(-1,1);
+	$r2 = Erand::e_rand(-1,1);
 	$spirits = $r1+$r2;
 	$resurrectionturns=$spirits;
 	if ($resurrection=="true"){

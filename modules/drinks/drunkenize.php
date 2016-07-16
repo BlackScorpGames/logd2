@@ -5,7 +5,7 @@ function drinks_drunkenize($commentary,$level){
 	$replacements=0;
 	while ($replacements/strlen($straight) < ($level)/500 ){
 		$slurs = array("a"=>"aa","e"=>"ee","f"=>"ff","h"=>"hh","i"=>"iy","l"=>"ll","m"=>"mm","n"=>"nn","o"=>"oo","r"=>"rr","s"=>"sss","u"=>"oo","v"=>"vv","w"=>"ww","y"=>"yy","z"=>"zz");
-		if (e_rand(0,9)) {
+		if (Erand::e_rand(0,9)) {
 			$letter = array_rand($slurs);
 			$x = strpos(strtolower($commentary),$letter);
 			if ($x!==false &&
@@ -23,7 +23,7 @@ function drinks_drunkenize($commentary,$level){
 				$replacements++;
 			}
 		}else{
-			$x = e_rand(0,strlen($commentary));
+			$x = Erand::e_rand(0,strlen($commentary));
 			// Skip the ` followed by a letter
 			if (substr($commentary,$x-1,1)=="`") {$x += 1; }
 			if (substr($commentary,$x,5)=="*hic*") {$x+=5; }

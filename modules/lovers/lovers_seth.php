@@ -9,8 +9,8 @@ function lovers_seth(){
 		if ($session['user']['marriedto']==INT_MAX){
 			//married
 			$seenlover=1;
-			if (e_rand(1,4)==1){
-				switch(e_rand(1,4)){
+			if (Erand::e_rand(1,4)==1){
+				switch(Erand::e_rand(1,4)){
 				case 1:
 					$msg = Translator::translate_inline("being too busy tuning his lute,");
 					break;
@@ -51,7 +51,7 @@ function lovers_seth(){
 				$seenlover=1;
 				switch(Http::httpget('flirt')){
 				case 1:
-					if (e_rand($c,2)>=2){
+					if (Erand::e_rand($c,2)>=2){
 						OutputClass::output("%s`0 grins a big toothy grin.",$partner);
 						OutputClass::output("My, isn't the dimple in his chin cute??");
 						if ($c<4) $c++;
@@ -60,7 +60,7 @@ function lovers_seth(){
 					}
 					break;
 				case 2:
-					if (e_rand($c,4)>=4){
+					if (Erand::e_rand($c,4)>=4){
 						OutputClass::output("%s`0 smiles at you and says, \"`^My, what pretty eyes you have.`0\"",$partner);
 						if ($c<7) $c++;
 					}else{
@@ -68,7 +68,7 @@ function lovers_seth(){
 					}
 					break;
 				case 3:
-					if (e_rand($c,7)>=7){
+					if (Erand::e_rand($c,7)>=7){
 						OutputClass::output("%s`0 bends over and retrieves your hanky, while you admire his firm posterior.",$partner);
 						if ($c<11) $c++;
 					}else{
@@ -76,7 +76,7 @@ function lovers_seth(){
 					}
 					break;
 				case 4:
-					if (e_rand($c,11)>=11){
+					if (Erand::e_rand($c,11)>=11){
 						OutputClass::output("%s`0 places his arm around your waist, and escorts you to the bar where he buys you one of the Inn's fine swills.",$partner);
 						if ($c<14) $c++;
 					}else{
@@ -85,7 +85,7 @@ function lovers_seth(){
 					}
 					break;
 				case 5:
-					if (e_rand($c,14)>=14){
+					if (Erand::e_rand($c,14)>=14){
 						OutputClass::output("You walk up to %s`0, grab him by the shirt, pull him to his feet, and plant a firm, long kiss right on his handsome lips.",$partner);
 						OutputClass::output("He collapses after, hair a bit disheveled, and short on breath.");
 						if ($c<18) $c++;
@@ -95,7 +95,7 @@ function lovers_seth(){
 					}
 					break;
 				case 6:
-					if (e_rand($c,18)>=18){
+					if (Erand::e_rand($c,18)>=18){
 						OutputClass::output("Standing at the base of the stairs, you make a come-hither gesture at %s`0.",$partner);
 						OutputClass::output("He follows you like a puppydog.");
 						if ($session['user']['turns']>0){

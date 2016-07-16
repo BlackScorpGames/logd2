@@ -136,7 +136,7 @@ function sethsong_sing()
 
 	$been++;
 	set_module_pref("been",$been);
-	$rnd = e_rand(0,18);
+	$rnd = Erand::e_rand(0,18);
 	OutputClass::output("%s`0 clears his throat and begins:`n`n`^", Settings::getsetting("bard", "`^Seth"));
 	switch ($rnd){
 	case 0:
@@ -147,7 +147,7 @@ function sethsong_sing()
 		break;
 	case 1:
 		// Since masters are now editable, pick a random one.
-		$sql = "SELECT creaturename FROM " . db_prefix("masters") . " ORDER BY RAND(".e_rand().") LIMIT 1";
+		$sql = "SELECT creaturename FROM " . db_prefix("masters") . " ORDER BY RAND(".Erand::e_rand().") LIMIT 1";
 		$res = db_query($sql);
 		if (db_num_rows($res)) {
 			$row = db_fetch_assoc($res);
@@ -175,7 +175,7 @@ function sethsong_sing()
 		OutputClass::output("`0You realize he's right, %s`0's beer really is nasty.", Settings::getsetting('barkeep', '`tCedrik'));
 		OutputClass::output("That's why most patrons prefer his ale.");
 		OutputClass::output("Though you don't really gain anything from the tale from %s`0, you do happen to notice a few gold on the ground!", Settings::getsetting("bard", "`^Seth"));
-		$gain = e_rand($leastgold,$mostgold);
+		$gain = Erand::e_rand($leastgold,$mostgold);
 		$session['user']['gold']+=$gain;
 		debuglog("found $gain gold near Seth");
 		break;
@@ -222,7 +222,7 @@ function sethsong_sing()
 		}
 		break;
 	case 9:
-		$gems=e_rand($leastgems,$mostgems);
+		$gems=Erand::e_rand($leastgems,$mostgems);
 		OutputClass::output("What do you call a fish with no eyes?`n`n");
 		OutputClass::output("A fsshh.`n`n");
 		OutputClass::output("`0You groan as %s`0 laughs heartily.", Settings::getsetting("bard", "`^Seth"));

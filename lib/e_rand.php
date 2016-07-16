@@ -7,7 +7,8 @@ function make_seed(){
 	return (float) $sec + ((float) $usec * 100000);
 }
 
-function e_rand($min=false,$max=false){
+class ERand {
+public static function e_rand($min=false,$max=false){
 	if ($min===false) return @mt_rand();
 	$min = round($min);
 	if ($max===false) return @mt_rand($min);
@@ -22,7 +23,7 @@ function e_rand($min=false,$max=false){
 		return @mt_rand($max,$min);
 	}
 }
-
+}
 function r_rand($min=false,$max=false){
 	if ($min===false) return mt_rand();
 	$min*=1000;

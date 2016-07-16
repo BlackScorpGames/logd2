@@ -28,9 +28,9 @@ switch ($op) {
 		require_once("lib/graveyard/case_battle_search.php");
 		break;
 case "run":
-	if (e_rand(0,2)==1) {
+	if (Erand::e_rand(0,2)==1) {
 		OutputClass::output("`\$%s`) curses you for your cowardice.`n`n",$deathoverlord);
-		$favor = 5 + e_rand(0, $session['user']['level']);
+		$favor = 5 + Erand::e_rand(0, $session['user']['level']);
 		if ($favor > $session['user']['deathpower'])
 			$favor = $session['user']['deathpower'];
 		if ($favor > 0) {

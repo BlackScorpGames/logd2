@@ -122,11 +122,11 @@ if ($op != "run" && $op != "fight" && $op != "newtarget") {
 		// being surprised to all fights.
 		if (!array_key_exists('didsurprise',$options) || !$options['didsurprise']) {
 			// By default, surprise is 50/50
-			$surprised = e_rand(0, 1) ? true : false;
+			$surprised = Erand::e_rand(0, 1) ? true : false;
 			// Now, adjust for slum/thrill
 			$type = Http::httpget('type');
 			if ($type == 'slum' || $type == 'thrill') {
-				$num = e_rand(0, 2);
+				$num = Erand::e_rand(0, 2);
 				$surprised = true;
 				if ($type == 'slum' && $num != 2)
 				$surprised = false;

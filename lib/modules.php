@@ -461,7 +461,7 @@ class Modules
             //debug("Base link was specified as $baseLink");
             //debug(debug_backtrace());
         }
-        if (e_rand(1, 100) <= $basechance) {
+        if (Erand::e_rand(1, 100) <= $basechance) {
             global $PHP_SELF;
             $events = module_collect_events($eventtype);
             $chance = r_rand(1, 100);
@@ -1130,7 +1130,7 @@ function module_collect_events($type, $allowinactive=false)
 	$events = array();
 	if (!$allowinactive) $active = " active=1 AND";
 
-	$sql = "SELECT " . db_prefix("module_event_hooks") . ".* FROM " . db_prefix("module_event_hooks") . " INNER JOIN " . db_prefix("modules") . " ON ". db_prefix("modules") . ".modulename = " . db_prefix("module_event_hooks") . ".modulename WHERE $active event_type='$type' ORDER BY RAND(".e_rand().")";
+	$sql = "SELECT " . db_prefix("module_event_hooks") . ".* FROM " . db_prefix("module_event_hooks") . " INNER JOIN " . db_prefix("modules") . " ON ". db_prefix("modules") . ".modulename = " . db_prefix("module_event_hooks") . ".modulename WHERE $active event_type='$type' ORDER BY RAND(".Erand::e_rand().")";
 	$result = db_query_cached($sql,"event-".$type);
 	while ($row = db_fetch_assoc($result)){
 		// The event_chance bit needs to return a value, but it can do that

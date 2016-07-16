@@ -46,8 +46,8 @@ if ($op==""){
 
 	$points = round($points*.75,0);
 
-	$atkflux = e_rand(0, $points);
-	$defflux = e_rand(0,$points-$atkflux);
+	$atkflux = Erand::e_rand(0, $points);
+	$defflux = Erand::e_rand(0,$points-$atkflux);
 
 	$hpflux = ($points - ($atkflux+$defflux)) * 5;
 	debug("DEBUG: $points modification points total.`0`n");

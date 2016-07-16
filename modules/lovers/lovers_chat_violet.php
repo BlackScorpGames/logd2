@@ -13,7 +13,7 @@ function lovers_chat_violet(){
 		OutputClass::output("You accept, knowing that it's in her nature to do so as a former pickle wench.");
 		OutputClass::output("After a few minutes, %s`0 begins to cast burning looks your way, and you decide you had best let %s`0 get back to work.",Settings::getsetting('barkeep','`tCedrik'), Settings::getsetting("barmaid", "`%Violet"));
 	}else if(Http::httpget('act')=="fat"){
-		$charm = $session['user']['charm']+e_rand(-1,1);
+		$charm = $session['user']['charm']+Erand::e_rand(-1,1);
 		OutputClass::output("%s`0 looks you up and down very seriously.", Settings::getsetting("barmaid", "`%Violet"));
 		OutputClass::output("Only a friend can be truly honest, and that is why you asked her.");
 		switch($charm){

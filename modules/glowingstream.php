@@ -44,7 +44,7 @@ function glowingstream_runevent($type,$link)
 		OutputClass::addnav("Don't Drink", $from . "op=nodrink");
 	}elseif ($op=="drink"){
 		$session['user']['specialinc']="";
-		$rand = e_rand(1,10);
+		$rand = Erand::e_rand(1,10);
 		OutputClass::output("`#Knowing that the water could yield deadly results, you decide to take your chances.");
 		OutputClass::output("Kneeling down at the edge of the stream, you take a long hard draught from the cold stream.");
 		OutputClass::output("You feel a warmth growing out from your chest...`n");
