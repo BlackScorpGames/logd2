@@ -39,7 +39,7 @@ function calculate_buff_fields(){
 					define("OLDSU", $session['user']['superuser']);
 				}
 				if ($value != $origstring){
-					if (strtolower(substr($value,0,6))=="debug:"){
+					if (strtolower(substr($value,0,6))=="OutputClass::debug:"){
 						$errors="";
 						$origstring = substr($origstring,6);
 						$value = substr($value,6);
@@ -52,9 +52,9 @@ function calculate_buff_fields(){
 
 						if (!isset($debuggedbuffs[$buffname][$property])){
 							if ($errors==""){
-								debug("Buffs[$buffname][$property] evaluates successfully to $val");
+								OutputClass::debug("Buffs[$buffname][$property] evaluates successfully to $val");
 							}else{
-								debug("Buffs[$buffname][$property] has an evaluation error<br>"
+								OutputClass::debug("Buffs[$buffname][$property] has an evaluation error<br>"
 								.htmlentities($origstring, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))." becomes <br>"
 								.htmlentities($value, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."<br>"
 								.$errors);
@@ -63,8 +63,8 @@ function calculate_buff_fields(){
 							$debuggedbuffs[$buffname][$property]=true;
 						}
 
-						$origstring="debug:".$origstring;
-						$value="debug".$value;
+						$origstring="OutputClass::debug:".$origstring;
+						$value="OutputClass::debug".$value;
 					}else{
 						$val = eval("return $value;");
 					}
@@ -178,7 +178,7 @@ function apply_companion($name,$companion,$ignorelimit=false){
 		$session['user']['companions'] = createstring($companions);
 		return true; // success!
 	} else {
-		debug("Failed to add companion due to restrictions regarding the maximum amount of companions allowed.");
+		OutputClass::debug("Failed to add companion due to restrictions regarding the maximum amount of companions allowed.");
 		return false;
 	}
 }

@@ -270,7 +270,7 @@ if ($session['user']['superuser'] & SU_MODERATE_CLANS){
 			OutputClass::addnav(array("<%s> %s", $row['clanshort'], $row['clanname']),
 					"moderate.php?area=clan-{$row['clanid']}");
 		} else {
-			debug ("There was an error while trying to access your clan.");
+			OutputClass::debug ("There was an error while trying to access your clan.");
 		}
 		Translator::tlschema();
 	}

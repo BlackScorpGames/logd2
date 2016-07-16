@@ -60,7 +60,7 @@ function updatedatacache($name,$data){
 		}
 		return true;
 	}
-	//debug($datacache);
+	//OutputClass::debug($datacache);
 	return false;
 }
 

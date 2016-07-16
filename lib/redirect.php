@@ -21,13 +21,13 @@ class RedirectClass
                 "badnav");
         }
         restore_buff_fields();
-        $session['debug'] .= "Redirected to $location from $REQUEST_URI.  $reason<br>";
+        $session['OutputClass::debug'] .= "Redirected to $location from $REQUEST_URI.  $reason<br>";
         saveuser();
         @header("Location: $location");
         //echo "<html><head><meta http-equiv='refresh' content='0;url=$location'></head></html>";
         //echo "<a href='$location'>$location</a><br><br>";
         //echo $location;
-        //echo $session['debug'];
+        //echo $session['OutputClass::debug'];
         exit();
     }
 }

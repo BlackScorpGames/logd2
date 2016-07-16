@@ -52,7 +52,7 @@ require_once("lib/constants.php");
 require_once("lib/datacache.php");
 require_once("lib/modules.php");
 require_once("lib/http.php");
-require_once("lib/Erand::e_rand.php");
+require_once("lib/e_rand.php");
 require_once("lib/buffs.php");
 require_once("lib/pageparts.php");
 require_once("lib/output.php");

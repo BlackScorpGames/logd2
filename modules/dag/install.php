@@ -9,7 +9,7 @@ function dag_install_private(){
 	module_addhook("dragonkill");
 	module_addhook("showsettings");
 	module_addhook("delete_character");
-	debug("Creating Bounty Table");
+	OutputClass::debug("Creating Bounty Table");
 	$sql = "SHOW TABLES";
 	$result = db_query($sql);
 	$bountytableisthere=false;
@@ -21,9 +21,9 @@ function dag_install_private(){
 		}
 	}
 	if ($bountytableisthere){
-		debug("The bounty table already exists on your server, not overwriting it.`n");
+		OutputClass::debug("The bounty table already exists on your server, not overwriting it.`n");
 	}else{
-		debug("Creating the bounty table.`n");
+		OutputClass::debug("Creating the bounty table.`n");
 		$sql="CREATE TABLE " . db_prefix("bounty") . " (
 			bountyid int(11) unsigned NOT NULL auto_increment,
 			amount int(11) unsigned NOT NULL default '0',
@@ -46,9 +46,9 @@ function dag_install_private(){
 	while ($row = db_fetch_assoc($result)){
 		if ($row['Field']=="bounty"){
 			$sql = "INSERT INTO " . db_prefix("bounty") . " (amount,target,setdate) SELECT bounty,acctid,'".date("Y-m-d H:i:s")."' FROM " . db_prefix("accounts") . " WHERE " . db_prefix("accounts") . ".bounty > 0";
-			debug("The bounty column was found in your accounts table, migrating its values to the bounty table.`n");
+			OutputClass::debug("The bounty column was found in your accounts table, migrating its values to the bounty table.`n");
 			db_query($sql);
-			debug("Dropping accounts column from the user table.`n");
+			OutputClass::debug("Dropping accounts column from the user table.`n");
 			$sql = "ALTER TABLE " . db_prefix("accounts") . " DROP bounty";
 			db_query($sql);
 			//drop it from the user's session too.
@@ -56,12 +56,12 @@ function dag_install_private(){
 		}elseif ($row['Field']=="bounties"){
 			$sql = "SELECT bounties,acctid FROM " . db_prefix("accounts") . " WHERE bounties>0";
 			$result1 = db_query($sql);
-			debug("Migrating bounty counts.`n");
+			OutputClass::debug("Migrating bounty counts.`n");
 			while ($row1 = db_fetch_assoc($result1)){
 				$sql = "INSERT INTO " . db_prefix("module_userprefs") . " (modulename,setting,userid,value) VALUES ('dag','bounties',{$row1['acctid']},{$row1['bounties']})";
 				db_query($sql);
 			}//end while
-			debug("Dropping bounty count from the user table.`n");
+			OutputClass::debug("Dropping bounty count from the user table.`n");
 			$sql = "ALTER TABLE " . db_prefix("accounts") . " DROP bounties";
 			db_query($sql);
 			//drop it from the user's session too.

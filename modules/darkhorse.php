@@ -47,10 +47,10 @@ function darkhorse_install(){
 	$result = db_query($sql);
 	while($row = db_fetch_assoc($result)) {
 		if ($row['Field'] == "tavern") {
-			debug("Migrating tavern for all mounts");
+			OutputClass::debug("Migrating tavern for all mounts");
 			$sql = "INSERT INTO " . db_prefix("module_objprefs") . " (modulename,objtype,setting,objid,value) SELECT 'darkhorse','mounts','findtavern',mountid,tavern FROM " . db_prefix("mounts");
 			db_query($sql);
-			debug("Dropping tavern field from mounts table");
+			OutputClass::debug("Dropping tavern field from mounts table");
 			$sql = "ALTER TABLE " . db_prefix("mounts") . " DROP tavern";
 			db_query($sql);
 		}

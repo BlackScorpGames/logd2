@@ -12,7 +12,7 @@ function glowingstream_getmoduleinfo(){
 	);
 	return $info;
 }
-debug("glowingstream");
+OutputClass::debug("glowingstream");
 function glowingstream_install(){
 	module_addeventhook("forest", "return 100;");
 	module_addeventhook("travel", "return 100;");

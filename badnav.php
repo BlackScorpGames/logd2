@@ -39,7 +39,7 @@ if ($session['user']['loggedin'] && $session['loggedin']){
 		PageParts::page_footer();
 	}
 	echo $row['OutputClass::output'];
-	$session['debug']="";
+	$session['OutputClass::debug']="";
 	$session['user']['allowednavs']=$session['allowednavs'];
 	saveuser();
 }else{

@@ -20,7 +20,7 @@ function logd_error_handler($errno, $errstr, $errfile, $errline){
 	case E_USER_NOTICE:
 		if (Settings::getsetting('show_notices', 0) &&
 				$session['user']['superuser'] & SU_SHOW_PHPNOTICE) {
-			debug("PHP Notice: \"$errstr\"<br>in <b>$errfile</b> at <b>$errline</b>.");
+			OutputClass::debug("PHP Notice: \"$errstr\"<br>in <b>$errfile</b> at <b>$errline</b>.");
 		}
 		break;
 	case E_WARNING:
@@ -72,7 +72,7 @@ function logd_error_notify($errno, $errstr, $errfile, $errline, $backtrace){
 		$do_notice = true;
 	}
 	if ($data['firstrun']){
-		debug("First run, not notifying users.");
+		OutputClass::debug("First run, not notifying users.");
 	}else{
 		if ($do_notice){
 
@@ -112,7 +112,7 @@ $html_text
 			  * Mime bits are set up,
 			 **/
 			while (list($key,$email)=each($sendto)){
-				debug("Notifying $email of this error.");
+				OutputClass::debug("Notifying $email of this error.");
 
 				mail($email, $subject, $body,
 					"From: " . $from . "\n" .
@@ -123,11 +123,11 @@ $html_text
 			//mark the time that notice was last sent for this error.
 			$data['errors'][$errstr] = strtotime("now");
 		}else{
-			debug("Not notifying users for this error, it's only been ".round((strtotime("now") - $data['errors'][$errstr]) / 60,2)." minutes.");
+			OutputClass::debug("Not notifying users for this error, it's only been ".round((strtotime("now") - $data['errors'][$errstr]) / 60,2)." minutes.");
 		}
 	}
 	updatedatacache("error_notify",$data);
-	debug($data);
+	OutputClass::debug($data);
 }
 set_error_handler("logd_error_handler");
 ?>

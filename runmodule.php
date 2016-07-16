@@ -33,7 +33,7 @@ if (injectmodule(Http::httpget('module'), (Http::httpget('admin')?true:false))){
 	$fname();
 	$endtime = getmicrotime();
 	if (($endtime - $starttime >= 1.00 && ($session['user']['superuser'] & SU_DEBUG_OUTPUT))){
-		debug("Slow Module (".round($endtime-$starttime,2)."s): $mostrecentmodule`n");
+		OutputClass::debug("Slow Module (".round($endtime-$starttime,2)."s): $mostrecentmodule`n");
 	}
 	Translator::tlschema();
 }else{

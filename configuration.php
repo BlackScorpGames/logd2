@@ -35,7 +35,7 @@ if ($op=="save"){
 	}
 	$tmp = stripslashes(Http::httppost("villagename"));
 	if ($tmp && $tmp != $settings['villagename']) {
-		debug("Updating village name -- moving players");
+		OutputClass::debug("Updating village name -- moving players");
 		$sql = "UPDATE " . db_prefix("accounts") . " SET location='".
 			Http::httppost("villagename") . "' WHERE location='" .
 			addslashes($settings['villagename']) . "'";
@@ -43,7 +43,7 @@ if ($op=="save"){
 		if ($session['user']['location'] == $settings['villagename'])
 			$session['user']['location'] =
 				stripslashes(Http::httppost('villagename'));
-		debug("Moving companions");
+		OutputClass::debug("Moving companions");
 		$sql = "UPDATE " . db_prefix("companions") . " SET companionlocation = '".
 			Http::httppost("villagename") . "' WHERE companionlocation = '".
 			addslashes($settings['villagename']) . "'";
@@ -51,7 +51,7 @@ if ($op=="save"){
 	}
 	$tmp = stripslashes(Http::httppost("innname"));
 	if ($tmp && $tmp != $settings['innname']) {
-		debug("Updating inn name -- moving players");
+		OutputClass::debug("Updating inn name -- moving players");
 		$sql = "UPDATE " . db_prefix("accounts") . " SET location='".
 			Http::httppost("innname") . "' WHERE location='" .
 			addslashes($settings['innname']) . "'";
@@ -106,7 +106,7 @@ if ($op=="save"){
 						OutputClass::output("Setting %s to %s`n", $key, $val);
 						// Notify modules
 						if($key == "villagename") {
-							debug("Moving companions");
+							OutputClass::debug("Moving companions");
 							$sql = "UPDATE " . db_prefix("companions") . " SET companionlocation = '".
 								addslashes($val) . "' WHERE companionlocation = '".
 								addslashes($old[$key]) . "'";
@@ -237,7 +237,7 @@ if ($op == "") {
 			SU_INFINITE_DAYS.",Infinite Days,".
 			SU_VIEW_SOURCE.",View Source Code,".
 			SU_DEVELOPER.",Developer Super Powers (special inc list; god mode; auto defeat master; etc),".
-			SU_DEBUG_OUTPUT. ",Debug OutputClass::output",
+			SU_DEBUG_OUTPUT. ",OutputClass::debug OutputClass::output",
 		"newplayerstartgold"=>"Amount of gold to start a new character with,int",
 		"maxrestartgold"=>"Maximum amount of gold a player will get after a dragonkill,int",
 		"maxrestartgems"=>"Maximum number of gems a player will get after a dragonkill,int",

@@ -26,22 +26,22 @@ function specialtymysticpower_install(){
 	while($row = db_fetch_assoc($result)) {
 		// Convert the user over
 		if ($row['Field'] == "magic") {
-			debug("Migrating mystic powers field");
+			OutputClass::debug("Migrating mystic powers field");
 			$sql = "INSERT INTO " . db_prefix("module_userprefs") . " (modulename,setting,userid,value) SELECT 'specialtymysticpower', 'skill', acctid, magic FROM " . db_prefix("accounts");
 			db_query($sql);
-			debug("Dropping magic field from accounts table");
+			OutputClass::debug("Dropping magic field from accounts table");
 			$sql = "ALTER TABLE " . db_prefix("accounts") . " DROP magic";
 			db_query($sql);
 		} elseif ($row['Field']=="magicuses") {
-			debug("Migrating mystic powers uses field");
+			OutputClass::debug("Migrating mystic powers uses field");
 			$sql = "INSERT INTO " . db_prefix("module_userprefs") . " (modulename,setting,userid,value) SELECT 'specialtymysticpower', 'uses', acctid, magicuses FROM " . db_prefix("accounts");
 			db_query($sql);
-			debug("Dropping magicuses field from accounts table");
+			OutputClass::debug("Dropping magicuses field from accounts table");
 			$sql = "ALTER TABLE " . db_prefix("accounts") . " DROP magicuses";
 			db_query($sql);
 		}
 	}
-	debug("Migrating Mystic Powers Specialty");
+	OutputClass::debug("Migrating Mystic Powers Specialty");
 	$sql = "UPDATE " . db_prefix("accounts") . " SET specialty='$specialty' WHERE specialty='2'";
 	db_query($sql);
 

@@ -640,7 +640,7 @@ function charstats(){
 			if ($val['name'] > "" || $session['user']['superuser'] & SU_DEBUG_OUTPUT){
 				Translator::tlschema($val['schema']);
 				if ($val['name']=="")
-					$val['name'] = "DEBUG: {$key}";
+					$val['name'] = "OutputClass::debug: {$key}";
 				if (is_array($val['name'])) {
 					$val['name'][0] = str_replace("`%","`%%",$val['name'][0]);
 					$val['name']=call_user_func_array("sprintf_translate", $val['name']);

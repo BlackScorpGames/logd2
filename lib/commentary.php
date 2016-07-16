@@ -93,7 +93,7 @@ class Commentary
 				$x = strpos($return, "&");
 				$return = substr($return, 0, $x - 1) . "?" . substr($return, $x + 1);
 			}
-			debug($return);
+			OutputClass::debug($return);
 			RedirectClass::redirect($return);
 		}
 		if (array_key_exists('commentcounter', $session) &&
@@ -557,7 +557,7 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 		$last .= "#$section";
 	}
 	//if (!strpos($last,"?")) $last = str_replace("&","?",$last);
-	//debug($last);
+	//OutputClass::debug($last);
 	OutputClass::output_notl("&nbsp;<a href=\"$last\">$ref</a>&nbsp;",true);
 	OutputClass::addnav("",$last);
 	if ($com>0 || ($cid > 0 && $newadded > $limit)){

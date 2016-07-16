@@ -81,7 +81,7 @@ function injectmodule($modulename,$force=false){
 					//the file mod time is still different from that
 					//recorded in the database, time to update the database
 					//and upgrade the module.
-					debug("The module $modulename was found to have updated, upgrading the module now.");
+					OutputClass::debug("The module $modulename was found to have updated, upgrading the module now.");
 					if (!is_array($info)){
 						//we might have gotten this info above, if not,
 						//we need it now.
@@ -102,7 +102,7 @@ function injectmodule($modulename,$force=false){
 
 					$sql = "UPDATE ". db_prefix("modules") . " SET moduleauthor='".addslashes($info['author'])."', category='".addslashes($info['category'])."', formalname='".addslashes($info['name'])."', description='".addslashes($info['description'])."', filemoddate='$filemoddate', infokeys='$keys',version='".addslashes($info['version'])."',download='".addslashes($info['download'])."' WHERE modulename='$modulename'";
 					db_query($sql);
-					debug($sql);
+					OutputClass::debug($sql);
 					$sql = "UNLOCK TABLES";
 					db_query($sql);
 					// Remove any old hooks (install will reset them)
@@ -458,8 +458,8 @@ class Modules
             global $PHP_SELF;
             $baseLink = substr($PHP_SELF, strrpos($PHP_SELF, "/") + 1) . "?";
         } else {
-            //debug("Base link was specified as $baseLink");
-            //debug(debug_backtrace());
+            //OutputClass::debug("Base link was specified as $baseLink");
+            //OutputClass::debug(debug_backtrace());
         }
         if (Erand::e_rand(1, 100) <= $basechance) {
             global $PHP_SELF;
@@ -510,7 +510,7 @@ class Modules
                 global $SCRIPT_NAME;
                 $where = $SCRIPT_NAME;
             }
-            debug("Args parameter to Modules::modulehook $hookname from $where is not an array.");
+            OutputClass::debug("Args parameter to Modules::modulehook $hookname from $where is not an array.");
         }
         if ($session['user']['superuser'] & SU_DEBUG_OUTPUT && !isset($hookcomment[$hookname])) {
             OutputClass::rawoutput("<!--Module Hook: $hookname; allow inactive: " . ($allowinactive ? "true" : "false") . "; only this module: " . ($only !== false ? $only : "any module"));
@@ -623,7 +623,7 @@ class Modules
                     /*******************************************************/
                     $endtime = getmicrotime();
                     if (($endtime - $starttime >= 1.00 && ($session['user']['superuser'] & SU_DEBUG_OUTPUT))) {
-                        debug("Slow Hook (" . round($endtime - $starttime,
+                        OutputClass::debug("Slow Hook (" . round($endtime - $starttime,
                                 2) . "s): $hookname - {$row['modulename']}`n");
                     }
                     /*******************************************************/
@@ -743,7 +743,7 @@ function clear_module_settings($module=false){
 	global $module_settings,$mostrecentmodule;
 	if ($module === false) $module = $mostrecentmodule;
 	if (isset($module_settings[$module])){
-		debug("Deleted module settings cache for $module.");
+		OutputClass::debug("Deleted module settings cache for $module.");
 		unset($module_settings[$module]);
 		DataCache::invalidatedatacache("modulesettings-$module");
 	}
@@ -1025,7 +1025,7 @@ function module_wipehooks() {
 	}
 	DataCache::invalidatedatacache("moduleprepare");
 
-	debug("Removing all hooks for $mostrecentmodule");
+	OutputClass::debug("Removing all hooks for $mostrecentmodule");
 	$sql = "DELETE FROM " . db_prefix("module_hooks"). " WHERE modulename='$mostrecentmodule'";
 	db_query($sql);
 	//unlock the module hooks table.
@@ -1039,7 +1039,7 @@ function module_wipehooks() {
 
 function module_addeventhook($type, $chance){
 	global $mostrecentmodule;
-	debug("Adding an event hook on $type events for $mostrecentmodule");
+	OutputClass::debug("Adding an event hook on $type events for $mostrecentmodule");
 	$sql = "DELETE FROM " . db_prefix("module_event_hooks") . " WHERE modulename='$mostrecentmodule' AND event_type='$type'";
 	db_query($sql);
 	$sql = "INSERT INTO " . db_prefix("module_event_hooks") . " (event_type,modulename,event_chance) VALUES ('$type', '$mostrecentmodule','".addslashes($chance)."')";
@@ -1087,7 +1087,7 @@ function module_addhook_priority($hookname,$priority=50,$functioncall=false,$whe
 	if ($functioncall===false) $functioncall=$mostrecentmodule."_dohook";
 	if ($whenactive === false) $whenactive = '';
 
-	debug("Adding a hook at $hookname for $mostrecentmodule to $functioncall which is active on condition '$whenactive'");
+	OutputClass::debug("Adding a hook at $hookname for $mostrecentmodule to $functioncall which is active on condition '$whenactive'");
 	//we want to do a replace in case there's any garbage left in this table which might block new clean data from going in.
 	//normally that won't be the case, and so this doesn't have any performance implications.
 	$sql = "REPLACE INTO " . db_prefix("module_hooks") . " (modulename,location,function,whenactive,priority) VALUES ('$mostrecentmodule','".addslashes($hookname)."','".addslashes($functioncall)."','".addslashes($whenactive)."','".addslashes($priority)."')";
@@ -1142,7 +1142,7 @@ function module_collect_events($type, $allowinactive=false)
 		$err = ob_get_contents();
 		ob_end_clean();
 		if ($err > ""){
-			debug(array("error"=>$err,"Eval code"=>$row['event_chance']));
+			OutputClass::debug(array("error"=>$err,"Eval code"=>$row['event_chance']));
 		}
 		if ($chance < 0) $chance = 0;
 		if ($chance > 100) $chance = 100;
@@ -1185,8 +1185,8 @@ function module_do_event($type, $module, $allowinactive=false, $baseLink=false)
 		global $PHP_SELF;
 		$baseLink = substr($PHP_SELF,strrpos($PHP_SELF,"/")+1)."?";
 	}else{
-		//debug("Base link was specified as $baseLink");
-		//debug(debug_backtrace());
+		//OutputClass::debug("Base link was specified as $baseLink");
+		//OutputClass::debug(debug_backtrace());
 	}
 	// Save off the mostrecent module since having that change can change
 	// behaviour especially if a module calls modulehooks itself or calls
@@ -1389,7 +1389,7 @@ function install_module($module, $force=true){
 						}
 						if (isset($x[1])){
 							set_module_setting($key,$x[1]);
-							debug("Setting $key to default {$x[1]}");
+							OutputClass::debug("Setting $key to default {$x[1]}");
 						}
 					}
 				}

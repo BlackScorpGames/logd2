@@ -46,7 +46,7 @@ $prev = $start-500;
 OutputClass::addnav("Operations");
 OutputClass::addnav("Edit user info","user.php?op=edit&userid=$userid$returnpetition");
 OutputClass::addnav("Refresh", "user.php?op=debuglog&userid=$userid&start=$start$returnpetition");
-OutputClass::addnav("Debug Log");
+OutputClass::addnav("OutputClass::debug Log");
 if ($next < $max) {
 	OutputClass::addnav("Next page","user.php?op=debuglog&userid=$userid&start=$next$returnpetition");
 }

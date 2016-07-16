@@ -2,7 +2,7 @@
 // translator ready
 // addnews ready
 // mail ready
-require_once("lib/Erand::e_rand.php");
+require_once("lib/e_rand.php");
 require_once("lib/showform.php");
 require_once("lib/http.php");
 require_once("lib/buffs.php");
@@ -51,10 +51,10 @@ function drinks_install(){
 }
 
 function drinks_uninstall() {
-	debug("Dropping table drinks");
+	OutputClass::debug("Dropping table drinks");
 	$sql = "DROP TABLE IF EXISTS " . db_prefix("drinks");
 	db_query($sql);
-	debug("Dropping objprefs related to drinks");
+	OutputClass::debug("Dropping objprefs related to drinks");
 	$sql = "DELETE FROM " . db_prefix("module_objprefs") .
 		" WHERE objtype='drinks'";
 	db_query($sql);

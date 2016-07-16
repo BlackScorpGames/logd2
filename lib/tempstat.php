@@ -22,7 +22,7 @@ function apply_temp_stat($name,$value,$type="add"){
 			$session['user'][$name] += $value;
 		return true;
 	}else{
-		debug("Temp stat type $type is not supported.");
+		OutputClass::debug("Temp stat type $type is not supported.");
 		return false;
 	}
 }

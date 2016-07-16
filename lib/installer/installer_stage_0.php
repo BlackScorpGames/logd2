@@ -13,7 +13,7 @@ if (DB_CHOSEN){
 		$needsauthentication = false;
 	}
 	if (Http::httppost("username")>""){
-		debug(md5(md5(stripslashes(Http::httppost("password")))), true);
+		OutputClass::debug(md5(md5(stripslashes(Http::httppost("password")))), true);
 		$version = Settings::getsetting("installer_version","-1");
 		if ($version == "-1") {
 			// Passwords weren't encrypted in these versions
@@ -22,18 +22,18 @@ if (DB_CHOSEN){
 		$result = db_query($sql);
 		if (db_num_rows($result) > 0){
 			$row = db_fetch_assoc($result);
-			debug($row['password'], true);
-			debug(Http::httppost('password'), true);
+			OutputClass::debug($row['password'], true);
+			OutputClass::debug(Http::httppost('password'), true);
 			// Okay, we have a username with megauser, now we need to do
 			// some hackery with the password.
 			$needsauthentication=true;
 			$p = stripslashes(Http::httppost("password"));
 			$p1 = md5($p);
 			$p2 = md5($p1);
-			debug($p2, true);
+			OutputClass::debug($p2, true);
 
 			if (Settings::getsetting("installer_version", "-1") == "-1") {
-				debug("HERE I AM", true);
+				OutputClass::debug("HERE I AM", true);
 				// Okay, they are upgrading from 0.9.7  they will have
 				// either a non-encrypted password, or an encrypted singly
 				// password.

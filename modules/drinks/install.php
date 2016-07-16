@@ -1,9 +1,9 @@
 <?php
 function drinks_install_private(){
 	if (db_table_exists(db_prefix("drinks"))) {
-		debug("Drinks table already exists");
+		OutputClass::debug("Drinks table already exists");
 	}else{
-		debug("Creating drinks table");
+		OutputClass::debug("Creating drinks table");
 		$sqls = array(
 			"CREATE TABLE " . db_prefix("drinks") . " (
 				drinkid smallint(6) NOT NULL auto_increment,
@@ -49,12 +49,12 @@ function drinks_install_private(){
 	$result = db_query($sql);
 	while($row = db_fetch_assoc($result)) {
 		if ($row['Field']=="buffactivate"){
-			debug("Dropping buffactivate from the drinks table.");
+			OutputClass::debug("Dropping buffactivate from the drinks table.");
 			$sql = "ALTER TABLE " . db_prefix("drinks") . " DROP buffactivate";
 			db_query($sql);
 		} // end if
 		if ($row['Field']=="hppercent" && $row['Type']=="float") {
-			debug("Altering {$row['Field']} from float to int in the drinks table.");
+			OutputClass::debug("Altering {$row['Field']} from float to int in the drinks table.");
 			$sql = "UPDATE " . db_prefix("drinks") . " SET hppercent=hppercent*100";
 			db_query($sql);
 			$sql = "ALTER TABLE " . db_prefix("drinks") . " CHANGE {$row['Field']} {$row['Field']} int(11) NOT NULL DEFAULT 0";
@@ -63,7 +63,7 @@ function drinks_install_private(){
 		if (($row['Field']=="buffatkmod" || $row['Field']=="buffdefmod" ||
 			 $row['Field']=="buffdmgmod" || $row['Field']=="buffdmgshield") &&
 			($row['Type'] == "float")) {
-			debug("Altering {$row['Field']} from float to text in the drinks table.");
+			OutputClass::debug("Altering {$row['Field']} from float to text in the drinks table.");
 			$sql = "ALTER TABLE " . db_prefix("drinks") . " CHANGE {$row['Field']} {$row['Field']} text NOT NULL";
 			db_query($sql);
 		}

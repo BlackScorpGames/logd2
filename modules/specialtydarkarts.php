@@ -26,22 +26,22 @@ function specialtydarkarts_install(){
 	while($row = db_fetch_assoc($result)) {
 		// Convert the user over
 		if ($row['Field'] == "darkarts") {
-			debug("Migrating darkarts field");
+			OutputClass::debug("Migrating darkarts field");
 			$sql = "INSERT INTO " . db_prefix("module_userprefs") . " (modulename,setting,userid,value) SELECT 'specialtydarkarts', 'skill', acctid, darkarts FROM " . db_prefix("accounts");
 			db_query($sql);
-			debug("Dropping darkarts field from accounts table");
+			OutputClass::debug("Dropping darkarts field from accounts table");
 			$sql = "ALTER TABLE " . db_prefix("accounts") . " DROP darkarts";
 			db_query($sql);
 		} elseif ($row['Field']=="darkartuses") {
-			debug("Migrating darkarts uses field");
+			OutputClass::debug("Migrating darkarts uses field");
 			$sql = "INSERT INTO " . db_prefix("module_userprefs") . " (modulename,setting,userid,value) SELECT 'specialtydarkarts', 'uses', acctid, darkartuses FROM " . db_prefix("accounts");
 			db_query($sql);
-			debug("Dropping darkartuses field from accounts table");
+			OutputClass::debug("Dropping darkartuses field from accounts table");
 			$sql = "ALTER TABLE " . db_prefix("accounts") . " DROP darkartuses";
 			db_query($sql);
 		}
 	}
-	debug("Migrating Darkarts Specialty");
+	OutputClass::debug("Migrating Darkarts Specialty");
 	$sql = "UPDATE " . db_prefix("accounts") . " SET specialty='$specialty' WHERE specialty='1'";
 	db_query($sql);
 

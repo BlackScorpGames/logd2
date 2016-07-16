@@ -26,22 +26,22 @@ function specialtythiefskills_install(){
 	while($row = db_fetch_assoc($result)) {
 		// Convert the user over
 		if ($row['Field'] == "thievery") {
-			debug("Migrating thieving skills field");
+			OutputClass::debug("Migrating thieving skills field");
 			$sql = "INSERT INTO " . db_prefix("module_userprefs") . " (modulename,setting,userid,value) SELECT 'specialtythiefskills', 'skill', acctid, thievery FROM " . db_prefix("accounts");
 			db_query($sql);
-			debug("Dropping thievery field from accounts table");
+			OutputClass::debug("Dropping thievery field from accounts table");
 			$sql = "ALTER TABLE " . db_prefix("accounts") . " DROP thievery";
 			db_query($sql);
 		} elseif ($row['Field']=="thieveryuses") {
-			debug("Migrating thieving skills uses field");
+			OutputClass::debug("Migrating thieving skills uses field");
 			$sql = "INSERT INTO " . db_prefix("module_userprefs") . " (modulename,setting,userid,value) SELECT 'specialtythiefskills', 'uses', acctid, thieveryuses FROM " . db_prefix("accounts");
 			db_query($sql);
-			debug("Dropping thieveryuses field from accounts table");
+			OutputClass::debug("Dropping thieveryuses field from accounts table");
 			$sql = "ALTER TABLE " . db_prefix("accounts") . " DROP thieveryuses";
 			db_query($sql);
 		}
 	}
-	debug("Migrating Thieving Skills Specialty");
+	OutputClass::debug("Migrating Thieving Skills Specialty");
 	$sql = "UPDATE " . db_prefix("accounts") . " SET specialty='$specialty' WHERE specialty='3'";
 	db_query($sql);
 

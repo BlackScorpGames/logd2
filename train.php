@@ -96,10 +96,10 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 				$defflux = min($defflux, round($dk*.25));
 
 				$hpflux = ($dk - ($atkflux+$defflux)) * 5;
-				debug("DEBUG: $dk modification points total.`n");
-				debug("DEBUG: +$atkflux allocated to attack.`n");
-				debug("DEBUG: +$defflux allocated to defense.`n");
-				debug("DEBUG: +".($hpflux/5)."*5 to hitpoints`n");
+				OutputClass::debug("OutputClass::debug: $dk modification points total.`n");
+				OutputClass::debug("OutputClass::debug: +$atkflux allocated to attack.`n");
+				OutputClass::debug("OutputClass::debug: +$defflux allocated to defense.`n");
+				OutputClass::debug("OutputClass::debug: +".($hpflux/5)."*5 to hitpoints`n");
 				calculate_buff_fields();
 
 				$master['creatureattack']+=$atkflux;

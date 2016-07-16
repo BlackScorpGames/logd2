@@ -3,7 +3,7 @@
 // translator ready
 // mail ready
 require_once("lib/taunt.php");
-require_once("lib/Erand::e_rand.php");
+require_once("lib/e_rand.php");
 require_once("lib/pageparts.php");
 require_once("lib/output.php");
 
@@ -198,10 +198,10 @@ function buffbadguy($badguy){
 	}
 
 	$badguy = Modules::modulehook("creatureencounter",$badguy);
-	debug("DEBUG: $dk modification points total.");
-	debug("DEBUG: +$atkflux allocated to attack.");
-	debug("DEBUG: +$defflux allocated to defense.");
-	debug("DEBUG: +".($hpflux/5)."*5 to hitpoints.");
+	OutputClass::debug("OutputClass::debug: $dk modification points total.");
+	OutputClass::debug("OutputClass::debug: +$atkflux allocated to attack.");
+	OutputClass::debug("OutputClass::debug: +$defflux allocated to defense.");
+	OutputClass::debug("OutputClass::debug: +".($hpflux/5)."*5 to hitpoints.");
 	return Modules::modulehook("buffbadguy",$badguy);
 }
 ?>

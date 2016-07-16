@@ -91,7 +91,7 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 			if (isset($oldvalues[$key]) &&
 					stripslashes($val) == $oldvalues[$key]) continue;
 			// If this is a module userpref handle and skip
-			debug("Setting $key to $val");
+			OutputClass::debug("Setting $key to $val");
 			if (strstr($key, "___")) {
 				$val = Http::httppost($key);
 				$x = explode("___", $key);

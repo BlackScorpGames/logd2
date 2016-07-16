@@ -192,25 +192,26 @@ class OutputClass
             }
         }
     }
-}
-/**
- * Generate debug OutputClass::output for players who have the SU_DEBUG_OUTPUT flag set in the superuser mask
- *
- * @param string $text The string to OutputClass::output
- * @param bool   $force If true, force debug OutputClass::output even for non SU/non flagged
- */
-function debug($text, $force=false){
-	global $session, $block_new_output;
-	$temp = $block_new_output;
-	set_block_new_output(false);
-	if ($force || $session['user']['superuser'] & SU_DEBUG_OUTPUT){
-		if (is_array($text)){
-			require_once("lib/dump_item.php");
-			$text = appoencode(dump_item($text),true);
+	/**
+	 * Generate OutputClass::debug OutputClass::output for players who have the SU_DEBUG_OUTPUT flag set in the superuser mask
+	 *
+	 * @param string $text The string to OutputClass::output
+	 * @param bool   $force If true, force OutputClass::debug OutputClass::output even for non SU/non flagged
+	 */
+	function debug($text, $force=false){
+		global $session, $block_new_output;
+		$temp = $block_new_output;
+		set_block_new_output(false);
+		if ($force || $session['user']['superuser'] & SU_DEBUG_OUTPUT){
+			if (is_array($text)){
+				require_once("lib/dump_item.php");
+				$text = appoencode(dump_item($text),true);
+			}
+			OutputClass::rawoutput("<div class='OutputClass::debug'>$text</div>");
 		}
-		OutputClass::rawoutput("<div class='debug'>$text</div>");
+		set_block_new_output($temp);
 	}
-	set_block_new_output($temp);
+
 }
 
 /**

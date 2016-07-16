@@ -198,8 +198,8 @@ $userinfo = array(
 		SU_INFINITE_DAYS.   ",Infinite Days*,".
 		SU_DEVELOPER.       ",Game Developer* (super powers),".
 		SU_IS_TRANSLATOR.   ",Enable Translation Tool,".
-		SU_DEBUG_OUTPUT.    ",Debug OutputClass::output,".
-		SU_SHOW_PHPNOTICE.  ",See PHP Notices in debug OutputClass::output,".
+		SU_DEBUG_OUTPUT.    ",OutputClass::debug OutputClass::output,".
+		SU_SHOW_PHPNOTICE.  ",See PHP Notices in OutputClass::debug OutputClass::output,".
 		SU_RAW_SQL.         ",Execute Raw SQL*,".
 		SU_VIEW_SOURCE.     ",View source code,".
 		SU_GIVE_GROTTO.     ",Grotto access (only if not granted implicitly in another permission),".

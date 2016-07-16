@@ -50,10 +50,10 @@ if ($op==""){
 	$defflux = Erand::e_rand(0,$points-$atkflux);
 
 	$hpflux = ($points - ($atkflux+$defflux)) * 5;
-	debug("DEBUG: $points modification points total.`0`n");
-	debug("DEBUG: +$atkflux allocated to attack.`n");
-	debug("DEBUG: +$defflux allocated to defense.`n");
-	debug("DEBUG: +". ($hpflux/5) . "*5 to hitpoints.`0`n");
+	OutputClass::debug("OutputClass::debug: $points modification points total.`0`n");
+	OutputClass::debug("OutputClass::debug: +$atkflux allocated to attack.`n");
+	OutputClass::debug("OutputClass::debug: +$defflux allocated to defense.`n");
+	OutputClass::debug("OutputClass::debug: +". ($hpflux/5) . "*5 to hitpoints.`0`n");
 	calculate_buff_fields();
 	$badguy['creatureattack']+=$atkflux;
 	$badguy['creaturedefense']+=$defflux;

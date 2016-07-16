@@ -45,7 +45,7 @@ function racedwarf_install(){
 	if (db_num_rows($result) == 0) {
 		$sql = "INSERT INTO " . db_prefix("companions") . " (`companionid`, `name`, `category`, `description`, `attack`, `attackperlevel`, `defense`, `defenseperlevel`, `maxhitpoints`, `maxhitpointsperlevel`, `abilities`, `cannotdie`, `cannotbehealed`, `companionlocation`, `companionactive`, `companioncostdks`, `companioncostgems`, `companioncostgold`, `jointext`, `dyingtext`, `allowinshades`, `allowinpvp`, `allowintrain`) VALUES (0, 'Grizzly Bear', 'Wild Beasts', 'You look at the beast knowing that this Grizzly Bear will provide an effective block against attack with its long curved claws and massive body of silver-tipped fur.', 1, 2, 5, 2, 25, 25, 'a:4:{s:5:\"fight\";s:1:\"0\";s:4:\"heal\";s:1:\"0\";s:5:\"magic\";s:1:\"0\";s:6:\"defend\";s:1:\"1\";}', 0, 0, '".get_module_setting("villagename", "racedwarf")."', 1, 0, 4, 600, 'You hear a low, deep belly growl coming from a shadowed corner of the Bestiarium.  Curious you walk over to investigate your purchase. As you approach a large form shuffles on all four legs towards the front of its hewn rock enclosure.`n`nThe hunched shoulders of the largest bear you have ever seen ripple as its front haunches push against the ground causing it to stand on its hind legs.  It makes another low growl before dropping back on all four legs to follow you on your adventure.', 'The grizzly gets scared by the multitude of blows and hits he has to take and flees into the forest.', 1, 0, 0)";
 		db_query($sql);
-		debug("Inserted new companion: Grizzly Bear");
+		OutputClass::debug("Inserted new companion: Grizzly Bear");
 	}
 	return true;
 }

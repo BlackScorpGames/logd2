@@ -455,8 +455,8 @@ function mountform($mount){
 	OutputClass::output_notl("soulpoints, gravefights, deathpower `7(%s favor)`3,`n", Settings::getsetting("deathoverlord", '`$Ramius'));
 	OutputClass::output_notl("race, dragonage, bestdragonage`n`n");
 	OutputClass::output("You can also use module preferences by using <modulename|preference> (for instance '<specialtymystic|uses>' or '<drinks|drunkeness>'`n`n");
-	OutputClass::output("`@Finally, starting a field with 'debug:' will enable debug OutputClass::output for that field to help you locate errors in your implementation.");
-	OutputClass::output("While testing new buffs, you should be sure to debug fields before you release them on the world, as the PHP script will otherwise throw errors to the user if you have any, and this can break the site at various spots (as in places that redirects should happen).");
+	OutputClass::output("`@Finally, starting a field with 'OutputClass::debug:' will enable OutputClass::debug OutputClass::output for that field to help you locate errors in your implementation.");
+	OutputClass::output("While testing new buffs, you should be sure to OutputClass::debug fields before you release them on the world, as the PHP script will otherwise throw errors to the user if you have any, and this can break the site at various spots (as in places that redirects should happen).");
 	OutputClass::rawoutput("</td></tr></table>");
 	$save = Translator::translate_inline("Save");
 	OutputClass::rawoutput("<input type='submit' class='button' value='$save'></form>");

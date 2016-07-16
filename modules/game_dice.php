@@ -15,7 +15,7 @@ function game_dice_getmoduleinfo(){
 
 function game_dice_install(){
 	global $session;
-	debug("Adding Hooks");
+	OutputClass::debug("Adding Hooks");
 	module_addhook("darkhorsegame");
 	return true;
 }

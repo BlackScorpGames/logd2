@@ -34,50 +34,50 @@ function goldmine_install(){
 	$result = db_query($sql);
 	while($row = db_fetch_assoc($result)) {
 		if ($row['Field'] == "mine_canenter") {
-			debug("Migrating mine_canenter for all mounts");
+			OutputClass::debug("Migrating mine_canenter for all mounts");
 			$sql = "INSERT INTO " . db_prefix("module_objprefs") . " (modulename,objtype,setting,objid,value) SELECT 'goldmine','mounts','entermine',mountid,mine_canenter FROM " . db_prefix("mounts") . " WHERE mine_canenter>0";
 			db_query($sql);
-			debug("Dropping mine_canenter field from mounts table");
+			OutputClass::debug("Dropping mine_canenter field from mounts table");
 			$sql = "ALTER TABLE " . db_prefix("mounts") . " DROP mine_canenter";
 			db_query($sql);
 		}
 		if ($row['Field'] == "mine_candie") {
-			debug("Migrating mine_candie for all mounts");
+			OutputClass::debug("Migrating mine_candie for all mounts");
 			$sql = "INSERT INTO " . db_prefix("module_objprefs") . " (modulename,objtype,setting,objid,value) SELECT 'goldmine','mounts','dieinmine',mountid,mine_candie FROM " . db_prefix("mounts") . " WHERE mine_candie>0";
 			db_query($sql);
-			debug("Dropping mine_candie field from mounts table");
+			OutputClass::debug("Dropping mine_candie field from mounts table");
 			$sql = "ALTER TABLE " . db_prefix("mounts") . " DROP mine_candie";
 			db_query($sql);
 		}
 		if ($row['Field'] == "mine_cansave") {
-			debug("Migrating mine_cansave for all mounts");
+			OutputClass::debug("Migrating mine_cansave for all mounts");
 			$sql = "INSERT INTO " . db_prefix("module_objprefs") . " (modulename,objtype,setting,objid,value) SELECT 'goldmine','mounts','saveplayer',mountid,mine_cansave FROM " . db_prefix("mounts") . " WHERE mine_cansave>0";
 			db_query($sql);
-			debug("Dropping mine_cansave field from mounts table");
+			OutputClass::debug("Dropping mine_cansave field from mounts table");
 			$sql = "ALTER TABLE " . db_prefix("mounts") . " DROP mine_cansave";
 			db_query($sql);
 		}
 		if ($row['Field'] == "mine_tethermsg") {
-			debug("Migrating mine_tethermsg for all mounts");
+			OutputClass::debug("Migrating mine_tethermsg for all mounts");
 			$sql = "INSERT INTO " . db_prefix("module_objprefs") . " (modulename,objtype,setting,objid,value) SELECT 'goldmine','mounts','tethermsg',mountid,mine_tethermsg FROM " . db_prefix("mounts") . " WHERE mine_tethermsg!=''";
 			db_query($sql);
-			debug("Dropping mine_tethermsg field from mounts table");
+			OutputClass::debug("Dropping mine_tethermsg field from mounts table");
 			$sql = "ALTER TABLE " . db_prefix("mounts") . " DROP mine_tethermsg";
 			db_query($sql);
 		}
 		if ($row['Field'] == "mine_deathmsg") {
-			debug("Migrating mine_deathmsg for all mounts");
+			OutputClass::debug("Migrating mine_deathmsg for all mounts");
 			$sql = "INSERT INTO " . db_prefix("module_objprefs") . " (modulename,objtype,setting,objid,value) SELECT 'goldmine','mounts','deathmsg',mountid,mine_deathmsg FROM " . db_prefix("mounts") . " WHERE mine_deathmsg!=''";
 			db_query($sql);
-			debug("Dropping mine_deathmsg field from mounts table");
+			OutputClass::debug("Dropping mine_deathmsg field from mounts table");
 			$sql = "ALTER TABLE " . db_prefix("mounts") . " DROP mine_deathmsg";
 			db_query($sql);
 		}
 		if ($row['Field'] == "mine_savemsg") {
-			debug("Migrating mine_savemsg for all mounts");
+			OutputClass::debug("Migrating mine_savemsg for all mounts");
 			$sql = "INSERT INTO " . db_prefix("module_objprefs") . " (modulename,objtype,setting,objid,value) SELECT 'goldmine','mounts','savemsg',mountid,mine_savemsg FROM " . db_prefix("mounts") . " WHERE mine_savemsg!=''";
 			db_query($sql);
-			debug("Dropping mine_savemsg field from mounts table");
+			OutputClass::debug("Dropping mine_savemsg field from mounts table");
 			$sql = "ALTER TABLE " . db_prefix("mounts") . " DROP mine_savemsg";
 			db_query($sql);
 		}

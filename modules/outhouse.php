@@ -56,7 +56,7 @@ function outhouse_getmoduleinfo(){
 
 function outhouse_install(){
 	global $session;
-	debug("Adding Hooks");
+	OutputClass::debug("Adding Hooks");
 	module_addhook("forest");
 	module_addhook("newday");
 
@@ -66,12 +66,12 @@ function outhouse_install(){
 		if ($row['Field']=="usedouthouse"){
 			$sql = "SELECT usedouthouse,acctid FROM " . db_prefix("accounts") . " WHERE usedouthouse>0";
 			$result1 = db_query($sql);
-			debug("Migrating outhouse usage.`n");
+			OutputClass::debug("Migrating outhouse usage.`n");
 			while ($row1 = db_fetch_assoc($result1)){
 				$sql = "INSERT INTO " . db_prefix("module_userprefs") . " (modulename,setting,userid,value) VALUES ('outhouse','usedouthouse',{$row1['acctid']},{$row1['usedouthouse']})";
 				db_query($sql);
 			}//end while
-			debug("Dropping usedouthouse column from the user table.`n");
+			OutputClass::debug("Dropping usedouthouse column from the user table.`n");
 			$sql = "ALTER TABLE " . db_prefix("accounts") . " DROP usedouthouse";
 			db_query($sql);
 			//drop it from the user's session too.

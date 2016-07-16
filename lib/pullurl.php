@@ -69,7 +69,7 @@ function _sock($url)
 	$info = stream_get_meta_data($fp);
 	fclose($f);
 	if ($info['timed_out']) {
-		debug("Call to $url timed out!");
+		OutputClass::debug("Call to $url timed out!");
 		$done = false;
 	}
 	return $done;

@@ -20,7 +20,7 @@ function synctable($tablename,$descriptor,$nodrop=false){
 		//the table doesn't exist, so we create it and are done.
 		reset($descriptor);
 		$sql = table_create_from_descriptor($tablename,$descriptor);
-		debug($sql);
+		OutputClass::debug($sql);
 		if(!db_query($sql)) {
 			OutputClass::output("`\$Error:`^ %s`n", db_error());
 			OutputClass::rawoutput("<pre>".htmlentities($sql, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</pre>");
@@ -42,7 +42,7 @@ function synctable($tablename,$descriptor,$nodrop=false){
 					if (substr($key,0,4)=="key-"){
 						$val['name']=substr($key,4);
 					}else{
-						debug("<b>Warning</b>: the descriptor for <b>$tablename</b> includes a {$val['type']} which isn't named correctly.  It should be named key-$key. In your code, it should look something like this (the important change is bolded):<br> \"<b>key-$key</b>\"=>array(\"type\"=>\"{$val['type']}\",\"columns\"=>\"{$val['columns']}\")<br> The consequence of this is that your keys will be destroyed and recreated each time the table is synchronized until this is addressed.");
+						OutputClass::debug("<b>Warning</b>: the descriptor for <b>$tablename</b> includes a {$val['type']} which isn't named correctly.  It should be named key-$key. In your code, it should look something like this (the important change is bolded):<br> \"<b>key-$key</b>\"=>array(\"type\"=>\"{$val['type']}\",\"columns\"=>\"{$val['columns']}\")<br> The consequence of this is that your keys will be destroyed and recreated each time the table is synchronized until this is addressed.");
 						$val['name']=$key;
 					}
 				}else{
@@ -68,7 +68,7 @@ function synctable($tablename,$descriptor,$nodrop=false){
 				if ($oldsql != $newsql){
 					//this descriptor line has changed.  Change the
 					//table to suit.
-					debug("Old: $oldsql<br>New:$newsql");
+					OutputClass::debug("Old: $oldsql<br>New:$newsql");
 					if ($existing[$key]['type']=="key" ||
 							$existing[$key]['type']=="unique key"){
 						array_push($changes,
@@ -103,7 +103,7 @@ function synctable($tablename,$descriptor,$nodrop=false){
 		if (count($changes)>0) {
 			//we have changes to do!  Woohoo!
 			$sql = "ALTER TABLE $tablename \n".join(",\n",$changes);
-			debug(nl2br($sql));
+			OutputClass::debug(nl2br($sql));
 			db_query($sql);
 			return count($changes);
 		}
@@ -133,7 +133,7 @@ function table_create_from_descriptor($tablename,$descriptor){
 				if (substr($key,0,4)=="key-"){
 					$val['name']=substr($key,4);
 				}else{
-					debug("<b>Warning</b>: the descriptor for <b>$tablename</b> includes a {$val['type']} which isn't named correctly.  It should be named key-$key.  In your code, it should look something like this (the important change is bolded):<br> \"<b>key-$key</b>\"=>array(\"type\"=>\"{$val['type']}\",\"columns\"=>\"{$val['columns']}\")<br> The consequence of this is that your keys will be destroyed and recreated each time the table is synchronized until this is addressed.");
+					OutputClass::debug("<b>Warning</b>: the descriptor for <b>$tablename</b> includes a {$val['type']} which isn't named correctly.  It should be named key-$key.  In your code, it should look something like this (the important change is bolded):<br> \"<b>key-$key</b>\"=>array(\"type\"=>\"{$val['type']}\",\"columns\"=>\"{$val['columns']}\")<br> The consequence of this is that your keys will be destroyed and recreated each time the table is synchronized until this is addressed.");
 					$val['name']=$key;
 				}
 			}else{

@@ -43,7 +43,7 @@ while (list($key,$val)=each($post)){
 					$session['user']['superuser']=$value;
 				}
 				debuglog($session['user']['name']."`0 changed superuser to ".show_bitfield($value),$userid);
-				debug("superuser has changed to $value");
+				OutputClass::debug("superuser has changed to $value");
 			}
 		} elseif ($key=="name" && stripslashes($val)!=$oldvalues[$key]) {
 			$updates++;
@@ -140,7 +140,7 @@ if ($petition!="")
 OutputClass::addnav("","user.php");
 	if ($updates>0){
 	db_query($sql);
-	debug("Updated $updates fields in the user record with:\n$sql");
+	OutputClass::debug("Updated $updates fields in the user record with:\n$sql");
 	OutputClass::output("%s fields in the user's record were updated.", $updates);
 }else{
 	OutputClass::output("No fields were changed in the user's record.");

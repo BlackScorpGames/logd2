@@ -36,7 +36,7 @@
 	db_query("DELETE FROM " . db_prefix("bans") . " WHERE banexpire < \"".date("Y-m-d")."\" AND banexpire>'0000-00-00'");
 	
 	if (Settings::getsetting("expirecontent",180)>0){
-		//Clean up debug log, moved from there
+		//Clean up OutputClass::debug log, moved from there
                	$timestamp = date("Y-m-d H:i:s",strtotime("-".round(Settings::getsetting("expirecontent",180)/10,0)." days"));
       	        $sql = "DELETE FROM " . db_prefix("debuglog") . " WHERE date <'$timestamp'";
  	   	db_query($sql);

@@ -115,7 +115,7 @@ function sprintf_translate(){
 	ob_end_clean();
 	if ($err > ""){
 		$args['error'] = $err;
-		debug($err);
+		OutputClass::debug($err);
 	}
 	return $return;
 }
@@ -141,7 +141,7 @@ function translate_loadnamespace($namespace,$language=false){
 		FROM ".db_prefix("translations")."
 		WHERE language='$language'
 			AND $where";
-/*	debug(nl2br(htmlentities($sql, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")))); */
+/*	OutputClass::debug(nl2br(htmlentities($sql, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")))); */
 	if (!Settings::getsetting("cachetranslations",0)) {
 		$result = db_query($sql);
 	} else {

@@ -15,8 +15,8 @@ class Events
             global $PHP_SELF;
             $baseLink = substr($PHP_SELF, strrpos($PHP_SELF, "/") + 1) . "?";
         } else {
-            //debug("Base link was specified as $baseLink");
-            //debug(debug_backtrace());
+            //OutputClass::debug("Base link was specified as $baseLink");
+            //OutputClass::debug(debug_backtrace());
         }
         global $session, $playermount, $badguy;
         $skipdesc = false;
@@ -50,7 +50,7 @@ class Events
                 module_do_event($location, $array[1], $allowinactive, $baseLink);
                 $endtime = getmicrotime();
                 if (($endtime - $starttime >= 1.00 && ($session['user']['superuser'] & SU_DEBUG_OUTPUT))) {
-                    debug("Slow Event (" . round($endtime - $starttime, 2) . "s): $hookname - {$row['modulename']}`n");
+                    OutputClass::debug("Slow Event (" . round($endtime - $starttime, 2) . "s): $hookname - {$row['modulename']}`n");
                 }
             }
             if (OutputClass::checknavs()) {

@@ -10,7 +10,7 @@ if ($petition != "")
 }
 	OutputClass::addnav("Operations");
 OutputClass::addnav("View last page hit","user.php?op=lasthit&userid=$userid",false,true);
-OutputClass::addnav("Display debug log","user.php?op=debuglog&userid=$userid$returnpetition");
+OutputClass::addnav("Display OutputClass::debug log","user.php?op=debuglog&userid=$userid$returnpetition");
 OutputClass::addnav("View user bio","bio.php?char=".$row['acctid']."&ret=".urlencode($_SERVER['REQUEST_URI']));
 if ($session['user']['superuser'] & SU_EDIT_DONATIONS) {
 	OutputClass::addnav("Add donation points","donators.php?op=add1&name=".rawurlencode($row['login'])."&ret=".urlencode($_SERVER['REQUEST_URI']));

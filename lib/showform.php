@@ -160,7 +160,7 @@ class ShowFormClass
                             }
                         } else {
                             //any other ways to represent this?
-                            debug("You must pass an array as the value when using a checklist.");
+                            OutputClass::debug("You must pass an array as the value when using a checklist.");
                             $checked = false;
                         }
                         $select .= "<input type='checkbox' name='{$keyout}[{$optval}]' value='1'" . ($checked == $optval ? " checked" : "") . ">&nbsp;" . ("$optdis") . "<br>";

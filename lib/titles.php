@@ -4,7 +4,7 @@
 // mail ready
 
 require_once("lib/dbwrapper.php");
-require_once("lib/Erand::e_rand.php");
+require_once("lib/e_rand.php");
 
 function valid_dk_title($title, $dks, $gender)
 {

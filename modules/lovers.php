@@ -32,12 +32,12 @@ function lovers_install(){
 		if ($row['Field']=="seenlover"){
 			$sql = "SELECT seenlover,acctid FROM " . db_prefix("accounts") . " WHERE seenlover>0";
 			$result1 = db_query($sql);
-			debug("Migrating seenlover.`n");
+			OutputClass::debug("Migrating seenlover.`n");
 			while ($row1 = db_fetch_assoc($result1)){
 				$sql = "INSERT INTO " . db_prefix("module_userprefs") . " (modulename,setting,userid,value) VALUES ('lovers','seenlover',{$row1['acctid']},{$row1['seenlover']})";
 				db_query($sql);
 			}//end while
-			debug("Dropping seenlover column from the user table.`n");
+			OutputClass::debug("Dropping seenlover column from the user table.`n");
 			$sql = "ALTER TABLE " . db_prefix("accounts") . " DROP seenlover";
 			db_query($sql);
 			//drop it from the user's session too.

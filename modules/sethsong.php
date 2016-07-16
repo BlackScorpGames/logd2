@@ -53,12 +53,12 @@ function sethsong_install(){
 		if ($row['Field']=="seenbard"){
 			$sql = "SELECT seenbard,acctid FROM " . db_prefix("accounts") . " WHERE seenbard>0";
 			$result1 = db_query($sql);
-			debug("Migrating seenbard.`n");
+			OutputClass::debug("Migrating seenbard.`n");
 			while ($row1 = db_fetch_assoc($result1)){
 				$sql = "INSERT INTO " . db_prefix("module_userprefs") . " (modulename,setting,userid,value) VALUES ('seth','been',{$row1['acctid']},{$row1['seenbard']})";
 				db_query($sql);
 			}//end while
-			debug("Dropping seenbard column from the user table.`n");
+			OutputClass::debug("Dropping seenbard column from the user table.`n");
 			$sql = "ALTER TABLE " . db_prefix("accounts") . " DROP seenbard";
 			db_query($sql);
 			//drop it from the user's session too.

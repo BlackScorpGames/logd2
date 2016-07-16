@@ -410,31 +410,31 @@ function rollcompaniondamage($companion){
 		$adjustedselfdefense = ($companion['defense'] * $adjustment * $compdefmod);
 
 		/*
-		debug("Base creature defense: " . $badguy['creaturedefense']);
-		debug("Creature defense mod: $creaturedefmod");
-		debug("Adjustment: $adjustment");
-		debug("Adjusted creature defense: $adjustedcreaturedefense");
-		debug("Adjusted creature attack: $creatureattack");
-		debug("Adjusted self defense: $adjustedselfdefense");
+		OutputClass::debug("Base creature defense: " . $badguy['creaturedefense']);
+		OutputClass::debug("Creature defense mod: $creaturedefmod");
+		OutputClass::debug("Adjustment: $adjustment");
+		OutputClass::debug("Adjusted creature defense: $adjustedcreaturedefense");
+		OutputClass::debug("Adjusted creature attack: $creatureattack");
+		OutputClass::debug("Adjusted self defense: $adjustedselfdefense");
 		*/
 
 		while(!isset($creaturedmg) || !isset($selfdmg) || $creaturedmg==0 && $selfdmg==0){
 			$atk = $companion['attack']*$compatkmod;
 			if (Erand::e_rand(1,20)==1 && $options['type'] != "pvp") $atk*=3;
 			/*
-			debug("Attack score: $atk");
+			OutputClass::debug("Attack score: $atk");
 			*/
 
 			$patkroll = bell_rand(0,$atk);
 			/*
-			debug("Player Attack roll: $patkroll");
+			OutputClass::debug("Player Attack roll: $patkroll");
 			*/
 
 			// Set up for crit detection
 			$atk = $patkroll;
 			$catkroll = bell_rand(0,$adjustedcreaturedefense);
 			/*
-			debug("Creature defense roll: $catkroll");
+			OutputClass::debug("Creature defense roll: $catkroll");
 			*/
 
 			$creaturedmg = 0-(int)($catkroll - $patkroll);
@@ -448,8 +448,8 @@ function rollcompaniondamage($companion){
 			$pdefroll = bell_rand(0,$adjustedselfdefense);
 			$catkroll = bell_rand(0,$creatureattack);
 			/*
-			   debug("Creature attack roll: $catkroll");
-			   debug("Player defense roll: $pdefroll");
+			   OutputClass::debug("Creature attack roll: $catkroll");
+			   OutputClass::debug("Player defense roll: $pdefroll");
 			 */
 			$selfdmg = 0-(int)($pdefroll - $catkroll);
 			if ($selfdmg<0) {
