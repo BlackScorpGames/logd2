@@ -54,7 +54,7 @@ if ($op==""){
 	OutputClass::debug("OutputClass::debug: +$atkflux allocated to attack.`n");
 	OutputClass::debug("OutputClass::debug: +$defflux allocated to defense.`n");
 	OutputClass::debug("OutputClass::debug: +". ($hpflux/5) . "*5 to hitpoints.`0`n");
-	calculate_buff_fields();
+	Buffs::calculate_buff_fields();
 	$badguy['creatureattack']+=$atkflux;
 	$badguy['creaturedefense']+=$defflux;
 	$badguy['creaturehealth']+=$hpflux;
@@ -111,7 +111,7 @@ if ($op==""){
 			'base' => $dkpoints + ($session['user']['level'] * 10),
 			);
 	$hpgain = Modules::modulehook("hprecalc", $hpgain);
-	calculate_buff_fields();
+	Buffs::calculate_buff_fields();
 
 	$nochange=array("acctid"=>1
 				   ,"name"=>1

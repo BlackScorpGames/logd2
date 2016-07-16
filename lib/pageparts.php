@@ -67,7 +67,7 @@ class PageParts{
         $builtnavs = buildnavs();
 
         Buffs::restore_buff_fields();
-        calculate_buff_fields();
+        Buffs::calculate_buff_fields();
 
         Translator::tlschema("common");
 
@@ -399,7 +399,7 @@ class PageParts{
         $title = call_user_func_array("sprintf_translate", $arguments);
         $title = holidayize($title, 'title');
         $title = sanitize($title);
-        calculate_buff_fields();
+        Buffs::calculate_buff_fields();
 
         $header = $template['header'];
         $header = str_replace("{title}", $title, $header);
@@ -622,7 +622,7 @@ function charstats(){
 		$u['maxhitpoints']=round($u['maxhitpoints'],0);
 		$spirits=array(-6=>"Resurrected",-2=>"Very Low",-1=>"Low","0"=>"Normal",1=>"High",2=>"Very High");
 		if ($u['alive']){ }else{ $spirits[(int)$u['spirits']] = "DEAD"; }
-		//calculate_buff_fields();
+		//Buffs::calculate_buff_fields();
 		reset($session['bufflist']);
 		$atk=$u['attack'];
 		$def=$u['defense'];

@@ -100,7 +100,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 				OutputClass::debug("OutputClass::debug: +$atkflux allocated to attack.`n");
 				OutputClass::debug("OutputClass::debug: +$defflux allocated to defense.`n");
 				OutputClass::debug("OutputClass::debug: +".($hpflux/5)."*5 to hitpoints`n");
-				calculate_buff_fields();
+				Buffs::calculate_buff_fields();
 
 				$master['creatureattack']+=$atkflux;
 				$master['creaturedefense']+=$defflux;

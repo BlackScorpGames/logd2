@@ -260,7 +260,7 @@ if ($op=="search"){
 					}
 				}
 			}
-			calculate_buff_fields();
+			Buffs::calculate_buff_fields();
 			$attackstack = array(
 				"enemies"=>$stack,
 				"options"=>array(

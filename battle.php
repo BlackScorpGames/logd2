@@ -153,7 +153,7 @@ if ($op != "newtarget") {
 	do {
 		//we need to restore and calculate here to reflect changes that happen throughout the course of multiple rounds.
 		Buffs::restore_buff_fields();
-		calculate_buff_fields();
+		Buffs::calculate_buff_fields();
 		prepare_companions();
 		$newenemies = array();
 		// Run the beginning of round buffs (this also calculates all modifiers)
