@@ -162,6 +162,7 @@ function forestdefeat($enemies,$where="in the forest"){
 	PageParts::page_footer();
 }
 
+class ForestOutcomes{
 function buffbadguy($badguy){
 	global $session;
 	static $dk = false;	// This will save us a lot of trouble when going through
@@ -202,6 +203,7 @@ function buffbadguy($badguy){
 	OutputClass::debug("OutputClass::debug: +$atkflux allocated to attack.");
 	OutputClass::debug("OutputClass::debug: +$defflux allocated to defense.");
 	OutputClass::debug("OutputClass::debug: +".($hpflux/5)."*5 to hitpoints.");
-	return Modules::modulehook("buffbadguy",$badguy);
+	return Modules::modulehook("ForestOutcomes::buffbadguy",$badguy);
+}
 }
 ?>

@@ -194,7 +194,7 @@ if ($op=="search"){
 						$initialbadguy['creaturelevel'] = Erand::e_rand($mintargetlevel, $targetlevel);
 						$initialbadguy['playerstarthp']=$session['user']['hitpoints'];
 						$initialbadguy['diddamage']=0;
-						$badguy = buffbadguy($initialbadguy);
+						$badguy = ForestOutcomes::buffbadguy($initialbadguy);
 						if ($type == "thrill") {
 							// 10% more experience
 							$badguy['creatureexp'] = round($badguy['creatureexp']*1.1, 0);
@@ -228,7 +228,7 @@ if ($op=="search"){
 					while ($badguy = db_fetch_assoc($result)) {
 						$badguy['playerstarthp']=$session['user']['hitpoints'];
 						$badguy['diddamage']=0;
-						$badguy = buffbadguy($badguy);
+						$badguy = ForestOutcomes::buffbadguy($badguy);
 						// Okay, they are thrillseeking, let's give them a bit extra
 						// exp and gold.
 						if ($type == "thrill") {
