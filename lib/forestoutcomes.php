@@ -5,7 +5,7 @@
 require_once("lib/taunt.php");
 require_once("lib/e_rand.php");
 require_once("lib/pageparts.php");
-require_once("lib/OutputClass::output.php");
+require_once("lib/output.php");
 
 function forestvictory($enemies,$denyflawless=false){
 	global $session, $options;
