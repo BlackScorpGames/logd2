@@ -101,7 +101,8 @@ function calculate_buff_fields(){
 
 }//end function
 
-function restore_buff_fields(){
+class Buffs {
+public static function restore_buff_fields(){
 	global $session, $buffreplacements;
 	if (is_array($buffreplacements)){
 		reset($buffreplacements);
@@ -132,7 +133,7 @@ function restore_buff_fields(){
 		}//end if
 	}//end while
 }//end function
-
+}
 function apply_buff($name,$buff){
 	global $session,$buffreplacements, $translation_namespace;
 
@@ -144,7 +145,7 @@ function apply_buff($name,$buff){
 	if (isset($session['bufflist'][$name])){
 		//we'll need to unapply buff fields before applying this buff since
 		//it's already set.
-		restore_buff_fields();
+		Buffs::restore_buff_fields();
 	}
 	$buff = Modules::modulehook("modify-buff", array("name"=>$name, "buff"=>$buff));
 	$session['bufflist'][$name] = $buff['buff'];
@@ -186,7 +187,7 @@ function apply_companion($name,$companion,$ignorelimit=false){
 
 function strip_buff($name){
 	global $session, $buffreplacements;
-	restore_buff_fields();
+	Buffs::restore_buff_fields();
 	if (isset($session['bufflist'][$name]))
 		unset($session['bufflist'][$name]);
 	if (isset($buffreplacements[$name]))

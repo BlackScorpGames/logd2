@@ -152,7 +152,7 @@ if ($op != "newtarget") {
 	// Run through as many rounds as needed.
 	do {
 		//we need to restore and calculate here to reflect changes that happen throughout the course of multiple rounds.
-		restore_buff_fields();
+		Buffs::restore_buff_fields();
 		calculate_buff_fields();
 		prepare_companions();
 		$newenemies = array();

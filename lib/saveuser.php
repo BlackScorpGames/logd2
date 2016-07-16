@@ -10,7 +10,7 @@ function saveuser(){
 	if ($session['loggedin'] && $session['user']['acctid']!=""){
 		// Any time we go to save a user, make SURE that any tempstat changes
 		// are undone.
-		restore_buff_fields();
+		Buffs::restore_buff_fields();
 
 		$session['user']['allowednavs']=serialize($session['allowednavs']);
 		$session['user']['bufflist']=serialize($session['bufflist']);

@@ -20,7 +20,7 @@ class RedirectClass
             $session['OutputClass::output'] .= Translator::translate_inline("<br><br>If you cannot leave this page, notify the staff via <a href='petition.php'>petition</a> and tell them where this happened and what you did. Thanks.",
                 "badnav");
         }
-        restore_buff_fields();
+        Buffs::restore_buff_fields();
         $session['OutputClass::debug'] .= "Redirected to $location from $REQUEST_URI.  $reason<br>";
         saveuser();
         @header("Location: $location");

@@ -66,14 +66,14 @@ class PageParts{
 
         $builtnavs = buildnavs();
 
-        restore_buff_fields();
+        Buffs::restore_buff_fields();
         calculate_buff_fields();
 
         Translator::tlschema("common");
 
         $charstats = charstats();
 
-        restore_buff_fields();
+        Buffs::restore_buff_fields();
 
         $sql = "SELECT motddate FROM " . db_prefix("motd") . " ORDER BY motditem DESC LIMIT 1";
         $result = db_query($sql);

@@ -34,7 +34,7 @@ if ($op==""){
 	// used on attack and defense.
 	// Coded by JT, based on collaboration with MightyE
 	$points = 0;
-	restore_buff_fields();
+	Buffs::restore_buff_fields();
 	reset($session['user']['dragonpoints']);
 	while(list($key,$val)=each($session['user']['dragonpoints'])){
 		if ($val=="at" || $val == "de") $points++;
@@ -102,7 +102,7 @@ if ($op==""){
 		if ($val=="hp") $dkpoints+=5;
 	}
 
-	restore_buff_fields();
+	Buffs::restore_buff_fields();
 	$hpgain = array(
 			'total' => $session['user']['maxhitpoints'],
 			'dkpoints' => $dkpoints,

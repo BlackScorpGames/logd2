@@ -169,7 +169,7 @@ if ($op=="search"){
 				$packofmonsters = 0;
 			}
 			$result = db_query($sql);
-			restore_buff_fields();
+			Buffs::restore_buff_fields();
 			if (db_num_rows($result) == 0) {
 				// There is nothing in the database to challenge you, let's
 				// give you a doppleganger.
