@@ -55,82 +55,84 @@ public static function setup_target($name) {
 	}
 	return false;
 }
-}
-function pvpvictory($badguy, $killedloc, $options)
-{
-	global $session;
-	// If the victim has logged on and banked some, give the lessor of
-	// the gold amounts.
-	$sql = "SELECT gold FROM " . db_prefix("accounts") . " WHERE acctid='".(int)$badguy['acctid']."'";
-	$result = db_query($sql);
-	$row = db_fetch_assoc($result);
-	$badguy['creaturegold'] =
-		((int)$row['gold']>(int)$badguy['creaturegold']?
-		 (int)$badguy['creaturegold']:(int)$row['gold']);
+   public static function pvpvictory($badguy, $killedloc, $options)
+    {
+        global $session;
+        // If the victim has logged on and banked some, give the lessor of
+        // the gold amounts.
+        $sql = "SELECT gold FROM " . db_prefix("accounts") . " WHERE acctid='".(int)$badguy['acctid']."'";
+        $result = db_query($sql);
+        $row = db_fetch_assoc($result);
+        $badguy['creaturegold'] =
+            ((int)$row['gold']>(int)$badguy['creaturegold']?
+                (int)$badguy['creaturegold']:(int)$row['gold']);
 
-	if ($session['user']['level'] == 15) {
-		OutputClass::output('`#***At your level of fighting prowess, the mere reward of beating your foe is sufficient accolade.`n');
-	}
+        if ($session['user']['level'] == 15) {
+            OutputClass::output('`#***At your level of fighting prowess, the mere reward of beating your foe is sufficient accolade.`n');
+        }
 
-	// Winner of fight gets altered amount of gold based on badguy's level
-	// and amount of gold they were carrying this can some times work to
-	// their advantage, sometimes against.  The basic idea is to prevent
-	// exhorbitant amounts of money from being transferred this way.
-	$winamount = round(10 * $badguy['creaturelevel'] *
-			log(max(1,$badguy['creaturegold'])),0);
-	OutputClass::output("`b`\$You have slain %s!`0`b`n", $badguy['creaturename']);
-	if ($session['user']['level'] == 15) $winamount = 0;
-	OutputClass::output("`#You receive `^%s`# gold!`n", $winamount);
-	$session['user']['gold']+=$winamount;
+        // Winner of fight gets altered amount of gold based on badguy's level
+        // and amount of gold they were carrying this can some times work to
+        // their advantage, sometimes against.  The basic idea is to prevent
+        // exhorbitant amounts of money from being transferred this way.
+        $winamount = round(10 * $badguy['creaturelevel'] *
+            log(max(1,$badguy['creaturegold'])),0);
+        OutputClass::output("`b`\$You have slain %s!`0`b`n", $badguy['creaturename']);
+        if ($session['user']['level'] == 15) $winamount = 0;
+        OutputClass::output("`#You receive `^%s`# gold!`n", $winamount);
+        $session['user']['gold']+=$winamount;
 
-	$exp = round(Settings::getsetting("pvpattgain",10)*$badguy['creatureexp']/100,0);
-	if ($session['user']['level'] == 15) $exp = 0;
-	$expbonus = round(($exp *
-				(1+.1*($badguy['creaturelevel']-
-					   $session['user']['level']))) - $exp,0);
-	if ($expbonus>0){
-		OutputClass::output("`#***Because of the difficult nature of this fight, you are awarded an additional `^%s`# experience!`n", $expbonus);
-	}else if ($expbonus<0){
-		OutputClass::output("`#***Because of the simplistic nature of this fight, you are penalized `^%s`# experience!`n", abs($expbonus));
-	}
-	$wonexp = $exp + $expbonus;
-	OutputClass::output("You receive `^%s`# experience!`n`0", $wonexp);
-	$session['user']['experience']+=$wonexp;
+        $exp = round(Settings::getsetting("pvpattgain",10)*$badguy['creatureexp']/100,0);
+        if ($session['user']['level'] == 15) $exp = 0;
+        $expbonus = round(($exp *
+                (1+.1*($badguy['creaturelevel']-
+                        $session['user']['level']))) - $exp,0);
+        if ($expbonus>0){
+            OutputClass::output("`#***Because of the difficult nature of this fight, you are awarded an additional `^%s`# experience!`n", $expbonus);
+        }else if ($expbonus<0){
+            OutputClass::output("`#***Because of the simplistic nature of this fight, you are penalized `^%s`# experience!`n", abs($expbonus));
+        }
+        $wonexp = $exp + $expbonus;
+        OutputClass::output("You receive `^%s`# experience!`n`0", $wonexp);
+        $session['user']['experience']+=$wonexp;
 
-	$lostexp = round($badguy['creatureexp']*Settings::getsetting("pvpdeflose",5)/100,0);
+        $lostexp = round($badguy['creatureexp']*Settings::getsetting("pvpdeflose",5)/100,0);
 
 //	debuglog("gained $winamount ({$badguy['creaturegold']} base) gold and $wonexp exp (loser lost $lostexp) for killing ", $badguy['acctid']);
-	//player wins gold and exp from badguy
-	debuglog("started the fight and defeated {$badguy['creaturename']} in $killedloc (earned $winamount of {$badguy['creaturegold']} gold and $wonexp of $lostexp exp)",false,$session['user']['acctid']);
-	debuglog("was victim and has been defeated by {$session['user']['name']} in $killedloc (lost {$badguy['creaturegold']} gold and $lostexp exp, actor tooks $winamount gold and $wonexp exp)",false,$badguy['acctid']);
+        //player wins gold and exp from badguy
+        debuglog("started the fight and defeated {$badguy['creaturename']} in $killedloc (earned $winamount of {$badguy['creaturegold']} gold and $wonexp of $lostexp exp)",false,$session['user']['acctid']);
+        debuglog("was victim and has been defeated by {$session['user']['name']} in $killedloc (lost {$badguy['creaturegold']} gold and $lostexp exp, actor tooks $winamount gold and $wonexp exp)",false,$badguy['acctid']);
 
-	$args=array('pvpmessageadd'=>"", 'handled'=>false, 'badguy'=>$badguy, 'options'=>$options);
-	$args = Modules::modulehook("pvpwin", $args);
+        $args=array('pvpmessageadd'=>"", 'handled'=>false, 'badguy'=>$badguy, 'options'=>$options);
+        $args = Modules::modulehook("pvpwin", $args);
 
-	// /\- Gunnar Kreitz
-	if ($session['user']['sex'] == SEX_MALE) {
-		$msg = "`2While you were in %s, `^%s`2 initiated an attack on you with his `^%s`2, and defeated you!`n`nYou noticed he had an initial hp of `^%s`2 and just before you died he had `^%s`2 remaining.`n`nAs a result, you lost `\$%s%%`2 of your experience (approximately %s points), and `^%s`2 gold.`n%s`nDon't you think it's time for some revenge?`n`n`b`7Technical Notes:`b`nAlthough you might not have been in %s`7 when you got this message, you were in %s`7 when the fight was started, which was at %s according to the server (the fight lasted about %s).";
-	} else {
-		$msg = "`2While you were in %s, `^%s`2 initiated an attack on you with her `^%s`2, and defeated you!`n`nYou noticed she had an initial hp of `^%s`2 and just before you died she had `^%s`2 remaining.`n`nAs a result, you lost `\$%s%%`2 of your experience (approximately %s points), and `^%s`2 gold.`n%s`nDon't you think it's time for some revenge?`n`n`b`7Technical Notes:`b`nAlthough you might not have been in %s`7 when you got this message, you were in %s`7 when the fight was started, which was at %s according to the server (the fight lasted about %s).";
-	}
-	$mailmessage = array($msg,
-			$killedloc, $session['user']['name'],
-			$session['user']['weapon'], $badguy['playerstarthp'],
-			$session['user']['hitpoints'], Settings::getsetting("pvpdeflose", 5),
-			$lostexp, $badguy['creaturegold'], $args['pvpmessageadd'],
-			$killedloc, $killedloc,
-			date("D, M d h:i a", (int)$badguy['fightstartdate']),
-			reltime((int)$badguy['fightstartdate']));
+        // /\- Gunnar Kreitz
+        if ($session['user']['sex'] == SEX_MALE) {
+            $msg = "`2While you were in %s, `^%s`2 initiated an attack on you with his `^%s`2, and defeated you!`n`nYou noticed he had an initial hp of `^%s`2 and just before you died he had `^%s`2 remaining.`n`nAs a result, you lost `\$%s%%`2 of your experience (approximately %s points), and `^%s`2 gold.`n%s`nDon't you think it's time for some revenge?`n`n`b`7Technical Notes:`b`nAlthough you might not have been in %s`7 when you got this message, you were in %s`7 when the fight was started, which was at %s according to the server (the fight lasted about %s).";
+        } else {
+            $msg = "`2While you were in %s, `^%s`2 initiated an attack on you with her `^%s`2, and defeated you!`n`nYou noticed she had an initial hp of `^%s`2 and just before you died she had `^%s`2 remaining.`n`nAs a result, you lost `\$%s%%`2 of your experience (approximately %s points), and `^%s`2 gold.`n%s`nDon't you think it's time for some revenge?`n`n`b`7Technical Notes:`b`nAlthough you might not have been in %s`7 when you got this message, you were in %s`7 when the fight was started, which was at %s according to the server (the fight lasted about %s).";
+        }
+        $mailmessage = array($msg,
+            $killedloc, $session['user']['name'],
+            $session['user']['weapon'], $badguy['playerstarthp'],
+            $session['user']['hitpoints'], Settings::getsetting("pvpdeflose", 5),
+            $lostexp, $badguy['creaturegold'], $args['pvpmessageadd'],
+            $killedloc, $killedloc,
+            date("D, M d h:i a", (int)$badguy['fightstartdate']),
+            reltime((int)$badguy['fightstartdate']));
 
-	systemmail($badguy['acctid'],
-			array("`2You were killed while in %s`2", $killedloc),
-			$mailmessage);
-	// /\- Gunnar Kreitz
+        systemmail($badguy['acctid'],
+            array("`2You were killed while in %s`2", $killedloc),
+            $mailmessage);
+        // /\- Gunnar Kreitz
 
-	$sql = "UPDATE " . db_prefix("accounts") . " SET alive=0, goldinbank=(goldinbank+IF(gold<{$badguy['creaturegold']},gold-{$badguy['creaturegold']},0)),gold=IF(gold<{$badguy['creaturegold']},0,gold-{$badguy['creaturegold']}), experience=experience-$lostexp WHERE acctid=".(int)$badguy['acctid']."";
-	db_query($sql);
-	return $args['handled'];
+        $sql = "UPDATE " . db_prefix("accounts") . " SET alive=0, goldinbank=(goldinbank+IF(gold<{$badguy['creaturegold']},gold-{$badguy['creaturegold']},0)),gold=IF(gold<{$badguy['creaturegold']},0,gold-{$badguy['creaturegold']}), experience=experience-$lostexp WHERE acctid=".(int)$badguy['acctid']."";
+        db_query($sql);
+        return $args['handled'];
+    }
 }
+
+
 
 function pvpdefeat($badguy, $killedloc, $taunt, $options)
 {

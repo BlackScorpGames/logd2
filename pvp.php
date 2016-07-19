@@ -83,7 +83,7 @@ if ($battle){
 
 	if ($victory){
 		$killedin = $badguy['location'];
-		$handled = pvpvictory($badguy, $killedin, $options);
+		$handled = PvpSupport::pvpvictory($badguy, $killedin, $options);
 
 		// Handled will be true if a module has already done the addnews or
 		// whatever was needed.
