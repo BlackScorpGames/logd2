@@ -104,7 +104,7 @@ function lovers_seth(){
 							if ($session['user']['turns']<0)
 								$session['user']['turns']=0;
 						}
-						addnews("`@%s`@ and %s`@ were seen heading up the stairs in the inn together.`0",$session['user']['name'],$partner);
+						AddNewsClass::addnews("`@%s`@ and %s`@ were seen heading up the stairs in the inn together.`0",$session['user']['name'],$partner);
 						if ($c<25) $c++;
 					}else{
 						OutputClass::output("\"`^I'm sorry m'lady, but I have a show in 5 minutes`0\"");
@@ -117,7 +117,7 @@ function lovers_seth(){
 					if ($c>=22){
 						OutputClass::output("\"`^Of course my love!`0\" he says.");
 						OutputClass::output("The next weeks are a blur as you plan the most wonderous wedding, paid for entirely by %s`0, and head on off to the deep forest for your honeymoon.",$partner);
-						addnews("`&%s`& and %s`& are joined today in joyous matrimony!!!",$session['user']['name'],$partner);
+						AddNewsClass::addnews("`&%s`& and %s`& are joined today in joyous matrimony!!!",$session['user']['name'],$partner);
 						$session['user']['marriedto']=INT_MAX;
 						apply_buff('lover',lovers_getbuff());
 					}else{

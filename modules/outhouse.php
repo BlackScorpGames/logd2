@@ -198,7 +198,7 @@ function outhouse_run(){
 			} else {
 				$msg = "`2Always cool, %s`2 was seen walking around with a long string of toilet paper stuck to his foot.`n";
 			}
-			addnews($msg, $session['user']['name']);
+			AddNewsClass::addnews($msg, $session['user']['name']);
 		}
 		require_once("lib/forest.php");
 		ForestClass::forest(true);

@@ -253,7 +253,7 @@ function goldmine_runevent($type)
 					$session['user']['gold'] -= $goldlost;
 					$session['user']['gems'] -= $gemlost;
 					OutputClass::addnav("Daily News","news.php");
-					addnews("%s was completely buried after becoming greedy digging in the mines.",$session['user']['name']);
+					AddNewsClass::addnews("%s was completely buried after becoming greedy digging in the mines.",$session['user']['name']);
 				} else {
 					if (isset($horsesave) && $horsesave) {
 						$msg = get_module_objpref('mounts', $hashorse, 'savemsg');

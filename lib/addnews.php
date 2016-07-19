@@ -14,6 +14,8 @@
  * @subpackage Library
  * @license http://creativecommons.org/licenses/by-nc-sa/2.0/legalcode
  */
+
+class AddNewsClass{
 /**
  * Adds a news item for the current user
  *
@@ -24,14 +26,14 @@
  * @see addnews_for_user()
  * @uses addnews_for_user() Function actually adds the news item to the database
  */
-function addnews(){
-	// Format: addnews($text[, $sprintf_style_replacement1
+public static function addnews(){
+	// Format: AddNewsClass::addnews($text[, $sprintf_style_replacement1
 	//					  [, $sprintf_style_replacement2...]]
 	//					  [, $hidefrombio]);
 	// We can pass arrays for the sprintf style replacements, which
 	// represent separate translation sets in the same format as OutputClass::output().
 	// Eg:
-	//   addnews("%s defeated %s in %s `n%s","Joe","Hank","the Inn",
+	//   AddNewsClass::addnews("%s defeated %s in %s `n%s","Joe","Hank","the Inn",
 	//		   array("\"Your mother smelt of elderberries,\" taunted %s.",
 	//				 "Joe"));
 	// Note that the sub-translation does need its own %s location in the
@@ -41,6 +43,7 @@ function addnews(){
 	array_unshift($args, $session['user']['acctid']);
 	return call_user_func_array("addnews_for_user", $args);
 }
+}
 /**
  * Adds a news item for a user
  *
@@ -49,7 +52,7 @@ function addnews(){
  * @param $arguments... The sprintf style replacement
  * @param $hidefrombio Set to true to hide from bio
  * @return resource The result resource from the inserting query
- * @see addnews()
+ * @see AddNewsClass::addnews()
  */
 function addnews_for_user()
 {

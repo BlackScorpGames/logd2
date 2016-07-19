@@ -38,7 +38,7 @@ class ForestOutcomes{
         } else {
             $where=Translator::translate_inline($where);
         }
-        addnews("`%%s`5 has been slain %s by %s.`n%s",$session['user']['name'],$where,$badguy['creaturename'],$taunt);
+        AddNewsClass::addnews("`%%s`5 has been slain %s by %s.`n%s",$session['user']['name'],$where,$badguy['creaturename'],$taunt);
         $session['user']['alive']=false;
         debuglog("lost gold when they were slain $where",false,false,"forestlose",-$session['user']['gold']);
         $session['user']['gold']=0;

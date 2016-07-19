@@ -235,10 +235,10 @@ if ($op==""){
 	$regname = get_player_basename();
 	OutputClass::output("`n`n`^You are now known as `&%s`^!!",$session['user']['name']);
 	if ($session['user']['dragonkills'] == 1) {
-		addnews("`#%s`# has earned the title `&%s`# for having slain the `@Green Dragon`& `^%s`# time!",$regname,$session['user']['title'],$session['user']['dragonkills']);
+		AddNewsClass::addnews("`#%s`# has earned the title `&%s`# for having slain the `@Green Dragon`& `^%s`# time!",$regname,$session['user']['title'],$session['user']['dragonkills']);
 		OutputClass::output("`n`n`&Because you have slain the dragon %s time, you start with some extras.  You also keep additional permanent hitpoints you've earned.`n",$session['user']['dragonkills']);
 	} else {
-		addnews("`#%s`# has earned the title `&%s`# for having slain the `@Green Dragon`& `^%s`# times!",$regname,$session['user']['title'],$session['user']['dragonkills']);
+		AddNewsClass::addnews("`#%s`# has earned the title `&%s`# for having slain the `@Green Dragon`& `^%s`# times!",$regname,$session['user']['title'],$session['user']['dragonkills']);
 		OutputClass::output("`n`n`&Because you have slain the dragon %s times, you start with some extras.  You also keep additional permanent hitpoints you've earned.`n",$session['user']['dragonkills']);
 	}
 	$session['user']['charm']+=5;
@@ -266,7 +266,7 @@ if ($battle){
 		if ($badguy['diddamage'] != 1) $flawless = 1;
 		$session['user']['dragonkills']++;
 		OutputClass::output("`&With a mighty final blow, `@The Green Dragon`& lets out a tremendous bellow and falls at your feet, dead at last.");
-		addnews("`&%s has slain the hideous creature known as `@The Green Dragon`&.  All across the land, people rejoice!",$session['user']['name']);
+		AddNewsClass::addnews("`&%s has slain the hideous creature known as `@The Green Dragon`&.  All across the land, people rejoice!",$session['user']['name']);
 		Translator::tlschema("nav");
 		OutputClass::addnav("Continue","dragon.php?op=prologue1&flawless=$flawless");
 		Translator::tlschema();
@@ -277,9 +277,9 @@ if ($battle){
 			Translator::tlschema();
 			$taunt = select_taunt_array();
 			if ($session['user']['sex']){
-				addnews("`%%s`5 has been slain when she encountered `@The Green Dragon`5!!!  Her bones now litter the cave entrance, just like the bones of those who came before.`n%s",$session['user']['name'],$taunt);
+				AddNewsClass::addnews("`%%s`5 has been slain when she encountered `@The Green Dragon`5!!!  Her bones now litter the cave entrance, just like the bones of those who came before.`n%s",$session['user']['name'],$taunt);
 			}else{
-				addnews("`%%s`5 has been slain when he encountered `@The Green Dragon`5!!!  His bones now litter the cave entrance, just like the bones of those who came before.`n%s",$session['user']['name'],$taunt);
+				AddNewsClass::addnews("`%%s`5 has been slain when he encountered `@The Green Dragon`5!!!  His bones now litter the cave entrance, just like the bones of those who came before.`n%s",$session['user']['name'],$taunt);
 			}
 			$session['user']['alive']=false;
 			debuglog("lost {$session['user']['gold']} gold when they were slain");

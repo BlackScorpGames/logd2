@@ -15,13 +15,13 @@ if (db_num_rows($result)>0){
 			OutputClass::output("You have successfully haunted `7%s`)!", $row['name']);
 			$sql = "UPDATE " . db_prefix("accounts") . " SET hauntedby='".addslashes($session['user']['name'])."' WHERE login='$name'";
 			db_query($sql);
-			addnews("`7%s`) haunted `7%s`)!",$session['user']['name'],$row['name']);
+			AddNewsClass::addnews("`7%s`) haunted `7%s`)!",$session['user']['name'],$row['name']);
 			$subj = array("`)You have been haunted");
 			$body = array("`)You have been haunted by `&%s`).",$session['user']['name']);
 			require("lib/systemmail.php");
 			systemmail($row['acctid'], $subj, $body);
 		}else{
-			addnews("`7%s`) unsuccessfully haunted `7%s`)!",$session['user']['name'],$row['name']);
+			AddNewsClass::addnews("`7%s`) unsuccessfully haunted `7%s`)!",$session['user']['name'],$row['name']);
 			switch (Erand::e_rand(0,5)){
 			case 0:
 				$msg = "Just as you were about to haunt `7%s`) good, they sneezed, and missed it completely.";

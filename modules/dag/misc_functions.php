@@ -532,7 +532,7 @@ function dag_pvpwin($args){
 	// End Add Bounty Gold
 	// Add Bounty Kill to News
 	if ($totgoodamt > 0) {
-		addnews("`4%s`3 collected `4%s`3 gold bounty by turning in `4%s`3's head!",$session['user']['name'],$totgoodamt,$badguy['creaturename']);
+		AddNewsClass::addnews("`4%s`3 collected `4%s`3 gold bounty by turning in `4%s`3's head!",$session['user']['name'],$totgoodamt,$badguy['creaturename']);
 	}
 	// End Add Bounty Kill to News
 	// End Bounty Check - Andrew

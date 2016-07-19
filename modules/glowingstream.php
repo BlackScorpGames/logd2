@@ -62,7 +62,7 @@ function glowingstream_runevent($type,$link)
 			$session['user']['alive']=false;
 			$session['user']['hitpoints']=0;
 			OutputClass::addnav("Daily News","news.php");
-			addnews("%s encountered strange powers in the forest, and was not seen again.",$session['user']['name']);
+			AddNewsClass::addnews("%s encountered strange powers in the forest, and was not seen again.",$session['user']['name']);
 			break;
 		case 2:
 			OutputClass::output("`iIt is followed by a dreadful clammy cold`i.");

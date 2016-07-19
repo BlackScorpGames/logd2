@@ -189,7 +189,7 @@ if ($dp < $dkills) {
 	$spirits = $r1+$r2;
 	$resurrectionturns=$spirits;
 	if ($resurrection=="true"){
-		addnews("`&%s`& has been resurrected by %s`&.",$session['user']['name'],Settings::getsetting('deathoverlord','`$Ramius'));
+		AddNewsClass::addnews("`&%s`& has been resurrected by %s`&.",$session['user']['name'],Settings::getsetting('deathoverlord','`$Ramius'));
 		$spirits=-6;
 		$resurrectionturns=Settings::getsetting('resurrectionturns',-6);
 		if (strstr($resurrectionturns,'%')) {

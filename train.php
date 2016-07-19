@@ -148,7 +148,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 			$session['user']['hitpoints']=$session['user']['maxhitpoints'];
 		}
 		Modules::modulehook("master-autochallenge");
-		if (Settings::getsetting('displaymasternews',1)) addnews("`3%s`3 was hunted down by their master, `^%s`3, for being truant.",$session['user']['name'],$master['creaturename']);
+		if (Settings::getsetting('displaymasternews',1)) AddNewsClass::addnews("`3%s`3 was hunted down by their master, `^%s`3, for being truant.",$session['user']['name'],$master['creaturename']);
 	}
 	if ($op=="fight"){
 		$battle=true;
@@ -227,9 +227,9 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 			}
 			VillageNavClass::villagenav();
 			if ($session['user']['age'] == 1) {
- 	 	 	 	if (Settings::getsetting('displaymasternews',1)) addnews("`%%s`3 has defeated ".($session['user']['sex']?"her":"his")." master, `%%s`3 to advance to level `^%s`3 after `^1`3 day!!", $session['user']['name'],$badguy['creaturename'],$session['user']['level']);
+ 	 	 	 	if (Settings::getsetting('displaymasternews',1)) AddNewsClass::addnews("`%%s`3 has defeated ".($session['user']['sex']?"her":"his")." master, `%%s`3 to advance to level `^%s`3 after `^1`3 day!!", $session['user']['name'],$badguy['creaturename'],$session['user']['level']);
  	 	 	} else {
- 	 	 	 	if (Settings::getsetting('displaymasternews',1)) addnews("`%%s`3 has defeated ".($session['user']['sex']?"her":"his")." master, `%%s`3 to advance to level `^%s`3 after `^%s`3 days!!", $session['user']['name'],$badguy['creaturename'],$session['user']['level'],$session['user']['age']);
+ 	 	 	 	if (Settings::getsetting('displaymasternews',1)) AddNewsClass::addnews("`%%s`3 has defeated ".($session['user']['sex']?"her":"his")." master, `%%s`3 to advance to level `^%s`3 after `^%s`3 days!!", $session['user']['name'],$badguy['creaturename'],$session['user']['level'],$session['user']['age']);
  	 	 	}
 			if ($session['user']['hitpoints'] < $session['user']['maxhitpoints'])
 				$session['user']['hitpoints'] = $session['user']['maxhitpoints'];
@@ -237,7 +237,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 		}elseif($defeat){
 			$taunt = select_taunt_array();
 
-			if (Settings::getsetting('displaymasternews',1)) addnews("`%%s`5 has challenged their master, %s and lost!`n%s",$session['user']['name'],$badguy['creaturename'],$taunt);
+			if (Settings::getsetting('displaymasternews',1)) AddNewsClass::addnews("`%%s`5 has challenged their master, %s and lost!`n%s",$session['user']['name'],$badguy['creaturename'],$taunt);
 			$session['user']['hitpoints']=$session['user']['maxhitpoints'];
 			OutputClass::output("`&`bYou have been defeated by `%%s`&!`b`n",$badguy['creaturename']);
 			OutputClass::output("`%%s`\$ halts just before delivering the final blow, and instead extends a hand to help you to your feet, and hands you a complementary healing potion.`n",$badguy['creaturename']);

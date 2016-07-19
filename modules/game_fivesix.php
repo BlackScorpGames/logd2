@@ -140,7 +140,7 @@ function game_fivesix_run(){
 					OutputClass::output("`^The old man hands you your winnings of %s gold",$prize);
 					$session['user']['gold']+=$prize;
 					debuglog("won $prize gold at sixes game.");
-					addnews("%s won %s gold after rolling 5 sixes in the %s.",$session['user']['name'],$prize, get_module_setting("tavernname","darkhorse"));
+					AddNewsClass::addnews("%s won %s gold after rolling 5 sixes in the %s.",$session['user']['name'],$prize, get_module_setting("tavernname","darkhorse"));
 					set_module_setting("jackpot",100);
 					set_module_setting("lastpot5",$prize);
 					$lastwin5=$session['user']['name'];
@@ -155,7 +155,7 @@ function game_fivesix_run(){
 					$lastwin4=$session['user']['name'];
 					set_module_setting("lastwin4",$lastwin4);
 
-					addnews("%s won %s gold after rolling 4 sixes in the %s.",$session['user']['name'],$win, get_module_setting("tavernname", "darkhorse"));
+					AddNewsClass::addnews("%s won %s gold after rolling 4 sixes in the %s.",$session['user']['name'],$win, get_module_setting("tavernname", "darkhorse"));
 					OutputClass::output("`@The old man leans over the table to peer at your dice and looks thoughtful for a moment.`n");
 					OutputClass::output("\"Well now...four out of five sixes is darned close, my friend. I think your effort deserves %s gold in reward.\"`n`n",$win);
 					OutputClass::output("`^The old man hands you %s gold.", $win);
@@ -169,7 +169,7 @@ function game_fivesix_run(){
 					set_module_setting("lastwin3",$lastwin3);
 
 					debuglog("won $win gold at sixes game.");
-					addnews("%s won %s gold after rolling 3 sixes in the %s.",$session['user']['name'],$win,get_module_setting("tavernname", "darkhorse"));
+					AddNewsClass::addnews("%s won %s gold after rolling 3 sixes in the %s.",$session['user']['name'],$win,get_module_setting("tavernname", "darkhorse"));
 					OutputClass::output("`@The old man leans over the table to peer at your dice and cackles as he notes your results.`n");
 					OutputClass::output("\"Well now...three out of five sixes isn't a bad effort, my friend. I'll give ye %s gold for that try.\"`n`n",$win);
 					OutputClass::output("`^The old man hands you %s gold.", $win);

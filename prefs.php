@@ -31,7 +31,7 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 	$sql = "DELETE FROM " . db_prefix("accounts") . " WHERE acctid='$userid'";
 	db_query($sql);
 	OutputClass::output("Your character has been deleted!");
-	addnews("`#%s quietly passed from this world.",$session['user']['name']);
+	AddNewsClass::addnews("`#%s quietly passed from this world.",$session['user']['name']);
 	OutputClass::addnav("Login Page", "index.php");
 	$session=array();
 	$session['user'] = array();

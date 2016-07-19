@@ -105,7 +105,7 @@ function lovers_violet(){
 							$session['user']['turns']-=2;
 							if ($session['user']['turns']<0) $session['user']['turns']=0;
 						}
-						addnews("`@%s`@ and %s`@ were seen heading up the stairs in the inn together.`0",$session['user']['name'],$partner);
+						AddNewsClass::addnews("`@%s`@ and %s`@ were seen heading up the stairs in the inn together.`0",$session['user']['name'],$partner);
 						if ($c<25) $c++;
 					}else{
 						OutputClass::output("Like a whirlwind, you sweep through the inn, and grab for %s`0.",$partner);
@@ -125,7 +125,7 @@ function lovers_violet(){
 						OutputClass::output("\"`%Yes!`0\" she says, \"`%Yes, yes yes!!!`0\"");
 						OutputClass::output("Her final confirmations are buried in a flurry of kisses about your face and neck.`n`n");
 						OutputClass::output("The next days are a blur; you and %s`0 are married in the abbey down the street, in a gorgeous ceremony with many frilly girly things.",$partner);
-						addnews("`&%s`& and %s`& are joined today in joyous matrimony!!!",$session['user']['name'],$partner);
+						AddNewsClass::addnews("`&%s`& and %s`& are joined today in joyous matrimony!!!",$session['user']['name'],$partner);
 						$session['user']['marriedto']=INT_MAX;
 						apply_buff('lover',lovers_getbuff());
 					}else{

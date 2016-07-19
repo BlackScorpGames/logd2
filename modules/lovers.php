@@ -74,7 +74,7 @@ function lovers_dohook($hookname, $args){
 				OutputClass::output("There are other warriors in the land, and I think some of them are really hot.");
 				OutputClass::output("So it's not you, it's me, etcetera etcetera.`n`n");
 				OutputClass::output("No hard feelings, Love,`n%s`b`n",$partner);
-				addnews("`\$%s`\$ has left %s`\$ to pursue \"other interests.\"`0",$partner, $session['user']['name']);
+				AddNewsClass::addnews("`\$%s`\$ has left %s`\$ to pursue \"other interests.\"`0",$partner, $session['user']['name']);
 				$session['user']['marriedto']=0;
 				$session['user']['charm']=0;
 			}
