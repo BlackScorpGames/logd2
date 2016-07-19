@@ -32,7 +32,7 @@ if ($op=="" && $act!="attack"){
 	OutputClass::output($args['atkmsg'], $session['user']['playerfights']);
 	Translator::tlschema();
 	OutputClass::addnav("L?Refresh List of Warriors","pvp.php");
-	pvplist();
+	PvpListClass::pvplist();
 	villagenav();
 } else if ($act == "attack") {
 	$name = Http::httpget('name');

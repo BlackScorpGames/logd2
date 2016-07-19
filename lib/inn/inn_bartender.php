@@ -82,7 +82,7 @@ if ($act==""){
 }else if ($act=="listupstairs"){
 	OutputClass::addnav("Refresh the list","inn.php?op=bartender&act=listupstairs");
 	OutputClass::output("%s`0 lays out a set of keys on the counter top, and tells you which key opens whose room.  The choice is yours, you may sneak in and attack any one of them.",$barkeep);
-	pvplist($iname,"pvp.php", "?act=attack&inn=1");
+	PvpListClass::pvplist($iname,"pvp.php", "?act=attack&inn=1");
 }else if($act=="colors"){
 	OutputClass::output("%s`0 leans on the bar.  \"`%So you want to know about colors, do you?`0\" he asks.",$barkeep);
 	OutputClass::output("You are about to answer when you realize the question was posed in the rhetoric.");

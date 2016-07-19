@@ -7,8 +7,8 @@
 //this function.
 $pvptime = Settings::getsetting("pvptimeout",600);
 $pvptimeout = date("Y-m-d H:i:s",strtotime("-$pvptime seconds"));
-
-function pvplist($location=false,$link=false,$extra=false,$sql=false){
+class PvpListClass{
+public static function pvplist($location=false,$link=false,$extra=false,$sql=false){
 	global $session,$pvptime,$pvptimeout;
 
 	if ($location===false)
@@ -128,5 +128,6 @@ function pvplist($location=false,$link=false,$extra=false,$sql=false){
 		}
 	}
 	Translator::tlschema();
+}
 }
 ?>
