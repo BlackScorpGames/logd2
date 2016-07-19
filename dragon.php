@@ -275,7 +275,7 @@ if ($battle){
 			Translator::tlschema("nav");
 			OutputClass::addnav("Daily news","news.php");
 			Translator::tlschema();
-			$taunt = select_taunt_array();
+			$taunt = Taunt::select_taunt_array();
 			if ($session['user']['sex']){
 				AddNewsClass::addnews("`%%s`5 has been slain when she encountered `@The Green Dragon`5!!!  Her bones now litter the cave entrance, just like the bones of those who came before.`n%s",$session['user']['name'],$taunt);
 			}else{

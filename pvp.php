@@ -108,7 +108,7 @@ if ($battle){
 		}
 	}elseif($defeat){
 		$killedin = $badguy['location'];
-		$taunt = select_taunt_array();
+		$taunt = Taunt::select_taunt_array();
 		// This is okay because system mail which is all it's used for is
 		// not translated
 		$handled = pvpdefeat($badguy, $killedin, $taunt, $options);

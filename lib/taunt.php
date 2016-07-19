@@ -24,7 +24,8 @@ function select_taunt() {
 	return $taunt;
 }
 
-function select_taunt_array(){
+class Taunt{
+public static function select_taunt_array(){
 	global $session, $badguy;
 
 	$sql = "SELECT taunt FROM " . db_prefix("taunts") .
@@ -41,5 +42,6 @@ function select_taunt_array(){
 	$taunt = substitute_array($taunt);
 	array_unshift($taunt, true, "taunts");
 	return $taunt;
+}
 }
 ?>

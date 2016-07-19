@@ -235,7 +235,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 				$session['user']['hitpoints'] = $session['user']['maxhitpoints'];
 			Modules::modulehook("training-victory", $badguy);
 		}elseif($defeat){
-			$taunt = select_taunt_array();
+			$taunt = Taunt::select_taunt_array();
 
 			if (Settings::getsetting('displaymasternews',1)) AddNewsClass::addnews("`%%s`5 has challenged their master, %s and lost!`n%s",$session['user']['name'],$badguy['creaturename'],$taunt);
 			$session['user']['hitpoints']=$session['user']['maxhitpoints'];
