@@ -291,7 +291,7 @@ if ($battle){
 		require_once("lib/forestoutcomes.php");
 		$op="";
 		Http::httpset('op', "");
-		forestvictory($newenemies,isset($options['denyflawless'])?$options['denyflawless']:false);
+		ForestOutcomes::forestvictory($newenemies,isset($options['denyflawless'])?$options['denyflawless']:false);
 		$dontdisplayforestmessage=true;
 	}elseif($defeat){
 		require_once("lib/forestoutcomes.php");

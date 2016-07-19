@@ -7,122 +7,7 @@ require_once("lib/e_rand.php");
 require_once("lib/pageparts.php");
 require_once("lib/output.php");
 
-function forestvictory($enemies,$denyflawless=false){
-	global $session, $options;
-	$diddamage = false;
-	$creaturelevel = 0;
-	$gold = 0;
-	$exp = 0;
-	$expbonus = 0;
-	$count = 0;
-	$totalbackup = 0;
-	foreach ($enemies as $index=>$badguy) {
-		if (Settings::getsetting("dropmingold",0)){
-			$badguy['creaturegold']= Erand::e_rand(round($badguy['creaturegold']/4), round(3*$badguy['creaturegold']/4));
-		}else{
-			$badguy['creaturegold']=Erand::e_rand(0,$badguy['creaturegold']);
-		}
-		$gold += $badguy['creaturegold'];
-		Translator::tlschema("battle");
-		if(isset($badguy['creaturelose'])) $msg = Translator::translate_inline($badguy['creaturelose']);
-		Translator::tlschema();
-		if(isset($msg)) OutputClass::output_notl("`b`&%s`0`b`n",$msg);
-		OutputClass::output("`b`\$You have slain %s!`0`b`n",$badguy['creaturename']);
-		$count++;
-		// If any creature did damage, we have no flawless fight. Easy as that.
-		if ($badguy['diddamage'] == 1) {
-			$diddamage = true;
-		}
-		$creaturelevel = max($creaturelevel, $badguy['creaturelevel']);
-		if (!$denyflawless && isset($badguy['denyflawless']) && $badguy['denyflawless']>"") {
-			$denyflawless = $badguy['denyflawless'];
-		}
-		$expbonus += round(($badguy['creatureexp'] * (1 + .25 * ($badguy['creaturelevel']-$session['user']['level']))) - $badguy['creatureexp'],0);
-	}
-	$multibonus = $count>1?1:0;
-	$expbonus += $session['user']['dragonkills'] * $session['user']['level'] * $multibonus;
-	$totalexp = 0;
-	foreach ($options['experience'] as $index=>$experience) {
-		$totalexp += $experience;
-	}
-	// We now have the total experience which should have been gained during the fight.
-	// Now we will calculate the average exp per enemy.
-	$exp = round($totalexp / $count);
-	$gold = Erand::e_rand(round($gold/$count),round($gold/$count)*round(($count+1)*pow(1.2, $count-1),0));
-	$expbonus = round ($expbonus/$count,0);
 
-	if ($gold) {
-		OutputClass::output("`#You receive `^%s`# gold!`n",$gold);
-		debuglog("received gold for slaying a monster.",false,false,"forestwin",$badguy['creaturegold']);
-	}
-	// No gem hunters allowed!
-	$args = Modules::modulehook("alter-gemchance", array("chance"=>Settings::getsetting("forestgemchance", 25)));
-	$gemchances = $args['chance'];
-	if ($session['user']['level'] < 15 && Erand::e_rand(1,$gemchances) == 1) {
-		OutputClass::output("`&You find A GEM!`n`#");
-		$session['user']['gems']++;
-		debuglog("found gem when slaying a monster.",false,false,"forestwingem",1);
-	}
-	if (Settings::getsetting("instantexp",false) == true) {
-		$expgained = 0;
-		foreach ($options['experiencegained'] as $index=>$experience) {
-			$expgained += $experience;
-		}
-
-		$diff = $expgained - $exp;
-		$expbonus += $diff;
-		if (floor($exp + $expbonus) < 0) {
-			$expbonus = -$exp+1;
-		}
-		if ($expbonus>0){
-			$expbonus = round($expbonus * pow(1+(Settings::getsetting("addexp", 5)/100), $count-1),0);
-			OutputClass::output("`#***Because of the difficult nature of this fight, you are awarded an additional `^%s`# experience! `n",$expbonus);
-		} elseif ($expbonus<0){
-			OutputClass::output("`#***Because of the simplistic nature of this fight, you are penalized `^%s`# experience! `n",abs($expbonus));
-		}
-		if (count($enemies) > 1) {
-			OutputClass::output("During this fight you received `^%s`# total experience!`n`0",$exp+$expbonus);
-		}
-		$session['user']['experience']+=$expbonus;
-	} else {
-		if (floor($exp + $expbonus) < 0) {
-			$expbonus = -$exp+1;
-		}
-		if ($expbonus>0){
-			$expbonus = round($expbonus * pow(1+(Settings::getsetting("addexp", 5)/100), $count-1),0);
-			OutputClass::output("`#***Because of the difficult nature of this fight, you are awarded an additional `^%s`# experience! `n(%s + %s = %s) ",$expbonus,$exp,abs($expbonus),$exp+$expbonus);
-		} elseif ($expbonus<0){
-			OutputClass::output("`#***Because of the simplistic nature of this fight, you are penalized `^%s`# experience! `n(%s - %s = %s) ",abs($expbonus),$exp,abs($expbonus),$exp+$expbonus);
-		}
-		OutputClass::output("You receive `^%s`# total experience!`n`0",$exp+$expbonus);
-		$session['user']['experience']+=($exp+$expbonus);
-	}
-	$session['user']['gold']+=$gold;
-	// Increase the level for each enemy by one half, so flawless fights can be achieved for
-	// fighting multiple low-level critters
-	if (!$creaturelevel)
-		$creaturelevel = $badguy['creaturelevel'];
-	else
-		$creaturelevel+=(0.5*($count-1));
-
-	if (!$diddamage) {
-		OutputClass::output("`c`b`&~~ Flawless Fight! ~~`0`b`c");
-		if ($denyflawless){
-			OutputClass::output("`c`\$%s`0`c", Translator::translate_inline($denyflawless));
-		}elseif ($session['user']['level']<=$creaturelevel){
-			OutputClass::output("`c`b`\$You receive an extra turn!`0`b`c`n");
-			$session['user']['turns']++;
-		}else{
-			OutputClass::output("`c`\$A more difficult fight would have yielded an extra turn.`0`c`n");
-		}
-	}
-	if ($session['user']['hitpoints'] <= 0) {
-		OutputClass::output("With your dying breath you spy a small stand of mushrooms off to the side.");
-		OutputClass::output("You recognize them as some of the ones that the healer had drying in the hut and taking a chance, cram a handful into your mouth.");
-		OutputClass::output("Even raw they have some restorative properties.`n");
-		$session['user']['hitpoints'] = 1;
-	}
-}
 
 function forestdefeat($enemies,$where="in the forest"){
 	global $session;
@@ -163,6 +48,122 @@ function forestdefeat($enemies,$where="in the forest"){
 }
 
 class ForestOutcomes{
+    function forestvictory($enemies,$denyflawless=false){
+        global $session, $options;
+        $diddamage = false;
+        $creaturelevel = 0;
+        $gold = 0;
+        $exp = 0;
+        $expbonus = 0;
+        $count = 0;
+        $totalbackup = 0;
+        foreach ($enemies as $index=>$badguy) {
+            if (Settings::getsetting("dropmingold",0)){
+                $badguy['creaturegold']= Erand::e_rand(round($badguy['creaturegold']/4), round(3*$badguy['creaturegold']/4));
+            }else{
+                $badguy['creaturegold']=Erand::e_rand(0,$badguy['creaturegold']);
+            }
+            $gold += $badguy['creaturegold'];
+            Translator::tlschema("battle");
+            if(isset($badguy['creaturelose'])) $msg = Translator::translate_inline($badguy['creaturelose']);
+            Translator::tlschema();
+            if(isset($msg)) OutputClass::output_notl("`b`&%s`0`b`n",$msg);
+            OutputClass::output("`b`\$You have slain %s!`0`b`n",$badguy['creaturename']);
+            $count++;
+            // If any creature did damage, we have no flawless fight. Easy as that.
+            if ($badguy['diddamage'] == 1) {
+                $diddamage = true;
+            }
+            $creaturelevel = max($creaturelevel, $badguy['creaturelevel']);
+            if (!$denyflawless && isset($badguy['denyflawless']) && $badguy['denyflawless']>"") {
+                $denyflawless = $badguy['denyflawless'];
+            }
+            $expbonus += round(($badguy['creatureexp'] * (1 + .25 * ($badguy['creaturelevel']-$session['user']['level']))) - $badguy['creatureexp'],0);
+        }
+        $multibonus = $count>1?1:0;
+        $expbonus += $session['user']['dragonkills'] * $session['user']['level'] * $multibonus;
+        $totalexp = 0;
+        foreach ($options['experience'] as $index=>$experience) {
+            $totalexp += $experience;
+        }
+        // We now have the total experience which should have been gained during the fight.
+        // Now we will calculate the average exp per enemy.
+        $exp = round($totalexp / $count);
+        $gold = Erand::e_rand(round($gold/$count),round($gold/$count)*round(($count+1)*pow(1.2, $count-1),0));
+        $expbonus = round ($expbonus/$count,0);
+
+        if ($gold) {
+            OutputClass::output("`#You receive `^%s`# gold!`n",$gold);
+            debuglog("received gold for slaying a monster.",false,false,"forestwin",$badguy['creaturegold']);
+        }
+        // No gem hunters allowed!
+        $args = Modules::modulehook("alter-gemchance", array("chance"=>Settings::getsetting("forestgemchance", 25)));
+        $gemchances = $args['chance'];
+        if ($session['user']['level'] < 15 && Erand::e_rand(1,$gemchances) == 1) {
+            OutputClass::output("`&You find A GEM!`n`#");
+            $session['user']['gems']++;
+            debuglog("found gem when slaying a monster.",false,false,"forestwingem",1);
+        }
+        if (Settings::getsetting("instantexp",false) == true) {
+            $expgained = 0;
+            foreach ($options['experiencegained'] as $index=>$experience) {
+                $expgained += $experience;
+            }
+
+            $diff = $expgained - $exp;
+            $expbonus += $diff;
+            if (floor($exp + $expbonus) < 0) {
+                $expbonus = -$exp+1;
+            }
+            if ($expbonus>0){
+                $expbonus = round($expbonus * pow(1+(Settings::getsetting("addexp", 5)/100), $count-1),0);
+                OutputClass::output("`#***Because of the difficult nature of this fight, you are awarded an additional `^%s`# experience! `n",$expbonus);
+            } elseif ($expbonus<0){
+                OutputClass::output("`#***Because of the simplistic nature of this fight, you are penalized `^%s`# experience! `n",abs($expbonus));
+            }
+            if (count($enemies) > 1) {
+                OutputClass::output("During this fight you received `^%s`# total experience!`n`0",$exp+$expbonus);
+            }
+            $session['user']['experience']+=$expbonus;
+        } else {
+            if (floor($exp + $expbonus) < 0) {
+                $expbonus = -$exp+1;
+            }
+            if ($expbonus>0){
+                $expbonus = round($expbonus * pow(1+(Settings::getsetting("addexp", 5)/100), $count-1),0);
+                OutputClass::output("`#***Because of the difficult nature of this fight, you are awarded an additional `^%s`# experience! `n(%s + %s = %s) ",$expbonus,$exp,abs($expbonus),$exp+$expbonus);
+            } elseif ($expbonus<0){
+                OutputClass::output("`#***Because of the simplistic nature of this fight, you are penalized `^%s`# experience! `n(%s - %s = %s) ",abs($expbonus),$exp,abs($expbonus),$exp+$expbonus);
+            }
+            OutputClass::output("You receive `^%s`# total experience!`n`0",$exp+$expbonus);
+            $session['user']['experience']+=($exp+$expbonus);
+        }
+        $session['user']['gold']+=$gold;
+        // Increase the level for each enemy by one half, so flawless fights can be achieved for
+        // fighting multiple low-level critters
+        if (!$creaturelevel)
+            $creaturelevel = $badguy['creaturelevel'];
+        else
+            $creaturelevel+=(0.5*($count-1));
+
+        if (!$diddamage) {
+            OutputClass::output("`c`b`&~~ Flawless Fight! ~~`0`b`c");
+            if ($denyflawless){
+                OutputClass::output("`c`\$%s`0`c", Translator::translate_inline($denyflawless));
+            }elseif ($session['user']['level']<=$creaturelevel){
+                OutputClass::output("`c`b`\$You receive an extra turn!`0`b`c`n");
+                $session['user']['turns']++;
+            }else{
+                OutputClass::output("`c`\$A more difficult fight would have yielded an extra turn.`0`c`n");
+            }
+        }
+        if ($session['user']['hitpoints'] <= 0) {
+            OutputClass::output("With your dying breath you spy a small stand of mushrooms off to the side.");
+            OutputClass::output("You recognize them as some of the ones that the healer had drying in the hut and taking a chance, cram a handful into your mouth.");
+            OutputClass::output("Even raw they have some restorative properties.`n");
+            $session['user']['hitpoints'] = 1;
+        }
+    }
 function buffbadguy($badguy){
 	global $session;
 	static $dk = false;	// This will save us a lot of trouble when going through
