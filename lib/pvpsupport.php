@@ -43,7 +43,7 @@ function setup_target($name) {
 			$row['playerstarthp'] = $session['user']['hitpoints'];
 			$row['fightstartdate'] = strtotime("now");
 			$row = Modules::modulehook("pvpadjust", $row);
-			pvpwarning(true);
+			PvpWarningClass::pvpwarning(true);
 			return $row;
 		}else{
 			OutputClass::output("`4Judging by how tired you are, you think you had best not engage in battle against other players right now.");
