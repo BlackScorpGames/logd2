@@ -36,7 +36,7 @@ if ($op=="" && $act!="attack"){
 	VillageNavClass::villagenav();
 } else if ($act == "attack") {
 	$name = Http::httpget('name');
-	$badguy = setup_target($name);
+	$badguy = PvpSupport::setup_target($name);
 	$options['type'] = "pvp";
 	$failedattack = false;
 	if ($badguy === false) {

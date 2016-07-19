@@ -8,9 +8,9 @@ require_once("lib/pvpwarning.php");
 require_once("lib/substitute.php");
 require_once("lib/systemmail.php");
 require_once("lib/datetime.php");
-
+class PvpSupport{
 // This contains functions to support pvp
-function setup_target($name) {
+public static function setup_target($name) {
 	global $pvptimeout, $session;
 	//Legacy support
 	if (is_numeric($name)) {
@@ -55,7 +55,7 @@ function setup_target($name) {
 	}
 	return false;
 }
-
+}
 function pvpvictory($badguy, $killedloc, $options)
 {
 	global $session;
