@@ -25,7 +25,7 @@ if ($op=="run"){
 		OutputClass::output ("`c`b`&You have successfully fled your opponent!`0`b`c`n");
 		$op="";
 		Http::httpset('op', "");
-		unsuspend_buffs();
+		BattleSkills::unsuspend_buffs();
 		foreach($companions as $index => $companion) {
 			if(isset($companion['expireafterfight']) && $companion['expireafterfight']) {
 				unset($companions[$index]);

@@ -190,8 +190,8 @@ function is_buff_active($name) {
 	return (($session['bufflist'][$name] && !$session['bufflist'][$name]['suspended'])?1:0);
 }
 
-
-function unsuspend_buffs($susp=false,$msg=false) {
+class BattleSkills{
+public static function unsuspend_buffs($susp=false,$msg=false) {
 	global $session, $badguy;
 	$unsuspendnotify = 0;
 	reset($session['bufflist']);
@@ -214,7 +214,7 @@ function unsuspend_buffs($susp=false,$msg=false) {
 		if ($schema) Translator::tlschema();
 	}
 }
-
+}
 function apply_bodyguard($level){
 	global $session, $badguy;
 	if (!isset($session['bufflist']['bodyguard'])) {

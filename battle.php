@@ -484,7 +484,7 @@ if ($session['user']['hitpoints'] < 0) $session['user']['hitpoints'] = 0;
 if ($victory || $defeat){
 	// expire any buffs which cannot persist across fights and
 	// unsuspend any suspended buffs
-	unsuspend_buffs((($options['type']=='pvp')?"allowinpvp":false));
+	BattleSkills::unsuspend_buffs((($options['type']=='pvp')?"allowinpvp":false));
 	if ($session['user']['alive']) {
 		unsuspend_companions((($options['type']=='pvp')?"allowinpvp":false));
 	}
