@@ -509,8 +509,8 @@ if ($victory || $defeat){
 	}
 }
 $attackstack = array('enemies'=>$newenemies, 'options'=>$options);
-$session['user']['badguy']=createstring($attackstack);
-$session['user']['companions']=createstring($companions);
+$session['user']['badguy']=ArrayUtil::createstring($attackstack);
+$session['user']['companions']=ArrayUtil::createstring($companions);
 Translator::tlschema();
 
 function battle_player_attacks() {

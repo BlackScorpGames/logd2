@@ -61,7 +61,7 @@ if ($op==""){
 
 	$badguy = Modules::modulehook("buffdragon", $badguy);
 
-	$session['user']['badguy']=createstring($badguy);
+	$session['user']['badguy']=ArrayUtil::createstring($badguy);
 	$battle=true;
 }elseif($op=="prologue1"){
 	OutputClass::output("`@Victory!`n`n");

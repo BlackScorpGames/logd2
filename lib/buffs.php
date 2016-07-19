@@ -197,7 +197,7 @@ function apply_companion($name,$companion,$ignorelimit=false){
 			$companion['ignorelimit'] = true;
 		}
 		$companions[$name] = $companion;
-		$session['user']['companions'] = createstring($companions);
+		$session['user']['companions'] = ArrayUtil::createstring($companions);
 		return true; // success!
 	} else {
 		OutputClass::debug("Failed to add companion due to restrictions regarding the maximum amount of companions allowed.");

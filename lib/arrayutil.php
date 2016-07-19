@@ -16,6 +16,8 @@
  * @subpackage Library
  * @license http://creativecommons.org/licenses/by-nc-sa/2.0/legalcode
  */
+
+class ArrayUtil{
 /**
  * Turns the given parameter into a string
  *
@@ -29,7 +31,7 @@
  * @param mixed $array
  * @return string The parameter converted to a string
  */
-function createstring($array){
+public static function createstring($array){
 	if (is_array($array) || is_object($array)){
 		$out = serialize($array);
 	} else {
@@ -37,5 +39,5 @@ function createstring($array){
 	}
 	return $out;
 }
-
+}
 ?>
