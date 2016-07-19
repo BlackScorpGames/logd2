@@ -117,7 +117,7 @@ function outhouse_run(){
 			OutputClass::output("`7You reach into your pocket and find that your gold has vanished!");
 			OutputClass::output("Dejected, you return to the forest.");
 			require_once("lib/forest.php");
-			forest(true);
+			ForestClass::forest(true);
 			PageParts::page_footer();
 		}
 
@@ -180,7 +180,7 @@ function outhouse_run(){
 		);
 		Modules::modulehook("soberup", $args);
 		require_once("lib/forest.php");
-		forest(true);
+		ForestClass::forest(true);
 	}elseif (($op == "nowash")){
 		PageParts::page_header("Stinky Hands");
 		OutputClass::output("`2Your hands are soiled and real stinky!`n");
@@ -201,7 +201,7 @@ function outhouse_run(){
 			addnews($msg, $session['user']['name']);
 		}
 		require_once("lib/forest.php");
-		forest(true);
+		ForestClass::forest(true);
 	}else{
 		PageParts::page_header("The Outhouses");
 		OutputClass::output("`2The nearby village has two outhouses, which it keeps way out here in the forest because of the warding effect of their smell on creatures.`n`n");
@@ -233,7 +233,7 @@ function outhouse_run(){
 			}
 			OutputClass::output("`n`n`7You return to the forest.`0");
 			require_once("lib/forest.php");
-			forest(true);
+			ForestClass::forest(true);
 		}
 	}
 	PageParts::page_footer();

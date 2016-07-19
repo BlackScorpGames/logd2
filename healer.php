@@ -122,7 +122,7 @@ if ($return==""){
 		OutputClass::addnav("F?Back to the Forest", "forest.php");
 		villagenav();
 	}else{
-		forest(true);
+		ForestClass::forest(true);
 	}
 }elseif ($return=="village.php"){
 	villagenav();

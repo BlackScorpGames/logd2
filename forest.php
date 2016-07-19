@@ -304,7 +304,7 @@ if ($battle){
 if ($op==""){
 	// Need to pass the variable here so that we show the forest message
 	// sometimes, but not others.
-	forest($dontdisplayforestmessage);
+	ForestClass::forest($dontdisplayforestmessage);
 }
 PageParts::page_footer();
 ?>
