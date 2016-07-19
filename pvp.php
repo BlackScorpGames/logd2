@@ -111,7 +111,7 @@ if ($battle){
 		$taunt = Taunt::select_taunt_array();
 		// This is okay because system mail which is all it's used for is
 		// not translated
-		$handled = pvpdefeat($badguy, $killedin, $taunt, $options);
+		$handled = PvpSupport::pvpdefeat($badguy, $killedin, $taunt, $options);
 		// Handled will be true if a module has already done the addnews or
 		// whatever was needed.
 		if (!$handled) {
