@@ -295,7 +295,7 @@ if ($battle){
 		$dontdisplayforestmessage=true;
 	}elseif($defeat){
 		require_once("lib/forestoutcomes.php");
-		forestdefeat($newenemies);
+		ForestOutcomes::forestdefeat($newenemies);
 	}else{
 		fightnav();
 	}

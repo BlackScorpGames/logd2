@@ -9,46 +9,47 @@ require_once("lib/output.php");
 
 
 
-function forestdefeat($enemies,$where="in the forest"){
-	global $session;
-	$percent=Settings::getsetting('forestexploss',10);
-	OutputClass::addnav("Daily news","news.php");
-	$names = array();
-	$killer = false;
-	foreach ($enemies as $index=>$badguy) {
-		$names[] = $badguy['creaturename'];
-		if (isset($badguy['killedplayer']) && $badguy['killedplayer'] == true) $killer = $badguy;
-		if (isset($badguy['creaturewin']) && $badguy['creaturewin'] > "") {
-			$msg = Translator::translate_inline($badguy['creaturewin'],"battle");
-			OutputClass::output_notl("`b`&%s`0`b`n",$msg);
-		}
-	}
-	if($killer) $badguy = $killer;
-	elseif(!isset($badguy['creaturename'])) $badguy = $enemies[0];
-	if (count($names) > 1) $lastname = array_pop($names);
-	$enemystring = join(", ", $names);
-	$and = Translator::translate_inline("and");
-	if (isset($lastname) && $lastname > "") $enemystring = "$enemystring $and $lastname";
-	$taunt = select_taunt_array();
-	if (is_array($where)) {
-		$where=sprintf_translate($where);
-	} else {
-		$where=Translator::translate_inline($where);
-	}
-	addnews("`%%s`5 has been slain %s by %s.`n%s",$session['user']['name'],$where,$badguy['creaturename'],$taunt);
-	$session['user']['alive']=false;
-	debuglog("lost gold when they were slain $where",false,false,"forestlose",-$session['user']['gold']);
-	$session['user']['gold']=0;
-	$session['user']['hitpoints']=0;
-	$session['user']['experience']=round($session['user']['experience']*(1-($percent/100)),0);
-	OutputClass::output("`4All gold on hand has been lost!`n");
-	OutputClass::output("`4%s %% of experience has been lost!`b`n",$percent);
-	OutputClass::output("You may begin fighting again tomorrow.");
-	PageParts::page_footer();
-}
+
 
 class ForestOutcomes{
-    function forestvictory($enemies,$denyflawless=false){
+    public static function forestdefeat($enemies,$where="in the forest"){
+        global $session;
+        $percent=Settings::getsetting('forestexploss',10);
+        OutputClass::addnav("Daily news","news.php");
+        $names = array();
+        $killer = false;
+        foreach ($enemies as $index=>$badguy) {
+            $names[] = $badguy['creaturename'];
+            if (isset($badguy['killedplayer']) && $badguy['killedplayer'] == true) $killer = $badguy;
+            if (isset($badguy['creaturewin']) && $badguy['creaturewin'] > "") {
+                $msg = Translator::translate_inline($badguy['creaturewin'],"battle");
+                OutputClass::output_notl("`b`&%s`0`b`n",$msg);
+            }
+        }
+        if($killer) $badguy = $killer;
+        elseif(!isset($badguy['creaturename'])) $badguy = $enemies[0];
+        if (count($names) > 1) $lastname = array_pop($names);
+        $enemystring = join(", ", $names);
+        $and = Translator::translate_inline("and");
+        if (isset($lastname) && $lastname > "") $enemystring = "$enemystring $and $lastname";
+        $taunt = select_taunt_array();
+        if (is_array($where)) {
+            $where=sprintf_translate($where);
+        } else {
+            $where=Translator::translate_inline($where);
+        }
+        addnews("`%%s`5 has been slain %s by %s.`n%s",$session['user']['name'],$where,$badguy['creaturename'],$taunt);
+        $session['user']['alive']=false;
+        debuglog("lost gold when they were slain $where",false,false,"forestlose",-$session['user']['gold']);
+        $session['user']['gold']=0;
+        $session['user']['hitpoints']=0;
+        $session['user']['experience']=round($session['user']['experience']*(1-($percent/100)),0);
+        OutputClass::output("`4All gold on hand has been lost!`n");
+        OutputClass::output("`4%s %% of experience has been lost!`b`n",$percent);
+        OutputClass::output("You may begin fighting again tomorrow.");
+        PageParts::page_footer();
+    }
+    public static function forestvictory($enemies,$denyflawless=false){
         global $session, $options;
         $diddamage = false;
         $creaturelevel = 0;
