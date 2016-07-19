@@ -203,7 +203,7 @@ function buffbadguy($badguy){
 	OutputClass::debug("OutputClass::debug: +$atkflux allocated to attack.");
 	OutputClass::debug("OutputClass::debug: +$defflux allocated to defense.");
 	OutputClass::debug("OutputClass::debug: +".($hpflux/5)."*5 to hitpoints.");
-	return Modules::modulehook("ForestOutcomes::buffbadguy",$badguy);
+	return Modules::modulehook("buffbadguy",$badguy);
 }
 }
 ?>
