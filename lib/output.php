@@ -198,7 +198,7 @@ class OutputClass
 	 * @param string $text The string to OutputClass::output
 	 * @param bool   $force If true, force OutputClass::debug OutputClass::output even for non SU/non flagged
 	 */
-	function debug($text, $force=false){
+	public static function debug($text, $force=false){
 		global $session, $block_new_output;
 		$temp = $block_new_output;
 		set_block_new_output(false);
