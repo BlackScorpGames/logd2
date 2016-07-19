@@ -291,7 +291,7 @@ if ($battle){
 
 			PageParts::page_footer();
 		}else{
-		  fightnav(true,false);
+		  FightNavClass::fightnav(true,false);
 		}
 	}
 }

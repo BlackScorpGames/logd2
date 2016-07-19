@@ -94,7 +94,7 @@ if ($battle){
 			Translator::tlschema();
 		}else{
 			require_once("lib/fightnav.php");
-			fightnav(false, true, "graveyard.php");
+			FightNavClass::fightnav(false, true, "graveyard.php");
 		}
 	}
 }

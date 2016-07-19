@@ -124,7 +124,7 @@ if ($battle){
 	}else{
 		$extra = "";
 		if (Http::httpget('inn')) $extra = "?inn=1";
-		fightnav(false,false, "pvp.php$extra");
+		FightNavClass::fightnav(false,false, "pvp.php$extra");
 	}
 }
 PageParts::page_footer();

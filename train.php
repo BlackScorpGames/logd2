@@ -253,7 +253,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 			villagenav();
 			Modules::modulehook("training-defeat", $badguy);
 		}else{
-		  fightnav(false,false, "train.php?master=$mid");
+		  FightNavClass::fightnav(false,false, "train.php?master=$mid");
 		}
 		if ($victory || $defeat) {
 			unsuspend_buffs('allowintrain', "`&You now feel free to make use of your buffs again!`0`n");

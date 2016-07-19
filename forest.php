@@ -297,7 +297,7 @@ if ($battle){
 		require_once("lib/forestoutcomes.php");
 		ForestOutcomes::forestdefeat($newenemies);
 	}else{
-		fightnav();
+		FightNavClass::fightnav();
 	}
 }
 
