@@ -7,7 +7,7 @@ function make_seed(){
 	return (float) $sec + ((float) $usec * 100000);
 }
 
-class ERand
+class Erand
 {
 	public static function e_rand($min = false, $max = false)
 	{
