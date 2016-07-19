@@ -165,7 +165,7 @@ class ForestOutcomes{
             $session['user']['hitpoints'] = 1;
         }
     }
-function buffbadguy($badguy){
+public static function buffbadguy($badguy){
 	global $session;
 	static $dk = false;	// This will save us a lot of trouble when going through
 						// this function more than once...
