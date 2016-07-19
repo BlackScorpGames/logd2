@@ -26,7 +26,7 @@ OutputClass::addnav("Referrals", "referral.php");
 if ($op != "" && $entry)
 	OutputClass::addnav("L?Back to the Lodge", "lodge.php");
 OutputClass::addnav("Describe Points","lodge.php?op=points");
-villagenav();
+VillageNavClass::villagenav();
 
 
 if ($op==""){

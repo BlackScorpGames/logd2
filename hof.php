@@ -19,7 +19,7 @@ PageParts::page_header("Hall of Fame");
 GameDateTime::checkday();
 
 OutputClass::addnav("Other");
-villagenav();
+VillageNavClass::villagenav();
 $playersperpage = 50;
 
 $op = Http::httpget('op');

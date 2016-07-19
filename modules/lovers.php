@@ -129,7 +129,7 @@ function lovers_run(){
 	}
 	OutputClass::addnav("Return");
 	OutputClass::addnav("I?Return to the Inn","inn.php");
-	villagenav();
+	VillageNavClass::villagenav();
 	OutputClass::rawoutput("</span>");
 	PageParts::page_footer();
 }

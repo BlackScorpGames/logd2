@@ -14,7 +14,7 @@ if ($session['user']['loggedin']){
 		OutputClass::addnav("L?Return to the Lodge","lodge.php");
 	} else {
 		require_once("lib/villagenav.php");
-		villagenav();
+		VillageNavClass::villagenav();
 	}
 	OutputClass::output("You will automatically receive %s points for each person that you refer to this website who makes it to level %s.`n`n", Settings::getsetting("refereraward", 25), Settings::getsetting("referminlevel", 4));
 

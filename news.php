@@ -89,7 +89,7 @@ OutputClass::output_notl("`c`2-=-`@=-=`2-=-`@=-=`2-=-`@=-=`2-=-`0`c");
 if (!$session['user']['loggedin']) {
 	OutputClass::addnav("Login Screen", "index.php");
 } else if ($session['user']['alive']){
-	villagenav();
+	VillageNavClass::villagenav();
 }else{
 	Translator::tlschema("nav");
 	if($session['user']['sex'] == 1) {

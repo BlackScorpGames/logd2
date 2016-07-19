@@ -21,7 +21,7 @@ if ($op=="pay"){
 		RedirectClass::redirect("gypsy.php?op=talk");
 	}else{
 		PageParts::page_header("Gypsy Seer's tent");
-		villagenav();
+		VillageNavClass::villagenav();
 		OutputClass::output("`5You offer the old gypsy woman your `^%s`5 gold for your gen-u-wine say-ance, however she informs you that the dead may be dead, but they ain't cheap.", $session['user']['gold']);
 	}
 }elseif ($op=="talk"){

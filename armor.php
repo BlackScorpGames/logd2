@@ -125,7 +125,7 @@ if ($op==""){
 		++$i;
 	}
 	OutputClass::rawoutput("</table>",true);
-	villagenav();
+	VillageNavClass::villagenav();
 }elseif ($op=="buy"){
 	$id = Http::httpget('id');
 	$sql = "SELECT * FROM " . db_prefix("armor") . " WHERE armorid='$id'";
@@ -137,7 +137,7 @@ if ($op==""){
 		Translator::tlschema($schemas['tryagain']);
 		OutputClass::addnav($texts['tryagain'],"armor.php");
 		Translator::tlschema();
-		villagenav();
+		VillageNavClass::villagenav();
 	}else{
 		$row = db_fetch_assoc($result);
 		$row = Modules::modulehook("modify-armor", $row);
@@ -145,7 +145,7 @@ if ($op==""){
 			Translator::tlschema($schemas['notenoughgold']);
 			OutputClass::output($texts['notenoughgold'],$row['armorname']);
 			Translator::tlschema();
-			villagenav();
+			VillageNavClass::villagenav();
 		}else{
 			Translator::tlschema($schemas['payarmor']);
 			OutputClass::output($texts['payarmor'],$session['user']['armor'],$row['armorname'],$row['armorname']);
@@ -158,7 +158,7 @@ if ($op==""){
 			$session['user']['armordef'] = $row['defense'];
 			$session['user']['defense']+=$session['user']['armordef'];
 			$session['user']['armorvalue'] = $row['value'];
-			villagenav();
+			VillageNavClass::villagenav();
 		}
 	}
 }

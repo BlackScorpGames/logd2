@@ -13,7 +13,7 @@ PageParts::page_header("List Warriors");
 if ($session['user']['loggedin']) {
 	GameDateTime::checkday();
 	if ($session['user']['alive']) {
-		villagenav();
+		VillageNavClass::villagenav();
 	} else {
 		OutputClass::addnav("Return to the Graveyard", "graveyard.php");
 	}

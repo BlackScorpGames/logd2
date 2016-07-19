@@ -37,7 +37,7 @@ if ($session['user']['dragonkills']>0 ||
 	OutputClass::output("After staring and looking at it for a little while, it continues to look just like a curious looking rock.`n`n");
 	OutputClass::output("Bored, you decide to leave the rock alone.");
 }
-villagenav();
+VillageNavClass::villagenav();
 
 PageParts::page_footer();
 ?>

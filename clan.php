@@ -14,7 +14,7 @@ Translator::tlschema("clans");
 
 
 OutputClass::addnav("Village");
-villagenav();
+VillageNavClass::villagenav();
 OutputClass::addnav("Clan Options");
 OutputClass::addnav("C?List Clans","clan.php?op=list");
 Commentary::addcommentary();

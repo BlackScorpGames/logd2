@@ -239,7 +239,7 @@ if ($op==""){
 	OutputClass::addnav("Return to the camp", "mercenarycamp.php?skip=1");
 }
 OutputClass::addnav("Navigation");
-villagenav();
+VillageNavClass::villagenav();
 PageParts::page_footer();
 
 

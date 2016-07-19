@@ -333,7 +333,7 @@ function racedwarf_run(){
 		OutputClass::addnav("Drinks");
 		Modules::modulehook("ale");
 		OutputClass::addnav("Other");
-		villagenav();
+		VillageNavClass::villagenav();
 		PageParts::page_footer();
 		break;
 	}

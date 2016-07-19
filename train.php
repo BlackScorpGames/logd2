@@ -62,7 +62,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 		if ($session['user']['superuser'] & SU_DEVELOPER) {
 			OutputClass::addnav("Superuser Gain level","train.php?op=challenge&victory=1&master=$mid");
 		}
-		villagenav();
+		VillageNavClass::villagenav();
 	}else if($op=="challenge"){
 		if (Http::httpget('victory')) {
 			$victory=true;
@@ -73,7 +73,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 		}
 		if ($session['user']['seenmaster']){
 			OutputClass::output("You think that, perhaps, you've seen enough of your master for today, the lessons you learned earlier prevent you from so willingly subjecting yourself to that sort of humiliation again.");
-			villagenav();
+			VillageNavClass::villagenav();
 		}else{
 			/* OK, let's fix the multimaster thing */
 			$session['user']['seenmaster'] = 1;
@@ -121,7 +121,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 				OutputClass::output("You bow before `^%s`0, and execute a perfect spin-attack, only to realize that you are holding NOTHING!", $master['creaturename']);
 				OutputClass::output("`^%s`0 stands before you holding your weapon.",$master['creaturename']);
 				OutputClass::output("Meekly you retrieve your %s, and slink out of the training grounds to the sound of boisterous guffaws.",$session['user']['weapon']);
-				villagenav();
+				VillageNavClass::villagenav();
 			}
 		}
 	}else if($op=="question"){
@@ -137,7 +137,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 		if ($session['user']['superuser'] & SU_DEVELOPER) {
 			OutputClass::addnav("Superuser Gain level","train.php?op=challenge&victory=1&master=$mid");
 		}
-		villagenav();
+		VillageNavClass::villagenav();
 	}else if($op=="autochallenge"){
 		OutputClass::addnav("Fight Your Master","train.php?op=challenge&master=$mid");
 		OutputClass::output("`^%s`0 has heard of your prowess as a warrior, and heard of rumors that you think you are so much more powerful than he that you don't even need to fight him to prove anything. ",$master['creaturename']);
@@ -225,7 +225,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 			if ($session['user']['superuser'] & SU_DEVELOPER) {
 				OutputClass::addnav("Superuser Gain level","train.php?op=challenge&victory=1");
 			}
-			villagenav();
+			VillageNavClass::villagenav();
 			if ($session['user']['age'] == 1) {
  	 	 	 	if (Settings::getsetting('displaymasternews',1)) addnews("`%%s`3 has defeated ".($session['user']['sex']?"her":"his")." master, `%%s`3 to advance to level `^%s`3 after `^1`3 day!!", $session['user']['name'],$badguy['creaturename'],$session['user']['level']);
  	 	 	} else {
@@ -250,7 +250,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 			if ($session['user']['superuser'] & SU_DEVELOPER) {
 				OutputClass::addnav("Superuser Gain level","train.php?op=challenge&victory=1&master=$mid");
 			}
-			villagenav();
+			VillageNavClass::villagenav();
 			Modules::modulehook("training-defeat", $badguy);
 		}else{
 		  FightNavClass::fightnav(false,false, "train.php?master=$mid");
@@ -268,7 +268,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 	OutputClass::output("Bluspring hails you, and you grasp her hand firmly.");
 	OutputClass::output("There is nothing left for you here but memories.");
 	OutputClass::output("You remain a moment longer, and look at the warriors in training before you turn to return to the village.");
-	villagenav();
+	VillageNavClass::villagenav();
 }
 PageParts::page_footer();
 ?>

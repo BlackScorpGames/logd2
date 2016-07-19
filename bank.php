@@ -247,7 +247,7 @@ if ($op==""){
 		OutputClass::output("`@Elessa`6 records your withdrawal of `^%s `6gold in her ledger. \"`@Thank you, `&%s`@.  You now have a balance of `^%s`@ gold in the bank and `^%s`@ gold in hand.`6\"", $amount,$session['user']['name'], abs($session['user']['goldinbank']),$session['user']['gold']);
 	}
 }
-villagenav();
+VillageNavClass::villagenav();
 OutputClass::addnav("Money");
 if ($session['user']['goldinbank']>=0){
 	OutputClass::addnav("W?Withdraw","bank.php?op=withdraw");

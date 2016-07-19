@@ -266,7 +266,7 @@ function crazyaudrey_run(){
 	}
 	if ($op != "baskets") {
 		require_once("lib/villagenav.php");
-		villagenav();
+		VillageNavClass::villagenav();
 	}
 	PageParts::page_footer();
 }

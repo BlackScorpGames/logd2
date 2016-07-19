@@ -148,7 +148,7 @@ function drinks_run_private(){
 			Translator::tlschema();
 		}
 		require_once("lib/villagenav.php");
-		villagenav();
+		VillageNavClass::villagenav();
 		PageParts::page_footer();
 	}
 }

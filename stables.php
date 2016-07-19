@@ -68,7 +68,7 @@ PageParts::page_header($texts['title']);
 Translator::tlschema();
 
 OutputClass::addnav("Other");
-villagenav();
+VillageNavClass::villagenav();
 Modules::modulehook("stables-nav");
 
 require_once("lib/mountname.php");

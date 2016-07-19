@@ -45,7 +45,7 @@ $comment = Http::httppost('insertcommentary');
 require_once("lib/partner.php");
 $partner = get_partner();
 OutputClass::addnav("Other");
-villagenav();
+VillageNavClass::villagenav();
 OutputClass::addnav("I?Return to the Inn","inn.php");
 
 switch ($op) {

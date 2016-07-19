@@ -43,7 +43,7 @@ class ForestClass
             }
         }
         OutputClass::addnav("Other");
-        villagenav();
+        VillageNavClass::villagenav();
         if ($noshowmessage != true) {
             OutputClass::output("`c`7`bThe Forest`b`0`c");
             OutputClass::output("The Forest, home to evil creatures and evildoers of all sorts.`n`n");

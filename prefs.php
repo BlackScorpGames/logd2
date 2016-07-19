@@ -43,7 +43,7 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 
 	GameDateTime::checkday();
 	if ($session['user']['alive']){
-		villagenav();
+		VillageNavClass::villagenav();
 	}else{
 		OutputClass::addnav("Return to the news","news.php");
 	}

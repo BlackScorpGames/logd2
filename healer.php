@@ -120,12 +120,12 @@ OutputClass::addnav("`bReturn`b");
 if ($return==""){
 	if($playerheal || $compheal){
 		OutputClass::addnav("F?Back to the Forest", "forest.php");
-		villagenav();
+		VillageNavClass::villagenav();
 	}else{
 		ForestClass::forest(true);
 	}
 }elseif ($return=="village.php"){
-	villagenav();
+	VillageNavClass::villagenav();
 }else{
 	OutputClass::addnav("R?Return whence you came",$return);
 }

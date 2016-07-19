@@ -33,7 +33,7 @@ if ($op=="" && $act!="attack"){
 	Translator::tlschema();
 	OutputClass::addnav("L?Refresh List of Warriors","pvp.php");
 	PvpListClass::pvplist();
-	villagenav();
+	VillageNavClass::villagenav();
 } else if ($act == "attack") {
 	$name = Http::httpget('name');
 	$badguy = setup_target($name);
@@ -100,7 +100,7 @@ if ($battle){
 		if ($killedin==$iname){
 			OutputClass::addnav("Return to the inn","inn.php");
 		} else {
-			villagenav();
+			VillageNavClass::villagenav();
 		}
 		if ($session['user']['hitpoints'] <= 0) {
 			OutputClass::output("`n`n`&Using a bit of cloth nearby, you manage to staunch your wounds so that you do not die as well.");

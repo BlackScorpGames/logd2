@@ -43,7 +43,7 @@ if (injectmodule(Http::httpget('module'), (Http::httpget('admin')?true:false))){
 
 	PageParts::page_header("Error");
 	if ($session['user']['loggedin']){
-		villagenav();
+		VillageNavClass::villagenav();
 	}else{
 		OutputClass::addnav("L?Return to the Login","index.php");
 	}

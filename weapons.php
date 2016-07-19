@@ -132,7 +132,7 @@ if ($op==""){
 		++$i;
 	}
 	OutputClass::rawoutput("</table>");
-	villagenav();
+	VillageNavClass::villagenav();
 }else if ($op=="buy"){
 	$id = Http::httpget("id");
 	$sql = "SELECT * FROM " . db_prefix("weapons") . " WHERE weaponid='$id'";
@@ -144,7 +144,7 @@ if ($op==""){
 		Translator::tlschema($schemas['tryagain']);
 		OutputClass::addnav($texts['tryagain'],"weapons.php");
 		Translator::tlschema();
-		villagenav();
+		VillageNavClass::villagenav();
 	}else{
 		$row = db_fetch_assoc($result);
 		$row = Modules::modulehook("modify-weapon", $row);
@@ -152,7 +152,7 @@ if ($op==""){
 			Translator::tlschema($schemas['notenoughgold']);
 			OutputClass::output($texts['notenoughgold'],$row['weaponname']);
 			Translator::tlschema();
-			villagenav();
+			VillageNavClass::villagenav();
 		}else{
 			Translator::tlschema($schemas['payweapon']);
 			OutputClass::output($texts['payweapon'],$session['user']['weapon'],$row['weaponname']);
@@ -165,7 +165,7 @@ if ($op==""){
 			$session['user']['weapondmg'] = $row['damage'];
 			$session['user']['attack']+=$session['user']['weapondmg'];
 			$session['user']['weaponvalue'] = $row['value'];
-			villagenav();
+			VillageNavClass::villagenav();
 		}
 	}
 }

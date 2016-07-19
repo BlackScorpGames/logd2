@@ -29,7 +29,7 @@ if ($session['user']['loggedin'] && $session['loggedin']){
 		$session['allowednavs']=array();
 		PageParts::page_header("Your Navs Are Corrupted");
 		if ($session['user']['alive']) {
-			villagenav();
+			VillageNavClass::villagenav();
 			OutputClass::output("Your navs are corrupted, please return to %s.",
 					$session['user']['location']);
 		} else {
