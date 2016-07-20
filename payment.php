@@ -13,7 +13,7 @@ Translator::tlschema("payment");
 // read the post from PayPal system and add 'cmd'
 $req = 'cmd=_notify-validate';
 
-$post = httpallpost();
+$post = Http::httpallpost();
 reset($post);
 foreach ($post as $key => $value) {
 	$value = urlencode(stripslashes($value));

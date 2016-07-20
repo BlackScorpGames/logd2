@@ -114,7 +114,7 @@ function drinks_editor(){
 			// So disabling
 			//$sql = "DELETE FROM " . db_prefix("module_objprefs") . " WHERE objtype='drinks' AND objid='$drinkid' AND modulename='$module'";
 			//db_query($sql);
-			$post = httpallpost();
+			$post = Http::httpallpost();
 			reset($post);
 			while(list($key, $val)=each($post)) {
 				set_module_objpref("drinks", $drinkid,$key, $val, $module);

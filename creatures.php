@@ -29,7 +29,7 @@ if ($op == "save"){
 	$id = Http::httppost('creatureid');
 	if (!$id) $id = Http::httpget("creatureid");
 	if ($subop == "") {
-		$post = httpallpost();
+		$post = Http::httpallpost();
 		$lev = (int)Http::httppost('creaturelevel');
 		if ($id){
 			$sql = "";
@@ -81,7 +81,7 @@ if ($op == "save"){
 	} elseif ($subop == "module") {
 		// Save module settings
 		$module = Http::httpget("module");
-		$post = httpallpost();
+		$post = Http::httpallpost();
 		reset($post);
 		while(list($key, $val) = each($post)) {
 			set_module_objpref("creatures", $id, $key, $val, $module);

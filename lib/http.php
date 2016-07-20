@@ -4,7 +4,12 @@
 // mail ready
 class Http
 {
-    public static function httpget($var)
+
+	public static function httpallpost(){
+		return $_POST;
+	}
+
+	public static function httpget($var)
     {
 
         global $HTTP_GET_VARS;
@@ -68,10 +73,6 @@ function httppostset($var, $val, $sub=false){
 		if (isset($HTTP_POST_VARS[$var]) && isset($HTTP_POST_VARS[$var][$sub]))
 			$HTTP_POST_VARS[$var][$sub]=$val;
 	}
-}
-
-function httpallpost(){
-	return $_POST;
 }
 
 function postparse($verify=false, $subval=false){

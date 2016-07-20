@@ -62,7 +62,7 @@ if ($op=="save"){
 	if (stripslashes(Http::httppost("motditems")) != $settings['motditems']) {
 		DataCache::invalidatedatacache("motd");
 	}
-	$post = httpallpost();
+	$post = Http::httpallpost();
 	reset($post);
 	$old=$settings;
 	while (list($key,$val)=each($post)){
@@ -89,7 +89,7 @@ if ($op=="save"){
 		if ($save!=""){
 			load_module_settings($module);
 			$old = $module_settings[$module];
-			$post = httpallpost();
+			$post = Http::httpallpost();
 			$post = Modules::modulehook("validatesettings", $post, true, $module);
 			if (isset($post['validation_error'])) {
 				$post['validation_error'] =

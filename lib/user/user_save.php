@@ -7,7 +7,7 @@ $oldvalues = unserialize($oldvalues);
 $otitle = $oldvalues['title'];
 if ($oldvalues['ctitle']) $otitle = $oldvalues['ctitle'];
 $oldvalues['name'] = $otitle . ' ' . $oldvalues['name'];
-	$post = httpallpost();
+	$post = Http::httpallpost();
 reset($post);
 while (list($key,$val)=each($post)){
 	if (isset($userinfo[$key])){

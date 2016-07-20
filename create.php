@@ -151,7 +151,7 @@ if (Settings::getsetting("allowcreation",1)==0){
 				$msg.=Translator::translate_inline("You must enter a valid email address.`n");
 				$blockaccount=true;
 			}
-			$args = Modules::modulehook("check-create", httpallpost());
+			$args = Modules::modulehook("check-create", Http::httpallpost());
 			if(isset($args['blockaccount']) && $args['blockaccount']) {
 				$msg .= $args['msg'];
 				$blockaccount = true;
@@ -199,7 +199,7 @@ if (Settings::getsetting("allowcreation",1)==0){
 						$sql = "SELECT acctid FROM " . db_prefix("accounts") . " WHERE login='$shortname'";
 						$result = db_query($sql);
 						$row = db_fetch_assoc($result);
-						$args = httpallpost();
+						$args = Http::httpallpost();
 						$args['acctid'] = $row['acctid'];
 						//insert OutputClass::output
 						$sql_output = "INSERT INTO " . db_prefix("accounts_output") . " VALUES ({$row['acctid']},'');";

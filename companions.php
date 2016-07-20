@@ -114,7 +114,7 @@ if ($op=="deactivate"){
 	} elseif ($subop=="module") {
 		// Save modules settings
 		$module = Http::httpget("module");
-		$post = httpallpost();
+		$post = Http::httpallpost();
 		reset($post);
 		while(list($key, $val) = each($post)) {
 			set_module_objpref("companions", $id, $key, $val, $module);

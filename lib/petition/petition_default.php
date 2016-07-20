@@ -1,7 +1,7 @@
 <?php
 Translator::tlschema("petition");
 popup_header("Petition for Help");
-$post = httpallpost();
+$post = Http::httpallpost();
 if (count($post)>0){
 	$ip = explode(".",$_SERVER['REMOTE_ADDR']);
 	array_pop($ip);

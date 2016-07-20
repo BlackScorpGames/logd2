@@ -52,7 +52,7 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
     $oldvalues = stripslashes(Http::httppost('oldvalues'));
 	$oldvalues = unserialize($oldvalues);
 
-	$post = httpallpost();
+	$post = Http::httpallpost();
 	unset($post['oldvalues']);
 
 	if (count($post)==0){

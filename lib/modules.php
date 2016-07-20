@@ -1201,7 +1201,7 @@ function module_do_event($type, $module, $allowinactive=false, $baseLink=false)
 		$fname($type,$baseLink);
 		Translator::tlschema();
 		//hook into the running event, but only in *this* running event, not in all
-		Modules::modulehook("runevent_$module", array("type"=>$type, "baselink"=>$baseLink, "get"=>httpallget(), "post"=>httpallpost()));
+		Modules::modulehook("runevent_$module", array("type"=>$type, "baselink"=>$baseLink, "get"=>httpallget(), "post"=>Http::httpallpost()));
 		//revert nav section after we're done here.
 		$navsection = $oldnavsection;
 	}
