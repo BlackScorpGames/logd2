@@ -54,7 +54,7 @@ while (list($key,$val)=each($post)){
 			if ($tmp != stripslashes($val)) {
 				OutputClass::output("`\$Illegal characters removed from player name!`0`n");
 			}
-			if (soap($tmp) != ($tmp)) {
+			if (Censor::soap($tmp) != ($tmp)) {
 				OutputClass::output("`^The new name doesn't pass the bad word filter!`0");
 			}
 				$newname = change_player_name($tmp, $oldvalues);
@@ -73,7 +73,7 @@ while (list($key,$val)=each($post)){
 			if ($tmp != stripslashes($val)) {
 				OutputClass::output("`\$Illegal characters removed from player title!`0`n");
 			}
-			if (soap($tmp) != ($tmp)) {
+			if (Censor::soap($tmp) != ($tmp)) {
 				OutputClass::output("`^The new title doesn't pass the bad word filter!`0");
 			}
 				$newname = change_player_title($tmp, $oldvalues);
@@ -100,7 +100,7 @@ while (list($key,$val)=each($post)){
 			if ($tmp != stripslashes($val)) {
 				OutputClass::output("`\$Illegal characters removed from custom title!`0`n");
 			}
-			if (soap($tmp) != ($tmp)) {
+			if (Censor::soap($tmp) != ($tmp)) {
 				OutputClass::output("`^The new custom title doesn't pass the bad word filter!`0");
 			}
 			$newname = change_player_ctitle($tmp, $oldvalues);

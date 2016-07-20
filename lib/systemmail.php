@@ -33,8 +33,8 @@ public static function systemmail($to,$subject,$body,$from=0,$noemail=false){
 		$body = safeescape($body);
 		if ((isset($prefs['dirtyemail']) && $prefs['dirtyemail']) || $from==0){
 		}else{
-			$subject=soap($subject,false,"mail");
-			$body=soap($body,false,"mail");
+			$subject=Censor::soap($subject,false,"mail");
+			$body=Censor::soap($body,false,"mail");
 		}
 	}
 

@@ -2,7 +2,8 @@
 // translator ready
 // addnews ready
 // mail ready
-function soap($input,$debug=false,$skiphook=false){
+class Censor{
+public static function soap($input,$debug=false,$skiphook=false){
 	global $session;
 	require_once("lib/sanitize.php");
 	$final_output = $input;
@@ -82,7 +83,7 @@ function soap($input,$debug=false,$skiphook=false){
 		return $final_output;
 	}
 }
-
+}
 function good_word_list(){
 	$sql = "SELECT * FROM " . db_prefix("nastywords") . " WHERE type='good'";
 	$result = db_query_cached($sql,"goodwordlist");

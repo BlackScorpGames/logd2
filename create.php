@@ -108,7 +108,7 @@ if (Settings::getsetting("allowcreation",1)==0){
 		$emailverification="";
 		$shortname = SanitizeClass::sanitize_name(Settings::getsetting("spaceinname", 0), Http::httppost('name'));
 
-		if (soap($shortname)!=$shortname){
+		if (Censor::soap($shortname)!=$shortname){
 			OutputClass::output("`\$Error`^: Bad language was found in your name, please consider revising it.`n");
 			$op="";
 		}else{

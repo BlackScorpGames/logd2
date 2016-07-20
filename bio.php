@@ -105,7 +105,7 @@ if ($target = db_fetch_assoc($result)) {
 	  OutputClass::output("`^Dragon Kills: `@%s`n",$target['dragonkills']);
 
   if ($target['bio']>"")
-	  OutputClass::output("`^Bio: `@`n%s`n",soap($target['bio']));
+	  OutputClass::output("`^Bio: `@`n%s`n",Censor::soap($target['bio']));
 
   Modules::modulehook("bioinfo", $target);
 

@@ -27,7 +27,7 @@ OutputClass::output("`7Test a word:`0");
 OutputClass::rawoutput("<input name='word'><input type='submit' class='button' value='$test'></form>");
 if ($op=="test"){
 	$word = Http::httppost("word");
-	$return = soap($word,true);
+	$return = Censor::soap($word,true);
 	if ($return == $word)
 		OutputClass::output("`7\"%s\" does not trip any filters.`0`n`n", $word);
 	else

@@ -137,7 +137,7 @@ function injectcommentary($section, $talkline, $comment, $schema=false) {
 	$emptypost = 0;
 	$colorcount = 0;
 	if ($comment !="") {
-		$commentary = str_replace("`n","",soap($comment));
+		$commentary = str_replace("`n","",Censor::soap($comment));
 		$y = strlen($commentary);
 		for ($x=0;$x<$y;$x++){
 			if (substr($commentary,$x,1)=="`"){

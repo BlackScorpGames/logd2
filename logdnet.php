@@ -91,7 +91,7 @@ if ($op==""){
 
 	// Clean up the desc
 	$desc = logdnet_sanitize($desc);
-	$desc = soap($desc);
+	$desc = Censor::soap($desc);
 	// Limit descs to 75 characters.
 	if (strlen($desc) > 75) $desc = substr($desc, 0, 75);
 
@@ -237,7 +237,7 @@ if ($op==""){
 
 		// Clean up the desc
 		$row['description'] = logdnet_sanitize($row['description']);
-		$row['description'] = soap($row['description']);
+		$row['description'] = Censor::soap($row['description']);
 		// Limit descs to 75 characters.
 		if (strlen($row['description']) > 75)
 			$row['description'] = substr($row['description'], 0, 75);
