@@ -356,7 +356,7 @@ if ($op != "newtarget") {
 				$newenemies[$index] = $badguy;
 			}
 		}
-		expire_buffs();
+		BattleBuffs::expire_buffs();
 		$creaturedmg=0;
 		$selfdmg=0;
 

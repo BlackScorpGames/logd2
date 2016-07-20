@@ -14,6 +14,37 @@
 
 require_once("lib/substitute.php");
 class BattleBuffs{
+	public static function expire_buffs() {
+	global $session, $badguy;
+	Translator::tlschema("buffs");
+	foreach($session['bufflist'] as $key=>$buff) {
+		if (array_key_exists('suspended',$buff) && $buff['suspended']) continue;
+		if ($buff['schema']) Translator::tlschema($buff['schema']);
+		if (array_key_exists('used',$buff) && $buff['used']) {
+			$session['bufflist'][$key]['used'] = 0;
+			if ($session['bufflist'][$key]['rounds']>0) {
+				$session['bufflist'][$key]['rounds']--;
+			}
+if ((int)$session['bufflist'][$key]['rounds'] == 0) {
+	if (isset($buff['wearoff']) && $buff['wearoff']) {
+		if (is_array($buff['wearoff'])) {
+			$buff['wearoff'] = str_replace("`%", "`%%", $buff['wearoff']);
+			$msg = Translator::sprintf_translate($buff['wearoff']);
+			$msg = SubstituteClass::substitute("`5".$msg."`0`n");
+			OutputClass::output_notl($msg); //Here it's already translated
+		}else{
+			$msg = SubstituteClass::substitute_array("`5".$buff['wearoff']."`0`n");
+			OutputClass::output($msg);
+		}
+	}
+	//unset($session['bufflist'][$key]);
+	Buffs::strip_buff($key);
+}
+}
+if ($buff['schema']) Translator::tlschema();
+}
+Translator::tlschema();
+}
 public static function activate_buffs($tag) {
 	global $session, $badguy, $count;
 	Translator::tlschema("buffs");
@@ -313,36 +344,6 @@ function process_dmgshield($dshield, $damage) {
 	Translator::tlschema();
 }
 
-function expire_buffs() {
-	global $session, $badguy;
-	Translator::tlschema("buffs");
-	foreach($session['bufflist'] as $key=>$buff) {
-		if (array_key_exists('suspended',$buff) && $buff['suspended']) continue;
-		if ($buff['schema']) Translator::tlschema($buff['schema']);
-		if (array_key_exists('used',$buff) && $buff['used']) {
-			$session['bufflist'][$key]['used'] = 0;
-			if ($session['bufflist'][$key]['rounds']>0) {
-				$session['bufflist'][$key]['rounds']--;
-			}
-			if ((int)$session['bufflist'][$key]['rounds'] == 0) {
-				if (isset($buff['wearoff']) && $buff['wearoff']) {
-					if (is_array($buff['wearoff'])) {
-						$buff['wearoff'] = str_replace("`%", "`%%", $buff['wearoff']);
-						$msg = Translator::sprintf_translate($buff['wearoff']);
-						$msg = SubstituteClass::substitute("`5".$msg."`0`n");
-						OutputClass::output_notl($msg); //Here it's already translated
-					}else{
-						$msg = SubstituteClass::substitute_array("`5".$buff['wearoff']."`0`n");
-						OutputClass::output($msg);
-					}
-				}
-				//unset($session['bufflist'][$key]);
-				Buffs::strip_buff($key);
-			}
-		}
-		if ($buff['schema']) Translator::tlschema();
-	}
-	Translator::tlschema();
-}
+
 
 ?>
