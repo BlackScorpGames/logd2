@@ -70,10 +70,6 @@ function translate($indata,$namespace=FALSE){
 
 
 
-function tl($in){
-	$out = translate($in);
-	return tlbutton_clear().$out;
-}
 
 function translate_loadnamespace($namespace,$language=false){
 	if ($language===false) $language = LANGUAGE;
@@ -164,6 +160,11 @@ $translation_namespace_stack = array();
 
 class Translator
 {
+
+    public static function tl($in){
+        $out = translate($in);
+        return tlbutton_clear().$out;
+    }
     public static function sprintf_translate(){
         $args = func_get_args();
         $setschema = false;

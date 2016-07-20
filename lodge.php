@@ -57,7 +57,7 @@ if ($op==""){
 		"donator_point_messages",
 		array(
 			'messages'=>array(
-				'default'=>tl("`7For each $1 donated, the account which makes the donation will receive 100 contributor points in the game.")
+				'default'=>Translator::tl("`7For each $1 donated, the account which makes the donation will receive 100 contributor points in the game.")
 			)
 		)
 	);
