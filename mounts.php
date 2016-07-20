@@ -248,7 +248,7 @@ if ($op==""){
 		OutputClass::output("`iThis mount was not found.`i");
 	}else{
 		OutputClass::addnav("Mount properties", "mounts.php?op=edit&id=$id");
-		module_editor_navs("prefs-mounts", "mounts.php?op=edit&subop=module&id=$id&module=");
+		Modules::module_editor_navs("prefs-mounts", "mounts.php?op=edit&subop=module&id=$id&module=");
 		$subop=Http::httpget("subop");
 		if ($subop=="module") {
 			$module = Http::httpget("module");

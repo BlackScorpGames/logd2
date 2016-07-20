@@ -398,6 +398,23 @@ $currenthook = "";
 
 class Modules
 {
+    public static function module_editor_navs($like, $linkprefix)
+    {
+        $sql = "SELECT formalname,modulename,active,category FROM " . db_prefix("modules") . " WHERE infokeys LIKE '%|$like|%' ORDER BY category,formalname";
+        $result = db_query($sql);
+        $curcat = "";
+        while($row = db_fetch_assoc($result)) {
+            if ($curcat != $row['category']) {
+                $curcat = $row['category'];
+                OutputClass::addnav(array("%s Modules",$curcat));
+            }
+            //I really think we should give keyboard shortcuts even if they're
+            //susceptible to change (which only happens here when the admin changes
+            //modules around).  This annoys me every single time I come in to this page.
+            addnav_notl(($row['active'] ? "" : "`)") . $row['formalname']."`0",
+                $linkprefix . $row['modulename']);
+        }
+    }
     public static function set_module_objpref($objtype,$objid,$name,$value,$module=false){
         global $mostrecentmodule;
         if ($module === false) $module = $mostrecentmodule;
@@ -1218,23 +1235,7 @@ function event_sort($a, $b)
 
 
 
-function module_editor_navs($like, $linkprefix)
-{
-	$sql = "SELECT formalname,modulename,active,category FROM " . db_prefix("modules") . " WHERE infokeys LIKE '%|$like|%' ORDER BY category,formalname";
-	$result = db_query($sql);
-	$curcat = "";
-	while($row = db_fetch_assoc($result)) {
-		if ($curcat != $row['category']) {
-			$curcat = $row['category'];
-			OutputClass::addnav(array("%s Modules",$curcat));
-		}
-		//I really think we should give keyboard shortcuts even if they're
-		//susceptible to change (which only happens here when the admin changes
-		//modules around).  This annoys me every single time I come in to this page.
-		addnav_notl(($row['active'] ? "" : "`)") . $row['formalname']."`0",
-				$linkprefix . $row['modulename']);
-	}
-}
+
 
 function module_objpref_edit($type, $module, $id)
 {

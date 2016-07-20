@@ -193,7 +193,7 @@ if ($op=="" || $op=="search"){
 		OutputClass::addnav("Creature properties", "creatures.php?op=edit&creatureid=$id");
 		OutputClass::addnav("Add");
 		OutputClass::addnav("Add Another Creature", "creatures.php?op=add&level=$level");
-		module_editor_navs("prefs-creatures", "creatures.php?op=edit&subop=module&creatureid=$id&module=");
+		Modules::module_editor_navs("prefs-creatures", "creatures.php?op=edit&subop=module&creatureid=$id&module=");
 		if ($subop == "module") {
 			$module = Http::httpget("module");
 			OutputClass::rawoutput("<form action='creatures.php?op=save&subop=module&creatureid=$id&module=$module' method='POST'>");

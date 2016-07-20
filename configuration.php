@@ -189,7 +189,7 @@ OutputClass::addnav("Game Settings");
 OutputClass::addnav("Standard settings", "configuration.php");
 OutputClass::addnav("",$REQUEST_URI);
 
-module_editor_navs('settings', 'configuration.php?op=modulesettings&module=');
+Modules::module_editor_navs('settings', 'configuration.php?op=modulesettings&module=');
 
 if ($op == "") {
 	$enum="enumpretrans";

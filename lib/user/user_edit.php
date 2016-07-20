@@ -96,6 +96,6 @@ if (Http::httpget("subop")==""){
 		OutputClass::output("The $module module doesn't appear to define any user preferences.");
 	}
 }
-module_editor_navs('prefs', "user.php?op=edit&subop=module&userid=$userid$returnpetition&module=");
+Modules::module_editor_navs('prefs', "user.php?op=edit&subop=module&userid=$userid$returnpetition&module=");
 OutputClass::addnav("","user.php?op=lasthit&userid=$userid");
 ?>

@@ -187,7 +187,7 @@ function drinks_editor(){
 	$subop= Http::httpget("subop");
 	if($op=="edit"){
 		OutputClass::addnav("Drink properties", "runmodule.php?module=drinks&act=editor&op=edit&drinkid=$drinkid&admin=true");
-		module_editor_navs("prefs-drinks", "runmodule.php?module=drinks&act=editor&drinkid=$drinkid&op=edit&subop=module&editmodule=");
+		Modules::module_editor_navs("prefs-drinks", "runmodule.php?module=drinks&act=editor&drinkid=$drinkid&op=edit&subop=module&editmodule=");
 		if ($subop=="module") {
 			$module = Http::httpget("editmodule");
 			$oldmodule = $mostrecentmodule;

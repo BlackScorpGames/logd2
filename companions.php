@@ -201,7 +201,7 @@ if ($op==""){
 		OutputClass::output("`iThis companion was not found.`i");
 	}else{
 		OutputClass::addnav("Companion properties", "companions.php?op=edit&id=$id");
-		module_editor_navs("prefs-companions", "companions.php?op=edit&subop=module&id=$id&module=");
+		Modules::module_editor_navs("prefs-companions", "companions.php?op=edit&subop=module&id=$id&module=");
 		$subop=Http::httpget("subop");
 		if ($subop=="module") {
 			$module = Http::httpget("module");
