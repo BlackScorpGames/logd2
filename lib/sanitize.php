@@ -21,7 +21,15 @@ function logdnet_sanitize($in)
 	return $out;
 }
 class SanitizeClass{
-
+// Handle spaces in character names
+    public static function sanitize_name($spaceallowed, $inname)
+    {
+        if ($spaceallowed)
+            $expr = "([^[:alpha:] _-])";
+        else
+            $expr = "([^[:alpha:]])";
+        return preg_replace($expr, "", $inname);
+    }
     public static function comment_sanitize($in) {
         // to keep the regexp from boinging this, we need to make sure
         // that we're not replacing in with the ` mark.
@@ -93,15 +101,7 @@ function stripslashes_array( $given ) {
 	   array_map( 'stripslashes_array', $given ) : stripslashes( $given );
 }
 
-// Handle spaces in character names
-function sanitize_name($spaceallowed, $inname)
-{
-	if ($spaceallowed)
-		$expr = "([^[:alpha:] _-])";
-	else
-		$expr = "([^[:alpha:]])";
-	return preg_replace($expr, "", $inname);
-}
+
 
 // Handle spaces and color in character names
 function sanitize_colorname($spaceallowed, $inname, $admin = false)
