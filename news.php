@@ -38,7 +38,7 @@ $date=date("D, M j, Y",$timestamp);
 
 $pagestr = "";
 if ($totaltoday > $newsperpage) {
-	$pagestr = sprintf_translate("(Items %s - %s of %s)", $pageoffset+1,
+	$pagestr = Translator::sprintf_translate("(Items %s - %s of %s)", $pageoffset+1,
 			min($pageoffset+$newsperpage,$totaltoday), $totaltoday);
 }
 
@@ -73,7 +73,7 @@ while ($row = db_fetch_assoc($result)) {
 		while (list($key,$val)=each($base_arguments)){
 			array_push($arguments,$val);
 		}
-		$news = call_user_func_array("sprintf_translate",$arguments);
+		$news = call_user_func_array("Translator::sprintf_translate",$arguments);
 		OutputClass::rawoutput(tlbutton_clear());
 	}else{
 		$news = Translator::translate_inline($row['newstext']);

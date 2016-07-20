@@ -396,7 +396,7 @@ class PageParts{
         if (!$arguments || count($arguments) == 0) {
             $arguments = array("Legend of the Green Dragon");
         }
-        $title = call_user_func_array("sprintf_translate", $arguments);
+        $title = call_user_func_array("Translator::sprintf_translate", $arguments);
         $title = holidayize($title, 'title');
         $title = sanitize($title);
         Buffs::calculate_buff_fields();
@@ -437,7 +437,7 @@ function popup_header($title="Legend of the Green Dragon"){
 	if (!$arguments || count($arguments) == 0) {
 		$arguments = array("Legend of the Green Dragon");
 	}
-	$title = call_user_func_array("sprintf_translate", $arguments);
+	$title = call_user_func_array("Translator::sprintf_translate", $arguments);
 	$title = holidayize($title,'title');
 
 	$header = $template['popuphead'];
@@ -643,7 +643,7 @@ function charstats(){
 					$val['name'] = "OutputClass::debug: {$key}";
 				if (is_array($val['name'])) {
 					$val['name'][0] = str_replace("`%","`%%",$val['name'][0]);
-					$val['name']=call_user_func_array("sprintf_translate", $val['name']);
+					$val['name']=call_user_func_array("Translator::sprintf_translate", $val['name']);
 				} else { //in case it's a string
 					$val['name']=Translator::translate_inline($val['name']);
 				}

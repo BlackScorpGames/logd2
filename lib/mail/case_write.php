@@ -35,12 +35,12 @@ if (is_array($row)){
 			// No translation for subject if it's not an array
 			$row_subject = @unserialize($row['subject']);
 			if ($row_subject !== false) {
-				$row['subject'] = call_user_func_array("sprintf_translate", $row_subject);
+				$row['subject'] = call_user_func_array("Translator::sprintf_translate", $row_subject);
 			}
 			// No translation for body if it's not an array
 			$row_body = @unserialize($row['body']);
 			if ($row_body !== false) {
-				$row['body'] = call_user_func_array("sprintf_translate", $row_body);
+				$row['body'] = call_user_func_array("Translator::sprintf_translate", $row_body);
 			}
 		}
 		$subject=$row['subject'];
@@ -49,7 +49,7 @@ if (is_array($row)){
 		}
 	}
 	if (isset($row['body']) && $row['body']){
-		$body="\n\n---".sprintf_translate(array("Original Message from %s (%s)",sanitize($row['name']),date("Y-m-d H:i:s",strtotime($row['sent']))))."---\n".$row['body'];
+		$body="\n\n---".Translator::sprintf_translate(array("Original Message from %s (%s)",sanitize($row['name']),date("Y-m-d H:i:s",strtotime($row['sent']))))."---\n".$row['body'];
 	}
 }
 OutputClass::rawoutput("<form action='mail.php?op=send' method='post'>");

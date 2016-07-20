@@ -34,7 +34,7 @@ class ForestOutcomes{
         if (isset($lastname) && $lastname > "") $enemystring = "$enemystring $and $lastname";
         $taunt = Taunt::select_taunt_array();
         if (is_array($where)) {
-            $where=sprintf_translate($where);
+            $where=Translator::sprintf_translate($where);
         } else {
             $where=Translator::translate_inline($where);
         }

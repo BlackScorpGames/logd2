@@ -102,7 +102,7 @@ while ($row = db_fetch_assoc($result)) {
 	OutputClass::output_notl("%s", $row['uniqueid']);
 	OutputClass::rawoutput("</td><td>");
 		// "43200" used so will basically round to nearest day rather than floor number of days
-	$expire= sprintf_translate("%s days",
+	$expire= Translator::sprintf_translate("%s days",
 			round((strtotime($row['banexpire'])+43200-strtotime("now"))/86400,0));
 	if (substr($expire,0,2)=="1 ")
 		$expire= Translator::translate_inline("1 day");

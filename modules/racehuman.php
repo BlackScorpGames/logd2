@@ -142,7 +142,7 @@ function racehuman_dohook($hookname,$args){
 	case "moderate":
 		if (is_module_active("cities")) {
 			Translator::tlschema("commentary");
-			$args["village-$race"]=sprintf_translate("City of %s", $city);
+			$args["village-$race"]=Translator::sprintf_translate("City of %s", $city);
 			Translator::tlschema();
 		}
 		break;
@@ -258,7 +258,7 @@ function racehuman_dohook($hookname,$args){
 		break;
 	case "stablelocs":
 		Translator::tlschema("mounts");
-		$args[$city]=sprintf_translate("The Village of %s", $city);
+		$args[$city]=Translator::sprintf_translate("The Village of %s", $city);
 		Translator::tlschema();
 		break;
 	}

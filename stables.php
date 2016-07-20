@@ -95,7 +95,7 @@ if ($op==""){
 	Translator::tlschema($schemas['desc']);
   	if (is_array($texts['desc'])) {
   		foreach ($texts['desc'] as $description) {
-  			OutputClass::output_notl(sprintf_translate($description));
+  			OutputClass::output_notl(Translator::sprintf_translate($description));
   		}
   	} else {
   		OutputClass::output($texts['desc']);
@@ -253,11 +253,11 @@ if ($op == 'confirmbuy') {
 		$amtstr .= "%s gems";
 	}
 	if ($repaygold > 0 && $repaygems > 0) {
-		$amtstr = sprintf_translate($amtstr, $repaygold, $repaygems);
+		$amtstr = Translator::sprintf_translate($amtstr, $repaygold, $repaygems);
 	} elseif ($repaygold > 0) {
-		$amtstr = sprintf_translate($amtstr, $repaygold);
+		$amtstr = Translator::sprintf_translate($amtstr, $repaygold);
 	} else {
-		$amtstr = sprintf_translate($amtstr, $repaygems);
+		$amtstr = Translator::sprintf_translate($amtstr, $repaygems);
 	}
 
 	Translator::tlschema($schemas['mountsold']);

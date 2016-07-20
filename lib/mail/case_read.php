@@ -14,12 +14,12 @@ if (db_num_rows($result)>0){
 		// No translation for subject if it's not an array
 		$row_subject = @unserialize($row['subject']);
 		if ($row_subject !== false) {
-			$row['subject'] = call_user_func_array("sprintf_translate", $row_subject);
+			$row['subject'] = call_user_func_array("Translator::sprintf_translate", $row_subject);
 		}
 		// No translation for body if it's not an array
 		$row_body = @unserialize($row['body']);
 		if ($row_body !== false) {
-			$row['body'] = call_user_func_array("sprintf_translate", $row_body);
+			$row['body'] = call_user_func_array("Translator::sprintf_translate", $row_body);
 		}
 	}
 	if (!$row['seen']) {

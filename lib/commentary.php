@@ -14,7 +14,7 @@ function commentarylocs() {
 	$vname = Settings::getsetting("villagename", LOCATION_FIELDS);
 	$iname = Settings::getsetting("innname", LOCATION_INN);
 	Translator::tlschema("commentary");
-	$comsecs['village'] = sprintf_translate("%s Square", $vname);
+	$comsecs['village'] = Translator::sprintf_translate("%s Square", $vname);
 	if ($session['user']['superuser'] & ~SU_DOESNT_GIVE_GROTTO) {
 		$comsecs['superuser']=Translator::translate_inline("Grotto");
 	}

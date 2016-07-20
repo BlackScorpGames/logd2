@@ -26,7 +26,7 @@ if ($db_num_rows>0){
 			// Only translate the subject if it's an array, ie, it came from the game.
 			$row_subject = @unserialize($row['subject']);
 			if ($row_subject !== false) {
-				$row['subject'] = call_user_func_array("sprintf_translate", $row_subject);
+				$row['subject'] = call_user_func_array("Translator::sprintf_translate", $row_subject);
 			} else {
          			$row['subject'] = Translator::translate_inline($row['subject']);
         		}

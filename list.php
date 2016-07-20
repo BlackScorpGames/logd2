@@ -80,9 +80,9 @@ if ($page=="" && $op==""){
 	$result = db_query($sql);
 }else{
 	if ($totalplayers > $playersperpage && $op != "search") {
-		$title = sprintf_translate("Warriors of the realm (Page %s: %s-%s of %s)", ($pageoffset/$playersperpage+1), $from, $to, $totalplayers);
+		$title = Translator::sprintf_translate("Warriors of the realm (Page %s: %s-%s of %s)", ($pageoffset/$playersperpage+1), $from, $to, $totalplayers);
 	} else {
-		$title = sprintf_translate("Warriors of the realm");
+		$title = Translator::sprintf_translate("Warriors of the realm");
 	}
 	OutputClass::rawoutput(tlbutton_clear());
 	$sql = "SELECT acctid,name,login,alive,hitpoints,location,race,sex,level,laston,loggedin,lastip,uniqueid FROM " . db_prefix("accounts") . " WHERE locked=0 $search ORDER BY level DESC, dragonkills DESC, login ASC $limit";
@@ -103,7 +103,7 @@ if ($max>Settings::getsetting("maxlistsize", 100)) {
 }
 
 if ($page=="" && $op==""){
-	$title .= sprintf_translate(" (%s warriors)", $max);
+	$title .= Translator::sprintf_translate(" (%s warriors)", $max);
 }
 OutputClass::output_notl("`c`b".$title."`b");
 

@@ -36,7 +36,7 @@ class CheckBanClass
                 if ($row['banexpire'] == '0000-00-00') {
                     $session['message'] .= Translator::translate_inline("  `\$This ban is permanent!`0");
                 } else {
-                    $session['message'] .= sprintf_translate("  `^This ban will be removed `\$after`^ %s.`0",
+                    $session['message'] .= Translator::sprintf_translate("  `^This ban will be removed `\$after`^ %s.`0",
                         date("M d, Y", strtotime($row['banexpire'])));
                 }
                 $sql = "UPDATE " . db_prefix("bans") . " SET lasthit='" . date("Y-m-d H:i:s") . "' WHERE ipfilter='{$row['ipfilter']}' AND uniqueid='{$row['uniqueidid']}'";

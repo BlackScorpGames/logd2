@@ -37,7 +37,7 @@ class ShowFormClass
                 $info = preg_split("/,/", $val);
             }
             if (is_array($info[0])) {
-                $info[0] = call_user_func_array("sprintf_translate", $info[0]);
+                $info[0] = call_user_func_array("Translator::sprintf_translate", $info[0]);
             } else {
                 $info[0] = translate($info[0]);
             }

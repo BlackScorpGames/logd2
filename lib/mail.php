@@ -135,7 +135,7 @@ if ($op==""){
 				if (is_array(@unserialize($row['subject']))) {
 					$row['subject'] = unserialize($row['subject']);
 					$row['subject'] =
-						call_user_func_array("sprintf_translate",
+						call_user_func_array("Translator::sprintf_translate",
 								$row['subject']);
 				}
 			}
@@ -177,13 +177,13 @@ if ($op==""){
 			if (is_array(@unserialize($row['subject']))) {
 				$row['subject'] = unserialize($row['subject']);
 				$row['subject'] =
-					call_user_func_array("sprintf_translate", $row['subject']);
+					call_user_func_array("Translator::sprintf_translate", $row['subject']);
 			}
 			// No translation for body if it's not an array
 			if (is_array(@unserialize($row['body']))) {
 				$row['body'] = unserialize($row['body']);
 				$row['body'] =
-					call_user_func_array("sprintf_translate", $row['body']);
+					call_user_func_array("Translator::sprintf_translate", $row['body']);
 			}
 		}
 		if (!$row['seen']) OutputClass::output("`b`#NEW`b`n");
@@ -287,14 +287,14 @@ if ($op==""){
 				if (is_array(@unserialize($row['subject']))) {
 					$row['subject'] = unserialize($row['subject']);
 					$row['subject'] =
-						call_user_func_array("sprintf_translate",
+						call_user_func_array("Translator::sprintf_translate",
 								$row['subject']);
 				}
 				// No translation for body if it's not an array
 				if (is_array(@unserialize($row['body']))) {
 					$row['body'] = unserialize($row['body']);
 					$row['body'] =
-						call_user_func_array("sprintf_translate",
+						call_user_func_array("Translator::sprintf_translate",
 								$row['body']);
 				}
 			}

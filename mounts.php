@@ -346,7 +346,7 @@ function mountform($mount){
 	// they are located in 'Degolburg' (ie, getgamesetting('villagename'));
 	// Some later module can remove them however.
 	$vname = Settings::getsetting('villagename', LOCATION_FIELDS);
-	$locs = array($vname => sprintf_translate("The Village of %s", $vname));
+	$locs = array($vname => Translator::sprintf_translate("The Village of %s", $vname));
 	$locs = Modules::modulehook("stablelocs", $locs);
 	$locs['all'] = Translator::translate_inline("Everywhere");
 	ksort($locs);

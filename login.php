@@ -78,7 +78,7 @@ if ($name!=""){
 					$session['allowednavs']=unserialize($session['user']['allowednavs']);
 					$link = "<a href='" . $session['user']['restorepage'] . "'>" . $session['user']['restorepage'] . "</a>";
 
-					$str = sprintf_translate("Sending you to %s, have a safe journey", $link);
+					$str = Translator::sprintf_translate("Sending you to %s, have a safe journey", $link);
 					header("Location: {$session['user']['restorepage']}");
 					SaveUserClass::saveuser();
 					echo $str;

@@ -141,7 +141,7 @@ function raceelf_dohook($hookname,$args){
 	case "moderate":
 		if (is_module_active("cities")) {
 			Translator::tlschema("commentary");
-			$args["village-$race"]=sprintf_translate("City of %s", $city);
+			$args["village-$race"]=Translator::sprintf_translate("City of %s", $city);
 			Translator::tlschema();
 		}
 		break;

@@ -49,7 +49,7 @@ if ($op==""){
   	Translator::tlschema($schemas['desc']);
   	if (is_array($texts['desc'])) {
   		foreach ($texts['desc'] as $description) {
-  			OutputClass::output_notl(sprintf_translate($description));
+  			OutputClass::output_notl(Translator::sprintf_translate($description));
   		}
   	} else {
   		OutputClass::output($texts['desc']);
@@ -66,7 +66,7 @@ if ($op==""){
  	Translator::tlschema($schemas['tradein']);
   	if (is_array($texts['tradein'])) {
   		foreach ($texts['tradein'] as $description) {
-  			OutputClass::output_notl(sprintf_translate($description));
+  			OutputClass::output_notl(Translator::sprintf_translate($description));
   		}
   	} else {
   		OutputClass::output($texts['tradein']);

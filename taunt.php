@@ -26,7 +26,7 @@ if ($op=="edit"){
 		require_once("lib/substitute.php");
 		$badguy=array('creaturename'=>'Baron Munchausen', 'creatureweapon'=>'Bad Puns');
 		$taunt = substitute_array($row['taunt']);
-		$taunt = call_user_func_array("sprintf_translate", $taunt);
+		$taunt = call_user_func_array("Translator::sprintf_translate", $taunt);
 		OutputClass::output("Preview: %s`0`n`n", $taunt);
 	} else {
 		$row = array('tauntid'=>0, 'taunt'=>"");

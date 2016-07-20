@@ -200,7 +200,7 @@ if ($op == "") {
 		$off = ($details['realsecstotomorrow'] - ($offset - $i));
 		if ($off < 0) $off += 86400;
 		$x = strtotime("+".$off." secs");
-        $str = sprintf_translate("In %s at %s (+%s)",
+        $str = Translator::sprintf_translate("In %s at %s (+%s)",
                 reltime($x), date("h:i a", $x),date("H:i",$i));
 		$enum.=",$i,$str";
 	}

@@ -65,43 +65,7 @@ function translate($indata,$namespace=FALSE){
 	return $outdata;
 }
 
-function sprintf_translate(){
-	$args = func_get_args();
-	$setschema = false;
-	// Handle if an array is passed in as the first arg
-	if (is_array($args[0])) {
-		$args[0] = call_user_func_array("sprintf_translate", $args[0]);
-	} else {
-		// array_shift returns the first element of an array and shortens this array by one...
-		if (is_bool($args[0]) && array_shift($args)) {
-			Translator::tlschema(array_shift($args));
-			$setschema = true;
-		}
-		$args[0] = str_replace("`%","`%%",$args[0]);
-		$args[0] = translate($args[0]);
-		if ($setschema) {
-			Translator::tlschema();
-		}
- 	}
-	reset($args);
-	each($args);//skip the first entry which is the OutputClass::output text
-	while (list($key,$val)=each($args)){
-		if (is_array($val)){
-			//When passed a sub-array this represents an independant
-			//translation to happen then be inserted in the master string.
-			$args[$key]=call_user_func_array("sprintf_translate",$val);
-		}
-	}
-	ob_start();
-	$return = call_user_func_array("sprintf",$args);
-	$err = ob_get_contents();
-	ob_end_clean();
-	if ($err > ""){
-		$args['error'] = $err;
-		OutputClass::debug($err);
-	}
-	return $return;
-}
+
 
 
 
@@ -200,6 +164,43 @@ $translation_namespace_stack = array();
 
 class Translator
 {
+    public static function sprintf_translate(){
+        $args = func_get_args();
+        $setschema = false;
+        // Handle if an array is passed in as the first arg
+        if (is_array($args[0])) {
+            $args[0] = call_user_func_array("Translator::sprintf_translate", $args[0]);
+        } else {
+            // array_shift returns the first element of an array and shortens this array by one...
+            if (is_bool($args[0]) && array_shift($args)) {
+                Translator::tlschema(array_shift($args));
+                $setschema = true;
+            }
+            $args[0] = str_replace("`%","`%%",$args[0]);
+            $args[0] = translate($args[0]);
+            if ($setschema) {
+                Translator::tlschema();
+            }
+        }
+        reset($args);
+        each($args);//skip the first entry which is the OutputClass::output text
+        while (list($key,$val)=each($args)){
+            if (is_array($val)){
+                //When passed a sub-array this represents an independant
+                //translation to happen then be inserted in the master string.
+                $args[$key]=call_user_func_array("Translator::sprintf_translate",$val);
+            }
+        }
+        ob_start();
+        $return = call_user_func_array("sprintf",$args);
+        $err = ob_get_contents();
+        ob_end_clean();
+        if ($err > ""){
+            $args['error'] = $err;
+            OutputClass::debug($err);
+        }
+        return $return;
+    }
 	public static function translator_check_collect_texts()
 	{
 		$tlmax = Settings::getsetting("tl_maxallowed",0);
@@ -251,7 +252,7 @@ class Translator
         // translation of mails can't be done in language of recipient by
         // the sender via translation tool.
 
-        $out = call_user_func_array("sprintf_translate", $in);
+        $out = call_user_func_array("Translator::sprintf_translate", $in);
 
         Translator::tlschema();
         unset($session['tlanguage']);

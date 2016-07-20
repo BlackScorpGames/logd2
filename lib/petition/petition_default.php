@@ -43,7 +43,7 @@ if (count($post)>0){
 				$tl_author = Translator::translate_inline("Author");
 				$tl_date = Translator::translate_inline("Date");
 				$tl_body = Translator::translate_inline("Body");
-				$tl_subject = sprintf_translate("New LoGD Petition at %s", $url);
+				$tl_subject = Translator::sprintf_translate("New LoGD Petition at %s", $url);
 
 				$msg  = "$tl_server: $url\n";
 				$msg .= "$tl_author: $name\n";
