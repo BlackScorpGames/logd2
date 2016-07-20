@@ -31,7 +31,7 @@ function check_su_access($level){
 		// wipes all buffs when you enter it.  This means that you never really
 		// have this effect unless you log out without going to the graveyard
 		// for some odd reason.
-//		apply_buff('angrygods',
+//		Buffs::apply_buff('angrygods',
 //			array(
 //				"name"=>"`^The gods are angry!",
 //				"rounds"=>10,

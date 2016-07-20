@@ -122,7 +122,7 @@ function raceelf_dohook($hookname,$args){
 	case "newday":
 		if ($session['user']['race']==$race){
 			raceelf_checkcity();
-			apply_buff("racialbenefit",array(
+			Buffs::apply_buff("racialbenefit",array(
 				"name"=>"`@Elvish Awareness`0",
 				"defmod"=>"(<defense>?(1+((1+floor(<level>/5))/<defense>)):0)",
 				"allowinpvp"=>1,

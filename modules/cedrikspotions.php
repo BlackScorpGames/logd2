@@ -324,7 +324,7 @@ function cedrikspotions_run(){
 						if (isset($session['bufflist']['transmute'])) {
 							$session['bufflist']['transmute']['rounds'] += get_module_setting("transmuteturns");
 						} else {
-							apply_buff('transmute',
+							Buffs::apply_buff('transmute',
 								array("name"=>"`6Transmutation Sickness",
 									"rounds"=>get_module_setting("transmuteturns"),
 									"wearoff"=>"You stop puking your guts up.  Literally.",

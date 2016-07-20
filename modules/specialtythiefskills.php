@@ -168,7 +168,7 @@ function specialtythiefskills_dohook($hookname,$args){
 			if (get_module_pref("uses") >= $l){
 				switch($l){
 				case 1:
-					apply_buff('ts1',array(
+					Buffs::apply_buff('ts1',array(
 						"startmsg"=>"`^You call {badguy} a bad name, making it cry.",
 						"name"=>"`^Insult",
 						"rounds"=>5,
@@ -179,7 +179,7 @@ function specialtythiefskills_dohook($hookname,$args){
 					));
 					break;
 				case 2:
-					apply_buff('ts2',array(
+					Buffs::apply_buff('ts2',array(
 						"startmsg"=>"`^You apply some poison to your {weapon}.",
 						"name"=>"`^Poison Attack",
 						"rounds"=>5,
@@ -190,7 +190,7 @@ function specialtythiefskills_dohook($hookname,$args){
 					));
 					break;
 				case 3:
-					apply_buff('ts3', array(
+					Buffs::apply_buff('ts3', array(
 						"startmsg"=>"`^With the skill of an expert thief, you virtually disappear, and attack {badguy} from a safer vantage point.",
 						"name"=>"`^Hidden Attack",
 						"rounds"=>5,
@@ -201,7 +201,7 @@ function specialtythiefskills_dohook($hookname,$args){
 					));
 					break;
 				case 5:
-					apply_buff('ts5',array(
+					Buffs::apply_buff('ts5',array(
 						"startmsg"=>"`^Using your skills as a thief, you disappear behind {badguy} and slide a thin blade between its vertebrae!",
 						"name"=>"`^Backstab",
 						"rounds"=>5,
@@ -215,7 +215,7 @@ function specialtythiefskills_dohook($hookname,$args){
 				}
 				set_module_pref("uses", get_module_pref("uses") - $l);
 			}else{
-				apply_buff('ts0', array(
+				Buffs::apply_buff('ts0', array(
 					"startmsg"=>"You try to attack {badguy} by putting your best thievery skills into practice, but instead, you trip over your feet.",
 					"rounds"=>1,
 					"schema"=>"module-specialtythiefskills"

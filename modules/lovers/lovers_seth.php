@@ -29,7 +29,7 @@ function lovers_seth(){
 				OutputClass::output("`n`n`^You LOSE a charm point!");
 			}else{
 				OutputClass::output("You and %s`0 take some time to yourselves, and you leave the inn, positively glowing!",$partner);
-				apply_buff('lover',lovers_getbuff());
+				Buffs::apply_buff('lover',lovers_getbuff());
 				$session['user']['charm']++;
 				OutputClass::output("`n`n`^You gain a charm point!");
 			}
@@ -119,7 +119,7 @@ function lovers_seth(){
 						OutputClass::output("The next weeks are a blur as you plan the most wonderous wedding, paid for entirely by %s`0, and head on off to the deep forest for your honeymoon.",$partner);
 						AddNewsClass::addnews("`&%s`& and %s`& are joined today in joyous matrimony!!!",$session['user']['name'],$partner);
 						$session['user']['marriedto']=INT_MAX;
-						apply_buff('lover',lovers_getbuff());
+						Buffs::apply_buff('lover',lovers_getbuff());
 					}else{
 						OutputClass::output("%s`0 says, \"`^I'm sorry, apparently I've given you the wrong impression, I think we should just be friends.`0\"", $partner);
 						OutputClass::output("Depressed, you have no more desire to fight in the forest today.");

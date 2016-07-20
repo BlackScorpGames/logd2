@@ -134,7 +134,7 @@ function racetroll_dohook($hookname,$args){
 	case "newday":
 		if ($session['user']['race']==$race){
 			racetroll_checkcity();
-			apply_buff("racialbenefit",array(
+			Buffs::apply_buff("racialbenefit",array(
 				"name"=>"`@Trollish Strength`0",
 	 			"atkmod"=>"(<attack>?(1+((1+floor(<level>/5))/<attack>)):0)",
 				"allowinpvp"=>1,

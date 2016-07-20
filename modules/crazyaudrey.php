@@ -248,7 +248,7 @@ function crazyaudrey_run(){
 			$profit += $cost;
 			set_module_setting("profit",$profit);
 			$buffname = get_module_setting("buffname");
-			apply_buff('crazyaudrey',array("name"=>$buffname,"rounds"=>5,"activate"=>"defense","defmod"=>1.05, "schema"=>"module-crazyaudrey"));
+			Buffs::apply_buff('crazyaudrey',array("name"=>$buffname,"rounds"=>5,"activate"=>"defense","defmod"=>1.05, "schema"=>"module-crazyaudrey"));
 			OutputClass::output("`5After a few minutes, you once again try to approach in order to look into her baskets.");
 			if (get_module_pref("played")==0) {
 				OutputClass::addnav("Look at Crazy Audrey's baskets","runmodule.php?module=crazyaudrey&op=baskets");

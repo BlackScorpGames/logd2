@@ -171,7 +171,7 @@ function specialtymysticpower_dohook($hookname,$args){
 			if (get_module_pref("uses") >= $l){
 				switch($l){
 				case 1:
-					apply_buff('mp1', array(
+					Buffs::apply_buff('mp1', array(
 						"startmsg"=>"`^You begin to regenerate!",
 						"name"=>"`%Regeneration",
 						"rounds"=>5,
@@ -185,7 +185,7 @@ function specialtymysticpower_dohook($hookname,$args){
 					));
 					break;
 				case 2:
-					apply_buff('mp2', array(
+					Buffs::apply_buff('mp2', array(
 						"startmsg"=>"`^{badguy}`% is clutched by a fist of earth and slammed to the ground!",
 						"name"=>"`%Earth Fist",
 						"rounds"=>5,
@@ -199,7 +199,7 @@ function specialtymysticpower_dohook($hookname,$args){
 					));
 					break;
 				case 3:
-					apply_buff('mp3', array(
+					Buffs::apply_buff('mp3', array(
 						"startmsg"=>"`^Your weapon glows with an unearthly presence.",
 						"name"=>"`%Siphon Life",
 						"rounds"=>5,
@@ -212,7 +212,7 @@ function specialtymysticpower_dohook($hookname,$args){
 					));
 					break;
 				case 5:
-					apply_buff('mp5', array(
+					Buffs::apply_buff('mp5', array(
 						"startmsg"=>"`^Your skin sparkles as you assume an aura of lightning.",
 						"name"=>"`%Lightning Aura",
 						"rounds"=>5,
@@ -227,7 +227,7 @@ function specialtymysticpower_dohook($hookname,$args){
 				}
 				set_module_pref("uses", get_module_pref("uses") - $l);
 			}else{
-				apply_buff('mp0', array(
+				Buffs::apply_buff('mp0', array(
 					"startmsg"=>"You furrow your brow and call on the powers of the elements.  A tiny flame appears.  {badguy} lights a cigarette from it, giving you a word of thanks before swinging at you again.",
 					"rounds"=>1,
 					"schema"=>"module-specialtymysticpower"

@@ -9,6 +9,23 @@ $debuggedbuffs = array();
 
 class Buffs
 {
+    public static function apply_buff($name,$buff){
+        global $session,$buffreplacements, $translation_namespace;
+
+        if (!isset($buff['schema']) || $buff['schema'] == "") {
+            $buff['schema'] = $translation_namespace;
+        }
+
+        if (isset($buffreplacements[$name])) unset($buffreplacements[$name]);
+        if (isset($session['bufflist'][$name])){
+            //we'll need to unapply buff fields before applying this buff since
+            //it's already set.
+            Buffs::restore_buff_fields();
+        }
+        $buff = Modules::modulehook("modify-buff", array("name"=>$name, "buff"=>$buff));
+        $session['bufflist'][$name] = $buff['buff'];
+        Buffs::calculate_buff_fields();
+    }
     public static function apply_companion($name,$companion,$ignorelimit=false){
         global $session, $companions;
         if (!is_array($companions)) {
@@ -186,23 +203,7 @@ class Buffs
         }//end while
     }//end function
 }
-function apply_buff($name,$buff){
-	global $session,$buffreplacements, $translation_namespace;
 
-	if (!isset($buff['schema']) || $buff['schema'] == "") {
-		$buff['schema'] = $translation_namespace;
-	}
-
-	if (isset($buffreplacements[$name])) unset($buffreplacements[$name]);
-	if (isset($session['bufflist'][$name])){
-		//we'll need to unapply buff fields before applying this buff since
-		//it's already set.
-		Buffs::restore_buff_fields();
-	}
-	$buff = Modules::modulehook("modify-buff", array("name"=>$name, "buff"=>$buff));
-	$session['bufflist'][$name] = $buff['buff'];
-	Buffs::calculate_buff_fields();
-}
 
 
 

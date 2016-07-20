@@ -26,7 +26,7 @@ function lovers_violet(){
 				OutputClass::output("`^You LOSE a charm point!");
 			}else{
 				OutputClass::output("You and %s`0 take some time to yourselves, and you leave the inn, positively glowing!",$partner);
-				apply_buff('lover',lovers_getbuff());
+				Buffs::apply_buff('lover',lovers_getbuff());
 				$session['user']['charm']++;
 				OutputClass::output("`n`n`^You gain a charm point!");
 			}
@@ -127,7 +127,7 @@ function lovers_violet(){
 						OutputClass::output("The next days are a blur; you and %s`0 are married in the abbey down the street, in a gorgeous ceremony with many frilly girly things.",$partner);
 						AddNewsClass::addnews("`&%s`& and %s`& are joined today in joyous matrimony!!!",$session['user']['name'],$partner);
 						$session['user']['marriedto']=INT_MAX;
-						apply_buff('lover',lovers_getbuff());
+						Buffs::apply_buff('lover',lovers_getbuff());
 					}else{
 						OutputClass::output("It is a look of sadness.");
 						OutputClass::output("\"`%No`0,\" she says, \"`%I'm not yet ready to settle down`0.\"`n`n");

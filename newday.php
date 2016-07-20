@@ -153,7 +153,7 @@ if ($dp < $dkills) {
 			//$session['bufflist'][$key]=$val;
 			if (array_key_exists('schema', $val) && $val['schema'])
 				Translator::tlschema($val['schema']);
-			apply_buff($key,$val);
+			Buffs::apply_buff($key,$val);
 			if (array_key_exists('newdaymessage', $val) &&
 					$val['newdaymessage']) {
 				OutputClass::output($val['newdaymessage']);
@@ -178,7 +178,7 @@ if ($dp < $dkills) {
 		$buff = unserialize($playermount['mountbuff']);
 		if (!isset($buff['schema']) || $buff['schema'] == "")
 			$buff['schema']="mounts";
-		apply_buff('mount',$buff);
+		Buffs::apply_buff('mount',$buff);
 	}
 	if ($dkff>0) {
 		OutputClass::output("`n`2You gain `^%s`2 forest %s from spent dragon points!",

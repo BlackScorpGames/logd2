@@ -169,10 +169,10 @@ if ($op == 'confirmbuy') {
 			$session['user']['gold']+=$goldcost;
 			$gemcost = $repaygems-$mount['mountcostgems'];
 			$session['user']['gems']+=$gemcost;
-			debuglog(($goldcost <= 0?"spent ":"gained ") . abs($goldcost) . " gold and " . ($gemcost <= 0?"spent ":"gained ") . abs($gemcost) . " gems trading $debugmount1 for a new mount, a $debugmount2");
+			DebugLogClass::debuglog(($goldcost <= 0?"spent ":"gained ") . abs($goldcost) . " gold and " . ($gemcost <= 0?"spent ":"gained ") . abs($gemcost) . " gems trading $debugmount1 for a new mount, a $debugmount2");
 			$buff = unserialize($mount['mountbuff']);
 			if ($buff['schema'] == "") $buff['schema'] = "mounts";
-			apply_buff('mount',unserialize($mount['mountbuff']));
+			Buffs::apply_buff('mount',unserialize($mount['mountbuff']));
 			// Recalculate so the selling stuff works right
 			$playermount = getmount($mount['mountid']);
 			$repaygold = round($playermount['mountcostgold']*2/3,0);
@@ -212,7 +212,7 @@ if ($op == 'confirmbuy') {
 				Translator::tlschema();
 			}
 			DebugLogClass::debuglog("spent $grubprice feeding their mount");
-			apply_buff('mount',$buff);
+			Buffs::apply_buff('mount',$buff);
 			$session['user']['fedmount'] = 1;
 			Translator::tlschema($schemas['mountfull']);
 			OutputClass::output($texts['mountfull'],

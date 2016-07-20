@@ -185,7 +185,7 @@ function specialtydarkarts_dohook($hookname,$args){
 						// Because of this last "true" the companion can be added any time.
 						// Even, if the player controls already more companions than normally allowed!
 					} else {
-						apply_buff('da1',array(
+						Buffs::apply_buff('da1',array(
 							"startmsg"=>"`\$You call on the spirits of the dead, and skeletal hands claw at {badguy} from beyond the grave.",
 							"name"=>"`\$Skeleton Crew",
 							"rounds"=>5,
@@ -199,7 +199,7 @@ function specialtydarkarts_dohook($hookname,$args){
 					}
 					break;
 				case 2:
-					apply_buff('da2',array(
+					Buffs::apply_buff('da2',array(
 						"startmsg"=>"`\$You pull out a tiny doll that looks like {badguy}.",
 						"effectmsg"=>"You thrust a pin into the {badguy} doll hurting it for `^{damage}`) points!",
 						"rounds"=>1,
@@ -210,7 +210,7 @@ function specialtydarkarts_dohook($hookname,$args){
 					));
 					break;
 				case 3:
-					apply_buff('da3',array(
+					Buffs::apply_buff('da3',array(
 						"startmsg"=>"`\$You place a curse on {badguy}'s ancestors.",
 						"name"=>"`\$Curse Spirit",
 						"rounds"=>5,
@@ -221,7 +221,7 @@ function specialtydarkarts_dohook($hookname,$args){
 					));
 					break;
 				case 5:
-					apply_buff('da5',array(
+					Buffs::apply_buff('da5',array(
 						"startmsg"=>"`\$You hold out your hand and {badguy} begins to bleed from its ears.",
 						"name"=>"`\$Wither Soul",
 						"rounds"=>5,
@@ -235,7 +235,7 @@ function specialtydarkarts_dohook($hookname,$args){
 				}
 				set_module_pref("uses", get_module_pref("uses") - $l);
 			}else{
-				apply_buff('da0', array(
+				Buffs::apply_buff('da0', array(
 					"startmsg"=>"Exhausted, you try your darkest magic, a bad joke.  {badguy} looks at you for a minute, thinking, and finally gets the joke.  Laughing, it swings at you again.",
 					"rounds"=>1,
 					"schema"=>"module-specialtydarkarts"

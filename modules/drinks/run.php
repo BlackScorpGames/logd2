@@ -131,7 +131,7 @@ function drinks_run_private(){
 				if ($row['buffeffectfailmsg'])
 					$buff['effectfailmsg'] = $row['buffeffectfailmsg'];
 				$buff['schema'] = "module-drinks";
-				apply_buff('buzz',$buff);
+				Buffs::apply_buff('buzz',$buff);
 			} else {
 				OutputClass::output("You don't have enough money.  How can you buy %s if you don't have any money!?!", $row['name']);
 			}
