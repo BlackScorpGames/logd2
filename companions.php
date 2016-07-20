@@ -206,7 +206,7 @@ if ($op==""){
 		if ($subop=="module") {
 			$module = Http::httpget("module");
 			OutputClass::rawoutput("<form action='companions.php?op=save&subop=module&id=$id&module=$module' method='POST'>");
-			module_objpref_edit("companions", $module, $id);
+			Modules::module_objpref_edit("companions", $module, $id);
 			OutputClass::rawoutput("</form>");
 			OutputClass::addnav("", "companions.php?op=save&subop=module&id=$id&module=$module");
 		} else {

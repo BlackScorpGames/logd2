@@ -253,7 +253,7 @@ if ($op==""){
 		if ($subop=="module") {
 			$module = Http::httpget("module");
 			OutputClass::rawoutput("<form action='mounts.php?op=save&subop=module&id=$id&module=$module' method='POST'>");
-			module_objpref_edit("mounts", $module, $id);
+			Modules::module_objpref_edit("mounts", $module, $id);
 			OutputClass::rawoutput("</form>");
 			OutputClass::addnav("", "mounts.php?op=save&subop=module&id=$id&module=$module");
 		} else {

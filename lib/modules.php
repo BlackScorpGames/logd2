@@ -398,6 +398,35 @@ $currenthook = "";
 
 class Modules
 {
+    public static function module_objpref_edit($type, $module, $id)
+    {
+        $info = Modules::get_module_info($module);
+        if (count($info['prefs-'.$type]) > 0) {
+            $data = array();
+            $msettings = array();
+            while(list($key, $val) = each($info['prefs-'.$type])) {
+                if (is_array($val)) {
+                    $v = $val[0];
+                    $x = explode("|", $v);
+                    $val[0] = $x[0];
+                    $x[0] = $val;
+                } else {
+                    $x = explode("|", $val);
+                }
+                $msettings[$key]=$x[0];
+                // Set up default
+                if (isset($x[1])) $data[$key]=$x[1];
+            }
+            $sql = "SELECT setting, value FROM " . db_prefix("module_objprefs") . " WHERE modulename='$module' AND objtype='$type' AND objid='$id'";
+            $result = db_query($sql);
+            while($row = db_fetch_assoc($result)) {
+                $data[$row['setting']] = $row['value'];
+            }
+            Translator::tlschema("module-$module");
+            ShowFormClass::showform($msettings, $data);
+            Translator::tlschema();
+        }
+    }
     public static function module_editor_navs($like, $linkprefix)
     {
         $sql = "SELECT formalname,modulename,active,category FROM " . db_prefix("modules") . " WHERE infokeys LIKE '%|$like|%' ORDER BY category,formalname";
@@ -1237,35 +1266,7 @@ function event_sort($a, $b)
 
 
 
-function module_objpref_edit($type, $module, $id)
-{
-	$info = Modules::get_module_info($module);
-	if (count($info['prefs-'.$type]) > 0) {
-		$data = array();
-		$msettings = array();
-		while(list($key, $val) = each($info['prefs-'.$type])) {
-			if (is_array($val)) {
-				$v = $val[0];
-				$x = explode("|", $v);
-				$val[0] = $x[0];
-				$x[0] = $val;
-			} else {
-				$x = explode("|", $val);
-			}
-			$msettings[$key]=$x[0];
-			// Set up default
-			if (isset($x[1])) $data[$key]=$x[1];
-		}
-		$sql = "SELECT setting, value FROM " . db_prefix("module_objprefs") . " WHERE modulename='$module' AND objtype='$type' AND objid='$id'";
-		$result = db_query($sql);
-		while($row = db_fetch_assoc($result)) {
-			$data[$row['setting']] = $row['value'];
-		}
-		Translator::tlschema("module-$module");
-		ShowFormClass::showform($msettings, $data);
-		Translator::tlschema();
-	}
-}
+
 
 function module_compare_versions($a,$b){
 	//this function returns -1 when $a < $b, 1 when $a > $b, and 0 when $a == $b

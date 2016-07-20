@@ -192,7 +192,7 @@ function drinks_editor(){
 			$module = Http::httpget("editmodule");
 			$oldmodule = $mostrecentmodule;
 			OutputClass::rawoutput("<form action='runmodule.php?module=drinks&act=editor&op=save&subop=module&editmodule=$module&drinkid=$drinkid&admin=true' method='POST'>");
-			module_objpref_edit('drinks', $module, $drinkid);
+			Modules::module_objpref_edit('drinks', $module, $drinkid);
 			$mostrecentmodule = $oldmodule;
 			OutputClass::rawoutput("</form>");
 			OutputClass::addnav("", "runmodule.php?module=drinks&act=editor&op=save&subop=module&editmodule=$module&drinkid=$drinkid&admin=true");

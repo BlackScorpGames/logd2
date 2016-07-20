@@ -197,7 +197,7 @@ if ($op=="" || $op=="search"){
 		if ($subop == "module") {
 			$module = Http::httpget("module");
 			OutputClass::rawoutput("<form action='creatures.php?op=save&subop=module&creatureid=$id&module=$module' method='POST'>");
-			module_objpref_edit("creatures", $module, $id);
+			Modules::module_objpref_edit("creatures", $module, $id);
 			OutputClass::rawoutput("</form>");
 			OutputClass::addnav("", "creatures.php?op=save&subop=module&creatureid=$id&module=$module");
 		} else {
@@ -235,7 +235,7 @@ if ($op=="" || $op=="search"){
 	}else{
 		$module = Http::httpget("module");
 		OutputClass::rawoutput("<form action='mounts.php?op=save&subop=module&creatureid=$id&module=$module' method='POST'>");
-		module_objpref_edit("creatures", $module, $id);
+		Modules::module_objpref_edit("creatures", $module, $id);
 		OutputClass::rawoutput("</form>");
 		OutputClass::addnav("", "creatures.php?op=save&subop=module&creatureid=$id&module=$module");
 	}
