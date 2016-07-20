@@ -172,7 +172,7 @@ if ($op==""){
 		}
 		OutputClass::output("`#%s`n`7%s`n`n",$row['name'], $row['description']);
 	}
-	healnav($companions, $texts, $schemas);
+	MercenaryCamp::healnav($companions, $texts, $schemas);
 } else if ($op == "heal") {
 	$cost = Http::httpget('cost');
 	if ($cost == 'notenough') {
@@ -199,7 +199,7 @@ if ($op==""){
 	  	}
 		Translator::tlschema();
 	}
-	healnav($companions, $texts, $schemas);
+	MercenaryCamp::healnav($companions, $texts, $schemas);
 	OutputClass::addnav("Navigation");
 	OutputClass::addnav("Return to the camp", "mercenarycamp.php?skip=1");
 } else if ($op == "buy") {
@@ -242,8 +242,8 @@ OutputClass::addnav("Navigation");
 VillageNavClass::villagenav();
 PageParts::page_footer();
 
-
-function healnav($companions, $texts, $schemas) {
+class MercenaryCamp{
+public static function healnav($companions, $texts, $schemas) {
 	global $session;
 	Translator::tlschema($schemas['healnav']);
 	OutputClass::addnav($texts['healnav']);
@@ -275,5 +275,6 @@ function healnav($companions, $texts, $schemas) {
 	  	}
 		Translator::tlschema();
 	}
+}
 }
 ?>
