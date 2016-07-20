@@ -9,7 +9,7 @@ require_once("lib/sanitize.php");
 require_once("lib/names.php");
 
 Translator::tlschema("user");
-check_su_access(SU_EDIT_USERS);
+SuAccess::check_su_access(SU_EDIT_USERS);
 
 $op = Http::httpget('op');
 $userid=Http::httpget("userid");

@@ -11,7 +11,7 @@ Translator::tlschema("moderate");
 
 Commentary::addcommentary();
 
-check_su_access(SU_EDIT_COMMENTS);
+SuAccess::check_su_access(SU_EDIT_COMMENTS);
 
 require_once("lib/superusernav.php");
 superusernav();

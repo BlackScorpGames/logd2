@@ -8,7 +8,7 @@ require_once("common.php");
 require_once("lib/http.php");
 require_once("lib/showform.php");
 
-check_su_access(SU_EDIT_MOUNTS);
+SuAccess::check_su_access(SU_EDIT_MOUNTS);
 
 Translator::tlschema("companions");
 

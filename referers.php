@@ -8,7 +8,7 @@ require_once("lib/http.php");
 
 Translator::tlschema("referers");
 
-check_su_access(SU_EDIT_CONFIG);
+SuAccess::check_su_access(SU_EDIT_CONFIG);
 
 $expire = Settings::getsetting("expirecontent",180);
 if($expire > 0) $sql = "DELETE FROM " . db_prefix("referers") . " WHERE last<'".date("Y-m-d H:i:s",strtotime("-".$expire." days"))."'";

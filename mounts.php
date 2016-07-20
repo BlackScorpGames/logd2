@@ -27,7 +27,7 @@ if ($op=="xml") {
 }
 
 
-check_su_access(SU_EDIT_MOUNTS);
+SuAccess::check_su_access(SU_EDIT_MOUNTS);
 
 Translator::tlschema("mounts");
 

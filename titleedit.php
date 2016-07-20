@@ -4,7 +4,7 @@
 require_once("common.php");
 require_once("lib/http.php");
 
-check_su_access(SU_EDIT_USERS);
+SuAccess::check_su_access(SU_EDIT_USERS);
 
 Translator::tlschema("retitle");
 

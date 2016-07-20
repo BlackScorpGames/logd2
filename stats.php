@@ -7,7 +7,7 @@ require_once("lib/dhms.php");
 
 Translator::tlschema("stats");
 
-check_su_access(SU_EDIT_CONFIG);
+SuAccess::check_su_access(SU_EDIT_CONFIG);
 
 PageParts::page_header("Stats");
 require_once("lib/superusernav.php");

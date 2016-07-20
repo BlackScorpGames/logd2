@@ -7,7 +7,7 @@ require_once("lib/http.php");
 
 Translator::tlschema("taunt");
 
-check_su_access(SU_EDIT_CREATURES);
+SuAccess::check_su_access(SU_EDIT_CREATURES);
 
 PageParts::page_header("Taunt Editor");
 require_once("lib/superusernav.php");

@@ -7,7 +7,7 @@ require_once("lib/http.php");
 
 Translator::tlschema("paylog");
 
-check_su_access(SU_EDIT_PAYLOG);
+SuAccess::check_su_access(SU_EDIT_PAYLOG);
 /*
 +-----------+---------------------+------+-----+---------+----------------+
 | Field     | Type                | Null | Key | Default | Extra          |

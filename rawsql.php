@@ -7,7 +7,7 @@ require_once("lib/http.php");
 
 Translator::tlschema("rawsql");
 
-check_su_access(SU_RAW_SQL);
+SuAccess::check_su_access(SU_RAW_SQL);
 
 PageParts::page_header("Raw SQL/PHP execution");
 require_once("lib/superusernav.php");

@@ -3,14 +3,15 @@
 // addnews ready
 // mail ready
 $thispage_superuser_level=0;
-function check_su_access($level){
+class SuAccess{
+public static function check_su_access($level){
 	global $session,$thispage_superuser_level;
 	$thispage_superuser_level = $thispage_superuser_level | $level;
 	OutputClass::rawoutput("<!--Su_Restricted-->");
 	if ($session['user']['superuser'] & $level) {
 		//they have appropriate levels, let's see if there's a module that
 		// restricts access beyond this point.
-		$return = Modules::modulehook("check_su_access",
+		$return = Modules::modulehook("SuAccess::check_su_access",
 				array("enabled"=>true,"level"=>$level));
 		if ($return['enabled']){
 			$session['user']['laston'] = date("Y-m-d H:i:s");
@@ -70,5 +71,6 @@ function check_su_access($level){
 		}
 		PageParts::page_footer();
 	}
+}
 }
 ?>

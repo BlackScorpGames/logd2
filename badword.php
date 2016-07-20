@@ -5,7 +5,7 @@
 require_once("common.php");
 require_once("lib/http.php");
 
-check_su_access(SU_EDIT_COMMENTS);
+SuAccess::check_su_access(SU_EDIT_COMMENTS);
 
 Translator::tlschema("badword");
 

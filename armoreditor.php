@@ -6,7 +6,7 @@ require_once("common.php");
 require_once("lib/showform.php");
 require_once("lib/http.php");
 
-check_su_access(SU_EDIT_EQUIPMENT);
+SuAccess::check_su_access(SU_EDIT_EQUIPMENT);
 
 Translator::tlschema("armor");
 

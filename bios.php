@@ -7,7 +7,7 @@ require_once("lib/systemmail.php");
 require_once("lib/http.php");
 
 Translator::tlschema("bio");
-check_su_access(SU_EDIT_COMMENTS);
+SuAccess::check_su_access(SU_EDIT_COMMENTS);
 
 $op = Http::httpget('op');
 $userid = Http::httpget('userid');

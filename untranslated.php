@@ -12,7 +12,7 @@ define("OVERRIDE_FORCED_NAV",true);
 require_once("common.php");
 require_once("lib/http.php");
 
-check_su_access(SU_IS_TRANSLATOR);
+SuAccess::check_su_access(SU_IS_TRANSLATOR);
 
 Translator::tlschema("untranslated");
 

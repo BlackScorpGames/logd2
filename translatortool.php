@@ -6,7 +6,7 @@ define("OVERRIDE_FORCED_NAV",true);
 require_once("common.php");
 Translator::tlschema("translatortool");
 
-check_su_access(SU_IS_TRANSLATOR);
+SuAccess::check_su_access(SU_IS_TRANSLATOR);
 $op=Http::httpget("op");
 if ($op==""){
 	popup_header("Translator Tool");

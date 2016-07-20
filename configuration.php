@@ -6,7 +6,7 @@ require_once("lib/http.php");
 // addnews ready
 // mail ready
 
-check_su_access(SU_EDIT_CONFIG);
+SuAccess::check_su_access(SU_EDIT_CONFIG);
 
 Translator::tlschema("configuration");
 

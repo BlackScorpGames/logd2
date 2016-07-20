@@ -28,7 +28,7 @@ function drinks_gettexts() {
 // Support functions
 function drinks_editor(){
 	global $mostrecentmodule;
-	if (!get_module_pref("canedit")) check_su_access(SU_EDIT_USERS);
+	if (!get_module_pref("canedit")) SuAccess::check_su_access(SU_EDIT_USERS);
 
 	PageParts::page_header("Drink Editor");
 	require_once("lib/superusernav.php");

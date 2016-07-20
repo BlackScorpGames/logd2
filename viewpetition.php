@@ -9,7 +9,7 @@ require_once("lib/http.php");
 
 Translator::tlschema("petition");
 
-check_su_access(SU_EDIT_PETITIONS);
+SuAccess::check_su_access(SU_EDIT_PETITIONS);
 
 Commentary::addcommentary();
 
