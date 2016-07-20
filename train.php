@@ -163,7 +163,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 		require_once("lib/battle-skills.php");
 		require_once("lib/extended-battle.php");
 		BattleSkills::suspend_buffs('allowintrain', "`&Your pride prevents you from using extra abilities during the fight!`0`n");
-		suspend_companions("allowintrain");
+		ExtendedBattle::suspend_companions("allowintrain");
 		if (!$victory) {
 			require_once("battle.php");
 		}

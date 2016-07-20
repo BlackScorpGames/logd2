@@ -5,7 +5,7 @@ if ($session['user']['gravefights']<=0){
 	Http::httpset('op', "");
 }else{
 	require_once("lib/extended-battle.php");
-	suspend_companions("allowinshades", true);
+	ExtendedBattle::suspend_companions("allowinshades", true);
 	if (Modules::module_events("graveyard", Settings::getsetting("gravechance", 0)) != 0) {
 		if (!OutputClass::checknavs()) {
 			// If we're going back to the graveyard, make sure to reset

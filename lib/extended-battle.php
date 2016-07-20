@@ -4,6 +4,48 @@
 // translation ready
 //
 
+class ExtendedBattle{
+    /**
+     * Suspends companions on a given parameter.
+     *
+     * @param string $susp The type of suspension
+     * @param mixed $nomsg The message to be displayed upon suspending. If false, no message will be displayed.
+     */
+   public static function suspend_companions($susp, $nomsg=false) {
+        global $companions;
+        $newcompanions = array();
+        $suspended = false;
+        if (is_array($companions)) {
+            foreach ($companions as $name => $companion) {
+                if ($susp) {
+                    if (isset($companion[$susp]) && $companion[$susp] == true) {
+                    } else {
+                        if (isset($companion['suspended']) && $companion['suspended'] == true){
+                        } else {
+                            $suspended = true;
+                            $companion['suspended'] = true;
+                        }
+                    }
+                }
+                $newcompanions[$name] = $companion;
+            }
+        }
+
+        if ($suspended) {
+            $schema = false;
+            if ($nomsg === false) {
+                $schema = "battle";
+                $nomsg = "`&Your companions stand back during this fight!`n";
+            }
+            if ($nomsg !== true){
+                if ($schema) Translator::tlschema($schema);
+                OutputClass::output($nomsg);
+                if ($schema) Translator::tlschema();
+            }
+        }
+        $companions = $newcompanions;
+    }
+}
 /**
  * Outputs a list of all enemies and the player.
  *
@@ -74,46 +116,7 @@ function prepare_companions() {
 	$companions = $newcompanions;
 }
 
-/**
- * Suspends companions on a given parameter.
- *
- * @param string $susp The type of suspension
- * @param mixed $nomsg The message to be displayed upon suspending. If false, no message will be displayed.
- */
-function suspend_companions($susp, $nomsg=false) {
-	global $companions;
-	$newcompanions = array();
-	$suspended = false;
-	if (is_array($companions)) {
-		foreach ($companions as $name => $companion) {
-			if ($susp) {
-				if (isset($companion[$susp]) && $companion[$susp] == true) {
-				} else {
-					if (isset($companion['suspended']) && $companion['suspended'] == true){
-					} else {
-						$suspended = true;
-						$companion['suspended'] = true;
-					}
-				}
-			}
-			$newcompanions[$name] = $companion;
-		}
-	}
 
-	if ($suspended) {
-		$schema = false;
-		if ($nomsg === false) {
-			$schema = "battle";
-			$nomsg = "`&Your companions stand back during this fight!`n";
-		}
-		if ($nomsg !== true){
-			if ($schema) Translator::tlschema($schema);
-			OutputClass::output($nomsg);
-			if ($schema) Translator::tlschema();
-		}
-	}
-	$companions = $newcompanions;
-}
 
 /**
  * Enables suspended companions.

@@ -100,7 +100,7 @@ if (!$session['user']['loggedin']) {
 	OutputClass::addnav("S?Land of Shades","shades.php");
 	OutputClass::addnav("G?The Graveyard","graveyard.php");
 	require_once("lib/extended-battle.php");
-	suspend_companions("allowinshades", true);
+	ExtendedBattle::suspend_companions("allowinshades", true);
 	OutputClass::addnav("Log out","login.php?op=logout");
 	Translator::tlschema();
 }
