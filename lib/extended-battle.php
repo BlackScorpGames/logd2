@@ -8,6 +8,21 @@ class ExtendedBattle
 {
 
     /**
+     * Executes the given script or loads the script and then executes it.
+     *
+     * @param mixed $script If numeric the corresponding script will be loaded from the database, otherwise the script to be executed.
+     */
+    public static function execute_ai_script($script)
+    {
+        global $unsetme;
+        if (is_numeric($script)) {
+            $script = load_ai_script($script);
+        }
+        if ($script > "") {
+            eval($script);
+        }
+    }
+    /**
      * Based upon the type of the companion different actions are performed and the companion is marked as "used" after that.
      *
      * @param array $companion The companion itself
@@ -618,21 +633,6 @@ function battle_heal($amount, $target = false)
     }
 }
 
-/**
- * Executes the given script or loads the script and then executes it.
- *
- * @param mixed $script If numeric the corresponding script will be loaded from the database, otherwise the script to be executed.
- */
-function execute_ai_script($script)
-{
-    global $unsetme;
-    if (is_numeric($script)) {
-        $script = load_ai_script($script);
-    }
-    if ($script > "") {
-        eval($script);
-    }
-}
 
 /**
  * Returns an A.I. Script form the database

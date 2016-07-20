@@ -334,7 +334,7 @@ if ($op != "newtarget") {
 						}
 						if($badguy['dead'] == false && isset($badguy['creatureaiscript']) && $badguy['creatureaiscript'] > "") {
 							global $unsetme;
-							execute_ai_script($badguy['creatureaiscript']);
+							ExtendedBattle::execute_ai_script($badguy['creatureaiscript']);
 						}
 					}
 				}
