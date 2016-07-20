@@ -87,7 +87,7 @@ if ($op=="removegood"){
 	//unset($words[array_search(stripslashes(httppost('word')),$words)]);
 }
 
-show_word_list($words);
+Badword::show_word_list($words);
 if ($op=="addgood" || $op=="removegood"){
 	$sql = "DELETE FROM " . db_prefix("nastywords") . " WHERE type='good'";
 	db_query($sql);
@@ -142,7 +142,7 @@ if ($op=="remove"){
 
 	//unset($words[array_search(stripslashes(httppost('word')),$words)]);
 }
-show_word_list($words);
+Badword::show_word_list($words);
 OutputClass::output_notl("`0");
 
 if ($op=="add" || $op=="remove"){
@@ -153,20 +153,22 @@ if ($op=="add" || $op=="remove"){
 	DataCache::invalidatedatacache("nastywordlist");
 }
 PageParts::page_footer();
-
-function show_word_list($words){
-	sort($words);
-	$lastletter="";
-	while (list($key,$val)=each($words)){
-		if (trim($val)==""){
-			unset($words[$key]);
-		}else{
-			if (substr($val,0,1)!=$lastletter){
-				$lastletter = substr($val,0,1);
-				OutputClass::output_notl("`n`n`^`b%s`b`@`n", strtoupper($lastletter));
-			}
-			OutputClass::output_notl("%s ", $val);
-		}
-	}
+class Badword{
+    public static function show_word_list($words){
+        sort($words);
+        $lastletter="";
+        while (list($key,$val)=each($words)){
+            if (trim($val)==""){
+                unset($words[$key]);
+            }else{
+                if (substr($val,0,1)!=$lastletter){
+                    $lastletter = substr($val,0,1);
+                    OutputClass::output_notl("`n`n`^`b%s`b`@`n", strtoupper($lastletter));
+                }
+                OutputClass::output_notl("%s ", $val);
+            }
+        }
+    }
 }
+
 ?>
