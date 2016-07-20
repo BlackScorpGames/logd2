@@ -195,7 +195,7 @@ if ($op != "newtarget") {
 								$newcompanions = array();
 								foreach ($companions as $name=>$companion) {
 									if ($companion['hitpoints'] > 0) {
-										$buffer = report_companion_move($companion, "heal");
+										$buffer = ExtendedBattle::report_companion_move($companion, "heal");
 										if ($buffer !== false) {
 											$newcompanions[$name] = $buffer;
 											unset($buffer);
@@ -227,7 +227,7 @@ if ($op != "newtarget") {
 											$newcompanions = array();
 											foreach ($companions as $name=>$companion) {
 												if ($companion['hitpoints'] > 0) {
-													$buffer = report_companion_move($companion, "magic");
+													$buffer = ExtendedBattle::report_companion_move($companion, "magic");
 													if ($buffer !== false) {
 														$newcompanions[$name] = $buffer;
 														unset($buffer);
@@ -313,7 +313,7 @@ if ($op != "newtarget") {
 								if (is_array($companions)) {
 									foreach ($companions as $name=>$companion) {
 										if ($companion['hitpoints'] > 0) {
-											$buffer = report_companion_move($companion, "fight");
+											$buffer = ExtendedBattle::report_companion_move($companion, "fight");
 											if ($buffer !== false) {
 												$newcompanions[$name] = $buffer;
 												unset($buffer);
@@ -579,7 +579,7 @@ function battle_badguy_attacks() {
 			if (is_array($companions)) {
 			foreach ($companions as $name=>$companion) {
 				if ($companion['hitpoints'] > 0) {
-					$buffer = report_companion_move($companion, "defend");
+					$buffer = ExtendedBattle::report_companion_move($companion, "defend");
 					if ($buffer !== false) {
 						$newcompanions[$name] = $buffer;
 						unset($buffer);
