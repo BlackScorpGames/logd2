@@ -14,6 +14,50 @@
 
 require_once("lib/substitute.php");
 class BattleBuffs{
+    public static function process_dmgshield($dshield, $damage) {
+        global $session, $badguy;
+        Translator::tlschema("buffs");
+        foreach($dshield as $buff) {
+            if (isset($buff['suspended']) && $buff['suspended']) {
+                continue;
+            }
+            if ($buff['schema']) {
+                Translator::tlschema($buff['schema']);
+            }
+            $realdamage = round($damage * $buff['damageshield'], 0);
+            if ($realdamage < 0) {
+                $realdamage = 0;
+            }
+            $msg = "";
+            if ($realdamage > 0) {
+                if (isset($buff['effectmsg'])) {
+                    $msg = $buff['effectmsg'];
+                }
+            } else if ($realdamage == 0) {
+                if (isset($buff['effectfailmsg'])) {
+                    $msg = $buff['effectfailmsg'];
+                }
+            }
+            $badguy['creaturehealth'] -= $realdamage;
+            if ($badguy['creaturehealth'] <= 0) {
+                $badguy['istarget'] = false;
+                $badguy['dead'] = true;
+                $count = 1;
+            }
+            if (is_array($msg)) {
+                $msg = Translator::sprintf_translate($msg);
+                $msg = SubstituteClass::substitute("`)".$msg."`0`n", array("{damage}"), array($realdamage));
+                OutputClass::output_notl($msg); //Here it's already translated
+            }else if ($msg>"") {
+                $msg = SubstituteClass::substitute_array("`)".$msg."`0`n", array("{damage}"), array($realdamage));
+                OutputClass::output($msg);
+            }
+            if ($buff['schema']) {
+                Translator::tlschema();
+            }
+        }
+        Translator::tlschema();
+    }
 	public static function expire_buffs() {
 	global $session, $badguy;
 	Translator::tlschema("buffs");
@@ -299,50 +343,7 @@ function process_lifetaps($ltaps, $damage) {
 	Translator::tlschema();
 }
 
-function process_dmgshield($dshield, $damage) {
-	global $session, $badguy;
-	Translator::tlschema("buffs");
-	foreach($dshield as $buff) {
-		if (isset($buff['suspended']) && $buff['suspended']) {
-			continue;
-		}
-		if ($buff['schema']) {
-			Translator::tlschema($buff['schema']);
-		}
-		$realdamage = round($damage * $buff['damageshield'], 0);
-		if ($realdamage < 0) {
-			$realdamage = 0;
-		}
-		$msg = "";
-		if ($realdamage > 0) {
-			if (isset($buff['effectmsg'])) {
-				$msg = $buff['effectmsg'];
-			}
-		} else if ($realdamage == 0) {
-			if (isset($buff['effectfailmsg'])) {
-				$msg = $buff['effectfailmsg'];
-			}
-		}
-		$badguy['creaturehealth'] -= $realdamage;
-		if ($badguy['creaturehealth'] <= 0) {
-			$badguy['istarget'] = false;
-			$badguy['dead'] = true;
-			$count = 1;
-		}
-		if (is_array($msg)) {
-			$msg = Translator::sprintf_translate($msg);
-			$msg = SubstituteClass::substitute("`)".$msg."`0`n", array("{damage}"), array($realdamage));
-			OutputClass::output_notl($msg); //Here it's already translated
-		}else if ($msg>"") {
-			$msg = SubstituteClass::substitute_array("`)".$msg."`0`n", array("{damage}"), array($realdamage));
-			OutputClass::output($msg);
-		}
-		if ($buff['schema']) {
-			Translator::tlschema();
-		}
-	}
-	Translator::tlschema();
-}
+
 
 
 

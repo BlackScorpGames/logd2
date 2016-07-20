@@ -525,7 +525,7 @@ public static function battle_player_attacks() {
 	}
 	if ($creaturedmg==0){
 		OutputClass::output("`4You try to hit `^%s`4 but `\$MISS!`n",$badguy['creaturename']);
-		process_dmgshield($buffset['dmgshield'], 0);
+		BattleBuffs::process_dmgshield($buffset['dmgshield'], 0);
 		process_lifetaps($buffset['lifetap'], 0);
 	}else if ($creaturedmg<0){
 		OutputClass::output("`4You try to hit `^%s`4 but are `\$RIPOSTED `4for `\$%s`4 points of damage!`n",$badguy['creaturename'],(0-$creaturedmg));
@@ -537,12 +537,12 @@ public static function battle_player_attacks() {
 			$break = true;
 			$needtostopfighting = true;
 		}
-		process_dmgshield($buffset['dmgshield'],-$creaturedmg);
+		BattleBuffs::process_dmgshield($buffset['dmgshield'],-$creaturedmg);
 		process_lifetaps($buffset['lifetap'],$creaturedmg);
 	}else{
 		OutputClass::output("`4You hit `^%s`4 for `^%s`4 points of damage!`n",$badguy['creaturename'],$creaturedmg);
 		$badguy['creaturehealth']-=$creaturedmg;
-		process_dmgshield($buffset['dmgshield'],-$creaturedmg);
+		BattleBuffs::process_dmgshield($buffset['dmgshield'],-$creaturedmg);
 		process_lifetaps($buffset['lifetap'],$creaturedmg);
 	}
 	if ($badguy['creaturehealth'] <= 0) {
@@ -598,13 +598,13 @@ public static function battle_badguy_attacks() {
             if ($defended == false) {
                 if ($selfdmg==0){
                     OutputClass::output("`^%s`4 tries to hit you but `^MISSES!`n",$badguy['creaturename']);
-                    process_dmgshield($buffset['dmgshield'], 0);
+                    BattleBuffs::process_dmgshield($buffset['dmgshield'], 0);
                     process_lifetaps($buffset['lifetap'], 0);
                 }else if ($selfdmg<0){
                     OutputClass::output("`^%s`4 tries to hit you but you `^RIPOSTE`4 for `^%s`4 points of damage!`n",$badguy['creaturename'],(0-$selfdmg));
                     $badguy['creaturehealth']+=$selfdmg;
                     process_lifetaps($buffset['lifetap'], -$selfdmg);
-                    process_dmgshield($buffset['dmgshield'], $selfdmg);
+                    BattleBuffs::process_dmgshield($buffset['dmgshield'], $selfdmg);
                 }else{
                     OutputClass::output("`^%s`4 hits you for `\$%s`4 points of damage!`n",$badguy['creaturename'],$selfdmg);
                     $session['user']['hitpoints']-=$selfdmg;
@@ -612,7 +612,7 @@ public static function battle_badguy_attacks() {
                         $badguy['killedplayer'] = true;
                         $count = 1;
                     }
-                    process_dmgshield($buffset['dmgshield'], $selfdmg);
+                    BattleBuffs::process_dmgshield($buffset['dmgshield'], $selfdmg);
                     process_lifetaps($buffset['lifetap'], -$selfdmg);
                     $badguy['diddamage']=1;
                 }
