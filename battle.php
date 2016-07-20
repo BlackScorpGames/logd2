@@ -109,7 +109,7 @@ ExtendedBattle::suspend_companions((($options['type'] == 'pvp')?"allowinpvp":fal
 // Now that the bufflist is sane, see if we should add in the bodyguard.
 $inn = (int)Http::httpget('inn');
 if ($options['type']=='pvp' && $inn==1) {
-	apply_bodyguard($badguy['bodyguardlevel']);
+	BattleSkills::apply_bodyguard($badguy['bodyguardlevel']);
 }
 
 $surprised = false;
