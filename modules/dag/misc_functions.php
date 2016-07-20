@@ -539,7 +539,7 @@ function dag_pvpwin($args){
 	// ***END ADD***
 	if ($totgoodamt > 0) {
 		$args['pvpmessageadd'] .= Translator::sprintf_translate("`nThey also received `^%s`2 in bounty gold.`n", $totgoodamt);
-		OutputClass::rawoutput(tlbutton_clear());
+		OutputClass::rawoutput(Translator::tlbutton_clear());
 	}
 	return $args;
 }

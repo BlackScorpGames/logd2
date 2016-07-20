@@ -138,16 +138,6 @@ function tlbutton_pop(){
 	}
 }
 
-function tlbutton_clear(){
-	global $translatorbuttons,$session;
-	if ($session['user']['superuser'] & SU_IS_TRANSLATOR){
-		$return = tlbutton_pop().join("",$translatorbuttons);
-		$translatorbuttons = array();
-		return $return;
-	}else{
-		return "";
-	}
-}
 
 $translation_is_enabled = true;
 function enable_translation($enable=true){
@@ -160,10 +150,20 @@ $translation_namespace_stack = array();
 
 class Translator
 {
+    public static function tlbutton_clear(){
+        global $translatorbuttons,$session;
+        if ($session['user']['superuser'] & SU_IS_TRANSLATOR){
+            $return = tlbutton_pop().join("",$translatorbuttons);
+            $translatorbuttons = array();
+            return $return;
+        }else{
+            return "";
+        }
+    }
 
     public static function tl($in){
         $out = translate($in);
-        return tlbutton_clear().$out;
+        return Translator::tlbutton_clear().$out;
     }
     public static function sprintf_translate(){
         $args = func_get_args();
@@ -275,7 +275,7 @@ class Translator
 	}
 	public static function translate_inline($in,$namespace=FALSE){
 		$out = translate($in,$namespace);
-		OutputClass::rawoutput(tlbutton_clear());
+		OutputClass::rawoutput(Translator::tlbutton_clear());
 		return $out;
 	}
 }

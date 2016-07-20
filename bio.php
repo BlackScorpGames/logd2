@@ -124,10 +124,10 @@ if ($target = db_fetch_assoc($result)) {
 			  array_push($arguments, $val);
 		  }
 		  $news = call_user_func_array("Translator::sprintf_translate", $arguments);
-		  OutputClass::rawoutput(tlbutton_clear());
+		  OutputClass::rawoutput(Translator::tlbutton_clear());
 	  } else {
 		  $news = Translator::translate_inline($row['newstext']);
-		  OutputClass::rawoutput(tlbutton_clear());
+		  OutputClass::rawoutput(Translator::tlbutton_clear());
 	  }
 	  Translator::tlschema();
 	  if ($odate!=$row['newsdate']){

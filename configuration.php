@@ -204,7 +204,7 @@ if ($op == "") {
                 reltime($x), date("h:i a", $x),date("H:i",$i));
 		$enum.=",$i,$str";
 	}
-	OutputClass::rawoutput(tlbutton_clear());
+	OutputClass::rawoutput(Translator::tlbutton_clear());
 	$setup = array(
 		"Game Setup,title",
 		"loginbanner"=>"Login Banner (under login prompt: 255 chars)",

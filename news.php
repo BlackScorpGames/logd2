@@ -62,8 +62,8 @@ while ($row = db_fetch_assoc($result)) {
 	OutputClass::output_notl("`c`2-=-`@=-=`2-=-`@=-=`2-=-`@=-=`2-=-`0`c");
 	if ($session['user']['superuser'] & SU_EDIT_COMMENTS){
 		$del = Translator::translate_inline("Del");
-		OutputClass::rawoutput("[ <a href='superuser.php?op=newsdelete&newsid=".$row['newsid']."&return=".URLEncode($_SERVER['REQUEST_URI'])."'>$del</a> ]&nbsp;");
-		OutputClass::addnav("","superuser.php?op=newsdelete&newsid={$row['newsid']}&return=".URLEncode($_SERVER['REQUEST_URI']));
+		OutputClass::rawoutput("[ <a href='superuser.php?op=newsdelete&newsid=".$row['newsid']."&return=".urlencode($_SERVER['REQUEST_URI'])."'>$del</a> ]&nbsp;");
+		OutputClass::addnav("","superuser.php?op=newsdelete&newsid={$row['newsid']}&return=".urlencode($_SERVER['REQUEST_URI']));
 	}
 	Translator::tlschema($row['Translator::tlschema']);
 	if ($row['arguments']>""){
@@ -74,7 +74,7 @@ while ($row = db_fetch_assoc($result)) {
 			array_push($arguments,$val);
 		}
 		$news = call_user_func_array("Translator::sprintf_translate",$arguments);
-		OutputClass::rawoutput(tlbutton_clear());
+		OutputClass::rawoutput(Translator::tlbutton_clear());
 	}else{
 		$news = Translator::translate_inline($row['newstext']);
 	}

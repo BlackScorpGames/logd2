@@ -84,7 +84,7 @@ if ($page=="" && $op==""){
 	} else {
 		$title = Translator::sprintf_translate("Warriors of the realm");
 	}
-	OutputClass::rawoutput(tlbutton_clear());
+	OutputClass::rawoutput(Translator::tlbutton_clear());
 	$sql = "SELECT acctid,name,login,alive,hitpoints,location,race,sex,level,laston,loggedin,lastip,uniqueid FROM " . db_prefix("accounts") . " WHERE locked=0 $search ORDER BY level DESC, dragonkills DESC, login ASC $limit";
 	$result = db_query($sql);
 }

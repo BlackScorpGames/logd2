@@ -99,7 +99,7 @@ if ($op=="") {
 		$m = Translator::translate_inline(date("M",$time));
 		OutputClass::rawoutput ("<option value='{$row['d']}'".(Http::httpget("month")==$row['d']?" selected":"").">$m".date(", Y",$time)." ({$row['c']})</option>");
 	}
-	OutputClass::rawoutput("</select>".tlbutton_clear());
+	OutputClass::rawoutput("</select>".Translator::tlbutton_clear());
 	OutputClass::rawoutput("<input type='hidden' name='newcount' value='".($count+$newcount)."'>");
 	OutputClass::rawoutput("<input type='submit' value='&gt;' name='proceed'  class='button'>");
 	OutputClass::rawoutput(" <input type='submit' value='".Translator::translate_inline("Submit")."' class='button'>");

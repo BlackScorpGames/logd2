@@ -32,7 +32,7 @@ function commentarylocs() {
 	Translator::tlschema();
 	// All of the ones after this will be translated in the modules.
 	$comsecs = Modules::modulehook("moderate", $comsecs);
-	OutputClass::rawoutput(tlbutton_clear());
+	OutputClass::rawoutput(Translator::tlbutton_clear());
 	return $comsecs;
 }
 
