@@ -2,7 +2,7 @@
 
 class CharCleanUp
 {
-    function char_cleanup($id, $type)
+    public static function char_cleanup($id, $type)
     {
         // this function handles the grunt work of character cleanup.
 
