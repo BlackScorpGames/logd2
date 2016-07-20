@@ -527,7 +527,7 @@ function dag_pvpwin($args){
 	// Add Bounty Gold
 	if ($totgoodamt > 0) {
 		$session['user']['gold']+=$totgoodamt;
-		debuglog("gained ".$totgoodamt." gold bounty for killing ", $badguy['acctid']);
+		DebugLogClass::debuglog("gained ".$totgoodamt." gold bounty for killing ", $badguy['acctid']);
 	}
 	// End Add Bounty Gold
 	// Add Bounty Kill to News

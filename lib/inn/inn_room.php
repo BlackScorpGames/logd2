@@ -18,7 +18,7 @@ if ($pay){
 					$session['user']['gold']-=$expense;
 				}
 				$session['user']['boughtroomtoday']=1;
-				debuglog("spent $expense gold on an inn room");
+				DebugLogClass::debuglog("spent $expense gold on an inn room");
 			}
 			$session['user']['location']=$iname;
 			$session['user']['loggedin']=0;

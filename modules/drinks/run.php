@@ -48,7 +48,7 @@ function drinks_run_private(){
 				$drunk += $row['drunkeness'];
 				set_module_pref("drunkeness", $drunk);
 				$session['user']['gold'] -= $drinkcost;
-				debuglog("spent $drinkcost on {$row['name']}");
+				DebugLogClass::debuglog("spent $drinkcost on {$row['name']}");
 				$remark = str_replace("{lover}",$partner."`0", $row['remarks']);
 				$remark = str_replace("{barkeep}", $drinktext['barkeep']."`0", $remark);
 				if (count($drinktext['drinksubs']) > 0) {

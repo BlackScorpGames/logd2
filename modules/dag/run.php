@@ -204,7 +204,7 @@ function dag_run_private(){
 					$sql = "INSERT INTO ". db_prefix("bounty") . " (amount, target, setter, setdate) VALUES ($amt, ".$row['acctid'].", ".(int)$session['user']['acctid'].", '".date("Y-m-d H:i:s",$setdate)."')";
 					db_query($sql);
 					// ***END ADD***
-					debuglog("spent $cost to place a $amt bounty on {$row['name']}");
+					DebugLogClass::debuglog("spent $cost to place a $amt bounty on {$row['name']}");
 				}
 			}
 		}

@@ -69,7 +69,7 @@ function fairy_runevent($type)
 			OutputClass::output("She hovers over your head, sprinkles golden fairy dust down on you before flitting away.");
 			OutputClass::output("You discover that ...`n`n`^");
 			$session['user']['gems']--;
-			debuglog("gave 1 gem to a fairy");
+			DebugLogClass::debuglog("gave 1 gem to a fairy");
 			switch(Erand::e_rand(1,7)){
 			case 1:
 				$extra = get_module_setting("fftoaward");
@@ -81,7 +81,7 @@ function fairy_runevent($type)
 			case 3:
 				OutputClass::output("You feel perceptive and notice `%TWO gems`^ nearby!");
 				$session['user']['gems']+=2;
-				debuglog("found 2 gem from a fairy");
+				DebugLogClass::debuglog("found 2 gem from a fairy");
 				break;
 			case 4:
 			case 5:

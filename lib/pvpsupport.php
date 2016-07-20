@@ -111,11 +111,11 @@ class PvpSupport
 
         $lostexp = round($badguy['creatureexp'] * Settings::getsetting("pvpdeflose", 5) / 100, 0);
 
-//	debuglog("gained $winamount ({$badguy['creaturegold']} base) gold and $wonexp exp (loser lost $lostexp) for killing ", $badguy['acctid']);
+//	DebugLogClass::debuglog("gained $winamount ({$badguy['creaturegold']} base) gold and $wonexp exp (loser lost $lostexp) for killing ", $badguy['acctid']);
         //player wins gold and exp from badguy
-        debuglog("started the fight and defeated {$badguy['creaturename']} in $killedloc (earned $winamount of {$badguy['creaturegold']} gold and $wonexp of $lostexp exp)",
+        DebugLogClass::debuglog("started the fight and defeated {$badguy['creaturename']} in $killedloc (earned $winamount of {$badguy['creaturegold']} gold and $wonexp of $lostexp exp)",
             false, $session['user']['acctid']);
-        debuglog("was victim and has been defeated by {$session['user']['name']} in $killedloc (lost {$badguy['creaturegold']} gold and $lostexp exp, actor tooks $winamount gold and $wonexp exp)",
+        DebugLogClass::debuglog("was victim and has been defeated by {$session['user']['name']} in $killedloc (lost {$badguy['creaturegold']} gold and $lostexp exp, actor tooks $winamount gold and $wonexp exp)",
             false, $badguy['acctid']);
 
         $args = array('pvpmessageadd' => "", 'handled' => false, 'badguy' => $badguy, 'options' => $options);
@@ -224,11 +224,11 @@ class PvpSupport
         }
 
         $session['user']['alive'] = false;
-        //debuglog("lost {$session['user']['gold']} ($winamount to winner) gold and $lostexp exp ($wonexp to winner) being slain by ", $badguy['acctid']);
+        //DebugLogClass::debuglog("lost {$session['user']['gold']} ($winamount to winner) gold and $lostexp exp ($wonexp to winner) being slain by ", $badguy['acctid']);
 
-        debuglog("started the fight and has been defeated by {$badguy['creaturename']} in $killedloc (lost {$session['user']['gold']} gold and $lostexp exp, victim tooks $winamount gold and $wonexp exp)",
+        DebugLogClass::debuglog("started the fight and has been defeated by {$badguy['creaturename']} in $killedloc (lost {$session['user']['gold']} gold and $lostexp exp, victim tooks $winamount gold and $wonexp exp)",
             false, $session['user']['acctid']);
-        debuglog("was the victim and won aginst {$session['user']['name']} in $killedloc (earned $winamount gold and $wonexp exp)",
+        DebugLogClass::debuglog("was the victim and won aginst {$session['user']['name']} in $killedloc (earned $winamount gold and $wonexp exp)",
             false, $badguy['acctid']);
 
         $session['user']['gold'] = 0;

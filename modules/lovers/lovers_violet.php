@@ -133,7 +133,7 @@ function lovers_violet(){
 						OutputClass::output("\"`%No`0,\" she says, \"`%I'm not yet ready to settle down`0.\"`n`n");
 						OutputClass::output("Disheartened, you no longer possess the will to pursue any more forest adventures today.");
 						$session['user']['turns']=0;
-						debuglog("lost all turns after being rejected for marriage.");
+						DebugLogClass::debuglog("lost all turns after being rejected for marriage.");
 					}
 			}
 			if ($c > $session['user']['charm'])

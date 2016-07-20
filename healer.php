@@ -53,7 +53,7 @@ if ($op==""){
 	$newcost=round($pct*$cost/100,0);
 	if ($session['user']['gold']>=$newcost){
 		$session['user']['gold']-=$newcost;
-		debuglog("spent gold on healing",false,false,"healing",$newcost);
+		DebugLogClass::debuglog("spent gold on healing",false,false,"healing",$newcost);
 		$diff = round(($session['user']['maxhitpoints']-$session['user']['hitpoints'])*$pct/100,0);
 		$session['user']['hitpoints'] += $diff;
 		OutputClass::output("`3With a grimace, you up-end the potion the creature hands you, and despite the foul flavor, you feel a warmth spreading through your veins as your muscles knit back together.");

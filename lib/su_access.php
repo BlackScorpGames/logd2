@@ -49,7 +49,7 @@ function check_su_access($level){
 		OutputClass::output("For attempting to defile the gods, you have been smitten down!`n`n");
 		OutputClass::output("%s`\$, Overlord of Death`) appears before you in a vision, seizing your mind with his, and wordlessly telling you that he finds no favor with you.`n`n",Settings::getsetting('deathoverlord','`$Ramius'));
 		AddNewsClass::addnews("`&%s was smitten down for attempting to defile the gods (they tried to hack superuser pages).",$session['user']['name']);
-		debuglog("Lost {$session['user']['gold']} and ".($session['user']['experience']*0.25)." experience trying to hack superuser pages.");
+		DebugLogClass::debuglog("Lost {$session['user']['gold']} and ".($session['user']['experience']*0.25)." experience trying to hack superuser pages.");
 		$session['user']['hitpoints']=0;
 		$session['user']['alive']=0;
 		$session['user']['soulpoints']=0;

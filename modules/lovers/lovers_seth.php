@@ -124,7 +124,7 @@ function lovers_seth(){
 						OutputClass::output("%s`0 says, \"`^I'm sorry, apparently I've given you the wrong impression, I think we should just be friends.`0\"", $partner);
 						OutputClass::output("Depressed, you have no more desire to fight in the forest today.");
 						$session['user']['turns']=0;
-						debuglog("lost all turns after being rejected for marriage.");
+						DebugLogClass::debuglog("lost all turns after being rejected for marriage.");
 					}
 					break;
 				}//end switch

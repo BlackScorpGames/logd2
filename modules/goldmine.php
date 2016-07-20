@@ -161,7 +161,7 @@ function goldmine_runevent($type)
 				$gold = Erand::e_rand($session['user']['level']*5, $session['user']['level']*20);
 				OutputClass::output("`^After a few hours of hard work, you find %s gold!`n`n", $gold);
 				$session['user']['gold'] += $gold;
-				debuglog("found $gold gold in the goldmine");
+				DebugLogClass::debuglog("found $gold gold in the goldmine");
 				OutputClass::output("`^You lose one forest fight while digging.`n`n");
 				if ($session['user']['turns']>0) $session['user']['turns']--;
 				$session['user']['specialinc']="";
@@ -170,7 +170,7 @@ function goldmine_runevent($type)
 				$gems = Erand::e_rand(1, round($session['user']['level']/7)+1);
 				OutputClass::output("`^After a few hours of hard work, you find `%%s %s`^!`n`n", $gems, Translator::translate_inline($gems == 1 ? "gem" : "gems"));
 				$session['user']['gems'] += $gems;
-				debuglog("found $gems gems in the goldmine");
+				DebugLogClass::debuglog("found $gems gems in the goldmine");
 				OutputClass::output("`^You lose one forest fight while digging.`n`n");
 				if ($session['user']['turns']>0) $session['user']['turns']--;
 				$session['user']['specialinc']="";
@@ -182,7 +182,7 @@ function goldmine_runevent($type)
 				OutputClass::output("`^After a few hours of hard work, you find `%%s %s`^ and %s gold!`n`n", $gems, Translator::translate_inline($gems==1?"gem":"gems"), $gold);
 				$session['user']['gems'] += $gems;
 				$session['user']['gold'] += $gold;
-				debuglog("found $gold gold and $gems gems in the goldmine");
+				DebugLogClass::debuglog("found $gold gold and $gems gems in the goldmine");
 				OutputClass::output("`^You lose one forest fight while digging.`n`n");
 				if ($session['user']['turns']>0) $session['user']['turns']--;
 				$session['user']['specialinc']="";
@@ -227,7 +227,7 @@ function goldmine_runevent($type)
 						}
 						global $playermount;
 						$debugmount = $playermount['mountname'];
-						debuglog("lost their mount, a $debugmount, in a mine collapse.");
+						DebugLogClass::debuglog("lost their mount, a $debugmount, in a mine collapse.");
 						$session['user']['hashorse'] = 0;
 						if(isset($session['bufflist']['mount']))
 							strip_buff("mount");
@@ -248,7 +248,7 @@ function goldmine_runevent($type)
 					$session['user']['hitpoints']=0;
 					$gemlost = round(get_module_setting("percentgemloss")/100 * $session['user']['gems'], 0);
 					$goldlost = round(get_module_setting("percentgoldloss")/100 * $session['user']['gold'], 0);
-					debuglog("lost $goldlost gold and $gemlost gems by dying in the goldmine");
+					DebugLogClass::debuglog("lost $goldlost gold and $gemlost gems by dying in the goldmine");
 					OutputClass::output("`^%s gold `&and `%%s %s`& were lost when you were buried!", $goldlost, $gemlost, Translator::translate_inline($gemlost == 1?"gem":"gems"));
 					$session['user']['gold'] -= $goldlost;
 					$session['user']['gems'] -= $gemlost;
@@ -268,7 +268,7 @@ function goldmine_runevent($type)
 						}
 					}
 					OutputClass::output("`n`&Your close call scared you so badly that you cannot face any more opponents today.`n");
-					debuglog("`&has lost all turns for the day due to a close call in the mine.");
+					DebugLogClass::debuglog("`&has lost all turns for the day due to a close call in the mine.");
 					$session['user']['turns']=0;
 				}
 				break;

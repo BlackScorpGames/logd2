@@ -133,7 +133,7 @@ function outhouse_run(){
 			OutputClass::output("He politely turns his back to you and finishes cleaning the wash stand.`n");
 		}
 		$session['user']['gold'] -= $cost;
-		debuglog("spent $cost gold to use the outhouse");
+		DebugLogClass::debuglog("spent $cost gold to use the outhouse");
 		OutputClass::addnav("Wash your hands", "runmodule.php?module=outhouse&op=washpay");
 		OutputClass::addnav("Leave", "runmodule.php?module=outhouse&op=nowash");
 	}elseif ($op == "free"){
@@ -154,11 +154,11 @@ function outhouse_run(){
 			OutputClass::output("`^The Wash Room Fairy blesses you!`n");
 			OutputClass::output("`7You receive `^%s`7 gold for being sanitary and clean!`0`n", $giveback);
 			$session['user']['gold'] += $giveback;
-			debuglog("got $giveback gold in the outhouse for washing");
+			DebugLogClass::debuglog("got $giveback gold in the outhouse for washing");
 			$givegemtemp = Erand::e_rand(1, 100);
 			if ($givegemtemp <= $givegempercent){
 				$session['user']['gems']++;
-				debuglog("gained 1 gem in the outhouse");
+				DebugLogClass::debuglog("gained 1 gem in the outhouse");
 				OutputClass::output("`&Aren't you the lucky one to find a `%gem`& there by the doorway!`0`n");
 			}
 			$giveturntemp = Erand::e_rand(1, 100);
@@ -170,7 +170,7 @@ function outhouse_run(){
 			if (Erand::e_rand(1, 3)==1) {
 				OutputClass::output("`&You notice a small bag containing `^%s`7 gold that someone left by the washstand.`0", $giveback);
 				$session['user']['gold'] += $giveback;
-				debuglog("got $giveback gold in the outhouse for washing");
+				DebugLogClass::debuglog("got $giveback gold in the outhouse for washing");
 			}
 		}
 		$args = array(
@@ -189,7 +189,7 @@ function outhouse_run(){
 		if ($takeaway >= $badmusthit){
 			if ($session['user']['gold'] >= $goldinhand){
 				$session['user']['gold'] -= $takeback;
-				debuglog("lost $takeback gold in the outhouse for not washing");
+				DebugLogClass::debuglog("lost $takeback gold in the outhouse for not washing");
 				OutputClass::output("`nThe Toilet Paper Gnome has thrown you to the slimy, filthy floor and extracted `\$%s gold`2 %s from you due to your slovenliness!`n", $takeback, Translator::translate_inline($takeback ==1?"piece":"pieces"));
 			}
 			OutputClass::output("Aren't you glad an embarrassing moment like this isn't in the news?`n");

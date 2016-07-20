@@ -34,7 +34,7 @@ if ($act==""){
 			}else{
 				$chance = $amt*30;
 				$session['user']['gems']-=$amt;
-				debuglog("spent $amt gems on bribing $barkeep");
+				DebugLogClass::debuglog("spent $amt gems on bribing $barkeep");
 				$try=true;
 			}
 		}else{
@@ -47,7 +47,7 @@ if ($act==""){
 				$fact = $amt/$session['user']['level'];
 				$chance = ($fact - 10)*$sfactor + 25;
 					$session['user']['gold']-=$amt;
-				debuglog("spent $amt gold bribing $barkeep");
+				DebugLogClass::debuglog("spent $amt gold bribing $barkeep");
 			}
 		}
 		if ($try){

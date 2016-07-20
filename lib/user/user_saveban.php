@@ -35,6 +35,6 @@ if ($sql!=""){
 	db_query($sql);
 	OutputClass::output("%s ban rows entered.`n`n", db_affected_rows());
 	OutputClass::output_notl("%s", db_error(LINK));
-	debuglog("entered a ban: " .  ($type=="ip"?  "IP: ".Http::httppost("ip"): "ID: ".Http::httppost("id")) . " Ends after: $duration  Reason: \"" .  Http::httppost("reason")."\"");
+	DebugLogClass::debuglog("entered a ban: " .  ($type=="ip"?  "IP: ".Http::httppost("ip"): "ID: ".Http::httppost("id")) . " Ends after: $duration  Reason: \"" .  Http::httppost("reason")."\"");
 }
 ?>

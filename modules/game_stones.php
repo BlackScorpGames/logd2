@@ -113,11 +113,11 @@ function game_stones_run(){
 		if ($stones['player']>$stones['oldman']){
 			OutputClass::output("`3Having defeated the old man at his game, you claim your `^%s`3 gold.", $stones['bet']);
 			$session['user']['gold']+=$stones['bet'];
-			debuglog("won {$stones['bet']} gold in the stones game");
+			DebugLogClass::debuglog("won {$stones['bet']} gold in the stones game");
 		}elseif ($stones['player']<$stones['oldman']){
 			OutputClass::output("`3Having defeated you at his game, the old man claims your `^%s`3 gold.", $stones['bet']);
 			$session['user']['gold']-=$stones['bet'];
-			debuglog("lost {$stones['bet']} gold in the stones game");
+			DebugLogClass::debuglog("lost {$stones['bet']} gold in the stones game");
 		}else{
 			OutputClass::output("`3Having tied the old man, you call it a draw.");
 		}

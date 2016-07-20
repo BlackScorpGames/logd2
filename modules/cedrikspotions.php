@@ -339,7 +339,7 @@ function cedrikspotions_run(){
 						}
 						break;
 					}
-					debuglog("used $gemcount gems on $potiontype potions");
+					DebugLogClass::debuglog("used $gemcount gems on $potiontype potions");
 				}else{
 					OutputClass::output("`n`nYou feel as though your gems would be better used elsewhere, not on some smelly potion.");
 				}

@@ -244,7 +244,7 @@ function crazyaudrey_run(){
 			OutputClass::output("You place your `^%s`5 gold in the basket, and spend a few minutes petting one of the %s`5.", $cost, $lcplural);
 			OutputClass::output("Soon though, Crazy Audrey chases you off, and you stand at a distance admiring the %s`5.",$lcplural);
 			$session['user']['gold']-=$cost;
-			debuglog("spent $cost gold to pet audrey's pets");
+			DebugLogClass::debuglog("spent $cost gold to pet audrey's pets");
 			$profit += $cost;
 			set_module_setting("profit",$profit);
 			$buffname = get_module_setting("buffname");

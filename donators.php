@@ -77,7 +77,7 @@ if ($op=="add2"){
 			$result['messages'] = array($result['messages']);
 		}
 		foreach($result['messages'] as $messageid=>$message){
-			debuglog($message,false,$id,"donation",0,false);
+			DebugLogClass::debuglog($message,false,$id,"donation",0,false);
 		}
 	}else{
 		$points = $amt;
@@ -92,10 +92,10 @@ if ($op=="add2"){
 	if ($txnid>""){
 		$sql = "UPDATE ".db_prefix("paylog")." SET acctid='$id', processed=1 WHERE txnid='$txnid'";
 		db_query($sql);
-		debuglog("Received donator points for donating -- Credited manually [$reason]",false,$id,"donation",$points,false);
+		DebugLogClass::debuglog("Received donator points for donating -- Credited manually [$reason]",false,$id,"donation",$points,false);
 		RedirectClass::redirect("paylog.php");
 	}else{
-		debuglog("Received donator points -- Manually assigned, not based on a known dollar donation [$reason]",false,$id,"donation",$amt,false);
+		DebugLogClass::debuglog("Received donator points -- Manually assigned, not based on a known dollar donation [$reason]",false,$id,"donation",$amt,false);
 	}
 	if ($points == 1) {
 		systemmail($id,array("Donation Point Added"),array("`2You have received a donation point for %s.",$reason));

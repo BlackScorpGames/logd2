@@ -40,7 +40,7 @@ function findgold_runevent($type,$link)
 	$gold = Erand::e_rand($min, $max);
 	OutputClass::output("`^Fortune smiles on you and you find %s gold!`0", $gold);
 	$session['user']['gold']+=$gold;
-	debuglog("found $gold gold in the dirt");
+	DebugLogClass::debuglog("found $gold gold in the dirt");
 }
 
 function findgold_run(){

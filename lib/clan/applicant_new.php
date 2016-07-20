@@ -69,7 +69,7 @@
 							$session['user']['clanjoindate']=date("Y-m-d H:i:s");
 							$session['user']['gold']-=$gold;
 							$session['user']['gems']-=$gems;
-							debuglog("has started a new clan (<$clanshort> $clanname) for $gold gold and $gems gems.");
+							DebugLogClass::debuglog("has started a new clan (<$clanshort> $clanname) for $gold gold and $gems gems.");
 							OutputClass::output("%s`7 looks over your form, and finding that everything seems to be in order, she takes your fees, stamps the form \"`\$APPROVED`7\" and files it in a drawer.`n`n",$registrar);
 							OutputClass::output("Congratulations, you've created a new clan named %s!",stripslashes($clanname));
 							OutputClass::addnav("Enter your clan hall","clan.php");

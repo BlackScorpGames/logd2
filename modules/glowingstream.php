@@ -96,7 +96,7 @@ function glowingstream_runevent($type,$link)
 			OutputClass::output("You notice something glittering under one of the pebbles that line the stream.`n`n");
 			OutputClass::output("`^You find a `%GEM`^!");
 			$session['user']['gems']++;
-			debuglog("found 1 gem by the stream");
+			DebugLogClass::debuglog("found 1 gem by the stream");
 			break;
 		case 5:
 		case 6:

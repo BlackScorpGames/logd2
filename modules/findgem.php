@@ -32,7 +32,7 @@ function findgem_runevent($type,$link)
 	global $session;
 	OutputClass::output("`^Fortune smiles on you and you find a `%gem`^!`0");
 	$session['user']['gems']++;
-	debuglog("found a gem in the dirt");
+	DebugLogClass::debuglog("found a gem in the dirt");
 }
 
 function findgem_run(){

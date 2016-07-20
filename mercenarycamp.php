@@ -188,7 +188,7 @@ if ($op==""){
 	} else {
 		$companions[$name]['hitpoints'] = $companions[$name]['maxhitpoints'];
 		$session['user']['gold'] -= $cost;
-		debuglog("spent $cost gold on healing a companion", false, false, "healcompanion", $cost);
+		DebugLogClass::debuglog("spent $cost gold on healing a companion", false, false, "healcompanion", $cost);
 		Translator::tlschema($schemas['healpaid']);
 	  	if (is_array($texts['healpaid'])) {
 	  		foreach ($texts['healpaid'] as $healpaid) {
@@ -221,7 +221,7 @@ if ($op==""){
 			}
 			$session['user']['gold'] -= $row['companioncostgold'];
 			$session['user']['gems'] -= $row['companioncostgems'];
-			debuglog("has spent {$row['companioncostgold']} gold and {$row['companioncostgems']} gems on hiring a mercenary ({$row['name']}).");
+			DebugLogClass::debuglog("has spent {$row['companioncostgold']} gold and {$row['companioncostgems']} gems on hiring a mercenary ({$row['name']}).");
 		} else {
 			// applying the companion failed. Most likely they already have more than enough companions...
 			Translator::tlschema($schemas['toomanycompanions']);

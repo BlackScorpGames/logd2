@@ -95,13 +95,13 @@ function game_dice_run(){
 				if ($r>$session['user']['specialmisc']){
 					OutputClass::output("`n\"`7Yeehaw, I knew the likes of you would never stand up to the likes of me!`0\" exclaims the old man as you hand him your `^%s`0 gold.", $bet);
 					$session['user']['gold']-=$bet;
-					debuglog("lost $bet gold at dice");
+					DebugLogClass::debuglog("lost $bet gold at dice");
 				}elseif ($r==$session['user']['specialmisc']){
 					OutputClass::output("`n\"`7Yah... well, looks as though we tied.`0\" he says.");
 				}else{
 					OutputClass::output("`n\"`7Aaarrgh!!!  How could the likes of you beat me?!?!?`0\" shouts the old man as he gives you the gold he owes.");
 					$session['user']['gold']+=$bet;
-					debuglog("won $bet gold at dice");
+					DebugLogClass::debuglog("won $bet gold at dice");
 				}
 				OutputClass::addnav("Play again?","runmodule.php?module=game_dice&ret=$ret");
 				OutputClass::addnav("Other Games",appendlink(urldecode($ret), "op=oldman"));

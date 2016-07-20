@@ -40,7 +40,7 @@ class ForestOutcomes{
         }
         AddNewsClass::addnews("`%%s`5 has been slain %s by %s.`n%s",$session['user']['name'],$where,$badguy['creaturename'],$taunt);
         $session['user']['alive']=false;
-        debuglog("lost gold when they were slain $where",false,false,"forestlose",-$session['user']['gold']);
+        DebugLogClass::debuglog("lost gold when they were slain $where",false,false,"forestlose",-$session['user']['gold']);
         $session['user']['gold']=0;
         $session['user']['hitpoints']=0;
         $session['user']['experience']=round($session['user']['experience']*(1-($percent/100)),0);
@@ -95,7 +95,7 @@ class ForestOutcomes{
 
         if ($gold) {
             OutputClass::output("`#You receive `^%s`# gold!`n",$gold);
-            debuglog("received gold for slaying a monster.",false,false,"forestwin",$badguy['creaturegold']);
+            DebugLogClass::debuglog("received gold for slaying a monster.",false,false,"forestwin",$badguy['creaturegold']);
         }
         // No gem hunters allowed!
         $args = Modules::modulehook("alter-gemchance", array("chance"=>Settings::getsetting("forestgemchance", 25)));
@@ -103,7 +103,7 @@ class ForestOutcomes{
         if ($session['user']['level'] < 15 && Erand::e_rand(1,$gemchances) == 1) {
             OutputClass::output("`&You find A GEM!`n`#");
             $session['user']['gems']++;
-            debuglog("found gem when slaying a monster.",false,false,"forestwingem",1);
+            DebugLogClass::debuglog("found gem when slaying a monster.",false,false,"forestwingem",1);
         }
         if (Settings::getsetting("instantexp",false) == true) {
             $expgained = 0;

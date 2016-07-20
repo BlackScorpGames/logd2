@@ -243,7 +243,7 @@ if ($op==""){
 	}
 	$session['user']['charm']+=5;
 	OutputClass::output("`^You gain FIVE charm points for having defeated the dragon!`n");
-	debuglog("slew the dragon and starts with {$session['user']['gold']} gold and {$session['user']['gems']} gems");
+	DebugLogClass::debuglog("slew the dragon and starts with {$session['user']['gold']} gold and {$session['user']['gems']} gems");
 
 	// Moved this hear to make some things easier.
 	Modules::modulehook("dragonkill", array());
@@ -282,7 +282,7 @@ if ($battle){
 				AddNewsClass::addnews("`%%s`5 has been slain when he encountered `@The Green Dragon`5!!!  His bones now litter the cave entrance, just like the bones of those who came before.`n%s",$session['user']['name'],$taunt);
 			}
 			$session['user']['alive']=false;
-			debuglog("lost {$session['user']['gold']} gold when they were slain");
+			DebugLogClass::debuglog("lost {$session['user']['gold']} gold when they were slain");
 			$session['user']['gold']=0;
 			$session['user']['hitpoints']=0;
 			OutputClass::output("`b`&You have been slain by `@The Green Dragon`&!!!`n");

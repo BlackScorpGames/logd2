@@ -121,7 +121,7 @@ if ($op==""){
 			}else if($row['acctid']==$session['user']['acctid']){
 				OutputClass::output("`@Elessa`6 glares at you, her eyes flashing dangerously, \"`@You may not transfer money to yourself!  That makes no sense!`6\"");
 			}else{
-				debuglog("transferred $amt gold to", $row['acctid']);
+				DebugLogClass::debuglog("transferred $amt gold to", $row['acctid']);
 				$session['user']['gold']-=$amt;
 				if ($session['user']['gold']<0){
 					//withdraw in case they don't have enough on hand.
@@ -167,7 +167,7 @@ if ($op==""){
 	if ($amount>$session['user']['gold']){
 		OutputClass::output_notl($notenough,$session['user']['gold'],$amount);
 	}else{
-		debuglog("deposited " . $amount . " gold in the bank");
+		DebugLogClass::debuglog("deposited " . $amount . " gold in the bank");
 		$session['user']['goldinbank']+=$amount;
 		$session['user']['gold']-=$amount;
 		OutputClass::output_notl($session['user']['goldinbank']>=0?$depositbalance:$depositdebt,$amount,$session['user']['name'], abs($session['user']['goldinbank']),$session['user']['gold']);
@@ -216,7 +216,7 @@ if ($op==""){
 				$lefttoborrow-=$session['user']['goldinbank'];
 				$session['user']['gold']+=$session['user']['goldinbank'];
 				$session['user']['goldinbank']=0;
-				debuglog("withdrew $amount gold from the bank");
+				DebugLogClass::debuglog("withdrew $amount gold from the bank");
 				$didwithdraw = 1;
 			}
 			if ($lefttoborrow-$session['user']['goldinbank'] > $maxborrow){
@@ -234,7 +234,7 @@ if ($op==""){
 				}
 				$session['user']['goldinbank']-=$lefttoborrow;
 				$session['user']['gold']+=$lefttoborrow;
-				debuglog("borrows $lefttoborrow gold from the bank");
+				DebugLogClass::debuglog("borrows $lefttoborrow gold from the bank");
 				OutputClass::output("`@Elessa`6 records your withdrawal of `^%s `6gold in her ledger. \"`@Thank you, `&%s`@.  You now have a debt of `\$%s`@ gold to the bank and `^%s`@ gold in hand.`6\"", $amount,$session['user']['name'], abs($session['user']['goldinbank']),$session['user']['gold']);
 			}
 		}else{
@@ -243,7 +243,7 @@ if ($op==""){
 	}else{
 		$session['user']['goldinbank']-=$amount;
 		$session['user']['gold']+=$amount;
-		debuglog("withdrew $amount gold from the bank");
+		DebugLogClass::debuglog("withdrew $amount gold from the bank");
 		OutputClass::output("`@Elessa`6 records your withdrawal of `^%s `6gold in her ledger. \"`@Thank you, `&%s`@.  You now have a balance of `^%s`@ gold in the bank and `^%s`@ gold in hand.`6\"", $amount,$session['user']['name'], abs($session['user']['goldinbank']),$session['user']['gold']);
 	}
 }

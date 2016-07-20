@@ -16,7 +16,7 @@ while (list($key,$val)=each($post)){
 				$sql.="password=\"".md5(md5($val))."\",";
 				$updates++;
 				OutputClass::output("Password value has been updated.`n");
-				debuglog($session['user']['name']."`0 changed password to $val",$userid);
+				DebugLogClass::debuglog($session['user']['name']."`0 changed password to $val",$userid);
 				if ($session['user']['acctid']==$userid) {
 					$session['user']['password']=md5(md5($val));
 				}
@@ -42,7 +42,7 @@ while (list($key,$val)=each($post)){
 				if ($session['user']['acctid']==$userid) {
 					$session['user']['superuser']=$value;
 				}
-				debuglog($session['user']['name']."`0 changed superuser to ".show_bitfield($value),$userid);
+				DebugLogClass::debuglog($session['user']['name']."`0 changed superuser to ".show_bitfield($value),$userid);
 				OutputClass::debug("superuser has changed to $value");
 			}
 		} elseif ($key=="name" && stripslashes($val)!=$oldvalues[$key]) {
@@ -60,7 +60,7 @@ while (list($key,$val)=each($post)){
 				$newname = change_player_name($tmp, $oldvalues);
 			$sql.="$key = \"".addslashes($newname)."\",";
 			OutputClass::output("Changed player name to %s`0`n", $newname);
-			debuglog($session['user']['name'] . "`0 changed player name to $newname`0", $userid);
+			DebugLogClass::debuglog($session['user']['name'] . "`0 changed player name to $newname`0", $userid);
 			$oldvalues['name']=$newname;
 			if ($session['user']['acctid']==$userid) {
 				$session['user']['name'] = $newname;
@@ -83,7 +83,7 @@ while (list($key,$val)=each($post)){
 			if ($newname != $oldvalues['name']) {
 				$sql.="name = \"".addslashes($newname)."\",";
 				OutputClass::output("Changed player name to %s`0 due to changed dragonkill title`n", $newname);
-				debuglog($session['user']['name'] . "`0 changed player name to $newname`0 due to changed dragonkill title", $userid);
+				DebugLogClass::debuglog($session['user']['name'] . "`0 changed player name to $newname`0 due to changed dragonkill title", $userid);
 				$oldvalues['name']=$newname;
 				if ($session['user']['acctid']==$userid) {
 					$session['user']['name'] = $newname;
@@ -110,7 +110,7 @@ while (list($key,$val)=each($post)){
 			if ($newname != $oldvalues['name']) {
 				$sql.="name = \"".addslashes($newname)."\",";
 				OutputClass::output("Changed player name to %s`0 due to changed custom title`n", $newname);
-				debuglog($session['user']['name'] . "`0 changed player name to $newname`0 due to changed custom title", $userid);
+				DebugLogClass::debuglog($session['user']['name'] . "`0 changed player name to $newname`0 due to changed custom title", $userid);
 				$oldvalues['name']=$newname;
 				if ($session['user']['acctid']==$userid) {
 					$session['user']['name'] = $newname;
@@ -125,7 +125,7 @@ while (list($key,$val)=each($post)){
 			$sql.="$key = \"$val\",";
 			$updates++;
 			OutputClass::output("%s has changed to %s.`n", $key, stripslashes($val));
-			debuglog($session['user']['name']."`0 changed $key to $val",$userid);
+			DebugLogClass::debuglog($session['user']['name']."`0 changed $key to $val",$userid);
 			if ($session['user']['acctid']==$userid) {
 				$session['user'][$key]=stripslashes($val);
 			}

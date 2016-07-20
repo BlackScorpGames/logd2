@@ -317,7 +317,7 @@ if ($dp < $dkills) {
 	$args = Modules::modulehook("newday",
 			array("resurrection"=>$resurrection, "turnstoday"=>$turnstoday));
 	$turnstoday = $args['turnstoday'];
-	debuglog("New Day Turns: $turnstoday");
+	DebugLogClass::debuglog("New Day Turns: $turnstoday");
 
 }
 PageParts::page_footer();

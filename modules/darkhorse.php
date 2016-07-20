@@ -193,7 +193,7 @@ function darkhorse_bartender($from){
 						OutputClass::output("more beautiful shan you.`n");
 					}
 					$session['user']['gold']-=100;
-					debuglog("spent 100 gold to learn about an enemy");
+					DebugLogClass::debuglog("spent 100 gold to learn about an enemy");
 				}else{
 					OutputClass::output("\"`7Eh..?  I don't know anyone named that.`0\"");
 				}

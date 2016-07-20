@@ -77,7 +77,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 		}else{
 			/* OK, let's fix the multimaster thing */
 			$session['user']['seenmaster'] = 1;
-			debuglog("Challenged master, setting seenmaster to 1");
+			DebugLogClass::debuglog("Challenged master, setting seenmaster to 1");
 
 			if ($session['user']['experience']>=$exprequired){
 				$dk = 0;
@@ -182,7 +182,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 			// Fix the multimaster bug
 			if (Settings::getsetting("multimaster", 1) == 1) {
 				$session['user']['seenmaster']=0;
-				debuglog("Defeated master, setting seenmaster to 0");
+				DebugLogClass::debuglog("Defeated master, setting seenmaster to 0");
 			}
 			OutputClass::output("`#You advance to level `^%s`#!`n",$session['user']['level']);
 			OutputClass::output("Your maximum hitpoints are now `^%s`#!`n",$session['user']['maxhitpoints']);

@@ -106,7 +106,7 @@ function game_fivesix_run(){
 				OutputClass::output("He shakes his head at you then turns back to his ale as though you weren't there.");
 				OutputClass::addnav("Return to the Main Room",appendlink(urldecode($ret), "op=tavern"));
 			}else{
-				debuglog("spent $cost gold on five-sixes game");
+				DebugLogClass::debuglog("spent $cost gold on five-sixes game");
 				$session['user']['gold']-=$cost;
 				$visits++;
 				set_module_pref("playstoday",$visits);
@@ -139,7 +139,7 @@ function game_fivesix_run(){
 					OutputClass::output("\"Tis rare for anybody to win this prize\"`n");
 					OutputClass::output("`^The old man hands you your winnings of %s gold",$prize);
 					$session['user']['gold']+=$prize;
-					debuglog("won $prize gold at sixes game.");
+					DebugLogClass::debuglog("won $prize gold at sixes game.");
 					AddNewsClass::addnews("%s won %s gold after rolling 5 sixes in the %s.",$session['user']['name'],$prize, get_module_setting("tavernname","darkhorse"));
 					set_module_setting("jackpot",100);
 					set_module_setting("lastpot5",$prize);
@@ -150,7 +150,7 @@ function game_fivesix_run(){
 					$prize=$prize - $win;
 					set_module_setting("jackpot", $prize);
 					$session['user']['gold']+=$win;
-					debuglog("won $win gold at sixes game.");
+					DebugLogClass::debuglog("won $win gold at sixes game.");
 					set_module_setting("lastpot4",$win);
 					$lastwin4=$session['user']['name'];
 					set_module_setting("lastwin4",$lastwin4);
@@ -168,7 +168,7 @@ function game_fivesix_run(){
 					$lastwin3=$session['user']['name'];
 					set_module_setting("lastwin3",$lastwin3);
 
-					debuglog("won $win gold at sixes game.");
+					DebugLogClass::debuglog("won $win gold at sixes game.");
 					AddNewsClass::addnews("%s won %s gold after rolling 3 sixes in the %s.",$session['user']['name'],$win,get_module_setting("tavernname", "darkhorse"));
 					OutputClass::output("`@The old man leans over the table to peer at your dice and cackles as he notes your results.`n");
 					OutputClass::output("\"Well now...three out of five sixes isn't a bad effort, my friend. I'll give ye %s gold for that try.\"`n`n",$win);

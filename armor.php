@@ -150,7 +150,7 @@ if ($op==""){
 			Translator::tlschema($schemas['payarmor']);
 			OutputClass::output($texts['payarmor'],$session['user']['armor'],$row['armorname'],$row['armorname']);
 			Translator::tlschema();
-			debuglog("spent " . ($row['value']-$tradeinvalue) . " gold on the " . $row['armorname'] . " armor");
+			DebugLogClass::debuglog("spent " . ($row['value']-$tradeinvalue) . " gold on the " . $row['armorname'] . " armor");
 			$session['user']['gold']-=$row['value'];
 			$session['user']['armor'] = $row['armorname'];
 			$session['user']['gold']+=$tradeinvalue;

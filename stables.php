@@ -211,7 +211,7 @@ if ($op == 'confirmbuy') {
 				OutputClass::output($texts['hungry'], $name, $name, $grubprice);
 				Translator::tlschema();
 			}
-			debuglog("spent $grubprice feeding their mount");
+			DebugLogClass::debuglog("spent $grubprice feeding their mount");
 			apply_buff('mount',$buff);
 			$session['user']['fedmount'] = 1;
 			Translator::tlschema($schemas['mountfull']);
@@ -239,7 +239,7 @@ if ($op == 'confirmbuy') {
 	$session['user']['gold']+=$repaygold;
 	$session['user']['gems']+=$repaygems;
 	$debugmount=$playermount['mountname'];
-	debuglog("gained $repaygold gold and $repaygems gems selling their mount, a $debugmount");
+	DebugLogClass::debuglog("gained $repaygold gold and $repaygems gems selling their mount, a $debugmount");
 	strip_buff('mount');
 	$session['user']['hashorse']=0;
 	Modules::modulehook("soldmount");

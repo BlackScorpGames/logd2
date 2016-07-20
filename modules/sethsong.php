@@ -177,7 +177,7 @@ function sethsong_sing()
 		OutputClass::output("Though you don't really gain anything from the tale from %s`0, you do happen to notice a few gold on the ground!", Settings::getsetting("bard", "`^Seth"));
 		$gain = Erand::e_rand($leastgold,$mostgold);
 		$session['user']['gold']+=$gain;
-		debuglog("found $gain gold near Seth");
+		DebugLogClass::debuglog("found $gain gold near Seth");
 		break;
 	case 4:
 		OutputClass::output("So a pirate goes into a bar with a steering wheel in his pants.`n");
@@ -216,7 +216,7 @@ function sethsong_sing()
 			OutputClass::output("While you ponder this conundrum, %s`0 \"liberates\" a small entertainment fee from your purse.`n`n", Settings::getsetting("bard", "`^Seth"));
 			OutputClass::output("You lose %s gold!",$gold);
 			$session['user']['gold']-=$gold;
-			debuglog("lost $gold gold to Seth");
+			DebugLogClass::debuglog("lost $gold gold to Seth");
 		} else {
 			OutputClass::output("While you ponder this conundrum, %s`0 attempts to \"liberate\" a small entertainment fee from your purse, but doesn't find enough to bother with.", Settings::getsetting("bard", "`^Seth"));
 		}
@@ -236,7 +236,7 @@ function sethsong_sing()
 			OutputClass::output("Shaking your head, you notice %s gems in the dust.",$gems);
 			$session['user']['gems']+=$gems;
 		}
-		debuglog("got $gems gem\\(s\\) from Seth");
+		DebugLogClass::debuglog("got $gems gem\\(s\\) from Seth");
 		break;
 	case 10:
 		OutputClass::output("%s`0 plays a soft but haunting melody.`n`n", Settings::getsetting("bard", "`^Seth"));

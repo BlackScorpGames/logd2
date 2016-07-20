@@ -113,12 +113,12 @@ function writelog($response){
 			$sql = "UPDATE " . db_prefix("accounts") . " SET donation = donation + '{$hookresult['points']}' WHERE acctid=$acctid";
 
 			$result = db_query($sql);
-			debuglog("Received donator points for donating -- Credited Automatically",false,$acctid,"donation",$hookresult['points'],false);
+			DebugLogClass::debuglog("Received donator points for donating -- Credited Automatically",false,$acctid,"donation",$hookresult['points'],false);
 			if (!is_array($hookresult['messages'])){
 				$hookresult['messages'] = array($hookresult['messages']);
 			}
 			foreach ($hookresult['messages'] as $id=>$message){
-				debuglog($message,false,$acctid,"donation",0,false);
+				DebugLogClass::debuglog($message,false,$acctid,"donation",0,false);
 			}
 			if (db_affected_rows()>0) $processed = 1;
 			Modules::modulehook("donation", array("id"=>$acctid, "amt"=>$donation*100, "manual"=>false));

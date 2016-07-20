@@ -53,7 +53,7 @@ function foilwench_runevent($type)
 			OutputClass::output("`@Foil`&wench%s sighs... \"`&You didn't have to eat it...  Oh well, now be gone from here!%s\"`3", $c, $c);
 			increment_specialty("`3");
 			$session['user']['gems']--;
-			debuglog("gave 1 gem to Foilwench");
+			DebugLogClass::debuglog("gave 1 gem to Foilwench");
 		}else{
 			OutputClass::output("%sYou hand over your imaginary gem.", $c);
 			OutputClass::output("`@Foil`&wench%s stares blankly back at you.", $c);
