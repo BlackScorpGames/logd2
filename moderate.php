@@ -198,7 +198,7 @@ if ($op==""){
 					$clanrankcolors[ceil($comment['clanrank']/10)]);
 		OutputClass::output_notl("%s", $comment['name']);
 		OutputClass::output_notl("-");
-		OutputClass::output_notl("%s", comment_sanitize($comment['comment']));
+		OutputClass::output_notl("%s", SanitizeClass::comment_sanitize($comment['comment']));
 		OutputClass::rawoutput("</td>");
 		OutputClass::rawoutput("</tr>");
 	}

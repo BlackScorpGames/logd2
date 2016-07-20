@@ -297,7 +297,7 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 	$counttoday=0;
 	for ($i=0; $i < $rowcount; $i++){
 		$row = $commentbuffer[$i];
-		$row['comment'] = comment_sanitize($row['comment']);
+		$row['comment'] = SanitizeClass::comment_sanitize($row['comment']);
 		$commentids[$i] = $row['commentid'];
 		if (date("Y-m-d",strtotime($row['postdate']))==date("Y-m-d")){
 			if ($row['name']==$session['user']['name']) $counttoday++;

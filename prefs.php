@@ -107,8 +107,8 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 			$session['user']['prefs'][$key]=Http::httppost($key);
 		}
 		$bio = stripslashes(Http::httppost('bio'));
-		$bio = comment_sanitize($bio);
-		if ($bio!=comment_sanitize($session['user']['bio'])){
+		$bio = SanitizeClass::comment_sanitize($bio);
+		if ($bio!=SanitizeClass::comment_sanitize($session['user']['bio'])){
 			if ($session['user']['biotime']>"9000-01-01") {
 				OutputClass::output("`\$You cannot modify your bio.");
 				OutputClass::output("It has been blocked by the administrators!`0`n");

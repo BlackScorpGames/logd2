@@ -11,13 +11,6 @@ function newline_sanitize($in){
 
 
 
-function comment_sanitize($in) {
-	// to keep the regexp from boinging this, we need to make sure
-	// that we're not replacing in with the ` mark.
-	$out=preg_replace("/[`](?=[^1234567890!@#\$%^&)~QqRVvGgTteEjJlLxXyYkKpPmM?*Aa])/", chr(1).chr(1), $in);
-	$out = str_replace(chr(1),"`",$out);
-	return $out;
-}
 
 function logdnet_sanitize($in)
 {
@@ -28,6 +21,15 @@ function logdnet_sanitize($in)
 	return $out;
 }
 class SanitizeClass{
+
+    public static function comment_sanitize($in) {
+        // to keep the regexp from boinging this, we need to make sure
+        // that we're not replacing in with the ` mark.
+        $out=preg_replace("/[`](?=[^1234567890!@#\$%^&)~QqRVvGgTteEjJlLxXyYkKpPmM?*Aa])/", chr(1).chr(1), $in);
+        $out = str_replace(chr(1),"`",$out);
+        return $out;
+    }
+
     public static function color_sanitize($in){
         $out = preg_replace("/[`][1234567890!@#\$%^&)~QqRVvGgTtjJeElLxXyYkKpPmM?*Aabi]/", "", $in);
         return $out;
