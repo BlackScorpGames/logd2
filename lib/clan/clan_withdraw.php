@@ -44,7 +44,7 @@
 		$sql = "DELETE FROM " . db_prefix("mail") . " WHERE msgfrom=0 AND seen=0 AND subject='".serialize($withdraw_subj)."'";
 		db_query($sql);
 		while ($row = db_fetch_assoc($result)){
-			systemmail($row['acctid'],$withdraw_subj,$msg);
+			SystemMailClass::systemmail($row['acctid'],$withdraw_subj,$msg);
 		}
 
 		$session['user']['clanid']=0;

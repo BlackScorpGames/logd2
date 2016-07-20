@@ -66,7 +66,7 @@ function check_su_access($level){
 			$subj = sprintf($subj, $session['user']['name']);
 			$body = "Bad, bad, bad %s, they are a hacker!`n`nTried to access %s from %s.";
 			$body = sprintf($body, $session['user']['name'], $_SERVER['REQUEST_URI'], $SERVER['HTTP_REFERER']);
-			systemmail($row['acctid'],$subj,$body);
+			SystemMailClass::systemmail($row['acctid'],$subj,$body);
 		}
 		PageParts::page_footer();
 	}

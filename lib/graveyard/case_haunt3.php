@@ -19,7 +19,7 @@ if (db_num_rows($result)>0){
 			$subj = array("`)You have been haunted");
 			$body = array("`)You have been haunted by `&%s`).",$session['user']['name']);
 			require("lib/systemmail.php");
-			systemmail($row['acctid'], $subj, $body);
+			SystemMailClass::systemmail($row['acctid'], $subj, $body);
 		}else{
 			AddNewsClass::addnews("`7%s`) unsuccessfully haunted `7%s`)!",$session['user']['name'],$row['name']);
 			switch (Erand::e_rand(0,5)){

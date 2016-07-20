@@ -99,7 +99,7 @@ if($op=="send"){
 			$body = str_replace("\r","\n",$body);
 			$body = addslashes(substr(stripslashes($body),0,(int)Settings::getsetting("mailsizelimit",1024)));
 
-			systemmail($row1['acctid'],$subject,$body,$session['user']['acctid']);
+			SystemMailClass::systemmail($row1['acctid'],$subject,$body,$session['user']['acctid']);
 			OutputClass::output("Your message was sent!`n");
 		}
 	}else{

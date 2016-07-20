@@ -15,14 +15,14 @@ if ($op=="block"){
 	$sql = "UPDATE " . db_prefix("accounts") . " SET bio='`iBlocked for inappropriate usage`i',biotime='9999-12-31 23:59:59' WHERE acctid='$userid'";
 	$subj = array("Your bio has been blocked");
 	$msg = array("The system administrators have decided that your bio entry is inappropriate, so it has been blocked.`n`nIf you wish to appeal this decision, you may do so with the petition link.");
-	systemmail($userid, $subj, $msg);
+	SystemMailClass::systemmail($userid, $subj, $msg);
 	db_query($sql);
 }
 if ($op=="unblock"){
 	$sql = "UPDATE " . db_prefix("accounts") . " SET bio='',biotime='0000-00-00 00:00:00' WHERE acctid='$userid'";
 	$subj = array("Your bio has been unblocked");
 	$msg = array("The system administrators have decided to unblock your bio.  You can once again enter a bio entry.");
-	systemmail($userid,$subj,$msg);
+	SystemMailClass::systemmail($userid,$subj,$msg);
 	db_query($sql);
 }
 $sql = "SELECT name,acctid,bio,biotime FROM " . db_prefix("accounts") . " WHERE biotime<'9999-12-31' AND bio>'' ORDER BY biotime DESC LIMIT 100";

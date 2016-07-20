@@ -98,9 +98,9 @@ if ($op=="add2"){
 		DebugLogClass::debuglog("Received donator points -- Manually assigned, not based on a known dollar donation [$reason]",false,$id,"donation",$amt,false);
 	}
 	if ($points == 1) {
-		systemmail($id,array("Donation Point Added"),array("`2You have received a donation point for %s.",$reason));
+		SystemMailClass::systemmail($id,array("Donation Point Added"),array("`2You have received a donation point for %s.",$reason));
 	}else {
-		systemmail($id,array("Donation Points Added"),array("`2You have received %d donation points for %s.",$points,$reason));
+		SystemMailClass::systemmail($id,array("Donation Points Added"),array("`2You have received %d donation points for %s.",$points,$reason));
 	}
 	Http::httpset('op', "");
 	$op = "";

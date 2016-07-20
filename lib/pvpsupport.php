@@ -144,7 +144,7 @@ class PvpSupport
             reltime((int)$badguy['fightstartdate'])
         );
 
-        systemmail($badguy['acctid'],
+        SystemMailClass::systemmail($badguy['acctid'],
             array("`2You were killed while in %s`2", $killedloc),
             $mailmessage);
         // /\- Gunnar Kreitz
@@ -206,7 +206,7 @@ class PvpSupport
             $msg .= "You received `^%s`2 experience and `^%s`2 gold";
         }
         $msg .= "!`n%s`n`0";
-        systemmail($badguy['acctid'],
+        SystemMailClass::systemmail($badguy['acctid'],
             array("`2You were successful while you were in %s`2", $killedloc),
             array(
                 $msg,

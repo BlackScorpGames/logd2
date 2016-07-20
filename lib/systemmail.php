@@ -6,7 +6,8 @@ require_once("lib/is_email.php");
 require_once("lib/safeescape.php");
 require_once("lib/sanitize.php");
 
-function systemmail($to,$subject,$body,$from=0,$noemail=false){
+class SystemMailClass{
+public static function systemmail($to,$subject,$body,$from=0,$noemail=false){
 	global $session;
 	$sql = "SELECT prefs,emailaddress FROM " . db_prefix("accounts") . " WHERE acctid='$to'";
 	$result = db_query($sql);
@@ -104,5 +105,5 @@ function systemmail($to,$subject,$body,$from=0,$noemail=false){
 	}
 	DataCache::invalidatedatacache("mail-$to");
 }
-
+}
 ?>

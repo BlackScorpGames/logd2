@@ -199,7 +199,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 				$session['user']['refererawarded']=1;
 				$subj=array("`%One of your referrals advanced!`0");
 				$body=array("`&%s`# has advanced to level `^%s`#, and so you have earned `^%s`# points!", $session['user']['name'], $session['user']['level'], Settings::getsetting("refereraward", 25));
-				systemmail($session['user']['referer'],$subj,$body);
+				SystemMailClass::systemmail($session['user']['referer'],$subj,$body);
 			}
 			increment_specialty("`^");
 

@@ -134,7 +134,7 @@ if ($op==""){
 				OutputClass::output("`@Elessa`6 smiles, \"`@The transfer has been completed!`6\"");
 				$subj = array("`^You have received a money transfer!`0");
 				$body = array("`&%s`6 has transferred `^%s`6 gold to your bank account!",$session['user']['name'],$amt);
-				systemmail($row['acctid'],$subj,$body);
+				SystemMailClass::systemmail($row['acctid'],$subj,$body);
 			}
 		}else{
 			OutputClass::output("`@Elessa`6 looks up from her ledger with a bit of surprise on her face, \"`@I'm terribly sorry, but I seem to have run into an accounting error, would you please try telling me what you wish to transfer again?`6\"");
