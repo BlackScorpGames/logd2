@@ -25,7 +25,7 @@ if ($lastexpire < $needtoexpire){
 	$dks = 0;
 	while($row1 = db_fetch_assoc($result1)) {
 		require_once("lib/charcleanup.php");
-		if(!char_cleanup($row1['acctid'], CHAR_DELETE_AUTO)) continue;
+		if(!CharCleanUp::char_cleanup($row1['acctid'], CHAR_DELETE_AUTO)) continue;
 		array_push($acctids,$row1['acctid']);
 		array_push($pinfo,"{$row1['login']}:dk{$row1['dragonkills']}-lv{$row1['level']}");
 		if ($row1['dragonkills']==0) {

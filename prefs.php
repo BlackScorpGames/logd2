@@ -27,7 +27,7 @@ $op = Http::httpget('op');
 if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 	$userid = Http::httpget('userid');
 	require_once("lib/charcleanup.php");
-	char_cleanup($userid, CHAR_DELETE_SUICIDE);
+	CharCleanUp::char_cleanup($userid, CHAR_DELETE_SUICIDE);
 	$sql = "DELETE FROM " . db_prefix("accounts") . " WHERE acctid='$userid'";
 	db_query($sql);
 	OutputClass::output("Your character has been deleted!");
