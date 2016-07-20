@@ -214,7 +214,7 @@ if ($op==""){
 		$row = Modules::modulehook("alter-companion", $row);
 		$row['abilities'] = @unserialize($row['abilities']);
 		require_once("lib/buffs.php");
-		if (apply_companion($row['name'], $row)) {
+		if (Buffs::apply_companion($row['name'], $row)) {
 			OutputClass::output("`QYou hand over `^%s gold`Q and `%%s %s`Q.`n`n", (int)$row['companioncostgold'], (int)$row['companioncostgems'],Translator::translate_inline($row['companioncostgems'] == 1?"gem":"gems"));
 			if (isset($row['jointext']) && $row['jointext'] > "") {
 				OutputClass::output($row['jointext']);

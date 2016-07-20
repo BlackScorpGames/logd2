@@ -9,6 +9,37 @@ $debuggedbuffs = array();
 
 class Buffs
 {
+    public static function apply_companion($name,$companion,$ignorelimit=false){
+        global $session, $companions;
+        if (!is_array($companions)) {
+            $companions = @unserialize($session['user']['companions']);
+        }
+        $companionsallowed = Settings::getsetting("companionsallowed", 1);
+        $args = Modules::modulehook("companionsallowed", array("maxallowed"=>$companionsallowed));
+        $companionsallowed = $args['maxallowed'];
+        $current = 0;
+        foreach ($companions as $thisname=>$thiscompanion) {
+            if (isset($companion['ignorelimit']) && $companion['ignorelimit'] == true) {
+            } else {
+                if ($thisname != $name)
+                    ++$current;
+            }
+        }
+        if ($current < $companionsallowed || $ignorelimit == true) {
+            if (isset($companions[$name])) {
+                unset($companions[$name]);
+            }
+            if (!isset($companion['ignorelimit']) && $ignorelimit == true) {
+                $companion['ignorelimit'] = true;
+            }
+            $companions[$name] = $companion;
+            $session['user']['companions'] = ArrayUtil::createstring($companions);
+            return true; // success!
+        } else {
+            OutputClass::debug("Failed to add companion due to restrictions regarding the maximum amount of companions allowed.");
+            return false;
+        }
+    }
     public static function calculate_buff_fields()
     {
         global $session, $badguy, $buffreplacements, $debuggedbuffs;
@@ -173,37 +204,7 @@ function apply_buff($name,$buff){
 	Buffs::calculate_buff_fields();
 }
 
-function apply_companion($name,$companion,$ignorelimit=false){
-	global $session, $companions;
-	if (!is_array($companions)) {
-		$companions = @unserialize($session['user']['companions']);
-	}
-	$companionsallowed = Settings::getsetting("companionsallowed", 1);
-	$args = Modules::modulehook("companionsallowed", array("maxallowed"=>$companionsallowed));
-	$companionsallowed = $args['maxallowed'];
-	$current = 0;
-	foreach ($companions as $thisname=>$thiscompanion) {
-		if (isset($companion['ignorelimit']) && $companion['ignorelimit'] == true) {
-		} else {
-			if ($thisname != $name)
-			++$current;
-		}
-	}
-	if ($current < $companionsallowed || $ignorelimit == true) {
-		if (isset($companions[$name])) {
-			unset($companions[$name]);
-		}
-		if (!isset($companion['ignorelimit']) && $ignorelimit == true) {
-			$companion['ignorelimit'] = true;
-		}
-		$companions[$name] = $companion;
-		$session['user']['companions'] = ArrayUtil::createstring($companions);
-		return true; // success!
-	} else {
-		OutputClass::debug("Failed to add companion due to restrictions regarding the maximum amount of companions allowed.");
-		return false;
-	}
-}
+
 
 
 function strip_buff($name){

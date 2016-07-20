@@ -53,7 +53,7 @@ if ($op=="deactivate"){
 		$row = Modules::modulehook("alter-companion", $row);
 		$row['abilities'] = @unserialize($row['abilities']);
 		require_once("lib/buffs.php");
-		apply_companion($row['name'], $row);
+		Buffs::apply_companion($row['name'], $row);
 		OutputClass::output("`\$Succesfully taken `^%s`\$ as companion.", $row['name']);
 	}
 	$op = "";

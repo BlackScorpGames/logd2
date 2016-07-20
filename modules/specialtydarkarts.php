@@ -170,7 +170,7 @@ function specialtydarkarts_dohook($hookname,$args){
 				switch($l){
 				case 1:
 					if (Settings::getsetting("enablecompanions", true)) {
-						apply_companion('skeleton_warrior', array(
+						Buffs::apply_companion('skeleton_warrior', array(
 							"name"=>"`4Skeleton Warrior",
 							"hitpoints"=>round($session['user']['level']*3.33,0)+10,
 							"maxhitpoints"=>round($session['user']['level']*3.33,0)+10,
