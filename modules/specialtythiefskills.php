@@ -83,7 +83,7 @@ function specialtythiefskills_dohook($hookname,$args){
 				$session['user']['specialty'] == '0') {
 			OutputClass::addnav("$ccode$name`0","newday.php?setspecialty=".$spec."$resline");
 			$t1 = Translator::translate_inline("Stealing from the rich and giving to yourself");
-			$t2 = appoencode(Translator::translate_inline("$ccode$name`0"));
+			$t2 = OutputClass::appoencode(Translator::translate_inline("$ccode$name`0"));
 			OutputClass::rawoutput("<a href='newday.php?setspecialty=$spec$resline'>$t1 ($t2)</a><br>");
 			OutputClass::addnav("","newday.php?setspecialty=$spec$resline");
 		}

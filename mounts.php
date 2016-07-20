@@ -16,7 +16,7 @@ if ($op=="xml") {
 	echo("<xml>");
 	while($row = db_fetch_assoc($r)) {
 		echo("<name name=\"");
-		echo(urlencode(appoencode("`0{$row['name']}")));
+		echo(urlencode(OutputClass::appoencode("`0{$row['name']}")));
 		echo("\"/>");
 	}
 	if (db_num_rows($r) == 0) {

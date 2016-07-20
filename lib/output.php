@@ -28,6 +28,177 @@ function set_block_new_output($block)
 class OutputClass
 {
     /**
+     * Generates the appropriate OutputClass::output based on the LOGD coding system (ie: `b: Bold, `i: Italic)
+     *
+     * @param string $data The string to be OutputClass::output
+     * @param bool $priv Indicates if the passed string ($data) contains HTML
+     * @return string An OutputClass::output (HTML) formatted string
+     */
+    public static function appoencode($data,$priv=false){
+        global $nestedtags,$session;
+        $start = 0;
+        $out="";
+        if( ($pos = strpos($data, "`")) !== false) {
+            global $nestedtags;
+            if (!isset($nestedtags['font'])) $nestedtags['font']=false;
+            if (!isset($nestedtags['div'])) $nestedtags['div']=false;
+            if (!isset($nestedtags['i'])) $nestedtags['i']=false;
+            if (!isset($nestedtags['b'])) $nestedtags['b']=false;
+            if (!isset($nestedtags['<'])) $nestedtags['<']=false;
+            if (!isset($nestedtags['>'])) $nestedtags['>']=false;
+            if (!isset($nestedtags['h'])) $nestedtags['h']=false;
+
+            static $colors = array(
+                "1" => "colDkBlue",
+                "2" => "colDkGreen",
+                "3" => "colDkCyan",
+                "4" => "colDkRed",
+                "5" => "colDkMagenta",
+                "6" => "colDkYellow",
+                "7" => "colDkWhite",
+                "~" => "colBlack",
+                "!" => "colLtBlue",
+                "@" => "colLtGreen",
+                "#" => "colLtCyan",
+                "\$" => "colLtRed",
+                "%" => "colLtMagenta",
+                "^" => "colLtYellow",
+                "&" => "colLtWhite",
+                ")" => "colLtBlack",
+                "e" => "colDkRust",
+                "E" => "colLtRust",
+                "g" => "colXLtGreen",
+                "G" => "colXLtGreen",
+                "j" => "colMdGrey",
+                "J" => "colMdBlue",
+                "k" => "colaquamarine",
+                "K" => "coldarkseagreen",
+                "l" => "colDkLinkBlue",
+                "L" => "colLtLinkBlue",
+                "m" => "colwheat",
+                "M" => "coltan",
+                "p" => "collightsalmon",
+                "P" => "colsalmon",
+                "q" => "colDkOrange",
+                "Q" => "colLtOrange",
+                "R" => "colRose",
+                "T" => "colDkBrown",
+                "t" => "colLtBrown",
+                "V" => "colBlueViolet",
+                "v" => "coliceviolet",
+                "x" => "colburlywood",
+                "X" => "colbeige",
+                "y" => "colkhaki",
+                "Y" => "coldarkkhaki",
+            );
+            do {
+                ++$pos;
+                if ($priv === false){
+                    $out .= HTMLEntities(substr($data, $start, $pos - $start - 1), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
+                } else {
+                    $out .= substr($data, $start, $pos - $start - 1);
+                }
+                $start = $pos + 1;
+                if(isset($colors[$data[$pos]])) {
+                    if ($nestedtags['font']) $out.="</span>";
+                    else $nestedtags['font']=true;
+                    $out.="<span class='".$colors[$data[$pos]]."'>";
+                } else {
+                    switch($data[$pos]){
+                        case "n":
+                            $out.="<br>\n";
+                            break;
+                        case "0":
+                            if ($nestedtags['font']) $out.="</span>";
+                            $nestedtags['font'] = false;
+                            break;
+                        case "b":
+                            if ($nestedtags['b']){
+                                $out.="</b>";
+                                $nestedtags['b']=false;
+                            }else{
+                                $nestedtags['b']=true;
+                                $out.="<b>";
+                            }
+                            break;
+                        case "i":
+                            if ($nestedtags['i']) {
+                                $out.="</i>";
+                                $nestedtags['i']=false;
+                            }else{
+                                $nestedtags['i']=true;
+                                $out.="<i>";
+                            }
+                            break;
+                        case "c":
+                            if ($nestedtags['div']) {
+                                $out.="</div>";
+                                $nestedtags['div']=false;
+                            }else{
+                                $nestedtags['div']=true;
+                                $out.="<div align='center'>";
+                            }
+                            break;
+                        case "h":
+                            if ($nestedtags['h']) {
+                                $out.="</em>";
+                                $nestedtags['h']=false;
+                            }else{
+                                $nestedtags['h']=true;
+                                $out.="<em>";
+                            }
+                            break;
+                        case ">":
+                            if ($nestedtags['>']){
+                                $nestedtags['>']=false;
+                                $out.="</div>";
+                            }else{
+                                $nestedtags['>']=true;
+                                $out.="<div style='float: right; clear: right;'>";
+                            }
+                            break;
+                        case "<":
+                            if ($nestedtags['<']){
+                                $nestedtags['<']=false;
+                                $out.="</div>";
+                            }else{
+                                $nestedtags['<']=true;
+                                $out.="<div style='float: left; clear: left;'>";
+                            }
+                            break;
+                        case "H":
+                            if ($nestedtags['div']) {
+                                $out.="</span>";
+                                $nestedtags['div']=false;
+                            }else{
+                                $nestedtags['div']=true;
+                                $out.="<span class='navhi'>";
+                            }
+                            break;
+                        case "w":
+                            global $session;
+                            if(!isset($session['user']['weapon']))
+                                $session['user']['weapon']="";
+                            $out.=OutputClass::appoencode($session['user']['weapon'],$priv);
+                            break;
+                        case "`":
+                            $out.="`";
+                            ++$pos;
+                            break;
+                        default:
+                            $out.="`".$data[$pos];
+                    }
+                }
+            } while( ($pos = strpos($data, "`", $pos)) !== false);
+        }
+        if ($priv === false){
+            $out .= HTMLEntities(substr($data, $start), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
+        } else {
+            $out .= substr($data, $start);
+        }
+        return $out;
+    }
+    /**
      * Determins if there are any navs for the player
      *
      * @return bool
@@ -98,7 +269,7 @@ class OutputClass
             $out = holidayize($out, 'OutputClass::output');
         }
         //`1`2 etc color & formatting
-        $out = appoencode($out, $priv);
+        $out = OutputClass::appoencode($out, $priv);
         //apply to the page.
         $output .= tlbutton_pop() . $out;
         $output .= "\n";
@@ -205,7 +376,7 @@ class OutputClass
 		if ($force || $session['user']['superuser'] & SU_DEBUG_OUTPUT){
 			if (is_array($text)){
 				require_once("lib/dump_item.php");
-				$text = appoencode(dump_item($text),true);
+				$text = OutputClass::appoencode(dump_item($text),true);
 			}
 			OutputClass::rawoutput("<div class='OutputClass::debug'>$text</div>");
 		}
@@ -214,177 +385,7 @@ class OutputClass
 
 }
 
-/**
- * Generates the appropriate OutputClass::output based on the LOGD coding system (ie: `b: Bold, `i: Italic)
- *
- * @param string $data The string to be OutputClass::output
- * @param bool $priv Indicates if the passed string ($data) contains HTML
- * @return string An OutputClass::output (HTML) formatted string
- */
-function appoencode($data,$priv=false){
-	global $nestedtags,$session;
-	$start = 0;
-	$out="";
-	if( ($pos = strpos($data, "`")) !== false) {
-		global $nestedtags;
-		if (!isset($nestedtags['font'])) $nestedtags['font']=false;
-		if (!isset($nestedtags['div'])) $nestedtags['div']=false;
-		if (!isset($nestedtags['i'])) $nestedtags['i']=false;
-		if (!isset($nestedtags['b'])) $nestedtags['b']=false;
-		if (!isset($nestedtags['<'])) $nestedtags['<']=false;
-		if (!isset($nestedtags['>'])) $nestedtags['>']=false;
-		if (!isset($nestedtags['h'])) $nestedtags['h']=false;
 
-		static $colors = array(
-			"1" => "colDkBlue",
-			"2" => "colDkGreen",
-			"3" => "colDkCyan",
-			"4" => "colDkRed",
-			"5" => "colDkMagenta",
-			"6" => "colDkYellow",
-			"7" => "colDkWhite",
-			"~" => "colBlack",
-			"!" => "colLtBlue",
-			"@" => "colLtGreen",
-			"#" => "colLtCyan",
-			"\$" => "colLtRed",
-			"%" => "colLtMagenta",
-			"^" => "colLtYellow",
-			"&" => "colLtWhite",
-			")" => "colLtBlack",
-			"e" => "colDkRust",
-			"E" => "colLtRust",
-			"g" => "colXLtGreen",
-			"G" => "colXLtGreen",
-			"j" => "colMdGrey",
-			"J" => "colMdBlue",
-			"k" => "colaquamarine",
-			"K" => "coldarkseagreen",
-			"l" => "colDkLinkBlue",
-			"L" => "colLtLinkBlue",
-			"m" => "colwheat",
-			"M" => "coltan",
-			"p" => "collightsalmon",
-			"P" => "colsalmon",
-			"q" => "colDkOrange",
-			"Q" => "colLtOrange",
-			"R" => "colRose",
-			"T" => "colDkBrown",
-			"t" => "colLtBrown",
-			"V" => "colBlueViolet",
-			"v" => "coliceviolet",
-			"x" => "colburlywood",
-			"X" => "colbeige",
-			"y" => "colkhaki",
-			"Y" => "coldarkkhaki",
- 		);
-		do {
-			++$pos;
-			if ($priv === false){
-				$out .= HTMLEntities(substr($data, $start, $pos - $start - 1), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
-			} else {
-				$out .= substr($data, $start, $pos - $start - 1);
-			}
-			$start = $pos + 1;
-			if(isset($colors[$data[$pos]])) {
-				if ($nestedtags['font']) $out.="</span>";
-				else $nestedtags['font']=true;
-				$out.="<span class='".$colors[$data[$pos]]."'>";
-			} else {
-				switch($data[$pos]){
-				case "n":
-					$out.="<br>\n";
-					break;
-				case "0":
-					if ($nestedtags['font']) $out.="</span>";
-					$nestedtags['font'] = false;
-					break;
-				case "b":
-					if ($nestedtags['b']){
-						$out.="</b>";
-						$nestedtags['b']=false;
-					}else{
-						$nestedtags['b']=true;
-						$out.="<b>";
-					}
-					break;
-				case "i":
-					if ($nestedtags['i']) {
-						$out.="</i>";
-						$nestedtags['i']=false;
-					}else{
-						$nestedtags['i']=true;
-						$out.="<i>";
-					}
-					break;
-				case "c":
-					if ($nestedtags['div']) {
-						$out.="</div>";
-						$nestedtags['div']=false;
-					}else{
-						$nestedtags['div']=true;
-						$out.="<div align='center'>";
-					}
-					break;
-				case "h":
-					if ($nestedtags['h']) {
-						$out.="</em>";
-						$nestedtags['h']=false;
-					}else{
-						$nestedtags['h']=true;
-						$out.="<em>";
-					}
-					break;
-				case ">":
-					if ($nestedtags['>']){
-						$nestedtags['>']=false;
-						$out.="</div>";
-					}else{
-						$nestedtags['>']=true;
-						$out.="<div style='float: right; clear: right;'>";
-					}
-					break;
-				case "<":
-					if ($nestedtags['<']){
-						$nestedtags['<']=false;
-						$out.="</div>";
-					}else{
-						$nestedtags['<']=true;
-						$out.="<div style='float: left; clear: left;'>";
-					}
-					break;
-				case "H":
-					if ($nestedtags['div']) {
-						$out.="</span>";
-						$nestedtags['div']=false;
-					}else{
-						$nestedtags['div']=true;
-						$out.="<span class='navhi'>";
-					}
-					break;
-				case "w":
-					global $session;
-					if(!isset($session['user']['weapon']))
-						$session['user']['weapon']="";
-					$out.=appoencode($session['user']['weapon'],$priv);
-					break;
-				case "`":
-					$out.="`";
-					++$pos;
-					break;
-				default:
-					$out.="`".$data[$pos];
-				}
-			}
-		} while( ($pos = strpos($data, "`", $pos)) !== false);
-	}
-	if ($priv === false){
-		$out .= HTMLEntities(substr($data, $start), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
-	} else {
-		$out .= substr($data, $start);
-	}
-	return $out;
-}
 
 $blockednavs = array(
 		'blockpartial'=>array(),
@@ -767,10 +768,10 @@ function private_addnav($text,$link=false,$priv=false,$pop=false,$popsize="500x3
 	$ignoreuntil="";
 	if ($link===false){
 		$text = holidayize($text,'nav');
-		$thisnav.=tlbutton_pop().Template::templatereplace("navhead",array("title"=>appoencode($text,$priv)));
+		$thisnav.=tlbutton_pop().Template::templatereplace("navhead",array("title"=>OutputClass::appoencode($text,$priv)));
 	}elseif ($link === "") {
 		$text = holidayize($text,'nav');
-		$thisnav.=tlbutton_pop().Template::templatereplace("navhelp",array("text"=>appoencode($text,$priv)));
+		$thisnav.=tlbutton_pop().Template::templatereplace("navhelp",array("text"=>OutputClass::appoencode($text,$priv)));
 	} elseif ($link == "!!!addraw!!!") {
 		$thisnav .= $text;
 	}else{
@@ -878,7 +879,7 @@ function private_addnav($text,$link=false,$priv=false,$pop=false,$popsize="500x3
 				}
 			}
 			$n= Template::templatereplace("navitem",array(
-				"text"=>appoencode($text,$priv),
+				"text"=>OutputClass::appoencode($text,$priv),
 				"link"=>HTMLEntities($link.($pop!=true?$extra:""), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")),
 				"accesskey"=>$keyrep,
 				"popup"=>($pop==true ? "target='_blank'".($popsize>""?" onClick=\"".popup($link,$popsize)."; return false;\"":"") : "")

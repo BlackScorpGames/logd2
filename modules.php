@@ -232,7 +232,7 @@ if ($op==""){
 					strpos($file,$shortnamelower."_install")===false ||
 					strpos($file,$shortnamelower."_uninstall")===false) {
 						//here the files has neither do_hook nor getinfo, which means it won't execute as a module here --> block it + notify the admin who is the manage modules section
-						$temp=array_merge($invalidmodule,array("name"=>$shortname.".php ".appoencode(Translator::translate_inline("(`\$Invalid Module! Contact Author or check file!`0)"))));
+						$temp=array_merge($invalidmodule,array("name"=>$shortname.".php ".OutputClass::appoencode(Translator::translate_inline("(`\$Invalid Module! Contact Author or check file!`0)"))));
 				} else {
 					$temp= get_module_info($shortname);
 				}

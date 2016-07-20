@@ -376,10 +376,10 @@ if ($op==""){
 	$sizemsgover = sprintf($sizemsgover,Settings::getsetting("mailsizelimit",1024));
 	$sizemsg = explode("XX",$sizemsg);
 	$sizemsgover = explode("XX",$sizemsgover);
-	$usize1 = addslashes("<span>".appoencode($sizemsg[0])."</span>");
-	$usize2 = addslashes("<span>".appoencode($sizemsg[1])."</span>");
-	$osize1 = addslashes("<span>".appoencode($sizemsgover[0])."</span>");
-	$osize2 = addslashes("<span>".appoencode($sizemsgover[1])."</span>");
+	$usize1 = addslashes("<span>".OutputClass::appoencode($sizemsg[0])."</span>");
+	$usize2 = addslashes("<span>".OutputClass::appoencode($sizemsg[1])."</span>");
+	$osize1 = addslashes("<span>".OutputClass::appoencode($sizemsgover[0])."</span>");
+	$osize2 = addslashes("<span>".OutputClass::appoencode($sizemsgover[1])."</span>");
 
 	OutputClass::rawoutput("
 	<script language='JavaScript'>

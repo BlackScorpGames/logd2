@@ -50,7 +50,7 @@ if ($name!=""){
 			if ($session['user']['emailvalidation']!="" && substr($session['user']['emailvalidation'],0,1)!="x"){
 				$session['user']=array();
 				$session['message']=Translator::translate_inline("`4Error, you must validate your email address before you can log in.");
-				echo appoencode($session['message']);
+				echo OutputClass::appoencode($session['message']);
 				exit();
 			}else{
 				$session['loggedin']=true;

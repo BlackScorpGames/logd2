@@ -312,7 +312,7 @@ class PageParts{
                 OutputClass::addnav("", "viewpetition.php");
             }
             $p .= " `\${$petitions[5]}`0|`^{$petitions[4]}`0|`b{$petitions[0]}`b|{$petitions[1]}|`!{$petitions[3]}`0|`#{$petitions[7]}`0|`%{$petitions[6]}`0|`i{$petitions[2]}`i";
-            $pcount = Template::templatereplace("petitioncount", array("petitioncount" => appoencode($p, true)));
+            $pcount = Template::templatereplace("petitioncount", array("petitioncount" => OutputClass::appoencode($p, true)));
             $footer = str_replace("{petitiondisplay}", $pcount, $footer);
             $header = str_replace("{petitiondisplay}", $pcount, $header);
         } else {
@@ -583,7 +583,7 @@ function getcharstats($buffs){
 	$charstat_str .= Template::templatereplace("statbuff",
 			array("title"=>Translator::translate_inline("`0Buffs"),"value"=>$buffs));
 	$charstat_str .= Template::templatereplace("statend");
-	return appoencode($charstat_str,true);
+	return OutputClass::appoencode($charstat_str,true);
 }
 
 /**
@@ -653,16 +653,16 @@ function charstats(){
 					//$n = Translator::translate_inline(str_replace("`%","`%%",$val['name']));
 					$b = Translator::translate_inline("`#%s `7(%s rounds left)`n","buffs");
 					$b = sprintf($b, $val['name'], $val['rounds']);
-					$buffs.=appoencode($b, true);
+					$buffs.=OutputClass::appoencode($b, true);
 				}else{
-					$buffs.= appoencode("`#{$val['name']}`n",true);
+					$buffs.= OutputClass::appoencode("`#{$val['name']}`n",true);
 				}
 				Translator::tlschema();
 				$buffcount++;
 			}
 		}
 		if ($buffcount==0){
-			$buffs.=appoencode(Translator::translate_inline("`^None`0"),true);
+			$buffs.=OutputClass::appoencode(Translator::translate_inline("`^None`0"),true);
 		}
 
 		$atk = round($atk, 2);
@@ -762,14 +762,14 @@ function charstats(){
 			} else {
 				$sql="SELECT name,alive,location,sex,level,laston,loggedin,lastip,uniqueid FROM " . db_prefix("accounts") . " WHERE locked=0 AND loggedin=1 AND laston>'".date("Y-m-d H:i:s",strtotime("-".Settings::getsetting("LOGINTIMEOUT",900)." seconds"))."' ORDER BY level DESC";
 				$result = db_query($sql);
-				$ret.=appoencode(sprintf(Translator::translate_inline("`bOnline Characters (%s players):`b`n"),db_num_rows($result)));
+				$ret.=OutputClass::appoencode(sprintf(Translator::translate_inline("`bOnline Characters (%s players):`b`n"),db_num_rows($result)));
 				while ($row = db_fetch_assoc($result)) {
-					$ret.=appoencode("`^{$row['name']}`n");
+					$ret.=OutputClass::appoencode("`^{$row['name']}`n");
 					$onlinecount++;
 				}
 				db_free_result($result);
 				if ($onlinecount==0)
-					$ret.=appoencode(Translator::translate_inline("`iNone`i"));
+					$ret.=OutputClass::appoencode(Translator::translate_inline("`iNone`i"));
 			}
 			Settings::savesetting("OnlineCount",$onlinecount);
 			Settings::savesetting("OnlineCountLast",strtotime("now"));

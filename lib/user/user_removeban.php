@@ -16,7 +16,7 @@ if ($subop=="xml"){
 	for ($x=0;$x<$number;$x++){
 		$ro = db_fetch_assoc($r);
 		echo "<name name=\"";
-		echo urlencode(appoencode("`0{$ro['name']}"));
+		echo urlencode(OutputClass::appoencode("`0{$ro['name']}"));
 		echo "\"/>";
 	}
 	if (db_num_rows($r)==0)

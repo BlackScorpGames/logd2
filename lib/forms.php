@@ -9,7 +9,7 @@ function previewfield($name, $startdiv=false, $talkline="says", $showcharsleft=t
 		$startdiv = "";
 	OutputClass::rawoutput("<script language='JavaScript'>
 				function previewtext$name(t,l){
-					var out = \"<span class=\\'colLtWhite\\'>".addslashes(appoencode($startdiv))." \";
+					var out = \"<span class=\\'colLtWhite\\'>".addslashes(OutputClass::appoencode($startdiv))." \";
 					var end = '</span>';
 					var x=0;
 					var y='';
@@ -33,7 +33,7 @@ function previewfield($name, $startdiv=false, $talkline="says", $showcharsleft=t
 						out = '<span class=\\'colLtWhite\\'>';");
 		}
 		OutputClass::rawoutput("	}else{
-						out += '</span><span class=\\'colDkCyan\\'>".addslashes(appoencode($talkline)).", \"</span><span class=\\'colLtCyan\\'>';
+						out += '</span><span class=\\'colDkCyan\\'>".addslashes(OutputClass::appoencode($talkline)).", \"</span><span class=\\'colLtCyan\\'>';
 						end += '</span><span class=\\'colDkCyan\\'>\"';
 					}");
 	}
