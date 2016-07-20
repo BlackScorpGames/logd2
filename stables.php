@@ -72,7 +72,7 @@ VillageNavClass::villagenav();
 Modules::modulehook("stables-nav");
 
 require_once("lib/mountname.php");
-list($name, $lcname) = getmountname();
+list($name, $lcname) = MountName::getmountname();
 
 $repaygold = 0;
 $repaygems = 0;
@@ -181,7 +181,7 @@ if ($op == 'confirmbuy') {
 			Modules::modulehook("stable-mount", array());
 			Modules::modulehook("boughtmount");
 			require_once("lib/mountname.php");
-			list($name, $lcname) = getmountname();
+			list($name, $lcname) = MountName::getmountname();
 			$grubprice = round($session['user']['level']*$playermount['mountfeedcost'], 0);
 		}
 	}

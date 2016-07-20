@@ -2,7 +2,8 @@
 // translator ready
 // addnews ready
 // mail ready
-function getmountname()
+class MountName{
+public static function getmountname()
 {
 	global $playermount;
 	Translator::tlschema("mountname");
@@ -18,5 +19,6 @@ function getmountname()
 		$lcname = $playermount['newname'];
 	}
 	return array($name, $lcname);
+}
 }
 ?>

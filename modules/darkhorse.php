@@ -80,7 +80,7 @@ function darkhorse_dohook($hookname,$args){
 			OutputClass::addnav("Other");
 			$iname = get_module_setting("tavernname");
 			require_once("lib/mountname.php");
-			list($name, $lcname) = getmountname();
+			list($name, $lcname) = MountName::getmountname();
 			OutputClass::addnav(array("D?Take %s`0 to %s", $lcname, $iname),
 					"runmodule.php?module=darkhorse&op=enter");
 		}
@@ -234,7 +234,7 @@ function darkhorse_runevent($type, $link){
 		OutputClass::output("As you approach the grove, a strange mist creeps in around you; your mind begins to buzz, and you're no longer sure exactly how you got here.");
 		if(darkhorse_tavernmount()) {
 			require_once("lib/mountname.php");
-			list($name, $lcname) = getmountname();
+			list($name, $lcname) = MountName::getmountname();
 			OutputClass::output("%s`0 seems to have known the way, however.", $name);
 		}
 		OutputClass::output("`n`nThe mist clears, and before you is a log building with smoke trailing from its chimney.");

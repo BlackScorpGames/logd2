@@ -114,7 +114,7 @@ function goldmine_runevent($type)
 			$horsecansave = get_module_objpref('mounts', $hashorse, 'saveplayer');
 		}
 		require_once("lib/mountname.php");
-		list($mountname, $lcmountname) = getmountname();
+		list($mountname, $lcmountname) = MountName::getmountname();
 	}
 	$session['user']['specialinc']="module:goldmine";
 	$op = Http::httpget('op');

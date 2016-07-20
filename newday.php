@@ -259,7 +259,7 @@ if ($dp < $dkills) {
 		$msg = SubstituteClass::substitute_array("`n`&".$msg."`0`n");
 		OutputClass::output($msg);
 		require_once("lib/mountname.php");
-		list($name, $lcname) = getmountname();
+		list($name, $lcname) = MountName::getmountname();
 
 		$mff = (int)$playermount['mountforestfights'];
 		$session['user']['turns'] += $mff;
