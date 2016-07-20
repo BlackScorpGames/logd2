@@ -174,7 +174,7 @@ if ($op == 'confirmbuy') {
 			if ($buff['schema'] == "") $buff['schema'] = "mounts";
 			Buffs::apply_buff('mount',unserialize($mount['mountbuff']));
 			// Recalculate so the selling stuff works right
-			$playermount = getmount($mount['mountid']);
+			$playermount = Mounts::getmount($mount['mountid']);
 			$repaygold = round($playermount['mountcostgold']*2/3,0);
 			$repaygems = round($playermount['mountcostgems']*2/3,0);
 			// Recalculate the special name as well.

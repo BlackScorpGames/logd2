@@ -2,7 +2,8 @@
 // translator ready
 // addnews ready
 // mail ready
-function getmount($horse=0) {
+class Mounts{
+public static function getmount($horse=0) {
 	$sql = "SELECT * FROM " . db_prefix("mounts") . " WHERE mountid='$horse'";
 	$result = db_query_cached($sql, "mountdata-$horse", 3600);
 	if (db_num_rows($result)>0){
@@ -10,5 +11,6 @@ function getmount($horse=0) {
 	}else{
 		return array();
 	}
+}
 }
 ?>
