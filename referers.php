@@ -28,7 +28,7 @@ if ($op=="rebuild"){
 	}
 }
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 OutputClass::addnav("Referer Options");
 OutputClass::addnav("",$_SERVER['REQUEST_URI']);
 $sort = Http::httpget('sort');

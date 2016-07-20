@@ -145,7 +145,7 @@ if ($op == "list") {
 OutputClass::addnav("R?Restart Translator", "untranslated.php");
 OutputClass::addnav("N?Translate by Namespace", "untranslated.php?op=list");
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 PageParts::page_footer();
 
 ?>

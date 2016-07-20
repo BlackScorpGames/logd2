@@ -19,7 +19,7 @@ for ($i=1;$i<18;$i++){
 PageParts::page_header("Creature Editor");
 
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 
 $op = Http::httpget("op");
 $subop = Http::httpget("subop");

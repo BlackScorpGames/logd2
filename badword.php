@@ -14,7 +14,7 @@ $op = Http::httpget('op');
 PageParts::page_header("Bad word editor");
 
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 OutputClass::addnav("Bad Word Editor");
 
 OutputClass::addnav("Refresh the list","badword.php");

@@ -22,7 +22,7 @@ function dag_sortbountieslevel($x, $y) {
 function dag_manage(){
 	PageParts::page_header("Dag's Bounty Lists");
 	require_once("lib/superusernav.php");
-	superusernav();
+	SuperUserNavClass::superusernav();
 
 	// Add some bounty expiration for closed bounties
 	$sql = "DELETE FROM " . db_prefix("bounty") . " WHERE status=1 AND windate <'".date("Y-m-d H:i:s",strtotime("-".(Settings::getsetting("expirecontent",180)/10)." days"))."'";

@@ -15,7 +15,7 @@ Translator::tlschema("companions");
 PageParts::page_header("Companion Editor");
 
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 
 OutputClass::addnav("Companion Editor");
 OutputClass::addnav("Add a companion","companions.php?op=add");

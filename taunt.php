@@ -11,7 +11,7 @@ SuAccess::check_su_access(SU_EDIT_CREATURES);
 
 PageParts::page_header("Taunt Editor");
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 $op = Http::httpget('op');
 $tauntid = Http::httpget('tauntid');
 if ($op=="edit"){

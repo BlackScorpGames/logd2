@@ -57,7 +57,7 @@ OutputClass::rawoutput("</form>");
 OutputClass::rawoutput("<script language='JavaScript'>document.getElementById('q').focus();</script>");
 OutputClass::addnav("","user.php?op=search$m");
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 OutputClass::addnav("Bans");
 OutputClass::addnav("Add a ban","user.php?op=setupban");
 OutputClass::addnav("List/Remove bans","user.php?op=removeban");

@@ -178,7 +178,7 @@ if ($op=="save"){
 
 PageParts::page_header("Game Settings");
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 OutputClass::addnav("Module Manager", "modules.php");
 if ($module) {
 	$cat = $info['category'];

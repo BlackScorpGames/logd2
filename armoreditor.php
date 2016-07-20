@@ -13,7 +13,7 @@ Translator::tlschema("armor");
 PageParts::page_header("Armor Editor");
 $armorlevel = (int)Http::httpget('level');
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 OutputClass::addnav("Armor Editor");
 OutputClass::addnav("Armor Editor Home","armoreditor.php?level=$armorlevel");
 

@@ -11,7 +11,7 @@ SuAccess::check_su_access(SU_RAW_SQL);
 
 PageParts::page_header("Raw SQL/PHP execution");
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 OutputClass::addnav("Execution");
 OutputClass::addnav("SQL","rawsql.php");
 OutputClass::addnav("PHP","rawsql.php?op=php");

@@ -21,7 +21,7 @@ $editarray=array(
 );
 OutputClass::addnav("Other");
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 OutputClass::addnav("Functions");
 
 if ($op=="save") {

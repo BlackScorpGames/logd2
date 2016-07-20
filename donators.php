@@ -12,7 +12,7 @@ Translator::tlschema("donation");
 
 PageParts::page_header("Donator's Page");
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 
 
 $ret=Http::httpget('ret');

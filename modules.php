@@ -11,7 +11,7 @@ Translator::tlschema("modulemanage");
 PageParts::page_header("Module Manager");
 
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 
 OutputClass::addnav("Module Categories");
 

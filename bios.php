@@ -41,7 +41,7 @@ for ($i=0;$i<$number;$i++){
 }
 db_free_result($result);
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 
 OutputClass::addnav("Moderation");
 

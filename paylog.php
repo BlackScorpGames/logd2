@@ -26,7 +26,7 @@ SuAccess::check_su_access(SU_EDIT_PAYLOG);
 */
 PageParts::page_header("Payment Log");
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 
 $op = Http::httpget('op');
 if ($op==""){

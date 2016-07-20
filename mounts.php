@@ -34,7 +34,7 @@ Translator::tlschema("mounts");
 PageParts::page_header("Mount Editor");
 
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 
 OutputClass::addnav("Mount Editor");
 OutputClass::addnav("Add a mount","mounts.php?op=add");

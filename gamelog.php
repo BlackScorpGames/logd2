@@ -15,7 +15,7 @@ Translator::tlschema("gamelog");
 PageParts::page_header("Game Log");
 OutputClass::addnav("Navigation");
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 
 $category = Http::httpget('cat');
 if ($category > "") {

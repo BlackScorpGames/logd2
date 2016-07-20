@@ -15,7 +15,7 @@ $act = Http::httpget('act');
 
 PageParts::page_header("Masters Editor");
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 
 if ($op == "del") {
 	$sql = "DELETE FROM " . db_prefix("masters") . " WHERE creatureid=$id";

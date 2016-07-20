@@ -14,7 +14,7 @@ Commentary::addcommentary();
 SuAccess::check_su_access(SU_EDIT_COMMENTS);
 
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 
 OutputClass::addnav("Other");
 OutputClass::addnav("Commentary Overview","moderate.php");

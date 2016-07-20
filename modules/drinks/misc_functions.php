@@ -32,7 +32,7 @@ function drinks_editor(){
 
 	PageParts::page_header("Drink Editor");
 	require_once("lib/superusernav.php");
-	superusernav();
+	SuperUserNavClass::superusernav();
 	OutputClass::addnav("Drink Editor");
 	OutputClass::addnav("Add a drink","runmodule.php?module=drinks&act=editor&op=add&admin=true");
 	$op = Http::httpget('op');

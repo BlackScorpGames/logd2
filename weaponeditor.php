@@ -13,7 +13,7 @@ Translator::tlschema("weapon");
 PageParts::page_header("Weapon Editor");
 $weaponlevel = (int)Http::httpget("level");
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 
 OutputClass::addnav("Editor");
 OutputClass::addnav("Weapon Editor Home","weaponeditor.php?level=$weaponlevel");

@@ -2,7 +2,8 @@
 // translator ready
 // addnews ready
 // mail ready
-function superusernav()
+class SuperUserNavClass{
+public static function superusernav()
 {
 	global $SCRIPT_NAME, $session;
 	Translator::tlschema("nav");
@@ -20,5 +21,6 @@ function superusernav()
 	if (!array_key_exists('handled',$args) || !$args['handled'])
 		OutputClass::addnav("M?Return to the Mundane", "village.php");
 	Translator::tlschema();
+}
 }
 ?>

@@ -12,7 +12,7 @@ Commentary::addcommentary();
 Translator::tlschema("superuser");
 
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 
 $op = Http::httpget('op');
 if ($op=="keepalive"){

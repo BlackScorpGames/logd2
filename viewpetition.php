@@ -49,7 +49,7 @@ if (trim(Http::httppost('insertcommentary'))!="") {
 //}
 PageParts::page_header("Petition Viewer");
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 if ($op==""){
 	$sql = "DELETE FROM " . db_prefix("petitions") . " WHERE status=2 AND closedate<'".date("Y-m-d H:i:s",strtotime("-7 days"))."'";
 	db_query($sql);

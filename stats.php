@@ -11,7 +11,7 @@ SuAccess::check_su_access(SU_EDIT_CONFIG);
 
 PageParts::page_header("Stats");
 require_once("lib/superusernav.php");
-superusernav();
+SuperUserNavClass::superusernav();
 //OutputClass::addnav("Refresh the stats","stats.php");
 OutputClass::addnav("Stats Types");
 OutputClass::addnav("Totals & Averages","stats.php?op=stats");
