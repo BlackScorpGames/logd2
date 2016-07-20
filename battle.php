@@ -61,7 +61,7 @@ if ($newtarget != "") $op = "newtarget";
 //if (!$targetted) $op = "newtarget";
 
 if ($op=="fight"){
-	apply_skill($skill,$l);
+	BattleSkills::apply_skill($skill,$l);
 } else if ($op=="newtarget") {
 	foreach ($enemies as $index=>$badguy){
 		if ($index == (int)$newtarget) {

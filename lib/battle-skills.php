@@ -165,6 +165,22 @@ function is_buff_active($name) {
 }
 
 class BattleSkills{
+	public static function apply_skill($skill,$l){
+		global $session;
+		if ($skill=="godmode"){
+			Buffs::apply_buff('godmode',array(
+				"name"=>"`&GOD MODE",
+				"rounds"=>1,
+				"wearoff"=>"You feel mortal again.",
+				"atkmod"=>25,
+				"defmod"=>25,
+				"invulnerable"=>1,
+				"startmsg"=>"`&`bYou feel godlike.`b",
+				"schema"=>"skill"
+			));
+		}
+		Modules::modulehook("apply-specialties");
+	}
 	public static function suspend_buffs($susp=false, $msg=false){
 		global $session, $badguy;
 		$suspendnotify = 0;
@@ -261,20 +277,5 @@ function apply_bodyguard($level){
 	}
 }
 
-function apply_skill($skill,$l){
-	global $session;
-	if ($skill=="godmode"){
-		Buffs::apply_buff('godmode',array(
-			"name"=>"`&GOD MODE",
-			"rounds"=>1,
-			"wearoff"=>"You feel mortal again.",
-			"atkmod"=>25,
-			"defmod"=>25,
-			"invulnerable"=>1,
-			"startmsg"=>"`&`bYou feel godlike.`b",
-			"schema"=>"skill"
-		));
-	}
-	Modules::modulehook("apply-specialties");
-}
+
 ?>
