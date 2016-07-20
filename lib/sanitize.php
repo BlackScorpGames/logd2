@@ -34,10 +34,11 @@ function logdnet_sanitize($in)
 	$out = str_replace(chr(1),"`",$out);
 	return $out;
 }
-
-function full_sanitize($in) {
+class SanitizeClass{
+public static function full_sanitize($in) {
 	$out = preg_replace("/[`]./", "", $in);
 	return $out;
+}
 }
 
 function cmd_sanitize($in) {

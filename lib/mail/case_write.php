@@ -103,7 +103,7 @@ if (isset($row['login']) && $row['login']!=""){
 		while($row = db_fetch_assoc($result)) {
 			OutputClass::output_notl("<option value=\"".htmlentities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">",true);
 			require_once("lib/sanitize.php");
-			OutputClass::output_notl("%s", full_sanitize($row['name']));
+			OutputClass::output_notl("%s", SanitizeClass::full_sanitize($row['name']));
 			if (($row['superuser'] & SU_GIVES_YOM_WARNING) && !($row['superuser'] & SU_OVERRIDE_YOM_WARNING)) {
 				array_push($superusers,$row['login']);
 			}

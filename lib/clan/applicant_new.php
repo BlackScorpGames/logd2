@@ -4,11 +4,11 @@
 			$ocn = Http::httppost('clanname');
 			$ocs = Http::httppost('clanshort');
 			$clanname = stripslashes($ocn);
-			$clanname = full_sanitize($clanname);
+			$clanname = SanitizeClass::full_sanitize($clanname);
 			$clanname = preg_replace("'[^[:alpha:] \\'-]'","",$clanname);
 			$clanname = addslashes($clanname);
 			httppostset('clanname', $clanname);
-			$clanshort = full_sanitize($ocs);
+			$clanshort = SanitizeClass::full_sanitize($ocs);
 			$clanshort = preg_replace("'[^[:alpha:]]'","",$clanshort);
 			httppostset('clanshort', $clanshort);
 			$sql = "SELECT * FROM " . db_prefix("clans") . " WHERE clanname='$clanname'";

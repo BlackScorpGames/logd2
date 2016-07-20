@@ -59,7 +59,7 @@ if (isset($_GET['op']) && $_GET['op']=="register"){
 			echo "// At {$_SESSION['logdnet']['when']}\n";
 			//require_once("../lib/dbwrapper.php");
 			//require_once("../lib/settings.php");
-			echo "document.write(\"".sprintf($o,full_sanitize($_SESSION['session']['user']['login']),
+			echo "document.write(\"".sprintf($o,SanitizeClass::full_sanitize($_SESSION['session']['user']['login']),
 						htmlentities($_SESSION['session']['user']['login']).":".$_SERVER['HTTP_HOST'].$refer,ENT_COMPAT,"ISO-8859-1")."\");";
 		} else {
 			$image = join("",file("paypal1.gif"));

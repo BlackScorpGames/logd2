@@ -375,7 +375,7 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 		OutputClass::addnav("",$link);
 		$auth[$i] = $row['author'];
 		if (isset($rawc[$i])) {
-			$rawc[$i] = full_sanitize($rawc[$i]);
+			$rawc[$i] = SanitizeClass::full_sanitize($rawc[$i]);
 			$rawc[$i] = htmlentities($rawc[$i], ENT_QUOTES, Settings::getsetting("charset", "ISO-8859-1"));
 		}
 	}

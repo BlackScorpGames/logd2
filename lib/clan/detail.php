@@ -1,9 +1,9 @@
 <?php
 	if ($session['user']['superuser'] & SU_EDIT_COMMENTS){
 		$clanname = Http::httppost('clanname');
-		if ($clanname) $clanname = full_sanitize($clanname);
+		if ($clanname) $clanname = SanitizeClass::full_sanitize($clanname);
 		$clanshort = Http::httppost('clanshort');
-		if ($clanshort) $clanshort = full_sanitize($clanshort);
+		if ($clanshort) $clanshort = SanitizeClass::full_sanitize($clanshort);
 		if ($clanname>"" && $clanshort>""){
 			$sql = "UPDATE " . db_prefix("clans") . " SET clanname='$clanname',clanshort='$clanshort' WHERE clanid='$detail'";
 			OutputClass::output("Updating clan names`n");
@@ -55,7 +55,7 @@
 	OutputClass::output_notl(nltoappon($row1['clandesc']));
 	if ( nltoappon($row1['clandesc']) != "" ) OutputClass::output ("`n`n");
 	OutputClass::output("`0This is the current clan membership of %s < %s >:`n",$row1['clanname'],$row1['clanshort']);
-	PageParts::page_header("Clan Membership for %s &lt;%s&gt;", full_sanitize($row1['clanname']), full_sanitize($row1['clanshort']));
+	PageParts::page_header("Clan Membership for %s &lt;%s&gt;", SanitizeClass::full_sanitize($row1['clanname']), SanitizeClass::full_sanitize($row1['clanshort']));
 	OutputClass::addnav("Clan Options");
 	$rank = Translator::translate_inline("Rank");
 	$name = Translator::translate_inline("Name");

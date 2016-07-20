@@ -171,7 +171,7 @@ function dag_manage(){
 			OutputClass::rawoutput("<select name='contractname'>");
 			for ($i=0;$i<db_num_rows($result);$i++){
 				$row = db_fetch_assoc($result);
-				OutputClass::rawoutput("<option value=\"".rawurlencode($row['name'])."\">".full_sanitize($row['name'])."</option>");
+				OutputClass::rawoutput("<option value=\"".rawurlencode($row['name'])."\">".SanitizeClass::full_sanitize($row['name'])."</option>");
 			}
 			OutputClass::rawoutput("</select>");
 			OutputClass::output_notl("`n`n");

@@ -67,7 +67,7 @@ public static function systemmail($to,$subject,$body,$from=0,$noemail=false){
 		$row1=db_fetch_assoc($result);
 		db_free_result($result);
 		if ($row1['name']!="")
-			$fromline=full_sanitize($row1['name']);
+			$fromline=SanitizeClass::full_sanitize($row1['name']);
 		else
 			$fromline=Translator::translate_inline("The Green Dragon","mail");
 
@@ -75,13 +75,13 @@ public static function systemmail($to,$subject,$body,$from=0,$noemail=false){
 		$result = db_query($sql);
 		$row1=db_fetch_assoc($result);
 		db_free_result($result);
-		$toline = full_sanitize($row1['name']);
+		$toline = SanitizeClass::full_sanitize($row1['name']);
 
 		// We've inserted it into the database, so.. strip out any formatting
 		// codes from the actual email we send out... they make things
 		// unreadable
 		$body = preg_replace("'[`]n'", "\n", $body);
-		$body = full_sanitize($body);
+		$body = SanitizeClass::full_sanitize($body);
 		$subject = htmlentities($subject, ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));
 		$mailsubj = Translator::translate_mail(array("New LoGD Mail (%s)", $subject),$to);
 		$mailbody = Translator::translate_mail(array("You have received new mail on LoGD at http://%s`n`n"
@@ -97,7 +97,7 @@ public static function systemmail($to,$subject,$body,$from=0,$noemail=false){
 			$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']),
 			$fromline,
 			$toline,
-			full_sanitize(stripslashes($subject)),
+			SanitizeClass::full_sanitize(stripslashes($subject)),
 			stripslashes($body),
 			$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME'])
 		),$to);

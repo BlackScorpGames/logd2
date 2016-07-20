@@ -68,7 +68,7 @@ if ($op==""){
 		$msg = Translator::translate_inline("Complete Transfer");
 		OutputClass::rawoutput("<form action='bank.php?op=transfer3' method='POST'>");
 		OutputClass::output("`6Transfer `^%s`6 to `&%s`6.",$amt,$row['name']);
-		OutputClass::rawoutput("<input type='hidden' name='to' value='".HTMLEntities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."'><input type='hidden' name='amount' value='$amt'><input type='submit' class='button' value='$msg'></form>",true);
+		OutputClass::rawoutput("<input type='hidden' name='to' value='".htmlentities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."'><input type='hidden' name='amount' value='$amt'><input type='submit' class='button' value='$msg'></form>",true);
 		OutputClass::addnav("","bank.php?op=transfer3");
 	}elseif(db_num_rows($result)>100){
 		OutputClass::output("`@Elessa`6 looks at you disdainfully and coldly, but politely, suggests you try narrowing down the field of who you want to send money to just a little bit!`n`n");
@@ -89,7 +89,7 @@ if ($op==""){
 		$number=db_num_rows($result);
 		for ($i=0;$i<$number;$i++){
 			$row = db_fetch_assoc($result);
-			OutputClass::rawoutput("<option value=\"".HTMLEntities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">".full_sanitize($row['name'])."</option>");
+			OutputClass::rawoutput("<option value=\"".htmlentities($row['login'], ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\">".SanitizeClass::full_sanitize($row['name'])."</option>");
 		}
 		$msg = Translator::translate_inline("Complete Transfer");
 		OutputClass::rawoutput("</select><input type='hidden' name='amount' value='$amt'><input type='submit' class='button' value='$msg'></form>",true);

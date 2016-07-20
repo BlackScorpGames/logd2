@@ -209,7 +209,7 @@ class PageParts{
             $paypalstr .= '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
 <input type="hidden" name="cmd" value="_xclick">
 <input type="hidden" name="business" value="logd@mightye.org">
-<input type="hidden" name="item_name" value="Legend of the Green Dragon Author Donation from ' . full_sanitize($session['user']['name']) . '">
+<input type="hidden" name="item_name" value="Legend of the Green Dragon Author Donation from ' . SanitizeClass::full_sanitize($session['user']['name']) . '">
 <input type="hidden" name="item_number" value="' . htmlentities($session['user']['login'] . ":" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
                     ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")) . '">
 <input type="hidden" name="no_shipping" value="1">
@@ -226,7 +226,7 @@ class PageParts{
         $paypalstr .= '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
 <input type="hidden" name="cmd" value="_xclick">
 <input type="hidden" name="business" value="derbugmeister@shaw.ca">
-<input type="hidden" name="item_name" value="Legend of the Green Dragon DP Donation from ' . full_sanitize($session['user']['name']) . '">
+<input type="hidden" name="item_name" value="Legend of the Green Dragon DP Donation from ' . SanitizeClass::full_sanitize($session['user']['name']) . '">
 <input type="hidden" name="item_number" value="' . htmlentities($session['user']['login'] . ":" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
                 ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")) . '">
 <input type="hidden" name="no_shipping" value="1">
@@ -244,7 +244,7 @@ class PageParts{
 <input type="hidden" name="cmd" value="_xclick">
 <input type="hidden" name="business" value="' . $paysite . '">
 <input type="hidden" name="item_name" value="' . Settings::getsetting("paypaltext",
-                    "Legend of the Green Dragon Site Donation from") . ' ' . full_sanitize($session['user']['name']) . '">
+                    "Legend of the Green Dragon Site Donation from") . ' ' . SanitizeClass::full_sanitize($session['user']['name']) . '">
 <input type="hidden" name="item_number" value="' . htmlentities($session['user']['login'] . ":" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
                     ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")) . '">
 <input type="hidden" name="no_shipping" value="1">';

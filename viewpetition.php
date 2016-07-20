@@ -249,7 +249,7 @@ if ($op==""){
 	OutputClass::addnav("Petition Ops");
 	reset($statuses);
 	while (list($key,$val)=each($statuses)){
-		$plain = full_sanitize($val);
+		$plain = SanitizeClass::full_sanitize($val);
 		OutputClass::addnav(array("%s?Mark %s", substr($plain,0,1), $val),
 				"viewpetition.php?setstat=$key&id=$id");
 	}

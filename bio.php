@@ -30,7 +30,7 @@ if ($target = db_fetch_assoc($result)) {
   $id = $target['acctid'];
   $target['return_link']=$return;
 
-  PageParts::page_header("Character Biography: %s", full_sanitize($target['name']));
+  PageParts::page_header("Character Biography: %s", SanitizeClass::full_sanitize($target['name']));
 
   Translator::tlschema("nav");
   OutputClass::addnav("Return");

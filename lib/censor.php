@@ -8,7 +8,7 @@ function soap($input,$debug=false,$skiphook=false){
 	$final_output = $input;
 	// $output is the color code-less (fully sanitized) input against which
 	// we search.
-	$output = full_sanitize($input);
+	$output = SanitizeClass::full_sanitize($input);
 	// the mask of displayable chars that should be masked out;
 	// X displays, _ masks.
 	$mix_mask = str_pad("",strlen($output),"X");

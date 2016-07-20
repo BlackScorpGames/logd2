@@ -240,7 +240,7 @@ if ($op==""){
 				if (!$temp || empty($temp)) continue;
 				$temp['shortname']=$shortname;
 				array_push($moduleinfo,$temp);
-				array_push($sortby,full_sanitize($temp[$sorting]));
+				array_push($sortby,SanitizeClass::full_sanitize($temp[$sorting]));
 				array_push($numberarray,$count);
 				$count++;
 			}
