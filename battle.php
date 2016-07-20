@@ -265,7 +265,7 @@ if ($op != "newtarget") {
 												$newcompanions = $companions;
 												$needtostopfighting = true;
 											}else{
-												$needtostopfighting = battle_player_attacks();
+												$needtostopfighting = Battle::battle_player_attacks();
 											}
 											$r = mt_rand(0,100);
 											if ($r < $ggchancetodouble && $badguy['creaturehealth']>0 && $session['user']['hitpoints']>0 && !$needtostopfighting){
@@ -512,8 +512,8 @@ $attackstack = array('enemies'=>$newenemies, 'options'=>$options);
 $session['user']['badguy']=ArrayUtil::createstring($attackstack);
 $session['user']['companions']=ArrayUtil::createstring($companions);
 Translator::tlschema();
-
-function battle_player_attacks() {
+class Battle{
+public static function battle_player_attacks() {
 	global $badguy,$enemies,$newenemies,$session,$creatureattack,$creatureatkmod, $beta;
 	global $creaturedefmod,$adjustment,$defmod,$atkmod,$compatkmod,$compdefmod,$buffset,$atk,$def,$options;
 	global $companions,$companion,$newcompanions,$roll,$count,$needtostopfighting;
@@ -553,7 +553,7 @@ function battle_player_attacks() {
 	}
 	return $break;
 }
-
+}
 function battle_badguy_attacks() {
 	global $badguy,$enemies,$newenemies,$session,$creatureattack,$creatureatkmod, $beta;
 	global $creaturedefmod,$adjustment,$defmod,$atkmod,$compatkmod,$compdefmod,$buffset,$atk,$def,$options;
