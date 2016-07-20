@@ -28,6 +28,33 @@ function set_block_new_output($block)
 class OutputClass
 {
     /**
+     * Called to block the display of a nav
+     * if $partial is true, it will block any nav that begins with the given $link.
+     * if $partial is false, it will block only navs that have exactly the given $link.
+     *
+     * @param string $link The URL to block
+     * @param bool $partial
+     */
+    public static function blocknav($link,$partial=false){
+        //prevents a script from being able to generate navs on the given $link.
+        global $blockednavs;
+        $p = ($partial?'partial':'full');
+        $blockednavs["block$p"][$link] = true;
+        //eliminate any unblocked navs that match this description.
+        if (isset($blockednavs["unblock$p"][$link])) {
+            unset($blockednavs["unblock$p"][$link]);
+        }
+        if ($partial){
+            reset($blockednavs['unblockpartial']);
+            while (list($key,$val)=each($blockednavs['unblockpartial'])){
+                if (substr($link,0,strlen($val))==$val ||
+                    substr($val,0,strlen($link))==$link){
+                    unset($blockednavs['unblockpartial'][$val]);
+                }
+            }
+        }
+    }
+    /**
      * Generates the appropriate OutputClass::output based on the LOGD coding system (ie: `b: Bold, `i: Italic)
      *
      * @param string $data The string to be OutputClass::output
@@ -395,33 +422,7 @@ $blockednavs = array(
 		'unblockfull'=>array()
 	);
 
-/**
- * Called to block the display of a nav
- * if $partial is true, it will block any nav that begins with the given $link.
- * if $partial is false, it will block only navs that have exactly the given $link.
- *
- * @param string $link The URL to block
- * @param bool $partial
- */
-function blocknav($link,$partial=false){
-	//prevents a script from being able to generate navs on the given $link.
-	global $blockednavs;
-	$p = ($partial?'partial':'full');
-	$blockednavs["block$p"][$link] = true;
-	//eliminate any unblocked navs that match this description.
-	if (isset($blockednavs["unblock$p"][$link])) {
-		unset($blockednavs["unblock$p"][$link]);
-	}
-	if ($partial){
-		reset($blockednavs['unblockpartial']);
-		while (list($key,$val)=each($blockednavs['unblockpartial'])){
-			if (substr($link,0,strlen($val))==$val ||
-					substr($val,0,strlen($link))==$link){
-				unset($blockednavs['unblockpartial'][$val]);
-			}
-		}
-	}
-}
+
 
 /**
  * Unlocks a nav from the blocked navs Array
@@ -432,7 +433,7 @@ function blocknav($link,$partial=false){
  * @param bool $partial If the passed nav is partial or not
  */
 function unblocknav($link,$partial=false){
-	//prevents a link that was otherwise blocked with blocknav() from
+	//prevents a link that was otherwise blocked with OutputClass::blocknav() from
 	//actually being blocked.
 	global $blockednavs;
 	$p = ($partial?'partial':'full');

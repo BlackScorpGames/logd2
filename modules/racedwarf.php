@@ -301,7 +301,7 @@ function racedwarf_dohook($hookname,$args){
 			$args['schemas']['healpaid'] = "";
 
 			// We don not want the healer in this camp.
-			blocknav("mercenarycamp.php?op=heal", true);
+			OutputClass::blocknav("mercenarycamp.php?op=heal", true);
 		}
 		break;
 	}
