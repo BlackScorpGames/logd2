@@ -117,7 +117,7 @@ function drinks_editor(){
 			$post = Http::httpallpost();
 			reset($post);
 			while(list($key, $val)=each($post)) {
-				set_module_objpref("drinks", $drinkid,$key, $val, $module);
+				Modules::set_module_objpref("drinks", $drinkid,$key, $val, $module);
 			}
 			OutputClass::output("`^Saved.");
 		}

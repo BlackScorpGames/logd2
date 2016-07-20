@@ -84,7 +84,7 @@ if ($op == "save"){
 		$post = Http::httpallpost();
 		reset($post);
 		while(list($key, $val) = each($post)) {
-			set_module_objpref("creatures", $id, $key, $val, $module);
+			Modules::set_module_objpref("creatures", $id, $key, $val, $module);
 		}
 		OutputClass::output("`^Saved!`0`n");
 	}

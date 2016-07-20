@@ -398,6 +398,15 @@ $currenthook = "";
 
 class Modules
 {
+    public static function set_module_objpref($objtype,$objid,$name,$value,$module=false){
+        global $mostrecentmodule;
+        if ($module === false) $module = $mostrecentmodule;
+        // Delete the old version and insert the new
+        $sql = "REPLACE INTO " . db_prefix("module_objprefs") . "(modulename,objtype,setting,objid,value) VALUES ('$module', '$objtype', '$name', '$objid', '".addslashes($value)."')";
+        db_query($sql);
+        DataCache::invalidatedatacache("objpref-$objtype-$objid-$name-$module");
+    }
+
     public static function module_delete_objprefs($objtype, $objid)
     {
         $sql = "DELETE FROM " . db_prefix("module_objprefs") . " WHERE objtype='$objtype' AND objid='$objid'";
@@ -865,21 +874,13 @@ function get_module_objpref($type, $objid, $name, $module=false){
 			$x = explode("|",$info['prefs-'.$type][$name]);
 		}
 		if (isset($x[1])){
-			set_module_objpref($type,$objid,$name,$x[1],$module);
+			Modules::set_module_objpref($type,$objid,$name,$x[1],$module);
 			return $x[1];
 		}
 	}
 	return NULL;
 }
 
-function set_module_objpref($objtype,$objid,$name,$value,$module=false){
-	global $mostrecentmodule;
-	if ($module === false) $module = $mostrecentmodule;
-	// Delete the old version and insert the new
-	$sql = "REPLACE INTO " . db_prefix("module_objprefs") . "(modulename,objtype,setting,objid,value) VALUES ('$module', '$objtype', '$name', '$objid', '".addslashes($value)."')";
-	db_query($sql);
-	DataCache::invalidatedatacache("objpref-$objtype-$objid-$name-$module");
-}
 
 function increment_module_objpref($objtype,$objid,$name,$value=1,$module=false) {
 	global $mostrecentmodule;
