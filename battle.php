@@ -215,7 +215,7 @@ if ($op != "newtarget") {
 
 						if ($op=="fight" || $op=="run" || $surprised){
 							// Grab an initial roll.
-							$roll = rolldamage();
+							$roll = BattleSkills::rolldamage();
 							if ($op=="fight" && !$surprised){
 								$ggchancetodouble = $session['user']['dragonkills'];
 								$bgchancetodouble = $session['user']['dragonkills'];
@@ -271,7 +271,7 @@ if ($op != "newtarget") {
 											if ($r < $ggchancetodouble && $badguy['creaturehealth']>0 && $session['user']['hitpoints']>0 && !$needtostopfighting){
 												$additionalattack = true;
 												$ggchancetodouble -= ($r+5);
-												$roll = rolldamage();
+												$roll = BattleSkills::rolldamage();
 											}else{
 												$additionalattack = false;
 											}
@@ -302,7 +302,7 @@ if ($op != "newtarget") {
 									if ($r < $bgchancetodouble && $badguy['creaturehealth']>0 && $session['user']['hitpoints']>0 && !$needtostopfighting){
 										$additionalattack = true;
 										$bgchancetodouble -= ($r+5);
-										$roll = rolldamage();
+										$roll = BattleSkills::rolldamage();
 									}else{
 										$additionalattack = false;
 									}

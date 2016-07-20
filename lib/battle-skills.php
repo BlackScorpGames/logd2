@@ -6,91 +6,7 @@ require_once("lib/bell_rand.php");
 require_once("lib/e_rand.php");
 require_once("lib/buffs.php");
 
-function rolldamage()
-{
-    global $badguy, $session, $creatureattack, $creatureatkmod, $adjustment;
-    global $creaturedefmod, $defmod, $atkmod, $buffset, $atk, $def, $options;
 
-    if ($badguy['creaturehealth'] > 0 && $session['user']['hitpoints'] > 0) {
-        if ($options['type'] == 'pvp') {
-            $adjustedcreaturedefense = $badguy['creaturedefense'];
-        } else {
-            $adjustedcreaturedefense =
-                ($creaturedefmod * $badguy['creaturedefense'] /
-                    ($adjustment * $adjustment));
-        }
-
-        $creatureattack = $badguy['creatureattack'] * $creatureatkmod;
-        $adjustedselfdefense = ($session['user']['defense'] * $adjustment * $defmod);
-
-        /*
-        OutputClass::debug("Base creature defense: " . $badguy['creaturedefense']);
-        OutputClass::debug("Creature defense mod: $creaturedefmod");
-        OutputClass::debug("Adjustment: $adjustment");
-        OutputClass::debug("Adjusted creature defense: $adjustedcreaturedefense");
-        OutputClass::debug("Adjusted creature attack: $creatureattack");
-        OutputClass::debug("Adjusted self defense: $adjustedselfdefense");
-        */
-
-        while (!isset($creaturedmg) || !isset($selfdmg) || $creaturedmg == 0 && $selfdmg == 0) {
-            $atk = $session['user']['attack'] * $atkmod;
-            if (Erand::e_rand(1, 20) == 1 && $options['type'] != "pvp") {
-                $atk *= 3;
-            }
-            /*
-            OutputClass::debug("Attack score: $atk");
-            */
-
-            $patkroll = bell_rand(0, $atk);
-            /*
-            OutputClass::debug("Player Attack roll: $patkroll");
-            */
-
-            // Set up for crit detection
-            $atk = $patkroll;
-            $catkroll = bell_rand(0, $adjustedcreaturedefense);
-            /*
-            OutputClass::debug("Creature defense roll: $catkroll");
-            */
-
-            $creaturedmg = 0 - (int)($catkroll - $patkroll);
-            if ($creaturedmg < 0) {
-                $creaturedmg = (int)($creaturedmg / 2);
-                $creaturedmg = round($buffset['badguydmgmod'] *
-                    $creaturedmg, 0);
-            }
-            if ($creaturedmg > 0) {
-                $creaturedmg = round($buffset['dmgmod'] * $creaturedmg, 0);
-            }
-            $pdefroll = bell_rand(0, $adjustedselfdefense);
-            $catkroll = bell_rand(0, $creatureattack);
-            /*
-               OutputClass::debug("Creature attack roll: $catkroll");
-               OutputClass::debug("Player defense roll: $pdefroll");
-             */
-            $selfdmg = 0 - (int)($pdefroll - $catkroll);
-            if ($selfdmg < 0) {
-                $selfdmg = (int)($selfdmg / 2);
-                $selfdmg = round($selfdmg * $buffset['dmgmod'], 0);
-            }
-            if ($selfdmg > 0) {
-                $selfdmg = round($selfdmg * $buffset['badguydmgmod'], 0);
-            }
-        }
-    } else {
-        $creaturedmg = 0;
-        $selfdmg = 0;
-    }
-    // Handle god mode's invulnerability
-    if ($buffset['invulnerable']) {
-        $creaturedmg = abs($creaturedmg);
-        $selfdmg = -abs($selfdmg);
-    }
-    return array(
-        "creaturedmg" => (isset($creaturedmg) ? $creaturedmg : 0),
-        "selfdmg" => (isset($selfdmg) ? $selfdmg : 0)
-    );
-}
 
 function report_power_move($crit, $dmg)
 {
@@ -184,6 +100,91 @@ function is_buff_active($name)
 
 class BattleSkills
 {
+    public static function rolldamage()
+    {
+        global $badguy, $session, $creatureattack, $creatureatkmod, $adjustment;
+        global $creaturedefmod, $defmod, $atkmod, $buffset, $atk, $def, $options;
+
+        if ($badguy['creaturehealth'] > 0 && $session['user']['hitpoints'] > 0) {
+            if ($options['type'] == 'pvp') {
+                $adjustedcreaturedefense = $badguy['creaturedefense'];
+            } else {
+                $adjustedcreaturedefense =
+                    ($creaturedefmod * $badguy['creaturedefense'] /
+                        ($adjustment * $adjustment));
+            }
+
+            $creatureattack = $badguy['creatureattack'] * $creatureatkmod;
+            $adjustedselfdefense = ($session['user']['defense'] * $adjustment * $defmod);
+
+            /*
+            OutputClass::debug("Base creature defense: " . $badguy['creaturedefense']);
+            OutputClass::debug("Creature defense mod: $creaturedefmod");
+            OutputClass::debug("Adjustment: $adjustment");
+            OutputClass::debug("Adjusted creature defense: $adjustedcreaturedefense");
+            OutputClass::debug("Adjusted creature attack: $creatureattack");
+            OutputClass::debug("Adjusted self defense: $adjustedselfdefense");
+            */
+
+            while (!isset($creaturedmg) || !isset($selfdmg) || $creaturedmg == 0 && $selfdmg == 0) {
+                $atk = $session['user']['attack'] * $atkmod;
+                if (Erand::e_rand(1, 20) == 1 && $options['type'] != "pvp") {
+                    $atk *= 3;
+                }
+                /*
+                OutputClass::debug("Attack score: $atk");
+                */
+
+                $patkroll = bell_rand(0, $atk);
+                /*
+                OutputClass::debug("Player Attack roll: $patkroll");
+                */
+
+                // Set up for crit detection
+                $atk = $patkroll;
+                $catkroll = bell_rand(0, $adjustedcreaturedefense);
+                /*
+                OutputClass::debug("Creature defense roll: $catkroll");
+                */
+
+                $creaturedmg = 0 - (int)($catkroll - $patkroll);
+                if ($creaturedmg < 0) {
+                    $creaturedmg = (int)($creaturedmg / 2);
+                    $creaturedmg = round($buffset['badguydmgmod'] *
+                        $creaturedmg, 0);
+                }
+                if ($creaturedmg > 0) {
+                    $creaturedmg = round($buffset['dmgmod'] * $creaturedmg, 0);
+                }
+                $pdefroll = bell_rand(0, $adjustedselfdefense);
+                $catkroll = bell_rand(0, $creatureattack);
+                /*
+                   OutputClass::debug("Creature attack roll: $catkroll");
+                   OutputClass::debug("Player defense roll: $pdefroll");
+                 */
+                $selfdmg = 0 - (int)($pdefroll - $catkroll);
+                if ($selfdmg < 0) {
+                    $selfdmg = (int)($selfdmg / 2);
+                    $selfdmg = round($selfdmg * $buffset['dmgmod'], 0);
+                }
+                if ($selfdmg > 0) {
+                    $selfdmg = round($selfdmg * $buffset['badguydmgmod'], 0);
+                }
+            }
+        } else {
+            $creaturedmg = 0;
+            $selfdmg = 0;
+        }
+        // Handle god mode's invulnerability
+        if ($buffset['invulnerable']) {
+            $creaturedmg = abs($creaturedmg);
+            $selfdmg = -abs($selfdmg);
+        }
+        return array(
+            "creaturedmg" => (isset($creaturedmg) ? $creaturedmg : 0),
+            "selfdmg" => (isset($selfdmg) ? $selfdmg : 0)
+        );
+    }
     public static function apply_bodyguard($level)
     {
         global $session, $badguy;
