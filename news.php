@@ -50,7 +50,7 @@ while ($row = db_fetch_assoc($result2)) {
 	if ($row['motdauthorname']=="")
 		$row['motdauthorname']="`@Green Dragon Staff`0";
 	if ($row['motdtype']==0){
-		motditem($row['motdtitle'], $row['motdbody'],$row['motdauthorname'], $row['motddate'], "");
+		Motd::motditem($row['motdtitle'], $row['motdbody'],$row['motdauthorname'], $row['motddate'], "");
 	}else{
 		pollitem($row['motditem'], $row['motdtitle'], $row['motdbody'],$row['motdauthorname'],$row['motddate'], false);
 	}

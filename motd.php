@@ -56,7 +56,7 @@ if ($op=="") {
 	$newcount = Http::httpget("newcount");
 	if (!$newcount || !Http::httppost('proceed')) $newcount=0;
 	/*
-	motditem("Beta!","Please see the beta message below.","","", "");
+	Motd::motditem("Beta!","Please see the beta message below.","","", "");
 	*/
 	$m = Http::httpget("month");
 	if ($m > ""){
@@ -75,7 +75,7 @@ if ($op=="") {
 		if ($row['motdauthorname']=="")
 			$row['motdauthorname']="`@Green Dragon Staff`0";
 		if ($row['motdtype']==0){
-			motditem($row['motdtitle'], $row['motdbody'],
+			Motd::motditem($row['motdtitle'], $row['motdbody'],
 					$row['motdauthorname'], $row['motddate'],
 					$row['motditem']);
 		}else{
@@ -85,7 +85,7 @@ if ($op=="") {
 		}
 	}
 	/*
-	motditem("Beta!","For those who might be unaware, this website is still in beta mode.  I'm working on it when I have time, which generally means a couple of changes a week.  Feel free to drop suggestions, I'm open to anything :-)","","", "");
+	Motd::motditem("Beta!","For those who might be unaware, this website is still in beta mode.  I'm working on it when I have time, which generally means a couple of changes a week.  Feel free to drop suggestions, I'm open to anything :-)","","", "");
 	*/
 
 	$result = db_query("SELECT mid(motddate,1,7) AS d, count(*) AS c FROM ".db_prefix("motd")." GROUP BY d ORDER BY d DESC");

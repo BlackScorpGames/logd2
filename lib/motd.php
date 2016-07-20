@@ -16,8 +16,8 @@ function motd_admin($id, $poll=false) {
 		OutputClass::rawoutput("<a href='motd.php?op=del&id=$id' onClick=\"return confirm('$confirm');\">$del</a> ]");
 	}
 }
-
-function motditem($subject,$body,$author,$date,$id){
+class Motd{
+public static function motditem($subject,$body,$author,$date,$id){
 	if ($date)
 		OutputClass::rawoutput("<a name='motd".date("YmdHis",strtotime($date))."'>");
 	OutputClass::output_notl("`b`^%s`0`b", $subject);
@@ -36,7 +36,7 @@ function motditem($subject,$body,$author,$date,$id){
 	if ($date) OutputClass::rawoutput("</a>");
 	OutputClass::rawoutput("<hr>");
 }
-
+}
 function pollitem($id,$subject,$body,$author,$date,$showpoll=true){
 	global $session;
 	$sql = "SELECT count(resultid) AS c, MAX(choice) AS choice FROM " . db_prefix("pollresults") . " WHERE motditem='$id' AND account='{$session['user']['acctid']}'";
@@ -135,7 +135,7 @@ function motd_form($id) {
 				$row['motdauthorname']=$session['user']['name'];
 			if (Http::httppost('changedate') || !isset($row['motddate']) || $row['motddate']=="")
 				$row['motddate']=date("Y-m-d H:i:s");
-			motditem($row['motdtitle'], $row['motdbody'],
+			Motd::motditem($row['motdtitle'], $row['motdbody'],
 					$row['motdauthorname'],$row['motddate'], "");
 		}
 		OutputClass::output("Subject: ");
