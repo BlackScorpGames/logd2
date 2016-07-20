@@ -201,7 +201,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 				$body=array("`&%s`# has advanced to level `^%s`#, and so you have earned `^%s`# points!", $session['user']['name'], $session['user']['level'], Settings::getsetting("refereraward", 25));
 				SystemMailClass::systemmail($session['user']['referer'],$subj,$body);
 			}
-			increment_specialty("`^");
+			IncrementSpecialty::increment_specialty("`^");
 
 			// Level-Up companions
 			// We only get one level per pageload. So we just add the per-level-values.

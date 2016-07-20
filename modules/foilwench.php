@@ -51,7 +51,7 @@ function foilwench_runevent($type)
 			OutputClass::output("%sYou give `@Foil`&wench%s a gem, and she hands you a slip of parchment with instructions on how to advance in your specialty.`n`n", $c, $c);
 			OutputClass::output("You study it intensely, shred it up, and eat it lest infidels get ahold of the information.`n`n");
 			OutputClass::output("`@Foil`&wench%s sighs... \"`&You didn't have to eat it...  Oh well, now be gone from here!%s\"`3", $c, $c);
-			increment_specialty("`3");
+			IncrementSpecialty::increment_specialty("`3");
 			$session['user']['gems']--;
 			DebugLogClass::debuglog("gave 1 gem to Foilwench");
 		}else{

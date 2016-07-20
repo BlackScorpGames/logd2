@@ -103,7 +103,7 @@ function fairy_runevent($type)
 				break;
 			case 6:
 			case 7:
-				increment_specialty("`^");
+				IncrementSpecialty::increment_specialty("`^");
 				break;
 			}
 		}else{

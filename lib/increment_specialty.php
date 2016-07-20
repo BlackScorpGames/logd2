@@ -2,8 +2,8 @@
 // translator ready
 // addnews ready
 // mail ready
-
-function increment_specialty($colorcode, $spec=false){
+class IncrementSpecialty{
+public static function increment_specialty($colorcode, $spec=false){
 	global $session;
 	if ($spec !== false) {
 		$revertspec = $session['user']['specialty'];
@@ -20,5 +20,6 @@ function increment_specialty($colorcode, $spec=false){
 	if ($spec !== false) {
 		$session['user']['specialty'] = $revertspec;
 	}
+}
 }
 ?>
