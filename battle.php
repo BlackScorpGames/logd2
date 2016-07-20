@@ -100,7 +100,7 @@ if ($enemycounter > 0) {
 		}
 	}
 	OutputClass::output_notl("`n");
-	show_enemies($enemies);
+	ExtendedBattle::show_enemies($enemies);
 }
 
 BattleSkills::suspend_buffs((($options['type'] == 'pvp')?"allowinpvp":false));
@@ -476,7 +476,7 @@ $newenemies = ExtendedBattle::autosettarget($newenemies);
 
 if ($session['user']['hitpoints']>0 && count($newenemies)>0 && ($op=="fight" || $op=="run")){
 	OutputClass::output("`2`bEnd of Round:`b`n");
-	show_enemies($newenemies);
+	ExtendedBattle::show_enemies($newenemies);
 }
 
 if ($session['user']['hitpoints'] < 0) $session['user']['hitpoints'] = 0;
