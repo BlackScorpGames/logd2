@@ -486,7 +486,7 @@ if ($victory || $defeat){
 	// unsuspend any suspended buffs
 	BattleSkills::unsuspend_buffs((($options['type']=='pvp')?"allowinpvp":false));
 	if ($session['user']['alive']) {
-		unsuspend_companions((($options['type']=='pvp')?"allowinpvp":false));
+		ExtendedBattle::unsuspend_companions((($options['type']=='pvp')?"allowinpvp":false));
 	}
 	foreach($companions as $index => $companion) {
 		if(isset($companion['expireafterfight']) && $companion['expireafterfight']) {

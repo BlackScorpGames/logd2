@@ -286,7 +286,7 @@ if ($dp < $dkills) {
 	}
 
 	require_once("lib/extended-battle.php");
-	unsuspend_companions("allowinshades");
+	ExtendedBattle::unsuspend_companions("allowinshades");
 
 	if (!Settings::getsetting("newdaycron",0)) {
 		//check last time we did this vs now to see if it was a different game day.

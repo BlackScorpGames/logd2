@@ -6,6 +6,40 @@
 
 class ExtendedBattle{
     /**
+     * Enables suspended companions.
+     *
+     * @param string $susp The type of suspension
+     * @param mixed $nomsg The message to be displayed upon unsuspending. If false, no message will be displayed.
+     */
+    public static function unsuspend_companions($susp, $nomsg=false) {
+        global $companions;
+        $notify = false;
+        $newcompanions = array();
+        if (is_array($companions)) {
+            foreach ($companions as $name => $companion) {
+                if (isset($companion['suspended']) && $companion['suspended'] == true) {
+                    $notify = true;
+                    $companion['suspended'] = false;
+                }
+                $newcompanions[$name] = $companion;
+            }
+        }
+
+        if ($notify) {
+            $schema = false;
+            if ($nomsg === false) {
+                $schema = "battle";
+                $nomsg = "`&Your companions return to stand by your side!`n";
+            }
+            if ($nomsg !== true){
+                if ($schema) Translator::tlschema($schema);
+                OutputClass::output($nomsg);
+                if ($schema) Translator::tlschema();
+            }
+        }
+        $companions = $newcompanions;
+    }
+    /**
      * Suspends companions on a given parameter.
      *
      * @param string $susp The type of suspension
@@ -118,40 +152,7 @@ function prepare_companions() {
 
 
 
-/**
- * Enables suspended companions.
- *
- * @param string $susp The type of suspension
- * @param mixed $nomsg The message to be displayed upon unsuspending. If false, no message will be displayed.
- */
-function unsuspend_companions($susp, $nomsg=false) {
-	global $companions;
-	$notify = false;
-	$newcompanions = array();
-	if (is_array($companions)) {
-		foreach ($companions as $name => $companion) {
-			if (isset($companion['suspended']) && $companion['suspended'] == true) {
-				$notify = true;
-				$companion['suspended'] = false;
-			}
-			$newcompanions[$name] = $companion;
-		}
-	}
 
-	if ($notify) {
-		$schema = false;
-		if ($nomsg === false) {
-			$schema = "battle";
-			$nomsg = "`&Your companions return to stand by your side!`n";
-		}
-		if ($nomsg !== true){
-			if ($schema) Translator::tlschema($schema);
-			OutputClass::output($nomsg);
-			if ($schema) Translator::tlschema();
-		}
-	}
-	$companions = $newcompanions;
-}
 
 /**
  * Automatically chooses the first still living enemy as target for attacks.
