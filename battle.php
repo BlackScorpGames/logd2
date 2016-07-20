@@ -35,7 +35,7 @@ if (!isset($options)) {
 	if (isset($enemies[0]['type'])) $options['type'] = $enemies[0]['type'];
 }
 
-$options = prepare_fight($options);
+$options = ExtendedBattle::prepare_fight($options);
 
 $roundcounter=0;
 $adjustment = 1;

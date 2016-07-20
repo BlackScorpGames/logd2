@@ -6,6 +6,28 @@
 
 class ExtendedBattle{
     /**
+     * This function prepares the fight, sets up options and gives hook a hook to change options on a per-player basis.
+     *
+     * @param array $options The options given by a module or basics.
+     * @return array The complete options.
+     */
+    public static function prepare_fight($options=false) {
+        global $companions;
+        $basicoptions = array(
+            "maxattacks"=>Settings::getsetting("maxattacks", 4),
+        );
+        if (!is_array($options)) {
+            $options = array();
+        }
+        $fightoptions = $options + $basicoptions;
+        $fightoptions = Modules::modulehook("fightoptions", $fightoptions);
+
+        // We'll also reset the companions here...
+        prepare_companions();
+        return $fightoptions;
+    }
+
+    /**
      * Enables suspended companions.
      *
      * @param string $susp The type of suspension
@@ -110,27 +132,6 @@ function show_enemies($enemies) {
 	}
 }
 
-/**
- * This function prepares the fight, sets up options and gives hook a hook to change options on a per-player basis.
- *
- * @param array $options The options given by a module or basics.
- * @return array The complete options.
- */
-function prepare_fight($options=false) {
-	global $companions;
-	$basicoptions = array(
-		"maxattacks"=>Settings::getsetting("maxattacks", 4),
-	);
-	if (!is_array($options)) {
-		$options = array();
-	}
-	$fightoptions = $options + $basicoptions;
-	$fightoptions = Modules::modulehook("fightoptions", $fightoptions);
-
-	// We'll also reset the companions here...
-	prepare_companions();
-	return $fightoptions;
-}
 
 /**
  * This functions prepares companions to be able to take part in a fight. Uses global copies.
