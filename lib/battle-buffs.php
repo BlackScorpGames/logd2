@@ -13,8 +13,8 @@
  */
 
 require_once("lib/substitute.php");
-
-function activate_buffs($tag) {
+class BattleBuffs{
+public static function activate_buffs($tag) {
 	global $session, $badguy, $count;
 	Translator::tlschema("buffs");
 	$result = array();
@@ -228,7 +228,7 @@ function activate_buffs($tag) {
 	Translator::tlschema();
 	return $result;
 }
-
+}
 function process_lifetaps($ltaps, $damage) {
 	global $session, $badguy;
 	Translator::tlschema("buffs");

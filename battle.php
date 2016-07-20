@@ -166,7 +166,7 @@ if ($op != "newtarget") {
 				if (($roundcounter > $options['maxattacks']) && $badguy['istarget'] == false) {
 					$newcompanions = $companions;
 				} else {
-					$buffset = activate_buffs("roundstart");
+					$buffset = BattleBuffs::activate_buffs("roundstart");
 					if ($badguy['creaturehealth']<=0 || $session['user']['hitpoints']<=0){
 						$creaturedmg = 0;
 						$selfdmg = 0;
@@ -221,7 +221,7 @@ if ($op != "newtarget") {
 								$bgchancetodouble = $session['user']['dragonkills'];
 
 								if ($badguy['creaturehealth']>0 && $session['user']['hitpoints']>0) {
-									$buffset = activate_buffs("offense");
+									$buffset = BattleBuffs::activate_buffs("offense");
 									if ($badguy['creaturehealth']>0 && $session['user']['hitpoints']>0 && $badguy['istarget']){
 										if (is_array($companions)) {
 											$newcompanions = array();
@@ -293,7 +293,7 @@ if ($op != "newtarget") {
 							// the user can win a battle by a RIPOSTE after he has gone <= 0 HP.
 							//-- Gunnar Kreitz
 							if ($badguy['creaturehealth']>0 && $session['user']['hitpoints']>0 && $roundcounter <= $options['maxattacks']){
-								$buffset = activate_buffs("defense");
+								$buffset = BattleBuffs::activate_buffs("defense");
 								do {
 									$defended = false;
 									$needtostopfighting = battle_badguy_attacks();
