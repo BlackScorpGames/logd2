@@ -19,5 +19,5 @@ switch ($op) {
 		require("lib/petition/petition_default.php");
 		break;
 }
-popup_footer();
+PageParts::popup_footer();
 ?>

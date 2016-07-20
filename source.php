@@ -30,7 +30,7 @@ if (!($session['user']['loggedin'] && $session['user']['superuser'] & SU_VIEW_SO
 	OutputClass::rawoutput("</li><li>");
 	OutputClass::output("Claiming copyright of items which they did not create.");
 	OutputClass::rawoutput("</li></ul>");
-	popup_footer();
+	PageParts::popup_footer();
 } else {
 	$legal_start_dirs = array(
 		"" => 1,
@@ -195,6 +195,6 @@ if (!($session['user']['loggedin'] && $session['user']['superuser'] & SU_VIEW_SO
 			OutputClass::output("`nCannot view this file.`n");
 		}
 	}
-	popup_footer();
+	PageParts::popup_footer();
 }
 ?>

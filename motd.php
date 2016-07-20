@@ -115,5 +115,5 @@ $result = db_query_cached($sql, "motddate");
 $row = db_fetch_assoc($result);
 $session['user']['lastmotd']=$row['motddate'];
 
-popup_footer();
+PageParts::popup_footer();
 ?>

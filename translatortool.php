@@ -32,7 +32,7 @@ if ($op==""){
 	OutputClass::rawoutput("<input type='submit' value=\"$saveclose\" class='button'>");
 	OutputClass::rawoutput("<input type='submit' value=\"$savenotclose\" class='button' name='savenotclose'>");
 	OutputClass::rawoutput("</form>");
-	popup_footer();
+	PageParts::popup_footer();
 }elseif ($_GET['op']=='save'){
 	$uri = Http::httppost('uri');
 	$text = Http::httppost('text');
@@ -89,7 +89,7 @@ if ($op==""){
 	}else{
 		popup_header("Updated");
 		OutputClass::rawoutput("<script language='javascript'>window.close();</script>");
-		popup_footer();
+		PageParts::popup_footer();
 	}
 }elseif($op=="list"){
 	popup_header("Translation List");
@@ -137,6 +137,6 @@ if ($op==""){
 		OutputClass::rawoutput("<tr><td colspan='5'>$norows</td></tr>");
 	}
 	OutputClass::rawoutput("</table>");
-	popup_footer();
+	PageParts::popup_footer();
 }
 ?>

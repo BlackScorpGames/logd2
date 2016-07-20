@@ -22,6 +22,45 @@ $runheaders = array();
  */
 class PageParts{
     /**
+     * Ends page generation for popup windows.  Saves the user account info - doesn't update page generation stats
+     *
+     */
+    public static function popup_footer(){
+        global $output,$nestedtags,$header,$session,$y2,$z2,$copyright, $template;
+
+        while (list($key,$val)=each($nestedtags)){
+            if ($nestedtags[$key] === true) $output.="</$key>";
+            unset($nestedtags[$key]);
+        }
+
+        $footer = $template['popupfoot'];
+
+        // Pass the script file down into the footer so we can do something if
+        // we need to on certain pages (much like we do on the header.
+        // Problem is 'script' is a valid replacement token, so.. use an
+        // invalid one which we can then blow away.
+        $replacementbits = Modules::modulehook("footer-popup",array());
+        //OutputClass::output any template part replacements that above hooks need
+        reset($replacementbits);
+        while (list($key,$val)=each($replacementbits)){
+            $header = str_replace("{".$key."}","{".$key."}".join($val,""),$header);
+            $footer = str_replace("{".$key."}","{".$key."}".join($val,""),$footer);
+        }
+
+        $z = $y2^$z2;
+        $footer = str_replace("{".($z)."}",$$z, $footer);
+
+        //clean up spare {fields}s from header and footer (in case they're not used)
+        $footer = preg_replace("/{[^} \t\n\r]*}/i","",$footer);
+        $header = preg_replace("/{[^} \t\n\r]*}/i","",$header);
+
+        $output=$header.$output.$footer;
+        SaveUserClass::saveuser();
+        session_write_close();
+        echo $output;
+        exit();
+    }
+    /**
      * Brings all the OutputClass::output elements together and terminates the rendering of the page.  Saves the current user info and updates the rendering statistics
      * Hooks provided:
      *    footer-{$script name}
@@ -444,45 +483,7 @@ function popup_header($title="Legend of the Green Dragon"){
 	$header = str_replace("{title}", $title, $header);
 }
 
-/**
- * Ends page generation for popup windows.  Saves the user account info - doesn't update page generation stats
- *
- */
-function popup_footer(){
-	global $output,$nestedtags,$header,$session,$y2,$z2,$copyright, $template;
 
-	while (list($key,$val)=each($nestedtags)){
-		if ($nestedtags[$key] === true) $output.="</$key>";
-		unset($nestedtags[$key]);
-	}
-
-	$footer = $template['popupfoot'];
-
-	// Pass the script file down into the footer so we can do something if
-	// we need to on certain pages (much like we do on the header.
-	// Problem is 'script' is a valid replacement token, so.. use an
-	// invalid one which we can then blow away.
-	$replacementbits = Modules::modulehook("footer-popup",array());
-	//OutputClass::output any template part replacements that above hooks need
-	reset($replacementbits);
-	while (list($key,$val)=each($replacementbits)){
-		$header = str_replace("{".$key."}","{".$key."}".join($val,""),$header);
-		$footer = str_replace("{".$key."}","{".$key."}".join($val,""),$footer);
-	}
-
-	$z = $y2^$z2;
-	$footer = str_replace("{".($z)."}",$$z, $footer);
-
-	//clean up spare {fields}s from header and footer (in case they're not used)
-	$footer = preg_replace("/{[^} \t\n\r]*}/i","",$footer);
-	$header = preg_replace("/{[^} \t\n\r]*}/i","",$header);
-
-	$output=$header.$output.$footer;
-	SaveUserClass::saveuser();
-	session_write_close();
-	echo $output;
-	exit();
-}
 
 $charstat_info = array();
 $last_charstat_label = "";

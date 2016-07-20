@@ -96,7 +96,7 @@ if (isset($row['login']) && $row['login']!=""){
 		Http::httpset('prepop', $to, true);
 		OutputClass::rawoutput("</form>");
 		require("lib/mail/case_address.php");
-		popup_footer();
+		PageParts::popup_footer();
 	}else{
 		OutputClass::output_notl("<select name='to' id='to' onchange='check_su_warning();'>",true);
 		$superusers = array();

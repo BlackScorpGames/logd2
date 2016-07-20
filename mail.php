@@ -87,5 +87,5 @@ default:
 	require("lib/mail/case_default.php");
 	break;
 }
-popup_footer();
+PageParts::popup_footer();
 ?>

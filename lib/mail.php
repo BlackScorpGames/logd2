@@ -335,7 +335,7 @@ if ($op==""){
 			OutputClass::output("`@No one was found who matches \"%s\".  ",stripslashes($to));
 			$try = Translator::translate_inline("Please try again");
 			OutputClass::output_notl("<a href=\"mail.php?op=address&prepop=".rawurlencode(stripslashes(htmlentities($to)))."\">$try</a>.",true);
-			popup_footer();
+			PageParts::popup_footer();
 			exit();
 		}else{
 			OutputClass::output_notl("<select name='to' id='to' onChange='check_su_warning();'>",true);
@@ -411,5 +411,5 @@ if ($op==""){
 
 	</script>");
 }
-popup_footer();
+PageParts::popup_footer();
 ?>
