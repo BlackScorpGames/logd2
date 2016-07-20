@@ -10,7 +10,7 @@ require_once("lib/http.php");
 Translator::tlschema("about");
 
 PageParts::page_header("About Legend of the Green Dragon");
-$details = gametimedetails();
+$details = GameDateTime::gametimedetails();
 
 GameDateTime::checkday();
 $op = Http::httpget('op');

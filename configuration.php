@@ -194,7 +194,7 @@ module_editor_navs('settings', 'configuration.php?op=modulesettings&module=');
 if ($op == "") {
 	$enum="enumpretrans";
 	require_once("lib/datetime.php");
-	$details = gametimedetails();
+	$details = GameDateTime::gametimedetails();
 	$offset = Settings::getsetting("gameoffsetseconds",0);
 	for ($i=0;$i<=86400 / Settings::getsetting("daysperday",4);$i+=300){
 		$off = ($details['realsecstotomorrow'] - ($offset - $i));

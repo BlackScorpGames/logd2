@@ -70,6 +70,26 @@ function is_new_day($now=0){
 
 class GameDateTime
 {
+    public static function gametimedetails(){
+        $ret = array();
+        $ret['now'] = date("Y-m-d 00:00:00");
+        $ret['gametime'] = gametime();
+        $ret['daysperday'] = Settings::getsetting("daysperday", 4);
+        $ret['secsperday'] = 86400/$ret['daysperday'];
+        $ret['today'] = strtotime(gmdate("Y-m-d 00:00:00 O", $ret['gametime']));
+        $ret['tomorrow'] =
+            strtotime(gmdate("Y-m-d H:i:s O",$ret['gametime'])." + 1 day");
+        $ret['tomorrow'] = strtotime(gmdate("Y-m-d 00:00:00 O",$ret['tomorrow']));
+        // Why isn't this
+        // $ret['tomorrow'] =
+        //	strtotime(gmdate("Y-m-d 00:00:00 O",$ret['gametime'])." + 1 day");
+        $ret['secssofartoday'] = $ret['gametime'] - $ret['today'];
+        $ret['secstotomorrow'] = $ret['tomorrow']-$ret['gametime'];
+        $ret['realsecssofartoday'] = $ret['secssofartoday'] / $ret['daysperday'];
+        $ret['realsecstotomorrow'] = $ret['secstotomorrow'] / $ret['daysperday'];
+        $ret['dayduration'] = ($ret['tomorrow']-$ret['today'])/$ret['daysperday'];
+        return $ret;
+    }
 	public static function relativedate($indate){
 		$laston = round((strtotime("now")-strtotime($indate)) / 86400,0) . " days";
 		Translator::tlschema("datetime");
@@ -96,7 +116,7 @@ class GameDateTime
 	public static function secondstonextgameday($details = false)
 	{
 		if ($details === false) {
-			$details = gametimedetails();
+			$details = GameDateTime::gametimedetails();
 		}
 		return strtotime("{$details['now']} + {$details['realsecstotomorrow']} seconds");
 	}
@@ -139,26 +159,7 @@ function convertgametime($intime,$debug=false){
 	return $logd_timestamp;
 }
 
-function gametimedetails(){
-	$ret = array();
-	$ret['now'] = date("Y-m-d 00:00:00");
-	$ret['gametime'] = gametime();
-	$ret['daysperday'] = Settings::getsetting("daysperday", 4);
-	$ret['secsperday'] = 86400/$ret['daysperday'];
-	$ret['today'] = strtotime(gmdate("Y-m-d 00:00:00 O", $ret['gametime']));
-	$ret['tomorrow'] =
-		strtotime(gmdate("Y-m-d H:i:s O",$ret['gametime'])." + 1 day");
-	$ret['tomorrow'] = strtotime(gmdate("Y-m-d 00:00:00 O",$ret['tomorrow']));
-	// Why isn't this
-	// $ret['tomorrow'] =
-	//	strtotime(gmdate("Y-m-d 00:00:00 O",$ret['gametime'])." + 1 day");
-	$ret['secssofartoday'] = $ret['gametime'] - $ret['today'];
-	$ret['secstotomorrow'] = $ret['tomorrow']-$ret['gametime'];
-	$ret['realsecssofartoday'] = $ret['secssofartoday'] / $ret['daysperday'];
-	$ret['realsecstotomorrow'] = $ret['secstotomorrow'] / $ret['daysperday'];
-	$ret['dayduration'] = ($ret['tomorrow']-$ret['today'])/$ret['daysperday'];
-	return $ret;
-}
+
 
 
 
