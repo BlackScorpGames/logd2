@@ -78,7 +78,7 @@ if ($op=="fight"){
 					} else {
 						$msg = $badguy['cannotbetarget'];
 					}
-					$msg = substitute_array("`5".$msg."`0`n");
+					$msg = SubstituteClass::substitute_array("`5".$msg."`0`n");
 					OutputClass::output($msg);
 				}
 			}
@@ -440,7 +440,7 @@ if ($op != "newtarget") {
 						} else {
 							$msg = $badguy['fleesifalone'];
 						}
-						$msg = substitute_array("`5".$msg."`0`n");
+						$msg = SubstituteClass::substitute_array("`5".$msg."`0`n");
 						OutputClass::output($msg);
 					}
 				} else {
@@ -458,7 +458,7 @@ if ($op != "newtarget") {
 				} else {
 					$msg = $badguy['essentialleader'];
 				}
-				$msg = substitute_array("`5".$msg."`0`n");
+				$msg = SubstituteClass::substitute_array("`5".$msg."`0`n");
 				OutputClass::output($msg);
 			}
 		}

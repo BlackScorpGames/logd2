@@ -168,7 +168,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 			require_once("battle.php");
 		}
 		if ($victory){
-			$badguy['creaturelose']=substitute_array($badguy['creaturelose']);
+			$badguy['creaturelose']=SubstituteClass::substitute_array($badguy['creaturelose']);
 			OutputClass::output_notl("`b`&");
  	 	 	OutputClass::output($badguy['creaturelose']);
  	 	 	OutputClass::output_notl("`0`b`n");
@@ -241,7 +241,7 @@ if (db_num_rows($result) > 0 && $session['user']['level'] <= 14){
 			$session['user']['hitpoints']=$session['user']['maxhitpoints'];
 			OutputClass::output("`&`bYou have been defeated by `%%s`&!`b`n",$badguy['creaturename']);
 			OutputClass::output("`%%s`\$ halts just before delivering the final blow, and instead extends a hand to help you to your feet, and hands you a complementary healing potion.`n",$badguy['creaturename']);
-			$badguy['creaturewin']=substitute_array($badguy['creaturewin']);
+			$badguy['creaturewin']=SubstituteClass::substitute_array($badguy['creaturewin']);
 			OutputClass::output_notl("`^`b");
 			OutputClass::output($badguy['creaturewin']);
 			OutputClass::output_notl("`b`0`n");

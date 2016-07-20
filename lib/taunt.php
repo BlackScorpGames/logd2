@@ -39,7 +39,7 @@ public static function select_taunt_array(){
 		$taunt = "`5\"`6%w's mother wears combat boots`5\", screams %W.";
 	}
 
-	$taunt = substitute_array($taunt);
+	$taunt = SubstituteClass::substitute_array($taunt);
 	array_unshift($taunt, true, "taunts");
 	return $taunt;
 }

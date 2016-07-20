@@ -256,7 +256,7 @@ if ($dp < $dkills) {
 	if ($session['user']['hashorse']){
 		$msg = $playermount['newday'];
 		require_once("lib/substitute.php");
-		$msg = substitute_array("`n`&".$msg."`0`n");
+		$msg = SubstituteClass::substitute_array("`n`&".$msg."`0`n");
 		OutputClass::output($msg);
 		require_once("lib/mountname.php");
 		list($name, $lcname) = getmountname();

@@ -235,7 +235,7 @@ function report_companion_move($companion, $activate="fight") {
 			$companion['used'] = true;
 			$msg = $companion['healmsg'];
 			if ($msg == "") $msg = "{companion} heals your wounds. You regenerate {damage} hitpoints.";
-			$msg = substitute_array("`)".$msg."`0`n", array("{companion}","{damage}"),array($companion['name'],$hptoheal));
+			$msg = SubstituteClass::substitute_array("`)".$msg."`0`n", array("{companion}","{damage}"),array($companion['name'],$hptoheal));
 			Translator::tlschema(isset($companion['schema'])?$companion['schema']:"battle");
 			OutputClass::output($msg);
 			Translator::tlschema();
@@ -254,7 +254,7 @@ function report_companion_move($companion, $activate="fight") {
 					$companion['used'] = true;
 					$msg = $companion['healcompanionmsg'];
 					if ($msg == "") $msg = "{companion} heals {target}'s wounds. {target} regenerates {damage} hitpoints.";
-					$msg = substitute_array("`)".$msg."`0`n", array("{companion}","{damage}","{target}"),array($companion['name'],$hptoheal,$mycompanion['name']));
+					$msg = SubstituteClass::substitute_array("`)".$msg."`0`n", array("{companion}","{damage}","{target}"),array($companion['name'],$hptoheal,$mycompanion['name']));
 					Translator::tlschema(isset($companion['schema'])?$companion['schema']:"battle");
 					OutputClass::output($msg);
 					Translator::tlschema();
@@ -283,7 +283,7 @@ function report_companion_move($companion, $activate="fight") {
 								$companion['used'] = true;
 								$msg = $companion['healcompanionmsg'];
 								if ($msg == "") $msg = "{companion} heals {target}'s wounds. {target} regenerates {damage} hitpoints.";
-								$msg = substitute_array("`)".$msg."`0`n", array("{companion}","{damage}","{target}"),array($companion['name'],$hptoheal,$mycompanion['name']));
+								$msg = SubstituteClass::substitute_array("`)".$msg."`0`n", array("{companion}","{damage}","{target}"),array($companion['name'],$hptoheal,$mycompanion['name']));
 								Translator::tlschema(isset($companion['schema'])?$companion['schema']:"battle");
 								OutputClass::output($msg);
 								Translator::tlschema();
@@ -345,7 +345,7 @@ function report_companion_move($companion, $activate="fight") {
 		if ($damage_done==0){
 			$msg = $companion['magicfailmsg'];
 			if ($msg == "") $msg = "{companion} shoots a magical arrow at {badguy} but misses.";
-			$msg = substitute_array("`)".$msg."`0`n", array("{companion}"), array($companion['name']));
+			$msg = SubstituteClass::substitute_array("`)".$msg."`0`n", array("{companion}"), array($companion['name']));
 			Translator::tlschema(isset($companion['schema'])?$companion['schema']:"battle");
 			OutputClass::output($msg);
 			Translator::tlschema();
@@ -355,7 +355,7 @@ function report_companion_move($companion, $activate="fight") {
 			} else {
 				$msg = "{companion} shoots a magical arrow at {badguy} and deals {damage} damage.";
 			}
-			$msg = substitute_array("`)".$msg."`0`n", array("{companion}","{damage}"), array($companion['name'],$damage_done));
+			$msg = SubstituteClass::substitute_array("`)".$msg."`0`n", array("{companion}","{damage}"), array($companion['name'],$damage_done));
 			Translator::tlschema(isset($companion['schema'])?$companion['schema']:"battle");
 			OutputClass::output($msg);
 			Translator::tlschema();

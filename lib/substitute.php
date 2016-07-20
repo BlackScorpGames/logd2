@@ -43,8 +43,8 @@ function substitute($string, $extra=false, $extrarep=false) {
 	$string = str_replace($search, $replace, $string);
 	return $string;
 }
-
-function substitute_array($string, $extra=false, $extrarep=false){
+class SubstituteClass{
+public static function substitute_array($string, $extra=false, $extrarep=false){
 	global $badguy, $session;
 	// separate substitutions for gender items (makes 2 translations per
 	// substition that uses these)
@@ -112,5 +112,6 @@ function substitute_array($string, $extra=false, $extrarep=false){
 		}
 	}
 	return $replacement_array;
+}
 }
 ?>
