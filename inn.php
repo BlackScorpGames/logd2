@@ -43,7 +43,7 @@ $com = Http::httpget('comscroll');
 $comment = Http::httppost('insertcommentary');
 
 require_once("lib/partner.php");
-$partner = get_partner();
+$partner = Partner::get_partner();
 OutputClass::addnav("Other");
 VillageNavClass::villagenav();
 OutputClass::addnav("I?Return to the Inn","inn.php");

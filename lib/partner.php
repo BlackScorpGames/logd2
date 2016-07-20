@@ -1,5 +1,6 @@
 <?php
-function get_partner($player=false)
+class Partner{
+public static function get_partner($player=false)
 {
 	global $session;
 	if ($player === false) {
@@ -33,5 +34,5 @@ function get_partner($player=false)
 //	Translator::tlschema();
 	return $partner;
 }
-
+}
 ?>

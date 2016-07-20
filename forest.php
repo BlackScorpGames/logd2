@@ -47,7 +47,7 @@ if ($op=="dragon"){
 	OutputClass::output("You cautiously approach the entrance of the cave, and as you do, you hear, or perhaps feel a deep rumble that lasts thirty seconds or so, before silencing to a breeze of sulfur-air which wafts out of the cave.");
 	OutputClass::output("The sound starts again, and stops again in a regular rhythm.`n`n");
 	OutputClass::output("You clamber up the debris pile leading to the mouth of the cave, your feet crunching on the apparent remains of previous heroes, or perhaps hors d'oeuvres.`n`n");
-	OutputClass::output("Every instinct in your body wants to run, and run quickly, back to the warm inn, and the even warmer %s`\$.", get_partner());
+	OutputClass::output("Every instinct in your body wants to run, and run quickly, back to the warm inn, and the even warmer %s`\$.", Partner::get_partner());
 	OutputClass::output("What do you do?`0");
 	$session['user']['seendragon']=1;
 }

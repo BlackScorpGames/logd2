@@ -4,7 +4,7 @@ function drinks_run_private(){
 	require_once("lib/partner.php");
 
 	global $session;
-	$partner = get_partner();
+	$partner = Partner::get_partner();
 	$act = Http::httpget('act');
 	if ($act=="editor"){
 		drinks_editor();

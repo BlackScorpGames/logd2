@@ -2,7 +2,7 @@
 function lovers_seth(){
 	global $session;
 	$seenlover = get_module_pref("seenlover");
-	$partner = get_partner();
+	$partner = Partner::get_partner();
 
 	if ($seenlover==0){
 		//haven't seen lover

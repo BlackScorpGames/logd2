@@ -53,7 +53,7 @@ function lovers_uninstall(){
 
 function lovers_dohook($hookname, $args){
 	global $session;
-	$partner = get_partner();
+	$partner = Partner::get_partner();
 	switch($hookname){
 	case "newday":
 		set_module_pref("seenlover",0);
@@ -136,7 +136,7 @@ function lovers_run(){
 
 function lovers_getbuff(){
 	global $session;
-	$partner = get_partner();
+	$partner = Partner::get_partner();
 	$buff = array(
 		"name"=>"`!Lover's Protection",
 		"rounds"=>60,

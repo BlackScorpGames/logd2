@@ -2,7 +2,7 @@
 function lovers_violet(){
 	global $session;
 	$seenlover = get_module_pref("seenlover");
-	$partner = get_partner();
+	$partner = Partner::get_partner();
 
 	if ($seenlover==0){
 		if ($session['user']['marriedto']==INT_MAX){
