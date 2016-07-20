@@ -61,7 +61,7 @@ if ($op=="deactivate"){
 	//drop the mount.
 	$sql = "DELETE FROM " . db_prefix("mounts") . " WHERE mountid='$id'";
 	db_query($sql);
-	module_delete_objprefs('mounts', $id);
+	Modules::module_delete_objprefs('mounts', $id);
 	$op = "";
 	Http::httpset("op", "");
 	DataCache::invalidatedatacache("mountdata-$id");

@@ -38,7 +38,7 @@ if ($op=="deactivate"){
 	//drop the companion.
 	$sql = "DELETE FROM " . db_prefix("companions") . " WHERE companionid='$id'";
 	db_query($sql);
-	module_delete_objprefs('companions', $id);
+	Modules::module_delete_objprefs('companions', $id);
 	$op = "";
 	Http::httpset("op", "");
 	DataCache::invalidatedatacache("companiondata-$id");

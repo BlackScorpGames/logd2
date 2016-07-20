@@ -80,7 +80,7 @@ function drinks_editor(){
 	);
 	if($op=="del"){
 		$sql = "DELETE FROM " . db_prefix("drinks") . " WHERE drinkid='$drinkid'";
-		module_delete_objprefs('drinks', $drinkid);
+		Modules::module_delete_objprefs('drinks', $drinkid);
 		db_query($sql);
 		$op = "";
 		Http::httpset('op', "");

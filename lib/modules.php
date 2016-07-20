@@ -398,6 +398,12 @@ $currenthook = "";
 
 class Modules
 {
+    public static function module_delete_objprefs($objtype, $objid)
+    {
+        $sql = "DELETE FROM " . db_prefix("module_objprefs") . " WHERE objtype='$objtype' AND objid='$objid'";
+        db_query($sql);
+        massinvalidate("objpref-$objtype-$objid");
+    }
     public static function get_module_info($shortname){
         global $mostrecentmodule;
 
@@ -838,12 +844,7 @@ function load_module_settings($module){
 }//end function
 
 
-function module_delete_objprefs($objtype, $objid)
-{
-	$sql = "DELETE FROM " . db_prefix("module_objprefs") . " WHERE objtype='$objtype' AND objid='$objid'";
-	db_query($sql);
-	massinvalidate("objpref-$objtype-$objid");
-}
+
 
 function get_module_objpref($type, $objid, $name, $module=false){
 	global $mostrecentmodule;
