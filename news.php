@@ -52,7 +52,7 @@ while ($row = db_fetch_assoc($result2)) {
 	if ($row['motdtype']==0){
 		Motd::motditem($row['motdtitle'], $row['motdbody'],$row['motdauthorname'], $row['motddate'], "");
 	}else{
-		pollitem($row['motditem'], $row['motdtitle'], $row['motdbody'],$row['motdauthorname'],$row['motddate'], false);
+		Motd::pollitem($row['motditem'], $row['motdtitle'], $row['motdbody'],$row['motdauthorname'],$row['motddate'], false);
 	}
 }
 OutputClass::output_notl("`n");

@@ -36,61 +36,62 @@ public static function motditem($subject,$body,$author,$date,$id){
 	if ($date) OutputClass::rawoutput("</a>");
 	OutputClass::rawoutput("<hr>");
 }
-}
-function pollitem($id,$subject,$body,$author,$date,$showpoll=true){
-	global $session;
-	$sql = "SELECT count(resultid) AS c, MAX(choice) AS choice FROM " . db_prefix("pollresults") . " WHERE motditem='$id' AND account='{$session['user']['acctid']}'";
-	$result = db_query($sql);
-	$row = db_fetch_assoc($result);
-	$choice = $row['choice'];
-	$body = unserialize($body);
+    public static function pollitem($id,$subject,$body,$author,$date,$showpoll=true){
+        global $session;
+        $sql = "SELECT count(resultid) AS c, MAX(choice) AS choice FROM " . db_prefix("pollresults") . " WHERE motditem='$id' AND account='{$session['user']['acctid']}'";
+        $result = db_query($sql);
+        $row = db_fetch_assoc($result);
+        $choice = $row['choice'];
+        $body = unserialize($body);
 
-	$poll = Translator::translate_inline("Poll:");
-	if ($session['user']['loggedin'] && $showpoll) {
-		OutputClass::rawoutput("<form action='motd.php?op=vote' method='POST'>");
-		OutputClass::rawoutput("<input type='hidden' name='motditem' value='$id'>",true);
-	}
-	OutputClass::output_notl("`b`&%s `^%s`0`b", $poll, $subject);
-	if ($showpoll) motd_admin($id, true);
-	OutputClass::output_notl("`n`3%s`0 &#150; `#%s`0`n", $author, $date, true);
-	OutputClass::output_notl("`2%s`0`n", stripslashes($body['body']));
-	$sql = "SELECT count(resultid) AS c, choice FROM " . db_prefix("pollresults") . " WHERE motditem='$id' GROUP BY choice ORDER BY choice";
-	$result = db_query_cached($sql,"poll-$id");
-	$choices=array();
-	$totalanswers=0;
-	$maxitem = 0;
-	while ($row = db_fetch_assoc($result)) {
-		$choices[$row['choice']]=$row['c'];
-		$totalanswers+=$row['c'];
-		if ($row['c']>$maxitem) $maxitem = $row['c'];
-	}
-	while (list($key,$val)=each($body['opt'])){
-		if (trim($val)!=""){
-			if ($totalanswers<=0) $totalanswers=1;
-			$percent = 0;
-			if(isset($choices[$key])) {
-				$percent = round($choices[$key] / $totalanswers * 100,1);
-			}
-			if ($session['user']['loggedin'] && $showpoll) {
-				OutputClass::rawoutput("<input type='radio' name='choice' value='$key'".($choice==$key?" checked":"").">");
-			}
-			OutputClass::output_notl("%s (%s - %s%%)`n", stripslashes($val),
-					(isset($choices[$key])?(int)$choices[$key]:0), $percent);
-			if ($maxitem==0 || !isset($choices[$key])){
-				$width=1;
-			} else {
-				$width = round(($choices[$key]/$maxitem) * 400,0);
-			}
-			$width = max($width,1);
-			OutputClass::rawoutput("<img src='images/rule.gif' width='$width' height='2' alt='$percent'><br>");
-		}
-	}
-	if ($session['user']['loggedin'] && $showpoll) {
-		$vote = Translator::translate_inline("Vote");
-		OutputClass::rawoutput("<input type='submit' class='button' value='$vote'></form>");
-	}
-	OutputClass::rawoutput("<hr>",true);
+        $poll = Translator::translate_inline("Poll:");
+        if ($session['user']['loggedin'] && $showpoll) {
+            OutputClass::rawoutput("<form action='motd.php?op=vote' method='POST'>");
+            OutputClass::rawoutput("<input type='hidden' name='motditem' value='$id'>",true);
+        }
+        OutputClass::output_notl("`b`&%s `^%s`0`b", $poll, $subject);
+        if ($showpoll) motd_admin($id, true);
+        OutputClass::output_notl("`n`3%s`0 &#150; `#%s`0`n", $author, $date, true);
+        OutputClass::output_notl("`2%s`0`n", stripslashes($body['body']));
+        $sql = "SELECT count(resultid) AS c, choice FROM " . db_prefix("pollresults") . " WHERE motditem='$id' GROUP BY choice ORDER BY choice";
+        $result = db_query_cached($sql,"poll-$id");
+        $choices=array();
+        $totalanswers=0;
+        $maxitem = 0;
+        while ($row = db_fetch_assoc($result)) {
+            $choices[$row['choice']]=$row['c'];
+            $totalanswers+=$row['c'];
+            if ($row['c']>$maxitem) $maxitem = $row['c'];
+        }
+        while (list($key,$val)=each($body['opt'])){
+            if (trim($val)!=""){
+                if ($totalanswers<=0) $totalanswers=1;
+                $percent = 0;
+                if(isset($choices[$key])) {
+                    $percent = round($choices[$key] / $totalanswers * 100,1);
+                }
+                if ($session['user']['loggedin'] && $showpoll) {
+                    OutputClass::rawoutput("<input type='radio' name='choice' value='$key'".($choice==$key?" checked":"").">");
+                }
+                OutputClass::output_notl("%s (%s - %s%%)`n", stripslashes($val),
+                    (isset($choices[$key])?(int)$choices[$key]:0), $percent);
+                if ($maxitem==0 || !isset($choices[$key])){
+                    $width=1;
+                } else {
+                    $width = round(($choices[$key]/$maxitem) * 400,0);
+                }
+                $width = max($width,1);
+                OutputClass::rawoutput("<img src='images/rule.gif' width='$width' height='2' alt='$percent'><br>");
+            }
+        }
+        if ($session['user']['loggedin'] && $showpoll) {
+            $vote = Translator::translate_inline("Vote");
+            OutputClass::rawoutput("<input type='submit' class='button' value='$vote'></form>");
+        }
+        OutputClass::rawoutput("<hr>",true);
+    }
 }
+
 
 function motd_form($id) {
 	global $session;

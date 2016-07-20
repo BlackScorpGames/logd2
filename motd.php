@@ -79,7 +79,7 @@ if ($op=="") {
 					$row['motdauthorname'], $row['motddate'],
 					$row['motditem']);
 		}else{
-			pollitem($row['motditem'], $row['motdtitle'], $row['motdbody'],
+			Motd::pollitem($row['motditem'], $row['motdtitle'], $row['motdbody'],
 					$row['motdauthorname'],$row['motddate'],
 					$row['motditem']);
 		}
