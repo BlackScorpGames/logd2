@@ -230,7 +230,7 @@ function goldmine_runevent($type)
 						DebugLogClass::debuglog("lost their mount, a $debugmount, in a mine collapse.");
 						$session['user']['hashorse'] = 0;
 						if(isset($session['bufflist']['mount']))
-							strip_buff("mount");
+							Buffs::strip_buff("mount");
 					} elseif ($hashorse) {
 						if ($horsecanenter) {
 							OutputClass::output("%s`7 managed to escape being crushed.", $mountname);

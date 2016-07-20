@@ -9,6 +9,16 @@ $debuggedbuffs = array();
 
 class Buffs
 {
+   public static function strip_buff($name){
+        global $session, $buffreplacements;
+        Buffs::restore_buff_fields();
+        if (isset($session['bufflist'][$name]))
+            unset($session['bufflist'][$name]);
+        if (isset($buffreplacements[$name]))
+            unset($buffreplacements[$name]);
+        Buffs::calculate_buff_fields();
+    }
+
     public static function apply_buff($name,$buff){
         global $session,$buffreplacements, $translation_namespace;
 
@@ -208,22 +218,13 @@ class Buffs
 
 
 
-function strip_buff($name){
-	global $session, $buffreplacements;
-	Buffs::restore_buff_fields();
-	if (isset($session['bufflist'][$name]))
-		unset($session['bufflist'][$name]);
-	if (isset($buffreplacements[$name]))
-		unset($buffreplacements[$name]);
-	Buffs::calculate_buff_fields();
-}
 
 function strip_all_buffs(){
 	global $session;
 	$thebuffs = $session['bufflist'];
 	reset($thebuffs);
 	while (list($buffname,$buff)=each($thebuffs)){
-		strip_buff($buffname);
+		Buffs::strip_buff($buffname);
 	}
 }
 

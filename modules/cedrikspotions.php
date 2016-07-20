@@ -319,7 +319,7 @@ function cedrikspotions_run(){
 						$session['user']['race']=RACE_UNKNOWN;
 						OutputClass::output("`@You double over retching from the effects of transformation potion as your bones turn to gelatin!`n");
 						OutputClass::output("`^(Your race has been reset and you will be able to chose a new one tomorrow.)");
-						strip_buff('racialbenefit');
+						Buffs::strip_buff('racialbenefit');
 						$potiontype = "transmutation";
 						if (isset($session['bufflist']['transmute'])) {
 							$session['bufflist']['transmute']['rounds'] += get_module_setting("transmuteturns");

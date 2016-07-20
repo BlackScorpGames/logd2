@@ -337,7 +337,7 @@ function expire_buffs() {
 					}
 				}
 				//unset($session['bufflist'][$key]);
-				strip_buff($key);
+				Buffs::strip_buff($key);
 			}
 		}
 		if ($buff['schema']) Translator::tlschema();

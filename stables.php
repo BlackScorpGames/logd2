@@ -240,7 +240,7 @@ if ($op == 'confirmbuy') {
 	$session['user']['gems']+=$repaygems;
 	$debugmount=$playermount['mountname'];
 	DebugLogClass::debuglog("gained $repaygold gold and $repaygems gems selling their mount, a $debugmount");
-	strip_buff('mount');
+	Buffs::strip_buff('mount');
 	$session['user']['hashorse']=0;
 	Modules::modulehook("soldmount");
 
