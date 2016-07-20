@@ -123,7 +123,7 @@ while ($row = db_fetch_assoc($result)) {
 	OutputClass::rawoutput("</a></div>");
 	OutputClass::addnav("",$file);
 	OutputClass::rawoutput("</td><td>");
-	OutputClass::output_notl("%s", relativedate($row['lasthit']));
+	OutputClass::output_notl("%s", GameDateTime::relativedate($row['lasthit']));
 	OutputClass::rawoutput("</td></tr>");
 	$i++;
 }

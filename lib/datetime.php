@@ -48,24 +48,7 @@ function reltime($date,$short=true){
 	return $o;
 }
 
-function relativedate($indate){
-	$laston = round((strtotime("now")-strtotime($indate)) / 86400,0) . " days";
-	Translator::tlschema("datetime");
-	if (substr($laston,0,2)=="1 ")
-		$laston=Translator::translate_inline("1 day");
-	elseif (date("Y-m-d",strtotime($laston)) == date("Y-m-d"))
-		$laston=Translator::translate_inline("Today");
-	elseif (date("Y-m-d",strtotime($laston)) == date("Y-m-d",strtotime("-1 day")))
-		$laston=Translator::translate_inline("Yesterday");
-	elseif (strpos($indate,"0000-00-00")!==false)
-		$laston = Translator::translate_inline("Never");
-	else {
-		$laston= Translator::sprintf_translate("%s days", round((strtotime("now")-strtotime($indate)) / 86400,0));
-		OutputClass::rawoutput(Translator::tlbutton_clear());
-	}
-	Translator::tlschema();
-	return $laston;
-}
+
 
 
 function is_new_day($now=0){
@@ -87,6 +70,24 @@ function is_new_day($now=0){
 
 class GameDateTime
 {
+	public static function relativedate($indate){
+		$laston = round((strtotime("now")-strtotime($indate)) / 86400,0) . " days";
+		Translator::tlschema("datetime");
+		if (substr($laston,0,2)=="1 ")
+			$laston=Translator::translate_inline("1 day");
+		elseif (date("Y-m-d",strtotime($laston)) == date("Y-m-d"))
+			$laston=Translator::translate_inline("Today");
+		elseif (date("Y-m-d",strtotime($laston)) == date("Y-m-d",strtotime("-1 day")))
+			$laston=Translator::translate_inline("Yesterday");
+		elseif (strpos($indate,"0000-00-00")!==false)
+			$laston = Translator::translate_inline("Never");
+		else {
+			$laston= Translator::sprintf_translate("%s days", round((strtotime("now")-strtotime($indate)) / 86400,0));
+			OutputClass::rawoutput(Translator::tlbutton_clear());
+		}
+		Translator::tlschema();
+		return $laston;
+	}
 	public static function getgametime()
 	{
 		return gmdate("g:i a", gametime());

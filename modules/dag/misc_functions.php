@@ -130,7 +130,7 @@ function dag_manage(){
 			OutputClass::rawoutput("</td><td>");
 			OutputClass::output($listing[$i]['Alive']?"`1Yes`0":"`4No`0");
 			OutputClass::rawoutput("</td><td>");
-			$laston= relativedate($listing[$i]['LastOn']);
+			$laston= GameDateTime::relativedate($listing[$i]['LastOn']);
 			if ($loggedin) $laston=Translator::translate_inline("Now");
 			OutputClass::output_notl("%s", $laston);
 			OutputClass::rawoutput("</td></tr>");

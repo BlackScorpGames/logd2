@@ -34,7 +34,7 @@ if ($display == 1){
 	$number3=db_num_rows($searchresult);
 	for ($i=0;$i<$number3;$i++){
 		$row=db_fetch_assoc($searchresult);
-		$laston = relativedate($row['laston']);
+		$laston = GameDateTime::relativedate($row['laston']);
 		$loggedin =
 			(date("U") - strtotime($row['laston']) <
 			 Settings::getsetting("LOGINTIMEOUT",900) && $row['loggedin']);

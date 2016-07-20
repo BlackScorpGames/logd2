@@ -85,7 +85,7 @@ function dag_run_private(){
 			OutputClass::rawoutput("</td><td>");
 			OutputClass::output($listing[$i]['Alive']?"`1Yes`0":"`4No`0");
 			OutputClass::rawoutput("</td><td>");
-			$laston = relativedate($listing[$i]['LastOn']);
+			$laston = GameDateTime::relativedate($listing[$i]['LastOn']);
 			OutputClass::output_notl("%s", $laston);
 			OutputClass::rawoutput("</td></tr>");
 		}

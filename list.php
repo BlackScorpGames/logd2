@@ -161,7 +161,7 @@ for($i=0;$i<$max;$i++){
 	$sex = Translator::translate_inline($row['sex']?"`%Female`0":"`!Male`0");
 	OutputClass::output_notl("%s", $sex);
 	OutputClass::rawoutput("</td><td>");
-	$laston = relativedate($row['laston']);
+	$laston = GameDateTime::relativedate($row['laston']);
 	OutputClass::output_notl("%s", $laston);
 	OutputClass::rawoutput("</td></tr>");
 }
