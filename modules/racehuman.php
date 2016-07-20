@@ -109,7 +109,7 @@ function racehuman_dohook($hookname,$args){
 					set_module_setting("newest-$city",
 							$session['user']['acctid'],"cities");
 				}
-				set_module_pref("homecity",$city,"cities");
+				Modules::set_module_pref("homecity",$city,"cities");
 				if ($session['user']['age'] == 0)
 					$session['user']['location']=$city;
 			}
@@ -273,7 +273,7 @@ function racehuman_checkcity(){
 	if ($session['user']['race']==$race && is_module_active("cities")){
 		//if they're this race and their home city isn't right, set it up.
 		if (get_module_pref("homecity","cities")!=$city){ //home city is wrong
-			set_module_pref("homecity",$city,"cities");
+			Modules::set_module_pref("homecity",$city,"cities");
 		}
 	}
 	return true;

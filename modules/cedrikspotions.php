@@ -87,7 +87,7 @@ function cedrikspotions_dohook($hookname,$args){
 		$args['total'] -= get_module_pref("extrahps");
 		if (!get_module_setting("carrydk")) {
 			$args['extra'] -= get_module_pref("extrahps");
-			set_module_pref("extrahps", 0);
+			Modules::set_module_pref("extrahps", 0);
 		}
 	}
 	return $args;
@@ -289,7 +289,7 @@ function cedrikspotions_run(){
 									get_module_setting("vitalgain") == 1 ?
 									"hitpoint" : "hitpoints"));
 						$potiontype = "vitality";
-						set_module_pref("extrahps",
+						Modules::set_module_pref("extrahps",
 								get_module_pref("extrahps") +
 								($strength * get_module_setting("vitalgain")));
 						break;

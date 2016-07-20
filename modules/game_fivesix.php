@@ -52,7 +52,7 @@ function game_fivesix_dohook($hookname, $args){
 	global $session;
 	switch($hookname){
 	case "newday":
-		set_module_pref("playstoday",0);
+		Modules::set_module_pref("playstoday",0);
 		break;
 
 	case "darkhorsegame":
@@ -109,7 +109,7 @@ function game_fivesix_run(){
 				DebugLogClass::debuglog("spent $cost gold on five-sixes game");
 				$session['user']['gold']-=$cost;
 				$visits++;
-				set_module_pref("playstoday",$visits);
+				Modules::set_module_pref("playstoday",$visits);
 				$prize+=$cost;
 
 				$maxpot=get_module_setting("maxjackpot");

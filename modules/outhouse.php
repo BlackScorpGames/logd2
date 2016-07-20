@@ -90,7 +90,7 @@ function outhouse_dohook($hookname, $args){
 	if ($hookname=="forest"){
 		OutputClass::addnav("O?The Outhouse","runmodule.php?module=outhouse");
 	}elseif ($hookname=="newday"){
-		set_module_pref("usedouthouse",0);
+		Modules::set_module_pref("usedouthouse",0);
 	}
 	return $args;
 }
@@ -123,7 +123,7 @@ function outhouse_run(){
 
 		PageParts::page_header("Private Toilet");
 		//$session['user']['usedouthouse'] = 1;
-		set_module_pref("usedouthouse",1);
+		Modules::set_module_pref("usedouthouse",1);
 		OutputClass::output("`7You pay your %s gold to the Toilet Gnome for the privilege of using the paid outhouse.`n", $cost);
 		OutputClass::output("This is the cleanest outhouse in the land!`n");
 		OutputClass::output("The Toilet Paper Gnome tells you if you need anything, just ask.`n");
@@ -138,7 +138,7 @@ function outhouse_run(){
 		OutputClass::addnav("Leave", "runmodule.php?module=outhouse&op=nowash");
 	}elseif ($op == "free"){
 		PageParts::page_header("Public Toilet!");
-		set_module_pref("usedouthouse",1);
+		Modules::set_module_pref("usedouthouse",1);
 		OutputClass::output("`2The smell is so strong your eyes tear up and your nose hair curls!`n");
 		OutputClass::output("After blowing his nose with it, the Toilet Paper Gnome gives you 1 sheet of single-ply TP to use.`n");
 		OutputClass::output("After looking at the stuff covering his hands, you think you might not want to use it.`n`n");

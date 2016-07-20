@@ -76,8 +76,8 @@ function specialtymysticpower_dohook($hookname,$args){
 
 	switch ($hookname) {
 	case "dragonkill":
-		set_module_pref("uses", 0);
-		set_module_pref("skill", 0);
+		Modules::set_module_pref("uses", 0);
+		Modules::set_module_pref("skill", 0);
 		break;
 	case "choose-specialty":
 		if ($session['user']['specialty'] == "" ||
@@ -110,7 +110,7 @@ function specialtymysticpower_dohook($hookname,$args){
 	case "incrementspecialty":
 		if($session['user']['specialty'] == $spec) {
 			$new = get_module_pref("skill") + 1;
-			set_module_pref("skill", $new);
+			Modules::set_module_pref("skill", $new);
 			$name = Translator::translate_inline($name);
 			$c = $args['color'];
 			OutputClass::output("`n%sYou gain a level in `&%s%s to `#%s%s!",
@@ -118,7 +118,7 @@ function specialtymysticpower_dohook($hookname,$args){
 			$x = $new % 3;
 			if ($x == 0){
 				OutputClass::output("`n`^You gain an extra use point!`n");
-				set_module_pref("uses", get_module_pref("uses") + 1);
+				Modules::set_module_pref("uses", get_module_pref("uses") + 1);
 			}else{
 				if (3-$x == 1) {
 					OutputClass::output("`n`^Only 1 more skill level until you gain an extra use point!`n");
@@ -141,7 +141,7 @@ function specialtymysticpower_dohook($hookname,$args){
 		}
 		$amt = (int)(get_module_pref("skill") / 3);
 		if ($session['user']['specialty'] == $spec) $amt = $amt + $bonus;
-		set_module_pref("uses", $amt);
+		Modules::set_module_pref("uses", $amt);
 		break;
 	case "fightnav-specialties":
 		$uses = get_module_pref("uses");
@@ -225,7 +225,7 @@ function specialtymysticpower_dohook($hookname,$args){
 					));
 					break;
 				}
-				set_module_pref("uses", get_module_pref("uses") - $l);
+				Modules::set_module_pref("uses", get_module_pref("uses") - $l);
 			}else{
 				Buffs::apply_buff('mp0', array(
 					"startmsg"=>"You furrow your brow and call on the powers of the elements.  A tiny flame appears.  {badguy} lights a cigarette from it, giving you a word of thanks before swinging at you again.",

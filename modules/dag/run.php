@@ -193,7 +193,7 @@ function dag_run_private(){
 				} else {
 					OutputClass::output("You slide the coins towards Dag Durnick, who deftly palms them from the table.");
 					OutputClass::output("`7\"I'll just be takin' me %s%% listin' fee offa the top.  The word be put out that ye be wantin' `^%s`7 taken care of. Be patient, and keep yer eyes on the news.\"`n`n", $fee, $row['name']);
-					set_module_pref("bounties",get_module_pref("bounties")+1);
+					Modules::set_module_pref("bounties",get_module_pref("bounties")+1);
 					$session['user']['gold']-=$cost;
 					// ***ADDED***
 					// By Andrew Senger

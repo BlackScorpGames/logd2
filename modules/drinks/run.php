@@ -46,7 +46,7 @@ function drinks_run_private(){
 			if ($session['user']['gold'] >= $drinkcost) {
 				$drunk = get_module_pref("drunkeness");
 				$drunk += $row['drunkeness'];
-				set_module_pref("drunkeness", $drunk);
+				Modules::set_module_pref("drunkeness", $drunk);
 				$session['user']['gold'] -= $drinkcost;
 				DebugLogClass::debuglog("spent $drinkcost on {$row['name']}");
 				$remark = str_replace("{lover}",$partner."`0", $row['remarks']);
@@ -60,7 +60,7 @@ function drinks_run_private(){
 				OutputClass::output_notl("`n`n");
 				if ($row['harddrink']) {
 					$drinks = get_module_pref("harddrinks");
-					set_module_pref("harddrinks", $drinks+1);
+					Modules::set_module_pref("harddrinks", $drinks+1);
 				}
 				$givehp = 0;
 				$giveturn = 0;

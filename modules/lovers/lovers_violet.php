@@ -145,6 +145,6 @@ function lovers_violet(){
 	}else{
 		OutputClass::output("You think you had better not push your luck with %s`0 today.",$partner);
 	}
-	set_module_pref("seenlover",$seenlover);
+	Modules::set_module_pref("seenlover",$seenlover);
 }
 ?>

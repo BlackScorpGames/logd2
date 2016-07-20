@@ -4,7 +4,7 @@ function drinks_dohook_private($hookname,$args) {
 
 	switch($hookname) {
 	case "dragonkill":
-		set_module_pref("drunkeness",0);
+		Modules::set_module_pref("drunkeness",0);
 		break;
 	case "ale":
 		require_once("modules/drinks/misc_functions.php");
@@ -56,7 +56,7 @@ function drinks_dohook_private($hookname,$args) {
 		}
 		break;
 	case "newday":
-		set_module_pref("harddrinks", 0);
+		Modules::set_module_pref("harddrinks", 0);
 		$drunk = get_module_pref("drunkeness");
 		if ($drunk > 66) {
 			OutputClass::output("`n`&Waking up in the gutter after your last little 'adventure with alcohol', you `\$lose 1`& turn crawling back to your normal lodging.`n");
@@ -65,10 +65,10 @@ function drinks_dohook_private($hookname,$args) {
 			// Sanity check
 			if ($session['user']['turns'] < 0) $session['user']['turns'] = 0;
 		}
-		set_module_pref("drunkeness",0);
+		Modules::set_module_pref("drunkeness",0);
 		break;
 	case "header-graveyard":
-		set_module_pref("drunkeness",0);
+		Modules::set_module_pref("drunkeness",0);
 		break;
 	case "soberup":
 		$soberval = $args['soberval'];
@@ -76,7 +76,7 @@ function drinks_dohook_private($hookname,$args) {
 		$drunk = get_module_pref("drunkeness");
 		if ($drunk > 0) {
 			$drunk = round($drunk * $soberval, 0);
-			set_module_pref("drunkeness", $drunk);
+			Modules::set_module_pref("drunkeness", $drunk);
 			if ($sobermsg) {
 				if ($args['schema']) Translator::tlschema($args['schema']);
 				OutputClass::output($sobermsg);

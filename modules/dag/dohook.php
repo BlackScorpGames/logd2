@@ -38,7 +38,7 @@ function dag_dohook_private($hookname,$args){
 		}
 		break;
 	case "newday":
-		set_module_pref("bounties",0);
+		Modules::set_module_pref("bounties",0);
 		break;
 	case "showsettings":
 		$info = dag_getmoduleinfo();

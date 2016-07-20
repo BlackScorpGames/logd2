@@ -101,7 +101,7 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 						array("name"=>$key,
 							"old"=>$oldvalues[$module."___".$key],
 							"new"=>$val));
-				set_module_pref($key, $val, $module);
+				Modules::set_module_pref($key, $val, $module);
 				continue;
 			}
 			$session['user']['prefs'][$key]=Http::httppost($key);

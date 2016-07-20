@@ -39,7 +39,7 @@ function fairy_dohook($hookname,$args){
 		$args['total'] -= get_module_pref("extrahps");
 		if (!get_module_setting("carrydk")) {
 			$args['extra'] -= get_module_pref("extrahps");
-			set_module_pref("extrahps", 0);
+			Modules::set_module_pref("extrahps", 0);
 		}
 		break;
 	}
@@ -98,7 +98,7 @@ function fairy_runevent($type)
 
 				$session['user']['maxhitpoints'] += $extra;
 				$session['user']['hitpoints'] += $extra;
-				set_module_pref("extrahps",
+				Modules::set_module_pref("extrahps",
 						get_module_pref("extrahps")+$extra);
 				break;
 			case 6:

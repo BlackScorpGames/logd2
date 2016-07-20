@@ -85,7 +85,7 @@ function sethsong_dohook($hookname,$args){
 		}
 		break;
 	case "newday":
-		set_module_pref("been",0);
+		Modules::set_module_pref("been",0);
 		break;
 	}
 	return $args;
@@ -135,7 +135,7 @@ function sethsong_sing()
 	$been=get_module_pref("been");
 
 	$been++;
-	set_module_pref("been",$been);
+	Modules::set_module_pref("been",$been);
 	$rnd = Erand::e_rand(0,18);
 	OutputClass::output("%s`0 clears his throat and begins:`n`n`^", Settings::getsetting("bard", "`^Seth"));
 	switch ($rnd){

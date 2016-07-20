@@ -76,7 +76,7 @@ function crazyaudrey_dohook($hookname,$args){
 		}
 		break;
 	case "newday":
-		set_module_pref("played",0);
+		Modules::set_module_pref("played",0);
 		break;
 	case "newday-runonce":
 		$daysremaining=get_module_setting("gamedaysremaining");
@@ -154,7 +154,7 @@ function crazyaudrey_baskets($type)
 		OutputClass::output("`5You run, very quickly, away from this mad woman.");
 	}else if($op=="play"){
 		if ($type == "module-internal") {
-			set_module_pref("played",1);
+			Modules::set_module_pref("played",1);
 		}
 		$colors = array("`^C`&a`Ql`6i`7c`qo","`7T`&i`7g`&e`7r","`QGinger","`&White","`^`bHedgehog!`b");
 		$colors = Translator::translate_inline($colors);

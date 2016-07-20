@@ -398,6 +398,30 @@ $currenthook = "";
 
 class Modules
 {
+
+    public static function set_module_pref($name,$value,$module=false,$user=false){
+        global $module_prefs,$mostrecentmodule,$session;
+        if ($module === false) $module = $mostrecentmodule;
+        if ($user === false) $uid=$session['user']['acctid'];
+        else $uid = $user;
+        load_module_prefs($module, $uid);
+
+        //don't write to the DB if the user isn't logged in.
+        if (!$session['user']['loggedin'] && !$user) {
+            // We do need to save to the loaded copy here however
+            $module_prefs[$uid][$module][$name] = $value;
+            return;
+        }
+
+        if (isset($module_prefs[$uid][$module][$name])){
+            $sql = "UPDATE " . db_prefix("module_userprefs") . " SET value='".addslashes($value)."' WHERE modulename='$module' AND setting='$name' AND userid='$uid'";
+            db_query($sql);
+        }else{
+            $sql = "INSERT INTO " . db_prefix("module_userprefs"). " (modulename,setting,userid,value) VALUES ('$module','$name','$uid','".addslashes($value)."')";
+            db_query($sql);
+        }
+        $module_prefs[$uid][$module][$name] = $value;
+    }
     public static function module_display_events($eventtype, $forcescript = false)
     {
         global $PHP_SELF, $session;
@@ -865,36 +889,13 @@ function get_module_pref($name,$module=false,$user=false){
 			$x = explode("|",$info['prefs'][$name]);
 		}
 		if (isset($x[1])){
-			set_module_pref($name,$x[1],$module,$user);
+			Modules::set_module_pref($name,$x[1],$module,$user);
 			return $x[1];
 		}
 	}
 	return NULL;
 }
 
-function set_module_pref($name,$value,$module=false,$user=false){
-	global $module_prefs,$mostrecentmodule,$session;
-	if ($module === false) $module = $mostrecentmodule;
-	if ($user === false) $uid=$session['user']['acctid'];
-	else $uid = $user;
-	load_module_prefs($module, $uid);
-
-	//don't write to the DB if the user isn't logged in.
-	if (!$session['user']['loggedin'] && !$user) {
-		// We do need to save to the loaded copy here however
-		$module_prefs[$uid][$module][$name] = $value;
-		return;
-	}
-
-	if (isset($module_prefs[$uid][$module][$name])){
-		$sql = "UPDATE " . db_prefix("module_userprefs") . " SET value='".addslashes($value)."' WHERE modulename='$module' AND setting='$name' AND userid='$uid'";
-		db_query($sql);
-	}else{
-		$sql = "INSERT INTO " . db_prefix("module_userprefs"). " (modulename,setting,userid,value) VALUES ('$module','$name','$uid','".addslashes($value)."')";
-		db_query($sql);
-	}
-	$module_prefs[$uid][$module][$name] = $value;
-}
 
 function increment_module_pref($name,$value=1,$module=false,$user=false){
 	global $module_prefs,$mostrecentmodule,$session;

@@ -56,7 +56,7 @@ function lovers_dohook($hookname, $args){
 	$partner = Partner::get_partner();
 	switch($hookname){
 	case "newday":
-		set_module_pref("seenlover",0);
+		Modules::set_module_pref("seenlover",0);
 		if ($session['user']['marriedto'] == 4294967295){
 			$dk = $session['user']['dragonkills'];
 
