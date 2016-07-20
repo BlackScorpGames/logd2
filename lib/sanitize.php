@@ -9,10 +9,7 @@ function newline_sanitize($in){
 	return $out;
 }
 
-function color_sanitize($in){
-	$out = preg_replace("/[`][1234567890!@#\$%^&)~QqRVvGgTtjJeElLxXyYkKpPmM?*Aabi]/", "", $in);
-	return $out;
-}
+
 
 function comment_sanitize($in) {
 	// to keep the regexp from boinging this, we need to make sure
@@ -31,7 +28,10 @@ function logdnet_sanitize($in)
 	return $out;
 }
 class SanitizeClass{
-
+    public static function color_sanitize($in){
+        $out = preg_replace("/[`][1234567890!@#\$%^&)~QqRVvGgTtjJeElLxXyYkKpPmM?*Aabi]/", "", $in);
+        return $out;
+    }
   public static function sanitize($in){
         $out = preg_replace("/[`][1234567890!@#\$%^&)~QqRVvGgTtjJeElLxXyYkKpPmM?*AabicnHw]/", "", $in);
         return $out;

@@ -30,7 +30,7 @@ if (count($post)>0){
 			if (Settings::getsetting("emailpetitions", 0)) {
 				// Yeah, the format of this is ugly.
 				require_once("lib/sanitize.php");
-				$name = color_sanitize($session['user']['name']);
+				$name = SanitizeClass::color_sanitize($session['user']['name']);
 				$url = Settings::getsetting("serverurl",
 					"http://".$_SERVER['SERVER_NAME'] .
 					($_SERVER['SERVER_PORT']==80?"":":".$_SERVER['SERVER_PORT']) .

@@ -270,7 +270,7 @@ if ($op == 'confirmbuy') {
 
 if ($confirm == 0) {
 	if ($session['user']['hashorse']>0){
-		OutputClass::addnav(array("%s", color_sanitize($name)));
+		OutputClass::addnav(array("%s", SanitizeClass::color_sanitize($name)));
 		Translator::tlschema($schemas['offer']);
 		OutputClass::output($texts['offer'], $repaygold, $repaygems, $lcname);
 		Translator::tlschema();

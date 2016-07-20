@@ -73,7 +73,7 @@ $mounts="0," . Translator::translate_inline("None");
 $sql = "SELECT mountid,mountname,mountcategory FROM " . db_prefix("mounts") .  " ORDER BY mountcategory";
 $result = db_query($sql);
 while ($row = db_fetch_assoc($result)){
-	$mounts.=",{$row['mountid']},{$row['mountcategory']}: ".color_sanitize($row['mountname']);
+	$mounts.=",{$row['mountid']},{$row['mountcategory']}: ".SanitizeClass::color_sanitize($row['mountname']);
 }
 
 $specialties = array(""=>Translator::translate_inline("Undecided"));

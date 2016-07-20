@@ -100,7 +100,7 @@ class Commentary
 			$session['commentcounter'] == $counter
 		) {
 			if ($section || $talkline || $comment) {
-				$tcom = color_sanitize($comment);
+				$tcom = SanitizeClass::color_sanitize($comment);
 				if ($tcom == "" || $tcom == ":" || $tcom == "::" || $tcom == "/me") {
 					$emptypost = 1;
 				} else {
@@ -143,7 +143,7 @@ function injectcommentary($section, $talkline, $comment, $schema=false) {
 			if (substr($commentary,$x,1)=="`"){
 				$colorcount++;
 				if ($colorcount>=Settings::getsetting("maxcolors",10)){
-					$commentary = substr($commentary,0,$x).color_sanitize(substr($commentary,$x));
+					$commentary = substr($commentary,0,$x).SanitizeClass::color_sanitize(substr($commentary,$x));
 					$x=$y;
 				}
 				$x++;
