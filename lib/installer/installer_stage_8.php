@@ -179,7 +179,7 @@ if (return_bytes($phpram) < 12582912 && $phpram!=-1 && !$session['overridememory
 			(isset($moduleinfo['description']) &&
 			$moduleinfo['description'] ?
 			$moduleinfo['description'] :
-			sanitize($moduleinfo['formalname'])). "\">");
+			SanitizeClass::sanitize($moduleinfo['formalname'])). "\">");
 			OutputClass::output_notl("`@");
 			if (isset($moduleinfo['invalid']) && $moduleinfo['invalid'] == true) {
 				OutputClass::rawoutput($moduleinfo['formalname']);

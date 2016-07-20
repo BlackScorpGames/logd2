@@ -91,7 +91,7 @@ $ranks = $ranks['ranks'];
 $rankstring = "";
 foreach($ranks as $rankid => $rankname) {
 	if ($rankstring != "") $rankstring .= ",";
-	$rankstring .= $rankid.",".sanitize($rankname);
+	$rankstring .= $rankid.",".SanitizeClass::sanitize($rankname);
 }
 $userinfo = array(
 	"Account info,title",

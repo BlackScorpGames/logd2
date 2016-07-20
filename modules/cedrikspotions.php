@@ -71,7 +71,7 @@ function cedrikspotions_dohook($hookname,$args){
 		$op = Http::httpget("op");
 		$act = Http::httpget("act");
 		if($op=="bartender" && $act == "") {
-			addnav_notl(sanitize(Settings::getsetting("barkeep","`tCedrik")));
+			addnav_notl(SanitizeClass::sanitize(Settings::getsetting("barkeep","`tCedrik")));
 			OutputClass::addnav("Gems","runmodule.php?module=cedrikspotions&op=gems");
 		}
 		break;

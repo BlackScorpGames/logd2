@@ -398,7 +398,7 @@ class PageParts{
         }
         $title = call_user_func_array("Translator::sprintf_translate", $arguments);
         $title = holidayize($title, 'title');
-        $title = sanitize($title);
+        $title = SanitizeClass::sanitize($title);
         Buffs::calculate_buff_fields();
 
         $header = $template['header'];

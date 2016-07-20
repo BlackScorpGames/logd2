@@ -49,7 +49,7 @@ if (is_array($row)){
 		}
 	}
 	if (isset($row['body']) && $row['body']){
-		$body="\n\n---".Translator::sprintf_translate(array("Original Message from %s (%s)",sanitize($row['name']),date("Y-m-d H:i:s",strtotime($row['sent']))))."---\n".$row['body'];
+		$body="\n\n---".Translator::sprintf_translate(array("Original Message from %s (%s)",SanitizeClass::sanitize($row['name']),date("Y-m-d H:i:s",strtotime($row['sent']))))."---\n".$row['body'];
 	}
 }
 OutputClass::rawoutput("<form action='mail.php?op=send' method='post'>");

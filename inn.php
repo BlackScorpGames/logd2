@@ -26,7 +26,7 @@ if ($op == "fleedragon") {
 	$session['user']['location'] = $vname;
 }
 
-PageParts::page_header(array("%s",sanitize($iname)));
+PageParts::page_header(array("%s",SanitizeClass::sanitize($iname)));
 $skipinndesc = Events::handle_event("inn");
 
 if (!$skipinndesc) {

@@ -6,7 +6,7 @@ if ($act==""){
 	OutputClass::output("%s`0 polishes a glass, holds it up to the light of the door as another patron opens it to stagger out into the street.",$barkeep);
 	OutputClass::output("He then makes a face, spits on the glass and goes back to polishing it.");
 	OutputClass::output("\"`%What d'ya want?`0\" he asks gruffly.");
-	addnav_notl(sanitize($barkeep));
+	addnav_notl(SanitizeClass::sanitize($barkeep));
 	OutputClass::addnav("Bribe","inn.php?op=bartender&act=bribe");
 	OutputClass::addnav("Drinks");
 	Modules::modulehook("ale", array());

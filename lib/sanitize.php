@@ -3,10 +3,6 @@
 // addnews ready
 // mail ready
 
-function sanitize($in){
-	$out = preg_replace("/[`][1234567890!@#\$%^&)~QqRVvGgTtjJeElLxXyYkKpPmM?*AabicnHw]/", "", $in);
-	return $out;
-}
 
 function newline_sanitize($in){
 	$out = preg_replace("/`n/", "", $in);
@@ -35,6 +31,11 @@ function logdnet_sanitize($in)
 	return $out;
 }
 class SanitizeClass{
+
+  public static function sanitize($in){
+        $out = preg_replace("/[`][1234567890!@#\$%^&)~QqRVvGgTtjJeElLxXyYkKpPmM?*AabicnHw]/", "", $in);
+        return $out;
+    }
 public static function full_sanitize($in) {
 	$out = preg_replace("/[`]./", "", $in);
 	return $out;

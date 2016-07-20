@@ -168,7 +168,7 @@ if ($op==""){
 			require_once("lib/sanitize.php");
 			OutputClass::rawoutput("</td><td nowrap valign='top'><span title=\"".
 					(isset($row['description'])&&$row['description']?
-					 $row['description']:sanitize($row['formalname']))."\">");
+					 $row['description']:SanitizeClass::sanitize($row['formalname']))."\">");
 			OutputClass::output_notl("%s %s", $row['formalname'], $row['version']);
 			OutputClass::rawoutput("<br>");
 			OutputClass::output_notl("(%s) ", $row['modulename'], $row['version']);
@@ -264,7 +264,7 @@ if ($op==""){
 					(isset($moduleinfo[$i]['description'])&&
 					     $moduleinfo[$i]['description'] ?
 					 $moduleinfo[$i]['description'] :
-					 sanitize($moduleinfo[$i]['name']))."\">");
+					 SanitizeClass::sanitize($moduleinfo[$i]['name']))."\">");
 				OutputClass::rawoutput($moduleinfo[$i]['name']." ".$moduleinfo[$i]['version']);
 				OutputClass::rawoutput("</span></td><td valign='top'>");
 				OutputClass::output_notl("`#%s`0", $moduleinfo[$i]['author'], true);

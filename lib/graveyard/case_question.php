@@ -3,13 +3,13 @@ $max = $session['user']['level'] * 5 + 50;
 $favortoheal = round(10 * ($max-$session['user']['soulpoints'])/$max);
 if ($session['user']['deathpower']>=100) {
 	OutputClass::output("`\$%s`) speaks, \"`7You have impressed me indeed.  I shall grant you the ability to visit your foes in the mortal world.`)\"",$deathoverlord);
-	OutputClass::addnav(array("%s Favors",sanitize($deathoverlord)));
+	OutputClass::addnav(array("%s Favors",SanitizeClass::sanitize($deathoverlord)));
 	OutputClass::addnav("H?Haunt a foe (25 favor)","graveyard.php?op=haunt");
 	OutputClass::addnav("e?Resurrection (100 favor)","graveyard.php?op=resurrection");
 	OutputClass::addnav("Other");
 }elseif ($session['user']['deathpower'] >= 25){
 	OutputClass::output("`\$%s`) speaks, \"`7I am moderately impressed with your efforts.  A minor favor I now grant to you, but continue my work, and I may yet have more power to bestow.`)\"",$deathoverlord);
-	OutputClass::addnav(array("%s Favors",sanitize($deathoverlord)));
+	OutputClass::addnav(array("%s Favors",SanitizeClass::sanitize($deathoverlord)));
 	OutputClass::addnav("H?Haunt a foe (25 favor)","graveyard.php?op=haunt");
 	OutputClass::addnav("Other");
 }else{
