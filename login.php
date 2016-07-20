@@ -67,7 +67,7 @@ if ($name!=""){
 				$session['user']['laston'] = date("Y-m-d H:i:s");
 
 				// Handle the change in number of users online
-				translator_check_collect_texts();
+				Translator::translator_check_collect_texts();
 
 				// Let's throw a login module hook in here so that modules
 				// like the stafflist which need to invalidate the cache
@@ -170,7 +170,7 @@ if ($name!=""){
 		DataCache::invalidatedatacache("list.php-warsonline");
 
 		// Handle the change in number of users online
-		translator_check_collect_texts();
+		Translator::translator_check_collect_texts();
 
 		// Let's throw a logout module hook in here so that modules
 		// like the stafflist which need to invalidate the cache

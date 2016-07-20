@@ -200,6 +200,18 @@ $translation_namespace_stack = array();
 
 class Translator
 {
+	public static function translator_check_collect_texts()
+	{
+		$tlmax = Settings::getsetting("tl_maxallowed",0);
+
+		if (Settings::getsetting("permacollect", 0)) {
+			Settings::savesetting("collecttexts", 1);
+		} elseif ($tlmax && Settings::getsetting("OnlineCount", 0) <= $tlmax) {
+			Settings::savesetting("collecttexts", 1);
+		} else {
+			Settings::savesetting("collecttexts", 0);
+		}
+	}
 	public static function translator_setup(){
 		//Determine what language to use
 		if (defined("TRANSLATOR_IS_SET_UP")) return;
@@ -265,17 +277,6 @@ class Translator
 		return $out;
 	}
 }
-function translator_check_collect_texts()
-{
-	$tlmax = Settings::getsetting("tl_maxallowed",0);
 
-	if (Settings::getsetting("permacollect", 0)) {
-		Settings::savesetting("collecttexts", 1);
-	} elseif ($tlmax && Settings::getsetting("OnlineCount", 0) <= $tlmax) {
-		Settings::savesetting("collecttexts", 1);
-	} else {
-		Settings::savesetting("collecttexts", 0);
-	}
-}
 
 ?>
