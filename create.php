@@ -169,7 +169,7 @@ if (Settings::getsetting("allowcreation",1)==0){
 					// Reported by Eliwood
 					if ($sex <> SEX_MALE) $sex = SEX_FEMALE;
 					require_once("lib/titles.php");
-					$title = get_dk_title(0, $sex);
+					$title = Titles::get_dk_title(0, $sex);
 					if (Settings::getsetting("requirevalidemail",0)){
 						$emailverification=md5(date("Y-m-d H:i:s").$email);
 					}

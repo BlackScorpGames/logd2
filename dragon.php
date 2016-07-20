@@ -174,7 +174,7 @@ if ($op==""){
 	}
 	$session['user']['gold'] = Settings::getsetting("newplayerstartgold",50);
 
-	$newtitle = get_dk_title($session['user']['dragonkills'], $session['user']['sex']);
+	$newtitle = Titles::get_dk_title($session['user']['dragonkills'], $session['user']['sex']);
 
 	$restartgold = $session['user']['gold'] +
 		Settings::getsetting("newplayerstartgold", 50)*$session['user']['dragonkills'];

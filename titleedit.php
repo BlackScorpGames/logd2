@@ -138,7 +138,7 @@ if ($op == ""){
 		$dk = (int)($row['dragonkills']);
 		if (!valid_dk_title($otitle, $dk, $row['sex'])) {
 			$sex = Translator::translate_inline($row['sex']?"female":"male");
-			$newtitle = get_dk_title($dk, (int)$row['sex']);
+			$newtitle = Titles::get_dk_title($dk, (int)$row['sex']);
 			$newname = change_player_title($newtitle, $row);
 			$id = $row['acctid'];
 			if ($oname != $newname) {

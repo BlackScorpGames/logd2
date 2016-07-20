@@ -21,8 +21,8 @@ function valid_dk_title($title, $dks, $gender)
 	}
 	return false;
 }
-
-function get_dk_title($dks, $gender, $ref=false)
+class Titles{
+public static function get_dk_title($dks, $gender, $ref=false)
 {
 	// $ref is an arbitrary string value.  The title picker will try to
 	// give the next highest title in the same 'ref', but if it cannot it'll
@@ -70,5 +70,5 @@ function get_dk_title($dks, $gender, $ref=false)
 	else
 		return $row['female'];
 }
-
+}
 ?>
