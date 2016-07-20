@@ -211,7 +211,7 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 	$mdata = array();
 	while ($row = db_fetch_assoc($result)) {
 		$module = $row['modulename'];
-		$info = get_module_info($module);
+		$info = Modules::get_module_info($module);
 		if (count($info['prefs']) <= 0) continue;
 		$tempsettings = array();
 		$tempdata = array();

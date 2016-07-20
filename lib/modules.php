@@ -398,7 +398,59 @@ $currenthook = "";
 
 class Modules
 {
+    public static function get_module_info($shortname){
+        global $mostrecentmodule;
 
+        $moduleinfo = array();
+
+        // Save off the mostrecent module.
+        $mod = $mostrecentmodule;
+
+        if(injectmodule($shortname,true)) {
+            $fname = $shortname."_getmoduleinfo";
+            if (function_exists($fname)){
+                Translator::tlschema("module-$shortname");
+                $moduleinfo = $fname();
+                Translator::tlschema();
+                // Don't pick up this text unless we need it.
+                if (!isset($moduleinfo['name']) ||
+                    !isset($moduleinfo['category']) ||
+                    !isset($moduleinfo['author']) ||
+                    !isset($moduleinfo['version'])) {
+                    $ns = Translator::translate_inline("Not specified","common");
+                }
+                if (!isset($moduleinfo['name']))
+                    $moduleinfo['name']="$ns ($shortname)";
+                if (!isset($moduleinfo['category']))
+                    $moduleinfo['category']="$ns ($shortname)";
+                if (!isset($moduleinfo['author']))
+                    $moduleinfo['author']="$ns ($shortname)";
+                if (!isset($moduleinfo['version']))
+                    $moduleinfo['version']="0.0";
+                if (!isset($moduleinfo['download']))
+                    $moduleinfo['download'] = "";
+                if (!isset($moduleinfo['description']))
+                    $moduleinfo['description'] = "";
+            }
+            if (!is_array($moduleinfo) || count($moduleinfo)<2){
+                $mf = Translator::translate_inline("Missing function","common");
+                $moduleinfo = array(
+                    "name"=>"$mf ({$shortname}_getmoduleinfo)",
+                    "version"=>"0.0",
+                    "author"=>"$mf ({$shortname}_getmoduleinfo)",
+                    "category"=>"$mf ({$shortname}_getmoduleinfo)",
+                    "download"=>"",
+                );
+            }
+        } else {
+            // This module couldn't be injected at all.
+            return array();
+        }
+        $mostrecentmodule = $mod;
+        if (!isset($moduleinfo['requires']))
+            $moduleinfo['requires'] = array();
+        return $moduleinfo;
+    }
     public static function set_module_pref($name,$value,$module=false,$user=false){
         global $module_prefs,$mostrecentmodule,$session;
         if ($module === false) $module = $mostrecentmodule;
@@ -716,7 +768,7 @@ function get_module_setting($name,$module=false){
 	if (isset($module_settings[$module][$name])) {
 		return $module_settings[$module][$name];
 	}else{
-		$info = get_module_info($module);
+		$info = Modules::get_module_info($module);
 		if (isset($info['settings'][$name])){
 			if (is_array($info['settings'][$name])) {
 				$v = $info['settings'][$name][0];
@@ -803,7 +855,7 @@ function get_module_objpref($type, $objid, $name, $module=false){
 		return $row['value'];
 	}
 	//we couldn't find this elsewhere, load the default value if it exists.
-	$info = get_module_info($module);
+	$info = Modules::get_module_info($module);
 	if (isset($info['prefs-'.$type][$name])){
 		if (is_array($info['prefs-'.$type][$name])) {
 			$v = $info['prefs-'.$type][$name][0];
@@ -880,7 +932,7 @@ function get_module_pref($name,$module=false,$user=false){
 	if (!is_module_active($module)) return NULL;
 
 	//we couldn't find this elsewhere, load the default value if it exists.
-	$info = get_module_info($module);
+	$info = Modules::get_module_info($module);
 	if (isset($info['prefs'][$name])){
 		if (is_array($info['prefs'][$name])) {
 			$v = $info['prefs'][$name][0];
@@ -958,59 +1010,7 @@ function load_module_prefs($module, $user=false){
 	}//end if
 }//end function
 
-function get_module_info($shortname){
-	global $mostrecentmodule;
 
-	$moduleinfo = array();
-
-	// Save off the mostrecent module.
-	$mod = $mostrecentmodule;
-
-	if(injectmodule($shortname,true)) {
-		$fname = $shortname."_getmoduleinfo";
-		if (function_exists($fname)){
-			Translator::tlschema("module-$shortname");
-			$moduleinfo = $fname();
-			Translator::tlschema();
-			// Don't pick up this text unless we need it.
-			if (!isset($moduleinfo['name']) ||
-					!isset($moduleinfo['category']) ||
-					!isset($moduleinfo['author']) ||
-					!isset($moduleinfo['version'])) {
-				$ns = Translator::translate_inline("Not specified","common");
-			}
-			if (!isset($moduleinfo['name']))
-				$moduleinfo['name']="$ns ($shortname)";
-			if (!isset($moduleinfo['category']))
-				$moduleinfo['category']="$ns ($shortname)";
-			if (!isset($moduleinfo['author']))
-				$moduleinfo['author']="$ns ($shortname)";
-			if (!isset($moduleinfo['version']))
-				$moduleinfo['version']="0.0";
-			if (!isset($moduleinfo['download']))
-				$moduleinfo['download'] = "";
-			if (!isset($moduleinfo['description']))
-				$moduleinfo['description'] = "";
-		}
-		if (!is_array($moduleinfo) || count($moduleinfo)<2){
-			$mf = Translator::translate_inline("Missing function","common");
-			$moduleinfo = array(
-					"name"=>"$mf ({$shortname}_getmoduleinfo)",
-					"version"=>"0.0",
-					"author"=>"$mf ({$shortname}_getmoduleinfo)",
-					"category"=>"$mf ({$shortname}_getmoduleinfo)",
-					"download"=>"",
-				);
-		}
-	} else {
-		// This module couldn't be injected at all.
-		return array();
-	}
-	$mostrecentmodule = $mod;
-	if (!isset($moduleinfo['requires']))
-		$moduleinfo['requires'] = array();
-	return $moduleinfo;
-}
 
 function module_wipehooks() {
 	global $mostrecentmodule;
@@ -1236,7 +1236,7 @@ function module_editor_navs($like, $linkprefix)
 
 function module_objpref_edit($type, $module, $id)
 {
-	$info = get_module_info($module);
+	$info = Modules::get_module_info($module);
 	if (count($info['prefs-'.$type]) > 0) {
 		$data = array();
 		$msettings = array();
@@ -1371,7 +1371,7 @@ function install_module($module, $force=true){
 			// If we're not forcing and this is already installed, we are done
 			if (!$force && is_module_installed($module))
 				return true;
-			$info = get_module_info($module);
+			$info = Modules::get_module_info($module);
 			//check installation requirements
 			if (!module_check_requirements($info['requires'])){
 				OutputClass::output("`\$Module could not installed -- it did not meet its prerequisites.`n");

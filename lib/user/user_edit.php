@@ -63,7 +63,7 @@ if (Http::httpget("subop")==""){
 	OutputClass::addnav("Operations");
 	OutputClass::addnav("Edit user","user.php?op=edit&userid=$userid$returnpetition");
 	$module = Http::httpget('module');
-	$info = get_module_info($module);
+	$info = Modules::get_module_info($module);
 	if (count($info['prefs']) > 0) {
 		$data = array();
 		$msettings = array();

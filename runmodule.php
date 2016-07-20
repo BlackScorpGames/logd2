@@ -14,7 +14,7 @@ require_once("lib/modules.php");
 require_once("lib/villagenav.php");
 
 if (injectmodule(Http::httpget('module'), (Http::httpget('admin')?true:false))){
-	$info = get_module_info(Http::httpget('module'));
+	$info = Modules::get_module_info(Http::httpget('module'));
 	if (!isset($info['allowanonymous'])){
 		$allowanonymous=false;
 	}else{

@@ -234,7 +234,7 @@ if ($op==""){
 						//here the files has neither do_hook nor getinfo, which means it won't execute as a module here --> block it + notify the admin who is the manage modules section
 						$temp=array_merge($invalidmodule,array("name"=>$shortname.".php ".OutputClass::appoencode(Translator::translate_inline("(`\$Invalid Module! Contact Author or check file!`0)"))));
 				} else {
-					$temp= get_module_info($shortname);
+					$temp= Modules::get_module_info($shortname);
 				}
 				//end of testing
 				if (!$temp || empty($temp)) continue;

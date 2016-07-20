@@ -72,7 +72,7 @@ if (return_bytes($phpram) < 12582912 && $phpram!=-1 && !$session['overridememory
 			//here the files has neither do_hook nor getinfo, which means it won't execute as a module here --> block it + notify the admin who is the manage modules section
 			$moduleinfo=array_merge($invalidmodule,array("name"=>$modulename.".php ".OutputClass::appoencode(Translator::translate_inline("(`\$Invalid Module! Contact Author or check file!`0)"))));
 		} else {
-			$moduleinfo= get_module_info($modulename);
+			$moduleinfo= Modules::get_module_info($modulename);
 		}
 		//end of testing
 		$row['installed'] = false;

@@ -126,7 +126,7 @@ if ($op=="save"){
 			Http::httpset('save', "");
 		}
 		if ($save == "") {
-			$info = get_module_info($module);
+			$info = Modules::get_module_info($module);
 			if (count($info['settings'])>0){
 				load_module_settings($mostrecentmodule);
 				$msettings=array();
