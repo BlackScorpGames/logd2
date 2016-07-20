@@ -5,6 +5,37 @@
 //
 
 class ExtendedBattle{
+
+    /**
+     * Automatically chooses the first still living enemy as target for attacks.
+     *
+     * @param array $localenemies The stack of enemies to find a valid one from.
+     * @return array $localenemies The stack with changed targetting.
+     */
+    public static function autosettarget($localenemies) {
+        $targetted = 0;
+        if (is_array($localenemies)) {
+            foreach ($localenemies as $index=>$badguy) {
+                $localenemies[$index] += array("dead"=>false, "istarget"=>false); // This line will add these two indices if they haven't been set.
+                if (count($localenemies) == 1)
+                    $localenemies[$index]['istarget'] = true;
+                if ($localenemies[$index]['istarget'] == true && $localenemies[$index]['dead'] == false)
+                    $targetted++;
+            }
+        }
+        if (!$targetted && is_array($localenemies)) {
+            foreach ($localenemies as $index=>$badguy) {
+                if ($localenemies[$index]['dead'] == false && (!isset($badguy['cannotbetarget']) || $badguy['cannotbetarget'] === false)) {
+                    $localenemies[$index]['istarget'] = true;
+                    $targetted = true;
+                    break;
+                } else {
+                    continue;
+                }
+            }
+        }
+        return $localenemies;
+    }
     /**
      * This function prepares the fight, sets up options and gives hook a hook to change options on a per-player basis.
      *
@@ -155,36 +186,6 @@ function prepare_companions() {
 
 
 
-/**
- * Automatically chooses the first still living enemy as target for attacks.
- *
- * @param array $localenemies The stack of enemies to find a valid one from.
- * @return array $localenemies The stack with changed targetting.
- */
-function autosettarget($localenemies) {
-	$targetted = 0;
-	if (is_array($localenemies)) {
-		foreach ($localenemies as $index=>$badguy) {
-			$localenemies[$index] += array("dead"=>false, "istarget"=>false); // This line will add these two indices if they haven't been set.
-			if (count($localenemies) == 1)
-				$localenemies[$index]['istarget'] = true;
-			if ($localenemies[$index]['istarget'] == true && $localenemies[$index]['dead'] == false)
-				$targetted++;
-		}
-	}
-	if (!$targetted && is_array($localenemies)) {
-		foreach ($localenemies as $index=>$badguy) {
-			if ($localenemies[$index]['dead'] == false && (!isset($badguy['cannotbetarget']) || $badguy['cannotbetarget'] === false)) {
-				$localenemies[$index]['istarget'] = true;
-				$targetted = true;
-				break;
-			} else {
-				continue;
-			}
-		}
-	}
-	return $localenemies;
-}
 
 /**
  * Based upon the type of the companion different actions are performed and the companion is marked as "used" after that.

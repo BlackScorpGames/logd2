@@ -51,7 +51,7 @@ if ($auto == 'full') {
 }
 
 $enemycounter = count($enemies);
-$enemies = autosettarget($enemies);
+$enemies = ExtendedBattle::autosettarget($enemies);
 
 $op=Http::httpget("op");
 $skill=Http::httpget("skill");
@@ -472,7 +472,7 @@ if ($op != "newtarget") {
 	$newenemies = $enemies;
 }
 
-$newenemies = autosettarget($newenemies);
+$newenemies = ExtendedBattle::autosettarget($newenemies);
 
 if ($session['user']['hitpoints']>0 && count($newenemies)>0 && ($op=="fight" || $op=="run")){
 	OutputClass::output("`2`bEnd of Round:`b`n");
