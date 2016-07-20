@@ -23,7 +23,7 @@ if ($pay){
 			$session['user']['location']=$iname;
 			$session['user']['loggedin']=0;
 			$session['user']['restorepage']="inn.php?op=strolldown";
-			saveuser();
+			SaveUserClass::saveuser();
 		}
 		$session=array();
 		RedirectClass::redirect("index.php");

@@ -80,7 +80,7 @@ if ($name!=""){
 
 					$str = sprintf_translate("Sending you to %s, have a safe journey", $link);
 					header("Location: {$session['user']['restorepage']}");
-					saveuser();
+					SaveUserClass::saveuser();
 					echo $str;
 					exit();
 				}
@@ -176,7 +176,7 @@ if ($name!=""){
 		// like the stafflist which need to invalidate the cache
 		// when someone logs in or off can do so.
 		Modules::modulehook("player-logout");
-		saveuser();
+		SaveUserClass::saveuser();
 	}
 	$session=array();
 	RedirectClass::redirect("index.php");

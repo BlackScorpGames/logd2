@@ -2,8 +2,8 @@
 // translator ready
 // addnews ready
 // mail ready
-
-function saveuser(){
+class SaveUserClass{
+public static function saveuser(){
 	global $session,$dbqueriesthishit,$baseaccount,$companions;
 	if (defined("NO_SAVE_USER")) return false;
 
@@ -45,5 +45,5 @@ function saveuser(){
 		);
 	}
 }
-
+}
 ?>

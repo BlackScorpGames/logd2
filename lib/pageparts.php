@@ -355,7 +355,7 @@ class PageParts{
         $session['user']['gensize'] += strlen($output);
         $session['OutputClass::output'] = $output;
         if ($saveuser === true) {
-            saveuser();
+            SaveUserClass::saveuser();
         }
         unset($session['OutputClass::output']);
         //this somehow allows some frames to load before the user's navs say it can
@@ -478,7 +478,7 @@ function popup_footer(){
 	$header = preg_replace("/{[^} \t\n\r]*}/i","",$header);
 
 	$output=$header.$output.$footer;
-	saveuser();
+	SaveUserClass::saveuser();
 	session_write_close();
 	echo $output;
 	exit();

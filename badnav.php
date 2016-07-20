@@ -41,7 +41,7 @@ if ($session['user']['loggedin'] && $session['loggedin']){
 	echo $row['OutputClass::output'];
 	$session['OutputClass::debug']="";
 	$session['user']['allowednavs']=$session['allowednavs'];
-	saveuser();
+	SaveUserClass::saveuser();
 }else{
 	$session=array();
 	Translator::translator_setup();
