@@ -9,7 +9,7 @@ require_once("lib/checkban.php");
 require_once("lib/http.php");
 
 Translator::tlschema("login");
-translator_setup();
+Translator::translator_setup();
 $op = Http::httpget('op');
 $name = Http::httppost('name');
 $iname = Settings::getsetting("innname", LOCATION_INN);

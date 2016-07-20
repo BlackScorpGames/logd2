@@ -44,7 +44,7 @@ if ($session['user']['loggedin'] && $session['loggedin']){
 	saveuser();
 }else{
 	$session=array();
-	translator_setup();
+	Translator::translator_setup();
 	RedirectClass::redirect("index.php");
 }
 

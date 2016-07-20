@@ -183,7 +183,7 @@ if (strtotime("-".Settings::getsetting("LOGINTIMEOUT",900)." seconds") > $sessio
 	// technically we should be able to translate this, but for now,
 	// ignore it.
 	// 1.1.1 now should be a good time to get it on with it, added tl-inline
-	translator_setup();
+	Translator::translator_setup();
 	$session['message'].=Translator::translate_inline("`nYour session has expired!`n","common");
 }
 $session['lasthit']=strtotime("now");
@@ -362,7 +362,7 @@ if ($session['user']['superuser'] & SU_MEGAUSER)
 	$session['user']['superuser'] =
 		$session['user']['superuser'] | SU_EDIT_USERS;
 
-translator_setup();
+Translator::translator_setup();
 //set up the error handler after the intial setup (since it does require a
 //db call for notification)
 require_once("lib/errorhandler.php");

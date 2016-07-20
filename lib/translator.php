@@ -9,24 +9,7 @@ $translation_namespace_stack = array();
 // addnews ready
 // mail ready
 
-function translator_setup(){
-	//Determine what language to use
-	if (defined("TRANSLATOR_IS_SET_UP")) return;
-	define("TRANSLATOR_IS_SET_UP",true);
 
-	global $language, $session;
-	$language = "";
-	if (isset($session['user']['prefs']['language'])) {
-		$language = $session['user']['prefs']['language'];
-	}elseif(isset($_COOKIE['language'])){
-		$language = $_COOKIE['language'];
-	}
-	if ($language=="") {
-		$language=Settings::getsetting("defaultlanguage","en");
-	}
-
-	define("LANGUAGE",preg_replace("/[^a-z]/i","",$language));
-}
 
 $translation_table = array();
 function translate($indata,$namespace=FALSE){
@@ -217,7 +200,24 @@ $translation_namespace_stack = array();
 
 class Translator
 {
+	public static function translator_setup(){
+		//Determine what language to use
+		if (defined("TRANSLATOR_IS_SET_UP")) return;
+		define("TRANSLATOR_IS_SET_UP",true);
 
+		global $language, $session;
+		$language = "";
+		if (isset($session['user']['prefs']['language'])) {
+			$language = $session['user']['prefs']['language'];
+		}elseif(isset($_COOKIE['language'])){
+			$language = $_COOKIE['language'];
+		}
+		if ($language=="") {
+			$language=Settings::getsetting("defaultlanguage","en");
+		}
+
+		define("LANGUAGE",preg_replace("/[^a-z]/i","",$language));
+	}
     public static function translate_mail($in, $to = 0)
     {
         global $session;

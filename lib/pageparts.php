@@ -375,7 +375,7 @@ class PageParts{
         $nopopups["mail.php"] = 1;
 
         //in case this didn't already get called (such as on a database error)
-        translator_setup();
+        Translator::translator_setup();
         prepare_template();
         $script = substr($SCRIPT_NAME, 0, strrpos($SCRIPT_NAME, "."));
         if ($script) {
@@ -428,7 +428,7 @@ function popup($page,$size="550x300"){
 function popup_header($title="Legend of the Green Dragon"){
 	global $header, $template;
 
-	translator_setup();
+	Translator::translator_setup();
 	prepare_template();
 
 	Modules::modulehook("header-popup");
