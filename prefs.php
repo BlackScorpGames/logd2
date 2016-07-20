@@ -119,7 +119,7 @@ if ($op=="suicide" && Settings::getsetting("selfdelete",0)!=0) {
 		}
 		$email = Http::httppost('email');
 		if ($email!=$session['user']['emailaddress']){
-			if (is_email($email)){
+			if (IsEmail::is_email($email)){
 				if (Settings::getsetting("requirevalidemail",0)==1){
 					OutputClass::output("`#Your email cannot be changed, system settings prohibit it.");
 					OutputClass::output("(Emails may only be changed if the server allows more than one account per email.)");

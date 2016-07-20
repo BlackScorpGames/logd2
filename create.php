@@ -146,7 +146,7 @@ if (Settings::getsetting("allowcreation",1)==0){
 				$msg.=Translator::translate_inline("Your character's name cannot exceed 25 characters.`n");
 				$blockaccount=true;
 			}
-			if (Settings::getsetting("requireemail",0)==1 && is_email($email) || Settings::getsetting("requireemail",0)==0){
+			if (Settings::getsetting("requireemail",0)==1 && IsEmail::is_email($email) || Settings::getsetting("requireemail",0)==0){
 			}else{
 				$msg.=Translator::translate_inline("You must enter a valid email address.`n");
 				$blockaccount=true;

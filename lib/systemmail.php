@@ -51,7 +51,7 @@ public static function systemmail($to,$subject,$body,$from=0,$noemail=false){
 	$emailadd = "";
 	if (isset($row['emailaddress'])) $emailadd = $row['emailaddress'];
 
-	if (!is_email($emailadd)) $email=false;
+	if (!IsEmail::is_email($emailadd)) $email=false;
 	if ($email && !$noemail){
 		if ($serialized&2){
 			$body = unserialize(stripslashes($body));
