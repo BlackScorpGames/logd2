@@ -8,37 +8,7 @@ require_once("lib/buffs.php");
 
 
 
-function report_power_move($crit, $dmg)
-{
-    global $session;
-    $uatk = $session['user']['attack'];
-    if ($crit > $uatk) {
-        $power = 0;
-        if ($crit > $uatk * 4) {
-            $msg = "`&`bYou execute a `%MEGA`& power move!!!`b`n";
-            $power = 1;
 
-        } elseif ($crit > $uatk * 3) {
-            $msg = "`&`bYou execute a `^DOUBLE`& power move!!!`b`n";
-            $power = 1;
-        } elseif ($crit > $uatk * 2) {
-            $msg = "`&`bYou execute a power move!!!`b`0`n";
-            $power = 1;
-        } elseif ($crit > ($uatk * 1.5)) {
-            $msg = "`7`bYou execute a minor power move!`b`0`n";
-            $power = 1;
-        }
-        if ($power) {
-            Translator::tlschema("battle");
-            OutputClass::output($msg);
-            Translator::tlschema();
-
-            $dmg += Erand::e_rand($crit / 4, $crit / 2);
-            $dmg = max($dmg, 1);
-        }
-    }
-    return $dmg;
-}
 
 
 function suspend_buff_by_name($name, $msg = false)
@@ -100,6 +70,38 @@ function is_buff_active($name)
 
 class BattleSkills
 {
+    public static function report_power_move($crit, $dmg)
+    {
+        global $session;
+        $uatk = $session['user']['attack'];
+        if ($crit > $uatk) {
+            $power = 0;
+            if ($crit > $uatk * 4) {
+                $msg = "`&`bYou execute a `%MEGA`& power move!!!`b`n";
+                $power = 1;
+
+            } elseif ($crit > $uatk * 3) {
+                $msg = "`&`bYou execute a `^DOUBLE`& power move!!!`b`n";
+                $power = 1;
+            } elseif ($crit > $uatk * 2) {
+                $msg = "`&`bYou execute a power move!!!`b`0`n";
+                $power = 1;
+            } elseif ($crit > ($uatk * 1.5)) {
+                $msg = "`7`bYou execute a minor power move!`b`0`n";
+                $power = 1;
+            }
+            if ($power) {
+                Translator::tlschema("battle");
+                OutputClass::output($msg);
+                Translator::tlschema();
+
+                $dmg += Erand::e_rand($crit / 4, $crit / 2);
+                $dmg = max($dmg, 1);
+            }
+        }
+        return $dmg;
+    }
+
     public static function rolldamage()
     {
         global $badguy, $session, $creatureattack, $creatureatkmod, $adjustment;

@@ -521,7 +521,7 @@ public static function battle_player_attacks() {
 	$break = false;
 	$creaturedmg = $roll['creaturedmg'];
 	if ($options['type'] != "pvp") {
-		$creaturedmg = report_power_move($atk, $creaturedmg);
+		$creaturedmg = BattleSkills::report_power_move($atk, $creaturedmg);
 	}
 	if ($creaturedmg==0){
 		OutputClass::output("`4You try to hit `^%s`4 but `\$MISS!`n",$badguy['creaturename']);
