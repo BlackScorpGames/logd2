@@ -103,7 +103,7 @@ if ($enemycounter > 0) {
 	show_enemies($enemies);
 }
 
-suspend_buffs((($options['type'] == 'pvp')?"allowinpvp":false));
+BattleSkills::suspend_buffs((($options['type'] == 'pvp')?"allowinpvp":false));
 suspend_companions((($options['type'] == 'pvp')?"allowinpvp":false));
 
 // Now that the bufflist is sane, see if we should add in the bodyguard.

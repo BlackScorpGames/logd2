@@ -118,33 +118,7 @@ function report_power_move($crit, $dmg) {
 }
 
 
-function suspend_buffs($susp=false, $msg=false){
-	global $session, $badguy;
-	$suspendnotify = 0;
-	reset($session['bufflist']);
-	while (list($key,$buff)=each($session['bufflist'])){
-		if (array_key_exists('suspended', $buff) && $buff['suspended'])
-			continue;
-		// Suspend non pvp allowed buffs when in pvp
-		if ($susp && (!isset($buff[$susp]) || !$buff[$susp])) {
-			$session['bufflist'][$key]['suspended'] = 1;
-			$suspendnotify = 1;
-		}
-		// reset the 'used this round state'
-		$buff['used']=0;
-	}
 
-	if ($suspendnotify) {
-		$schema = false;
-		if ($msg === false) {
-			$schema = "battle";
-			$msg = "`&The gods have suspended some of your enhancements!`n";
-		}
-		if ($schema) Translator::tlschema($schema);
-		OutputClass::output($msg);
-		if ($schema) Translator::tlschema();
-	}
-}
 
 function suspend_buff_by_name($name, $msg=false) {
 	global $session;
@@ -191,6 +165,33 @@ function is_buff_active($name) {
 }
 
 class BattleSkills{
+	public static function suspend_buffs($susp=false, $msg=false){
+		global $session, $badguy;
+		$suspendnotify = 0;
+		reset($session['bufflist']);
+		while (list($key,$buff)=each($session['bufflist'])){
+			if (array_key_exists('suspended', $buff) && $buff['suspended'])
+				continue;
+			// Suspend non pvp allowed buffs when in pvp
+			if ($susp && (!isset($buff[$susp]) || !$buff[$susp])) {
+				$session['bufflist'][$key]['suspended'] = 1;
+				$suspendnotify = 1;
+			}
+			// reset the 'used this round state'
+			$buff['used']=0;
+		}
+
+		if ($suspendnotify) {
+			$schema = false;
+			if ($msg === false) {
+				$schema = "battle";
+				$msg = "`&The gods have suspended some of your enhancements!`n";
+			}
+			if ($schema) Translator::tlschema($schema);
+			OutputClass::output($msg);
+			if ($schema) Translator::tlschema();
+		}
+	}
 public static function unsuspend_buffs($susp=false,$msg=false) {
 	global $session, $badguy;
 	$unsuspendnotify = 0;
