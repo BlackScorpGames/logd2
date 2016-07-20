@@ -296,7 +296,7 @@ if ($op != "newtarget") {
 								$buffset = BattleBuffs::activate_buffs("defense");
 								do {
 									$defended = false;
-									$needtostopfighting = battle_badguy_attacks();
+									$needtostopfighting = Battle::battle_badguy_attacks();
 									$r = mt_rand(0,100);
 									if (!isset($bgchancetodouble)) $bgchancetodouble = 0;
 									if ($r < $bgchancetodouble && $badguy['creaturehealth']>0 && $session['user']['hitpoints']>0 && !$needtostopfighting){
@@ -553,78 +553,79 @@ public static function battle_player_attacks() {
 	}
 	return $break;
 }
-}
-function battle_badguy_attacks() {
-	global $badguy,$enemies,$newenemies,$session,$creatureattack,$creatureatkmod, $beta;
-	global $creaturedefmod,$adjustment,$defmod,$atkmod,$compatkmod,$compdefmod,$buffset,$atk,$def,$options;
-	global $companions,$companion,$newcompanions,$roll,$count,$index,$defended,$needtostopfighting;
+public static function battle_badguy_attacks() {
+        global $badguy,$enemies,$newenemies,$session,$creatureattack,$creatureatkmod, $beta;
+        global $creaturedefmod,$adjustment,$defmod,$atkmod,$compatkmod,$compdefmod,$buffset,$atk,$def,$options;
+        global $companions,$companion,$newcompanions,$roll,$count,$index,$defended,$needtostopfighting;
 
-	$break = false;
-	$selfdmg = $roll['selfdmg'];
-	if ($badguy['creaturehealth']<=0 && $session['user']['hitpoints']<=0){
-		$creaturedmg = 0;
-		$selfdmg = 0;
-		if ($badguy['creaturehealth'] <= 0) {
-			$badguy['dead'] = true;
-			$badguy['istarget'] = false;
-			$count = 1;
-			$needtostopfighting = true;
-			$break = true;
-		}
-		$newenemies[$index] = $badguy;
-		$newcompanions = $companions;
-		$break = true;
-	}else{
-		if ($badguy['creaturehealth']>0 && $session['user']['hitpoints']>0 && $badguy['istarget']){
-			if (is_array($companions)) {
-			foreach ($companions as $name=>$companion) {
-				if ($companion['hitpoints'] > 0) {
-					$buffer = ExtendedBattle::report_companion_move($companion, "defend");
-					if ($buffer !== false) {
-						$newcompanions[$name] = $buffer;
-						unset($buffer);
-					} else {
-						unset($companion);
-						unset($newcompanions[$name]);
-					}
-				} else {
-					$newcompanions[$name] = $companion;
-				}
-			}
-			}
-		} else {
-			$newcompanions = $companions;
-		}
-		$companions = $newcompanions;
-		if ($defended == false) {
-			if ($selfdmg==0){
-				OutputClass::output("`^%s`4 tries to hit you but `^MISSES!`n",$badguy['creaturename']);
-				process_dmgshield($buffset['dmgshield'], 0);
-				process_lifetaps($buffset['lifetap'], 0);
-			}else if ($selfdmg<0){
-				OutputClass::output("`^%s`4 tries to hit you but you `^RIPOSTE`4 for `^%s`4 points of damage!`n",$badguy['creaturename'],(0-$selfdmg));
-				$badguy['creaturehealth']+=$selfdmg;
-				process_lifetaps($buffset['lifetap'], -$selfdmg);
-				process_dmgshield($buffset['dmgshield'], $selfdmg);
-			}else{
-				OutputClass::output("`^%s`4 hits you for `\$%s`4 points of damage!`n",$badguy['creaturename'],$selfdmg);
-				$session['user']['hitpoints']-=$selfdmg;
-				if ($session['user']['hitpoints'] <= 0) {
-					$badguy['killedplayer'] = true;
-					$count = 1;
-				}
-				process_dmgshield($buffset['dmgshield'], $selfdmg);
-				process_lifetaps($buffset['lifetap'], -$selfdmg);
-				$badguy['diddamage']=1;
-			}
-		}
-		if ($badguy['creaturehealth'] <= 0) {
-			$badguy['dead'] = true;
-			$badguy['istarget'] = false;
-			$count = 1;
-			$break = true;
-		}
-	}
-	return $break;
+        $break = false;
+        $selfdmg = $roll['selfdmg'];
+        if ($badguy['creaturehealth']<=0 && $session['user']['hitpoints']<=0){
+            $creaturedmg = 0;
+            $selfdmg = 0;
+            if ($badguy['creaturehealth'] <= 0) {
+                $badguy['dead'] = true;
+                $badguy['istarget'] = false;
+                $count = 1;
+                $needtostopfighting = true;
+                $break = true;
+            }
+            $newenemies[$index] = $badguy;
+            $newcompanions = $companions;
+            $break = true;
+        }else{
+            if ($badguy['creaturehealth']>0 && $session['user']['hitpoints']>0 && $badguy['istarget']){
+                if (is_array($companions)) {
+                    foreach ($companions as $name=>$companion) {
+                        if ($companion['hitpoints'] > 0) {
+                            $buffer = ExtendedBattle::report_companion_move($companion, "defend");
+                            if ($buffer !== false) {
+                                $newcompanions[$name] = $buffer;
+                                unset($buffer);
+                            } else {
+                                unset($companion);
+                                unset($newcompanions[$name]);
+                            }
+                        } else {
+                            $newcompanions[$name] = $companion;
+                        }
+                    }
+                }
+            } else {
+                $newcompanions = $companions;
+            }
+            $companions = $newcompanions;
+            if ($defended == false) {
+                if ($selfdmg==0){
+                    OutputClass::output("`^%s`4 tries to hit you but `^MISSES!`n",$badguy['creaturename']);
+                    process_dmgshield($buffset['dmgshield'], 0);
+                    process_lifetaps($buffset['lifetap'], 0);
+                }else if ($selfdmg<0){
+                    OutputClass::output("`^%s`4 tries to hit you but you `^RIPOSTE`4 for `^%s`4 points of damage!`n",$badguy['creaturename'],(0-$selfdmg));
+                    $badguy['creaturehealth']+=$selfdmg;
+                    process_lifetaps($buffset['lifetap'], -$selfdmg);
+                    process_dmgshield($buffset['dmgshield'], $selfdmg);
+                }else{
+                    OutputClass::output("`^%s`4 hits you for `\$%s`4 points of damage!`n",$badguy['creaturename'],$selfdmg);
+                    $session['user']['hitpoints']-=$selfdmg;
+                    if ($session['user']['hitpoints'] <= 0) {
+                        $badguy['killedplayer'] = true;
+                        $count = 1;
+                    }
+                    process_dmgshield($buffset['dmgshield'], $selfdmg);
+                    process_lifetaps($buffset['lifetap'], -$selfdmg);
+                    $badguy['diddamage']=1;
+                }
+            }
+            if ($badguy['creaturehealth'] <= 0) {
+                $badguy['dead'] = true;
+                $badguy['istarget'] = false;
+                $count = 1;
+                $break = true;
+            }
+        }
+        return $break;
+    }
 }
+
 ?>
