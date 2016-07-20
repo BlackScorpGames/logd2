@@ -70,7 +70,7 @@ if ($op=="fight"){
 			}else{
 				if (is_array($badguy['cannotbetarget'])) {
 					$msg = Translator::sprintf_translate($badguy['cannotbetarget']);
-					$msg = substitute($msg);
+					$msg = SubstituteClass::substitute($msg);
 					OutputClass::output_notl($msg); //Here it's already translated
 				}else{
 					if ($badguy['cannotbetarget'] === true) {
@@ -432,7 +432,7 @@ if ($op != "newtarget") {
 				if (isset($badguy['fleesifalone']) && $badguy['fleesifalone'] == true) {
 					if (is_array($badguy['fleesifalone'])) {
 						$msg = Translator::sprintf_translate($badguy['fleesifalone']);
-						$msg = substitute($msg);
+						$msg = SubstituteClass::substitute($msg);
 						OutputClass::output_notl($msg); //Here it's already translated
 					}else{
 						if ($badguy['fleesifalone'] === true) {
@@ -450,7 +450,7 @@ if ($op != "newtarget") {
 		} else if ($leaderisdead) {
 			if (is_array($badguy['essentialleader'])) {
 				$msg = Translator::sprintf_translate($badguy['essentialleader']);
-				$msg = substitute($msg);
+				$msg = SubstituteClass::substitute($msg);
 				OutputClass::output_notl($msg); //Here it's already translated
 			}else{
 				if ($badguy['essentialleader'] === true) {

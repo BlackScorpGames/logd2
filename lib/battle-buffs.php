@@ -38,7 +38,7 @@ function activate_buffs($tag) {
 			if (is_array($buff['startmsg'])) {
 				$buff['startmsg'] = str_replace("`%", "`%%", $buff['startmsg']);
 				$msg = Translator::sprintf_translate($buff['startmsg']);
-				$msg = substitute("`5".$msg."`0`n");
+				$msg = SubstituteClass::substitute("`5".$msg."`0`n");
 				OutputClass::output_notl($msg); //Here it's already translated
 			}else{
 				$msg = SubstituteClass::substitute_array("`5".$buff['startmsg']."`0`n");
@@ -80,7 +80,7 @@ function activate_buffs($tag) {
 				if (is_array($buff['roundmsg'])) {
 					$buff['roundmsg'] = str_replace("`%", "`%%", $buff['roundmsg']);
 					$msg = Translator::sprintf_translate($buff['roundmsg']);
-					$msg = substitute("`5".$msg."`0`n");
+					$msg = SubstituteClass::substitute("`5".$msg."`0`n");
 					OutputClass::output_notl($msg); //Here it's already translated
 				}else{
 					$msg = SubstituteClass::substitute_array("`5".$buff['roundmsg']."`0`n");
@@ -140,7 +140,7 @@ function activate_buffs($tag) {
 
 			if (is_array($msg)) {
 				$msg = Translator::sprintf_translate($msg);
-				$msg = substitute("`)".$msg."`0`n", array("{damage}"), array($hptoregen));
+				$msg = SubstituteClass::substitute("`)".$msg."`0`n", array("{damage}"), array($hptoregen));
 				OutputClass::output_notl($msg); //Here it's already translated
 			}elseif ($msg!="") {
 				$msg = SubstituteClass::substitute_array("`)".$msg."`0`n", array("{damage}"), array($hptoregen));
@@ -213,7 +213,7 @@ function activate_buffs($tag) {
 				}
 				if (is_array($msg)) {
 					$msg = Translator::sprintf_translate($msg);
-					$msg = substitute("`)".$msg."`0`n", array("{damage}"), array(abs($damage)));
+					$msg = SubstituteClass::substitute("`)".$msg."`0`n", array("{damage}"), array(abs($damage)));
 					OutputClass::output_notl($msg); //Here it's already translated
 				}else if ($msg>"") {
 					$msg = SubstituteClass::substitute_array("`)".$msg."`0`n", array("{damage}"), array(abs($damage)));
@@ -257,7 +257,7 @@ function process_lifetaps($ltaps, $damage) {
 		$session['user']['hitpoints'] += $healhp;
 		if (is_array($msg)) {
 			$msg = Translator::sprintf_translate($msg);
-			$msg = substitute("`)".$msg."`0`n", array("{damage}"), array($healhp));
+			$msg = SubstituteClass::substitute("`)".$msg."`0`n", array("{damage}"), array($healhp));
 			OutputClass::output_notl($msg); //Here it's already translated
 		}else if ($msg>"") {
 			$msg = SubstituteClass::substitute_array("`)".$msg."`0`n", array("{damage}"), array($healhp));
@@ -300,7 +300,7 @@ function process_dmgshield($dshield, $damage) {
 		}
 		if (is_array($msg)) {
 			$msg = Translator::sprintf_translate($msg);
-			$msg = substitute("`)".$msg."`0`n", array("{damage}"), array($realdamage));
+			$msg = SubstituteClass::substitute("`)".$msg."`0`n", array("{damage}"), array($realdamage));
 			OutputClass::output_notl($msg); //Here it's already translated
 		}else if ($msg>"") {
 			$msg = SubstituteClass::substitute_array("`)".$msg."`0`n", array("{damage}"), array($realdamage));
@@ -329,7 +329,7 @@ function expire_buffs() {
 					if (is_array($buff['wearoff'])) {
 						$buff['wearoff'] = str_replace("`%", "`%%", $buff['wearoff']);
 						$msg = Translator::sprintf_translate($buff['wearoff']);
-						$msg = substitute("`5".$msg."`0`n");
+						$msg = SubstituteClass::substitute("`5".$msg."`0`n");
 						OutputClass::output_notl($msg); //Here it's already translated
 					}else{
 						$msg = SubstituteClass::substitute_array("`5".$buff['wearoff']."`0`n");

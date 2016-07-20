@@ -20,7 +20,7 @@ function select_taunt() {
 		$taunt = "`5\"`6%w's mother wears combat boots`5\", screams %W.";
 	}
 
-	$taunt = substitute($taunt);
+	$taunt = SubstituteClass::substitute($taunt);
 	return $taunt;
 }
 
