@@ -295,29 +295,44 @@ function unblockmodule($modulename) {
 }
 
 $module_preload = array();
+
+
 /**
- * Preloads data for multiple modules in one shot rather than
- * having to make SQL calls for each hook, when many of the hooks
- * are found on every page.
- * @param array $hooknames Names of hooks whose attached modules should be preloaded.
- * @return bool Success
+ * An event that should be triggered
+ *
+ * @param string $hookname The name of the event to raise
+ * @param array $args Arguments that should be passed to the event handler
+ * @param bool $allowinactive Allow inactive modules
+ * @param bool $only Only this module?
+ * @return array The args modified by the event handlers
  */
-function mass_module_prepare($hooknames){
-	sort($hooknames);
-	$Pmodules = db_prefix("modules");
-	$Pmodule_hooks = db_prefix("module_hooks");
-	$Pmodule_settings = db_prefix("module_settings");
-	$Pmodule_userprefs = db_prefix("module_userprefs");
+$currenthook = "";
 
-	global $modulehook_queries;
-	global $module_preload;
-	global $module_settings;
-	global $module_prefs;
-	global $session;
+class Modules
+{
+    /**
+     * Preloads data for multiple modules in one shot rather than
+     * having to make SQL calls for each hook, when many of the hooks
+     * are found on every page.
+     * @param array $hooknames Names of hooks whose attached modules should be preloaded.
+     * @return bool Success
+     */
+    public static function mass_module_prepare($hooknames){
+        sort($hooknames);
+        $Pmodules = db_prefix("modules");
+        $Pmodule_hooks = db_prefix("module_hooks");
+        $Pmodule_settings = db_prefix("module_settings");
+        $Pmodule_userprefs = db_prefix("module_userprefs");
 
-	//collect the modules who attach to these hooks.
-	$sql =
-		"SELECT
+        global $modulehook_queries;
+        global $module_preload;
+        global $module_settings;
+        global $module_prefs;
+        global $session;
+
+        //collect the modules who attach to these hooks.
+        $sql =
+            "SELECT
 			$Pmodule_hooks.modulename,
 			$Pmodule_hooks.location,
 			$Pmodule_hooks.function,
@@ -334,26 +349,26 @@ function mass_module_prepare($hooknames){
 			$Pmodule_hooks.location,
 			$Pmodule_hooks.priority,
 			$Pmodule_hooks.modulename";
-	$result = db_query_cached($sql,"moduleprepare-".md5(join($hooknames)));
-	$modulenames = array();
-	while ($row = db_fetch_assoc($result)){
-		$modulenames[$row['modulename']] = $row['modulename'];
-		if (!isset($module_preload[$row['location']])) {
-			$module_preload[$row['location']] = array();
-			$modulehook_queries[$row['location']] = array();
-		}
-		//a little black magic trickery: formatting entries in
-		//$modulehook_queries the same way that db_query_cached
-		//returns query results.
-		array_push($modulehook_queries[$row['location']],$row);
-		$module_preload[$row['location']][$row['modulename']] = $row['function'];
-	}
-	//SQL IN() syntax for the modules involved here.
-	$modulelist = "'".join("', '",$modulenames)."'";
+        $result = db_query_cached($sql,"moduleprepare-".md5(join($hooknames)));
+        $modulenames = array();
+        while ($row = db_fetch_assoc($result)){
+            $modulenames[$row['modulename']] = $row['modulename'];
+            if (!isset($module_preload[$row['location']])) {
+                $module_preload[$row['location']] = array();
+                $modulehook_queries[$row['location']] = array();
+            }
+            //a little black magic trickery: formatting entries in
+            //$modulehook_queries the same way that db_query_cached
+            //returns query results.
+            array_push($modulehook_queries[$row['location']],$row);
+            $module_preload[$row['location']][$row['modulename']] = $row['function'];
+        }
+        //SQL IN() syntax for the modules involved here.
+        $modulelist = "'".join("', '",$modulenames)."'";
 
-	//Load the settings for the modules on these hooks.
-	$sql =
-		"SELECT
+        //Load the settings for the modules on these hooks.
+        $sql =
+            "SELECT
 			modulename,
 			setting,
 			value
@@ -361,14 +376,14 @@ function mass_module_prepare($hooknames){
 			$Pmodule_settings
 		WHERE
 			modulename IN ($modulelist)";
-	$result = db_query($sql);
-	while ($row = db_fetch_assoc($result)){
-		$module_settings[$row['modulename']][$row['setting']] = $row['value'];
-	}
+        $result = db_query($sql);
+        while ($row = db_fetch_assoc($result)){
+            $module_settings[$row['modulename']][$row['setting']] = $row['value'];
+        }
 
-	//Load the current user's prefs for the modules on these hooks.
-	$sql =
-		"SELECT
+        //Load the current user's prefs for the modules on these hooks.
+        $sql =
+            "SELECT
 			modulename,
 			setting,
 			userid,
@@ -378,26 +393,12 @@ function mass_module_prepare($hooknames){
 		WHERE
 			modulename IN ($modulelist)
 		AND	userid = ".(int)$session['user']['acctid'];
-	$result = db_query($sql);
-	while ($row = db_fetch_assoc($result)){
-		$module_prefs[$row['userid']][$row['modulename']][$row['setting']] = $row['value'];
-	}
-	return true;
-}
-
-/**
- * An event that should be triggered
- *
- * @param string $hookname The name of the event to raise
- * @param array $args Arguments that should be passed to the event handler
- * @param bool $allowinactive Allow inactive modules
- * @param bool $only Only this module?
- * @return array The args modified by the event handlers
- */
-$currenthook = "";
-
-class Modules
-{
+        $result = db_query($sql);
+        while ($row = db_fetch_assoc($result)){
+            $module_prefs[$row['userid']][$row['modulename']][$row['setting']] = $row['value'];
+        }
+        return true;
+    }
     public static function module_objpref_edit($type, $module, $id)
     {
         $info = Modules::get_module_info($module);

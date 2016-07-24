@@ -195,7 +195,7 @@ GenericEnv::php_generic_environment();
 ForceNavigation::do_forced_nav(ALLOW_ANONYMOUS,OVERRIDE_FORCED_NAV);
 
 $script = substr($SCRIPT_NAME,0,strrpos($SCRIPT_NAME,"."));
-mass_module_prepare(array(
+Modules::mass_module_prepare(array(
 	'template-header','template-footer','template-statstart','template-stathead','template-statrow','template-statbuff','template-statend',
 	'template-navhead','template-navitem','template-petitioncount','template-adwrapper','template-login','template-loginfull','everyhit',
 	"header-$script","footer-$script",'holiday','collapse{','collapse-nav{','}collapse-nav','}collapse','charstats'
