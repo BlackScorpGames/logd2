@@ -87,7 +87,7 @@ function fairy_runevent($type)
 			case 5:
 				$hptype = "permanently";
 				if (!get_module_setting("carrydk") ||
-						(is_module_active("globalhp") &&
+						(Modules::is_module_active("globalhp") &&
 						 !get_module_setting("carrydk", "globalhp")))
 					$hptype = "temporarily";
 				$hptype = Translator::translate_inline($hptype);

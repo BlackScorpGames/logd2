@@ -146,7 +146,7 @@ if ($op=="save"){
 					}
 				}
 				$msettings = Modules::modulehook("mod-dyn-settings", $msettings);
-				if (is_module_active($module)){
+				if (Modules::is_module_active($module)){
 					OutputClass::output("This module is currently active: ");
 					$deactivate = Translator::translate_inline("Deactivate");
 					OutputClass::rawoutput("<a href='modules.php?op=deactivate&module={$module}&cat={$info['category']}'>");

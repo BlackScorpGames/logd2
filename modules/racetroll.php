@@ -88,7 +88,7 @@ function racetroll_dohook($hookname,$args){
 				" SET location='" . addslashes($args['new']) .
 				"' WHERE location='" . addslashes($args['old']) . "'";
 			db_query($sql);
-			if (is_module_active("cities")) {
+			if (Modules::is_module_active("cities")) {
 				$sql = "UPDATE " . db_prefix("module_userprefs") .
 					" SET value='" . addslashes($args['new']) .
 					"' WHERE modulename='cities' AND setting='homecity'" .
@@ -106,7 +106,7 @@ function racetroll_dohook($hookname,$args){
 		if ($session['user']['race']==$race){
 			OutputClass::output("`@As a troll, and having always fended for yourself, the ways of battle are not foreign to you.`n");
 			OutputClass::output("`^You gain extra attack!");
-			if (is_module_active("cities")) {
+			if (Modules::is_module_active("cities")) {
 				if ($session['user']['dragonkills']==0 &&
 						$session['user']['age']==0){
 					//new farmthing, set them to wandering around this city.
@@ -121,11 +121,11 @@ function racetroll_dohook($hookname,$args){
 		break;
 	case "validforestloc":
 	case "validlocation":
-		if (is_module_active("cities"))
+		if (Modules::is_module_active("cities"))
 			$args[$city] = "village-$race";
 		break;
 	case "moderate":
-		if (is_module_active("cities")) {
+		if (Modules::is_module_active("cities")) {
 			Translator::tlschema("commentary");
 			$args["village-$race"]=Translator::sprintf_translate("City of %s", $city);
 			Translator::tlschema();
@@ -170,7 +170,7 @@ function racetroll_dohook($hookname,$args){
 			$args['schemas']['text'] = "module-racetroll";
 			$args['clock']="`n`2Based on what's left of the morning's kill, you can tell that it is `@%s`2.`n";
 			$args['schemas']['clock'] = "module-racetroll";
-			if (is_module_active("calendar")) {
+			if (Modules::is_module_active("calendar")) {
 				$args['calendar'] = "`n`2Bellows and noises around you let you know that it is `@%1\$s`2, `@%3\$s %2\$s`2, `@%4\$s`2.`n";
 				$args['schemas']['calendar'] = "module-racetroll";
 			}
@@ -220,7 +220,7 @@ function racetroll_checkcity(){
 	$race="Troll";
 	$city=get_module_setting("villagename");
 
-	if ($session['user']['race']==$race && is_module_active("cities")){
+	if ($session['user']['race']==$race && Modules::is_module_active("cities")){
 		//if they're this race and their home city isn't right, set it up.
 		if (get_module_pref("homecity","cities")!=$city){ //home city is wrong
 			Modules::set_module_pref("homecity",$city,"cities");

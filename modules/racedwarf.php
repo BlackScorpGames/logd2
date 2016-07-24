@@ -97,7 +97,7 @@ function racedwarf_dohook($hookname,$args){
 			db_query($sql);
 			$sql = "UPDATE ".db_prefix("companions")." SET location='".$args['new']." WHERE location='".$args['old']."'";
 			db_query($sql);
-			if (is_module_active("cities")) {
+			if (Modules::is_module_active("cities")) {
 				$sql = "UPDATE " . db_prefix("module_userprefs") .
 					" SET value='" . addslashes($args['new']) .
 					"' WHERE modulename='cities' AND setting='homecity'" .
@@ -115,7 +115,7 @@ function racedwarf_dohook($hookname,$args){
 		if ($session['user']['race']==$race){
 			OutputClass::output("`#As a dwarf, you are more easily able to identify the value of certain goods.`n");
 			OutputClass::output("`^You gain extra gold from forest fights!");
-			if (is_module_active("cities")) {
+			if (Modules::is_module_active("cities")) {
 				if ($session['user']['dragonkills']==0 &&
 						$session['user']['age']==0){
 					//new farmthing, set them to wandering around this city.
@@ -130,11 +130,11 @@ function racedwarf_dohook($hookname,$args){
 		break;
 	case "validforestloc":
 	case "validlocation":
-		if (is_module_active("cities"))
+		if (Modules::is_module_active("cities"))
 			$args[$city] = "village-$race";
 		break;
 	case "moderate":
-		if (is_module_active("cities")) {
+		if (Modules::is_module_active("cities")) {
 			Translator::tlschema("commentary");
 			$args["village-$race"]=Translator::sprintf_translate("City of %s", $city);
 			Translator::tlschema();
@@ -173,7 +173,7 @@ function racedwarf_dohook($hookname,$args){
 			$args['schemas']['text'] = "module-racedwarf";
 			$args['clock']="`n`3A cleverly crafted crystal prism allows a beam of light to fall through a crack in the great ceiling.`nIt illuminates age old markings carved into the cavern floor, telling you that on the surface it is `#%s`3.`n";
 			$args['schemas']['clock'] = "module-racedwarf";
-			if (is_module_active("calendar")) {
+			if (Modules::is_module_active("calendar")) {
 				$args['calendar'] = "`n`3A second prism marks out the date on the calendar as `#Year %4\$s`3, `#%3\$s %2\$s`3.`nYet a third shows the day of the week as `#%1\$s`3.`nSo finely wrought are these displays that you marvel at the cunning and skill involved.`n";
 				$args['schemas']['calendar'] = "module-racedwarf";
 			}
@@ -313,7 +313,7 @@ function racedwarf_checkcity(){
 	$race="Dwarf";
 	$city= get_module_setting("villagename");
 
-	if ($session['user']['race']==$race && is_module_active("cities")){
+	if ($session['user']['race']==$race && Modules::is_module_active("cities")){
 		//if they're this race and their home city isn't right, set it up.
 		if (get_module_pref("homecity","cities")!=$city){ //home city is wrong
 			Modules::set_module_pref("homecity",$city,"cities");

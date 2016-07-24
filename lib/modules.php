@@ -68,15 +68,6 @@ function module_status($modulename, $version=false) {
 }
 
 
-/**
- * Determines if a module is activated
- *
- * @param string $modulename The module name
- * @return bool If the module is active or not
- */
-function is_module_active($modulename){
-	return (module_status($modulename) & MODULE_ACTIVE);
-}
 
 /**
  * Determines if a module is installed
@@ -190,6 +181,15 @@ $currenthook = "";
 
 class Modules
 {
+    /**
+     * Determines if a module is activated
+     *
+     * @param string $modulename The module name
+     * @return bool If the module is active or not
+     */
+    public static function is_module_active($modulename){
+        return (module_status($modulename) & MODULE_ACTIVE);
+    }
     public static function load_module_settings($module){
         global $module_settings;
         if (!isset($module_settings[$module])){
@@ -980,7 +980,7 @@ function get_module_pref($name,$module=false,$user=false){
 		return $module_prefs[$user][$module][$name];
 	}
 
-	if (!is_module_active($module)) return NULL;
+	if (!Modules::is_module_active($module)) return NULL;
 
 	//we couldn't find this elsewhere, load the default value if it exists.
 	$info = Modules::get_module_info($module);

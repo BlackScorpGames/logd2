@@ -88,7 +88,7 @@ function raceelf_dohook($hookname,$args){
 				" SET location='" . addslashes($args['new']) .
 				"' WHERE location='" . addslashes($args['old']) . "'";
 			db_query($sql);
-			if (is_module_active("cities")) {
+			if (Modules::is_module_active("cities")) {
 				$sql = "UPDATE " . db_prefix("module_userprefs") .
 					" SET value='" . addslashes($args['new']) .
 					"' WHERE modulename='cities' AND setting='homecity'" .
@@ -106,7 +106,7 @@ function raceelf_dohook($hookname,$args){
 		if ($session['user']['race']==$race){
 			OutputClass::output("`^As an elf, you are keenly aware of your surroundings at all times; very little ever catches you by surprise.`n");
 			OutputClass::output("You gain extra defense!");
-			if (is_module_active("cities")) {
+			if (Modules::is_module_active("cities")) {
 				if ($session['user']['dragonkills']==0 &&
 						$session['user']['age']==0){
 					//new farmthing, set them to wandering around this city.
@@ -135,11 +135,11 @@ function raceelf_dohook($hookname,$args){
 		break;
 	case "validforestloc":
 	case "validlocation":
-		if (is_module_active("cities"))
+		if (Modules::is_module_active("cities"))
 			$args[$city]="village-$race";
 		break;
 	case "moderate":
-		if (is_module_active("cities")) {
+		if (Modules::is_module_active("cities")) {
 			Translator::tlschema("commentary");
 			$args["village-$race"]=Translator::sprintf_translate("City of %s", $city);
 			Translator::tlschema();
@@ -170,7 +170,7 @@ function raceelf_dohook($hookname,$args){
 			$args['schemas']['text'] = "module-raceelf";
 			$args['clock']="`n`6Capturing one of the tiny lights, you peer delicately into your hands.`nThe fairy within tells you that it is `^%s`6 before disappearing in a tiny sparkle.`n";
 			$args['schemas']['clock'] = "module-raceelf";
-			if (is_module_active("calendar")) {
+			if (Modules::is_module_active("calendar")) {
 				$args['calendar']="`n`6Another fairy whispers in your ear, \"`^Today is `&%3\$s %2\$s`^, `&%4\$s`^.  It is `&%1\$s`^.`6\"`n";
 				$args['schemas']['calendar'] = "modules-raceelf";
 			}
@@ -256,7 +256,7 @@ function raceelf_checkcity(){
 	$race="Elf";
 	$city=get_module_setting("villagename");
 
-	if ($session['user']['race']==$race && is_module_active("cities")){
+	if ($session['user']['race']==$race && Modules::is_module_active("cities")){
 		//if they're this race and their home city isn't right, set it up.
 		if (get_module_pref("homecity","cities")!=$city){ //home city is wrong
 			Modules::set_module_pref("homecity",$city,"cities");

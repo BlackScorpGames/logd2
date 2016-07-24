@@ -78,7 +78,7 @@ function racehuman_dohook($hookname,$args){
 				" SET location='" . addslashes($args['new']) .
 				"' WHERE location='" . addslashes($args['old']) . "'";
 			db_query($sql);
-			if (is_module_active("cities")) {
+			if (Modules::is_module_active("cities")) {
 				$sql = "UPDATE " . db_prefix("module_userprefs") .
 					" SET value='" . addslashes($args['new']) .
 					"' WHERE modulename='cities' AND setting='homecity'" .
@@ -102,7 +102,7 @@ function racehuman_dohook($hookname,$args){
 			$fight = Translator::translate_inline("fight");
 			$fights = Translator::translate_inline("fights");
 			OutputClass::output("`&As a human, your size and strength permit you the ability to effortlessly wield weapons, tiring much less quickly than other races.`n`^You gain %s extra forest %s each day!", $word, $bonus==1?$fight:$fights);
-			if (is_module_active("cities")) {
+			if (Modules::is_module_active("cities")) {
 				if ($session['user']['dragonkills']==0 &&
 						$session['user']['age']==0){
 					//new farmthing, set them to wandering around this city.
@@ -136,11 +136,11 @@ function racehuman_dohook($hookname,$args){
 		break;
 	case "validforestloc":
 	case "validlocation":
-		if (is_module_active("cities"))
+		if (Modules::is_module_active("cities"))
 			$args[$city]="village-$race";
 		break;
 	case "moderate":
-		if (is_module_active("cities")) {
+		if (Modules::is_module_active("cities")) {
 			Translator::tlschema("commentary");
 			$args["village-$race"]=Translator::sprintf_translate("City of %s", $city);
 			Translator::tlschema();
@@ -171,7 +171,7 @@ function racehuman_dohook($hookname,$args){
 			$args['schemas']['text'] = "module-racehuman";
 			$args['clock']="`n`7The great sundial at the heart of the city reads `&%s`7.`n";
 			$args['schemas']['clock'] = "module-racehuman";
-			if (is_module_active("calendar")) {
+			if (Modules::is_module_active("calendar")) {
 				$args['calendar'] = "`n`7A smaller contraption next to it reads `&%s`7, `&%s %s %s`7.`n";
 				$args['schemas']['calendar'] = "module-racehuman";
 			}
@@ -270,7 +270,7 @@ function racehuman_checkcity(){
 	$race="Human";
 	$city=get_module_setting("villagename");
 
-	if ($session['user']['race']==$race && is_module_active("cities")){
+	if ($session['user']['race']==$race && Modules::is_module_active("cities")){
 		//if they're this race and their home city isn't right, set it up.
 		if (get_module_pref("homecity","cities")!=$city){ //home city is wrong
 			Modules::set_module_pref("homecity",$city,"cities");

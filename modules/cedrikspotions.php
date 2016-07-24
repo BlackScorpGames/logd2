@@ -197,7 +197,7 @@ function cedrikspotions_run(){
 					$hm = get_module_setting("vitalgain");
 					$hptype = "permanent";
 					if (!get_module_setting("carrydk") ||
-							(is_module_active("globalhp") &&
+							(Modules::is_module_active("globalhp") &&
 							 !get_module_setting("carrydk", "globalhp")))
 						$hptype = "temporary";
 					$hptype = Translator::translate_inline($hptype);
@@ -278,7 +278,7 @@ function cedrikspotions_run(){
 						OutputClass::output("`&You feel vigorous!");
 						$hptype = "permanently";
 						if (!get_module_setting("carrydk") ||
-								(is_module_active("globalhp") &&
+								(Modules::is_module_active("globalhp") &&
 								 !get_module_setting("carrydk", "globalhp")))
 							$hptype = "temporarily";
 						$hptype = Translator::translate_inline($hptype);
