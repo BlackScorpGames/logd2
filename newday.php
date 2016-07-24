@@ -224,7 +224,7 @@ if ($dp < $dkills) {
 	if (substr($rp,0,10)=="badnav.php"){
 		OutputClass::addnav("Continue","news.php");
 	}else{
-		OutputClass::addnav("Continue", cmd_sanitize($rp));
+		OutputClass::addnav("Continue", SanitizeClass::cmd_sanitize($rp));
 	}
 
 	$session['user']['laston'] = date("Y-m-d H:i:s");

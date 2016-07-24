@@ -81,7 +81,7 @@ if ($op=="commentdelete"){
 	$sql = "DELETE FROM " . db_prefix("commentary") . " WHERE commentid IN ('" . join("','",array_keys($comment)) . "')";
 	db_query($sql);
 	$return = Http::httpget('return');
-	$return = cmd_sanitize($return);
+	$return = SanitizeClass::cmd_sanitize($return);
 	$return = substr($return,strrpos($return,"/")+1);
 	if (strpos($return,"?")===false && strpos($return,"&")!==false){
 		$x = strpos($return,"&");

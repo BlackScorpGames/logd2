@@ -114,7 +114,7 @@ if ($act==""){
 		OutputClass::output("`0\"`3What new specialty did you have in mind?`0\"");
 		$specialities = Modules::modulehook("specialtynames");
 		foreach($specialities as $key=>$name) {
-			OutputClass::addnav($name,cmd_sanitize($REQUEST_URI)."&specialty=$key");
+			OutputClass::addnav($name,SanitizeClass::cmd_sanitize($REQUEST_URI)."&specialty=$key");
 		}
 	}else{
 		OutputClass::output("\"`3Ok then,`0\" %s`0 says, \"`3You're all set.`0\"`n`n\"`2That's it?`0\" you ask him.`n`n",$barkeep);

@@ -16,7 +16,7 @@ SuperUserNavClass::superusernav();
 
 
 $ret=Http::httpget('ret');
-$return = cmd_sanitize($ret);
+$return = SanitizeClass::cmd_sanitize($ret);
 $return = substr($return,strrpos($return,"/")+1);
 Translator::tlschema("nav");
 OutputClass::addnav("Return whence you came",$return);

@@ -13,7 +13,7 @@ $ret = Http::httpget('ret');
 if ($ret==""){
 	$return = "/list.php";
 }else{
-	$return = cmd_sanitize($ret);
+	$return = SanitizeClass::cmd_sanitize($ret);
 }
 
 $char = Http::httpget('char');

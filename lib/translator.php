@@ -112,7 +112,7 @@ function tlbutton_push($indata,$hot=false,$namespace=FALSE){
 			}else{
 				$seentlbuttons[$namespace][$indata] = true;
 				require_once("lib/sanitize.php");
-				$uri = cmd_sanitize($namespace);
+				$uri = SanitizeClass::cmd_sanitize($namespace);
 				$uri = comscroll_sanitize($uri);
 				$link = "translatortool.php?u=".
 					rawurlencode($uri)."&t=".rawurlencode($indata);

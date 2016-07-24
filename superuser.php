@@ -25,7 +25,7 @@ if ($op=="keepalive"){
 	$sql = "DELETE FROM " . db_prefix("news") . " WHERE newsid='".Http::httpget('newsid')."'";
 	db_query($sql);
 	$return = Http::httpget('return');
-	$return = cmd_sanitize($return);
+	$return = SanitizeClass::cmd_sanitize($return);
 	$return = substr($return,strrpos($return,"/")+1);
 	RedirectClass::redirect($return);
 }

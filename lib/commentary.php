@@ -87,7 +87,7 @@ class Commentary
 			DataCache::invalidatedatacache("comments-$section");
 			DataCache::invalidatedatacache("comments-or11");
 			$session['user']['specialinc'] == ''; //just to make sure he was not in a special
-			$return = cmd_sanitize($return);
+			$return = SanitizeClass::cmd_sanitize($return);
 			$return = substr($return, strrpos($return, "/") + 1);
 			if (strpos($return, "?") === false && strpos($return, "&") !== false) {
 				$x = strpos($return, "&");
