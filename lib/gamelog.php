@@ -1,5 +1,6 @@
 <?php
-function gamelog($message,$category="general",$filed=false){
+class GameLogClass{
+public static function gamelog($message,$category="general",$filed=false){
 	global $session;
 	$sql = "INSERT INTO ".db_prefix("gamelog")." (message,category,filed,date,who) VALUES (
 		'".addslashes($message)."',
@@ -9,5 +10,6 @@ function gamelog($message,$category="general",$filed=false){
 		'".(int)$session['user']['acctid']."'
 	)";
 	db_query($sql);
+}
 }
 ?>

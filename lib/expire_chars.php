@@ -44,7 +44,7 @@ if ($lastexpire < $needtoexpire){
 	$msg .= "Avg DK: [".round($dks/max(1,count($acctids)),2)."]\n";
 	$msg .= "Accounts: ".join($pinfo,", ");
 	require_once("lib/gamelog.php");
-	gamelog("Deleted ".count($acctids)." accounts:\n$msg","char expiration");
+	GameLogClass::gamelog("Deleted ".count($acctids)." accounts:\n$msg","char expiration");
 
 	# Now delete the accounts themselves
 	// one less search pass, and a guarantee that the same accounts selected

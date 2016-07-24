@@ -41,25 +41,25 @@
       	        $sql = "DELETE FROM " . db_prefix("debuglog") . " WHERE date <'$timestamp'";
  	   	db_query($sql);
        		require_once("lib/gamelog.php");
-       		gamelog("Cleaned up ".db_affected_rows()." from ".db_prefix("debuglog")." older than $timestamp.",'maintenance');
+       		GameLogClass::gamelog("Cleaned up ".db_affected_rows()." from ".db_prefix("debuglog")." older than $timestamp.",'maintenance');
 
 		//Clean up game log
 		$timestamp = date("Y-m-d H:i:s",strtotime("-1 month"));
 		$sql = "DELETE FROM ".db_prefix("gamelog")." WHERE date < '$timestamp' ";
 		db_query($sql);
-		gamelog("Cleaned up ".db_prefix("gamelog")." table removing ".db_affected_rows()." older than $timestamp.","maintenance");
+		GameLogClass::gamelog("Cleaned up ".db_prefix("gamelog")." table removing ".db_affected_rows()." older than $timestamp.","maintenance");
 
 		//Clean up old comments
 
 		$sql = "DELETE FROM " . db_prefix("commentary") . " WHERE postdate<'".date("Y-m-d H:i:s",strtotime("-".Settings::getsetting("expirecontent",180)." days"))."'";
 		db_query($sql);
-		gamelog("Deleted ".db_affected_rows()." old comments.","comment expiration");
+		GameLogClass::gamelog("Deleted ".db_affected_rows()." old comments.","comment expiration");
 		
 		//Clean up old moderated comments
 
 		$sql = "DELETE FROM " . db_prefix("moderatedcomments") . " WHERE moddate<'".date("Y-m-d H:i:s",strtotime("-".Settings::getsetting("expirecontent",180)." days"))."'";
 		db_query($sql);
-		gamelog("Deleted ".db_affected_rows()." old moderated comments.","comment expiration");
+		GameLogClass::gamelog("Deleted ".db_affected_rows()." old moderated comments.","comment expiration");
 	}
 	if (strtotime(Settings::getsetting("lastdboptimize", date("Y-m-d H:i:s", strtotime("-1 day")))) < strtotime("-1 day"))
 	require_once("lib/newday/dbcleanup.php");

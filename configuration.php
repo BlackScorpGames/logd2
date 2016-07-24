@@ -72,7 +72,7 @@ if ($op=="save"){
 				$old[$key] = "";
 			Settings::savesetting($key,stripslashes($val));
 			OutputClass::output("Setting %s to %s`n", $key, stripslashes($val));
-			gamelog("`@Changed core setting `^$key`@ from `#{$old[$key]}`@ to `&$val`0","settings");
+			GameLogClass::gamelog("`@Changed core setting `^$key`@ from `#{$old[$key]}`@ to `&$val`0","settings");
 			// Notify every module
 			Modules::modulehook("changesetting",
 					array("module"=>"core", "setting"=>$key,
@@ -114,7 +114,7 @@ if ($op=="save"){
 						}
 						$oldval = "";
 						if (isset($old[$key])) $oldval = $old[$key];
-						gamelog("`@Changed module(`5$module`@) setting `^$key`@ from `#$oldval`@ to `&$val`0","settings");
+						GameLogClass::gamelog("`@Changed module(`5$module`@) setting `^$key`@ from `#$oldval`@ to `&$val`0","settings");
 						Modules::modulehook("changesetting",
 								array("module"=>$module, "setting"=>$key,
 									"old"=>$oldval, "new"=>$val), true);

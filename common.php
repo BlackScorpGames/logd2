@@ -294,7 +294,7 @@ if (
 				$timestamp = date("Y-m-d H:i:s",strtotime("-1 month"));
 				db_query("DELETE FROM ".db_prefix("referers")." WHERE last < '$timestamp' LIMIT 300");
 				require_once("lib/gamelog.php");
-				gamelog("Deleted ".db_affected_rows()." records from ".db_prefix("referers")." older than $timestamp.","maintenance");
+				GameLogClass::gamelog("Deleted ".db_affected_rows()." records from ".db_prefix("referers")." older than $timestamp.","maintenance");
 			}
 		}
 		db_query($sql);
