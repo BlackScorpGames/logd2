@@ -208,7 +208,7 @@ if ($op==""){
 	}
 
 	// Set the new title.
-	$newname = change_player_title($newtitle);
+	$newname = Names::change_player_title($newtitle);
 	$session['user']['title'] = $newtitle;
 	$session['user']['name'] = $newname;
 

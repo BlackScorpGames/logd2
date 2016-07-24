@@ -67,7 +67,8 @@ function change_player_ctitle($nctitle,$old=false) {
 	return $newname;
 }
 
-function change_player_title($ntitle, $old=false) {
+class Names{
+public static function change_player_title($ntitle, $old=false) {
 	global $session;
 	if ($old===false) {
 		$ctitle = $session['user']['ctitle'];
@@ -85,5 +86,5 @@ function change_player_title($ntitle, $old=false) {
 	}
 	return $newname;
 }
-
+}
 ?>

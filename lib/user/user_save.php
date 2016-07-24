@@ -76,7 +76,7 @@ while (list($key,$val)=each($post)){
 			if (Censor::soap($tmp) != ($tmp)) {
 				OutputClass::output("`^The new title doesn't pass the bad word filter!`0");
 			}
-				$newname = change_player_title($tmp, $oldvalues);
+				$newname = Names::change_player_title($tmp, $oldvalues);
 			$sql.="$key = \"$val\",";
 			OutputClass::output("Changed player title from %s`0 to %s`0`n", $oldvalues['title'], $tmp);
 			$oldvalues[$key]=$tmp;

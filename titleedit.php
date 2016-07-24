@@ -139,7 +139,7 @@ if ($op == ""){
 		if (!valid_dk_title($otitle, $dk, $row['sex'])) {
 			$sex = Translator::translate_inline($row['sex']?"female":"male");
 			$newtitle = Titles::get_dk_title($dk, (int)$row['sex']);
-			$newname = change_player_title($newtitle, $row);
+			$newname = Names::change_player_title($newtitle, $row);
 			$id = $row['acctid'];
 			if ($oname != $newname) {
 				OutputClass::output("`@Changing `^%s`@ to `^%s `@(%s`@ [%s,%s])`n",
