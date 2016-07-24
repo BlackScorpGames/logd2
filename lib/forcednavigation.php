@@ -4,7 +4,8 @@
 // mail ready
 
 $baseaccount = array();
-function do_forced_nav($anonymous,$overrideforced){
+class ForceNavigation{
+public static function do_forced_nav($anonymous,$overrideforced){
 	global $baseaccount, $session,$REQUEST_URI;
 	OutputClass::rawoutput("<!--\nAllowAnonymous: ".($anonymous?"True":"False")."\nOverride Forced Nav: ".($overrideforced?"True":"False")."\n-->");
 	if (isset($session['loggedin']) && $session['loggedin']){
@@ -46,5 +47,6 @@ function do_forced_nav($anonymous,$overrideforced){
 			RedirectClass::redirect("index.php?op=timeout","Not logged in: $REQUEST_URI");
 		}
 	}
+}
 }
 ?>

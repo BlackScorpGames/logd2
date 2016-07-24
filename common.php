@@ -192,7 +192,7 @@ $cp = $copyright;
 $l = $license;
 
 GenericEnv::php_generic_environment();
-do_forced_nav(ALLOW_ANONYMOUS,OVERRIDE_FORCED_NAV);
+ForceNavigation::do_forced_nav(ALLOW_ANONYMOUS,OVERRIDE_FORCED_NAV);
 
 $script = substr($SCRIPT_NAME,0,strrpos($SCRIPT_NAME,"."));
 mass_module_prepare(array(

@@ -25,7 +25,7 @@ if (injectmodule(Http::httpget('module'), (Http::httpget('admin')?true:false))){
 	}else{
 		$override_forced_nav=$info['override_forced_nav'];
 	}
-	do_forced_nav($allowanonymous,$override_forced_nav);
+	ForceNavigation::do_forced_nav($allowanonymous,$override_forced_nav);
 
 	$starttime = getmicrotime();
 	$fname = $mostrecentmodule."_run";
@@ -37,7 +37,7 @@ if (injectmodule(Http::httpget('module'), (Http::httpget('admin')?true:false))){
 	}
 	Translator::tlschema();
 }else{
-	do_forced_nav(false,false);
+	ForceNavigation::do_forced_nav(false,false);
 
 	Translator::tlschema("badnav");
 
