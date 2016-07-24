@@ -439,7 +439,7 @@ if ($op == "") {
 			strtotime("+{$details['realsecstotomorrow']} seconds"))." (".date("H\\h i\\m s\\s",$secstonewday).")"
 	);
 
-	loadsettings();
+	Settings::loadsettings();
 	$vals = $settings + $useful_vals;
 
 	OutputClass::rawoutput("<form action='configuration.php?op=save' method='POST'>");
