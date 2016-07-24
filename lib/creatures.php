@@ -1,5 +1,6 @@
 <?php
-function creature_stats($level){
+class Creatures{
+public static function creature_stats($level){
 	$stats = array();
 	$stats['creaturelevel'] = $level;
 	$stats['creaturehealth'] = creature_health($level);
@@ -9,7 +10,7 @@ function creature_stats($level){
 	$stats['creaturegold'] = creature_gold($level);
 	return $stats;
 }
-
+}
 function creature_health($level){
 	switch ($level) {
 		case 1:

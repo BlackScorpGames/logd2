@@ -13,7 +13,7 @@ $creaturestats = array();
 
 require_once 'lib/creatures.php';
 for ($i=1;$i<18;$i++){
-	$creaturestats[$i] = creature_stats($i);
+	$creaturestats[$i] = Creatures::creature_stats($i);
 }
 
 PageParts::page_header("Creature Editor");
