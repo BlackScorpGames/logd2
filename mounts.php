@@ -89,7 +89,7 @@ if ($op=="deactivate"){
 				}
 			}
 			$buff['schema']="mounts";
-			httppostset('mount', $buff, 'mountbuff');
+			Http::httppostset('mount', $buff, 'mountbuff');
 
 			list($sql, $keys, $vals) = postparse(false, 'mount');
 			if ($id>""){

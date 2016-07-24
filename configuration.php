@@ -17,12 +17,12 @@ if ($op=="save"){
 	//loadsettings();
 	if ((int)Http::httppost('blockdupemail') == 1 &&
 			(int)Http::httppost('requirevalidemail') != 1) {
-		httppostset('requirevalidemail', "1");
+		Http::httppostset('requirevalidemail', "1");
 		OutputClass::output("`brequirevalidemail has been set since blockdupemail was set.`b`n");
 	}
 	if ((int)Http::httppost('requirevalidemail') == 1 &&
 			(int)Http::httppost('requireemail') != 1) {
-		httppostset('requireemail', "1");
+		Http::httppostset('requireemail', "1");
 		OutputClass::output("`brequireemail has been set since requirevalidemail was set.`b`n");
 	}
 	$defsup = Http::httppost("defaultsuperuser");
@@ -31,7 +31,7 @@ if ($op=="save"){
 		while(list($k, $v)=each($defsup)) {
 			if ($v) $value += (int)$k;
 		}
-		httppostset('defaultsuperuser', $value);
+		Http::httppostset('defaultsuperuser', $value);
 	}
 	$tmp = stripslashes(Http::httppost("villagename"));
 	if ($tmp && $tmp != $settings['villagename']) {

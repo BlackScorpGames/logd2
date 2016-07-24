@@ -7,10 +7,10 @@
 			$clanname = SanitizeClass::full_sanitize($clanname);
 			$clanname = preg_replace("'[^[:alpha:] \\'-]'","",$clanname);
 			$clanname = addslashes($clanname);
-			httppostset('clanname', $clanname);
+			Http::httppostset('clanname', $clanname);
 			$clanshort = SanitizeClass::full_sanitize($ocs);
 			$clanshort = preg_replace("'[^[:alpha:]]'","",$clanshort);
-			httppostset('clanshort', $clanshort);
+			Http::httppostset('clanshort', $clanshort);
 			$sql = "SELECT * FROM " . db_prefix("clans") . " WHERE clanname='$clanname'";
 			$result = db_query($sql);
 			$e = array (Translator::translate_inline("%s`7 looks over your form but informs you that your clan name must consist only of letters, spaces, apostrophes, or dashes.  Also, your short name can consist only of letters. She hands you a blank form."),

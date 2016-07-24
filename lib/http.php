@@ -4,7 +4,25 @@
 // mail ready
 class Http
 {
-
+	public static function httppostset($var, $val, $sub = false)
+	{
+		global $HTTP_POST_VARS;
+		if ($sub === false) {
+			if (isset($_POST[$var])) {
+				$_POST[$var] = $val;
+			}
+			if (isset($HTTP_POST_VARS[$var])) {
+				$HTTP_POST_VARS[$var] = $val;
+			}
+		} else {
+			if (isset($_POST[$var]) && isset($_POST[$var][$sub])) {
+				$_POST[$var][$sub] = $val;
+			}
+			if (isset($HTTP_POST_VARS[$var]) && isset($HTTP_POST_VARS[$var][$sub])) {
+				$HTTP_POST_VARS[$var][$sub] = $val;
+			}
+		}
+	}
 	public static function httpallpost(){
 		return $_POST;
 	}
@@ -62,18 +80,7 @@ function httppostisset($var) {
 	return $res;
 }
 
-function httppostset($var, $val, $sub=false){
-	global $HTTP_POST_VARS;
-	if ($sub === false) {
-		if (isset($_POST[$var])) $_POST[$var] = $val;
-		if (isset($HTTP_POST_VARS[$var])) $HTTP_POST_VARS[$var] = $val;
-	} else {
-		if (isset($_POST[$var]) && isset($_POST[$var][$sub]))
-			$_POST[$var][$sub]=$val;
-		if (isset($HTTP_POST_VARS[$var]) && isset($HTTP_POST_VARS[$var][$sub]))
-			$HTTP_POST_VARS[$var][$sub]=$val;
-	}
-}
+
 
 function postparse($verify=false, $subval=false){
 	if ($subval) $var = $_POST[$subval];
