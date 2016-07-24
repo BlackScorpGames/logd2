@@ -87,7 +87,7 @@ if ($op=="save"){
 	if (Modules::injectmodule($module,true)){
 		$save = Http::httpget('save');
 		if ($save!=""){
-			load_module_settings($module);
+			Modules::load_module_settings($module);
 			$old = $module_settings[$module];
 			$post = Http::httpallpost();
 			$post = Modules::modulehook("validatesettings", $post, true, $module);
@@ -128,7 +128,7 @@ if ($op=="save"){
 		if ($save == "") {
 			$info = Modules::get_module_info($module);
 			if (count($info['settings'])>0){
-				load_module_settings($mostrecentmodule);
+				Modules::load_module_settings($mostrecentmodule);
 				$msettings=array();
 				while (list($key,$val)=each($info['settings'])){
 					if (is_array($val)) {

@@ -190,6 +190,17 @@ $currenthook = "";
 
 class Modules
 {
+    public static function load_module_settings($module){
+        global $module_settings;
+        if (!isset($module_settings[$module])){
+            $module_settings[$module] = array();
+            $sql = "SELECT * FROM " . db_prefix("module_settings") . " WHERE modulename='$module'";
+            $result = db_query_cached($sql,"modulesettings-$module");
+            while ($row = db_fetch_assoc($result)){
+                $module_settings[$module][$row['setting']] = $row['value'];
+            }//end while
+        }//end if
+    }//end function
     public static function injectmodule($modulename,$force=false){
         global $mostrecentmodule,$injected_modules;
         //try to circumvent the array_key_exists() problem we've been having.
@@ -819,7 +830,7 @@ function get_all_module_settings($module=false){
 	global $module_settings,$mostrecentmodule;
 	if ($module === false) $module = $mostrecentmodule;
 
-	load_module_settings($module);
+	Modules::load_module_settings($module);
 	return $module_settings[$module];
 }
 
@@ -827,7 +838,7 @@ function get_module_setting($name,$module=false){
 	global $module_settings,$mostrecentmodule;
 	if ($module === false) $module = $mostrecentmodule;
 
-	load_module_settings($module);
+	Modules::load_module_settings($module);
 	if (isset($module_settings[$module][$name])) {
 		return $module_settings[$module][$name];
 	}else{
@@ -850,7 +861,7 @@ function get_module_setting($name,$module=false){
 function set_module_setting($name,$value,$module=false){
 	global $module_settings,$mostrecentmodule;
 	if ($module === false) $module = $mostrecentmodule;
-	load_module_settings($module);
+	Modules::load_module_settings($module);
 	if (isset($module_settings[$module][$name])){
 		$sql = "UPDATE " . db_prefix("module_settings") . " SET value='".addslashes($value)."' WHERE modulename='$module' AND setting='".addslashes($name)."'";
 		db_query($sql);
@@ -866,7 +877,7 @@ function increment_module_setting($name, $value=1, $module=false){
 	global $module_settings,$mostrecentmodule;
 	$value = (float)$value;
 	if ($module === false) $module = $mostrecentmodule;
-	load_module_settings($module);
+	Modules::load_module_settings($module);
 	if (isset($module_settings[$module][$name])){
 		$sql = "UPDATE " . db_prefix("module_settings") . " SET value=value+$value WHERE modulename='$module' AND setting='".addslashes($name)."'";
 		db_query($sql);
@@ -888,17 +899,7 @@ function clear_module_settings($module=false){
 	}
 }
 
-function load_module_settings($module){
-	global $module_settings;
-	if (!isset($module_settings[$module])){
-		$module_settings[$module] = array();
-		$sql = "SELECT * FROM " . db_prefix("module_settings") . " WHERE modulename='$module'";
-		$result = db_query_cached($sql,"modulesettings-$module");
-		while ($row = db_fetch_assoc($result)){
-			$module_settings[$module][$row['setting']] = $row['value'];
-		}//end while
-	}//end if
-}//end function
+
 
 
 
