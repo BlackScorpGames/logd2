@@ -84,7 +84,7 @@ if ($op=="save"){
 	Http::httpset($op, "");
 }elseif($op=="modulesettings"){
 	include_once("lib/gamelog.php");
-	if (injectmodule($module,true)){
+	if (Modules::injectmodule($module,true)){
 		$save = Http::httpget('save');
 		if ($save!=""){
 			load_module_settings($module);

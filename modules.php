@@ -67,7 +67,7 @@ while (list($key,$module)=each($modules)){
 		$sql = "UPDATE " . db_prefix("modules") . " SET filemoddate='0000-00-00 00:00:00' WHERE modulename='$module'";
 		db_query($sql);
 		// We don't care about the return value here at all.
-		injectmodule($module, true);
+		Modules::injectmodule($module, true);
 		$op="";
 		Http::httpset('op', "");
 		DataCache::invalidatedatacache("inject-$module");
