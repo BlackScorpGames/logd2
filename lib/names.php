@@ -17,27 +17,11 @@ function get_player_title($old=false) {
 	return $title;
 }
 
-function get_player_basename($old=false) {
-	global $session;
-	$name = "";
-	$title = get_player_title($old);
-	if ($old===false) {
-		$name = $session['user']['name'];
-	} else {
-		$name = $old['name'];
-	}
-	if ($title) {
-		$x = strpos($name, $title);
-		if ($x !== false)
-			$name = trim(substr($name,$x+strlen($title)));
-	}
 
-	return str_replace("`0", "", $name);
-}
 
 function change_player_name($newname, $old=false) {
 	if ($newname == "")
-		$newname = get_player_basename($old);
+		$newname = Names::get_player_basename($old);
 
 	$newname = str_replace("`0", "", $newname);
 
@@ -60,7 +44,7 @@ function change_player_ctitle($nctitle,$old=false) {
 			$nctitle = $old['title'];
 		}
 	}
-	$newname = get_player_basename($old) . "`0";
+	$newname = Names::get_player_basename($old) . "`0";
 	if ($nctitle) {
 		$newname = $nctitle." ".$newname;
 	}
@@ -68,6 +52,23 @@ function change_player_ctitle($nctitle,$old=false) {
 }
 
 class Names{
+    public static function get_player_basename($old=false) {
+        global $session;
+        $name = "";
+        $title = get_player_title($old);
+        if ($old===false) {
+            $name = $session['user']['name'];
+        } else {
+            $name = $old['name'];
+        }
+        if ($title) {
+            $x = strpos($name, $title);
+            if ($x !== false)
+                $name = trim(substr($name,$x+strlen($title)));
+        }
+
+        return str_replace("`0", "", $name);
+    }
 public static function change_player_title($ntitle, $old=false) {
 	global $session;
 	if ($old===false) {
@@ -76,7 +77,7 @@ public static function change_player_title($ntitle, $old=false) {
 		$ctitle = $old['ctitle'];
 	}
 
-	$newname = get_player_basename($old) . "`0";
+	$newname = Names::get_player_basename($old) . "`0";
 	if ($ctitle == "") {
 		if ($ntitle != "") {
 			$newname = $ntitle." ".$newname;

@@ -42,7 +42,7 @@ if (Http::httpget("subop")==""){
 	}
 	// Okay, munge the display name down to just the players name sans
 	// title
-	$row['name'] = get_player_basename($row);
+	$row['name'] = Names::get_player_basename($row);
 	/*careful using this hook! add only things with 'viewonly' in there, nothing will be saved if do otherwise! Example:
 	do_hook of your module:
 	array_push($args['userinfo'], "Some Stuff to have a look at,title");

@@ -232,7 +232,7 @@ if ($op==""){
 	// allow explanative text as well.
 	Modules::modulehook("dragonkilltext");
 
-	$regname = get_player_basename();
+	$regname = Names::get_player_basename();
 	OutputClass::output("`n`n`^You are now known as `&%s`^!!",$session['user']['name']);
 	if ($session['user']['dragonkills'] == 1) {
 		AddNewsClass::addnews("`#%s`# has earned the title `&%s`# for having slain the `@Green Dragon`& `^%s`# time!",$regname,$session['user']['title'],$session['user']['dragonkills']);
