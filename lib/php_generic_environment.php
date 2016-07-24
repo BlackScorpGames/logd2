@@ -32,9 +32,11 @@ function sanitize_uri(){
 		$REQUEST_URI=$SCRIPT_NAME;
 	}
 }
-function php_generic_environment(){
+class GenericEnv{
+public static function php_generic_environment(){
 	require_once("lib/register_global.php");
 	register_global($_SERVER);
 	sanitize_uri();
+}
 }
 ?>

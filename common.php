@@ -191,7 +191,7 @@ $session['lasthit']=strtotime("now");
 $cp = $copyright;
 $l = $license;
 
-php_generic_environment();
+GenericEnv::php_generic_environment();
 do_forced_nav(ALLOW_ANONYMOUS,OVERRIDE_FORCED_NAV);
 
 $script = substr($SCRIPT_NAME,0,strrpos($SCRIPT_NAME,"."));
