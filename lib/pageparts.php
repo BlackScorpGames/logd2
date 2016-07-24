@@ -415,7 +415,7 @@ class PageParts{
 
         //in case this didn't already get called (such as on a database error)
         Translator::translator_setup();
-        prepare_template();
+        Template::prepare_template();
         $script = substr($SCRIPT_NAME, 0, strrpos($SCRIPT_NAME, "."));
         if ($script) {
             if (!array_key_exists($script, $runheaders)) {
@@ -468,7 +468,7 @@ function popup_header($title="Legend of the Green Dragon"){
 	global $header, $template;
 
 	Translator::translator_setup();
-	prepare_template();
+	Template::prepare_template();
 
 	Modules::modulehook("header-popup");
 

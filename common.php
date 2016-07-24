@@ -330,7 +330,7 @@ if ($session['user']['superuser']==0){
 	$lc = $l;
 }
 
-prepare_template();
+Template::prepare_template();
 
 if (!isset($session['user']['hashorse'])) $session['user']['hashorse']=0;
 $playermount = Mounts::getmount($session['user']['hashorse']);
