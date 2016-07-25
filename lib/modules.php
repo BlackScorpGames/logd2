@@ -181,6 +181,44 @@ $currenthook = "";
 
 class Modules
 {
+    public static function uninstall_module($module){
+        if (Modules::injectmodule($module,true)) {
+            $fname = $module."_uninstall";
+            OutputClass::output("Running module uninstall script`n");
+            Translator::tlschema("module-{$module}");
+            $fname();
+            Translator::tlschema();
+
+            OutputClass::output("Deleting module entry`n");
+            $sql = "DELETE FROM " . db_prefix("modules") .
+                " WHERE modulename='$module'";
+            db_query($sql);
+
+            OutputClass::output("Deleting module hooks`n");
+            module_wipehooks();
+
+            OutputClass::output("Deleting module settings`n");
+            $sql = "DELETE FROM " . db_prefix("module_settings") .
+                " WHERE modulename='$module'";
+            db_query($sql);
+            DataCache::invalidatedatacache("modulesettings-$module");
+
+            OutputClass::output("Deleting module user prefs`n");
+            $sql = "DELETE FROM " . db_prefix("module_userprefs") .
+                " WHERE modulename='$module'";
+            db_query($sql);
+
+            OutputClass::output("Deleting module object prefs`n");
+            $sql = "DELETE FROM " . db_prefix("module_objprefs") .
+                " WHERE modulename='$module'";
+            db_query($sql);
+            DataCache::invalidatedatacache("inject-$module");
+            massinvalidate("moduleprepare");
+            return true;
+        } else {
+            return false;
+        }
+    }
     public static function install_module($module, $force=true){
         global $mostrecentmodule, $session;
         $name = $session['user']['name'];
@@ -1379,44 +1417,7 @@ function deactivate_module($module){
 	}
 }
 
-function uninstall_module($module){
-	if (Modules::injectmodule($module,true)) {
-		$fname = $module."_uninstall";
-		OutputClass::output("Running module uninstall script`n");
-		Translator::tlschema("module-{$module}");
-		$fname();
-		Translator::tlschema();
 
-		OutputClass::output("Deleting module entry`n");
-		$sql = "DELETE FROM " . db_prefix("modules") .
-			" WHERE modulename='$module'";
-		db_query($sql);
-
-		OutputClass::output("Deleting module hooks`n");
-		module_wipehooks();
-
-		OutputClass::output("Deleting module settings`n");
-		$sql = "DELETE FROM " . db_prefix("module_settings") .
-			" WHERE modulename='$module'";
-		db_query($sql);
-		DataCache::invalidatedatacache("modulesettings-$module");
-
-		OutputClass::output("Deleting module user prefs`n");
-		$sql = "DELETE FROM " . db_prefix("module_userprefs") .
-			" WHERE modulename='$module'";
-		db_query($sql);
-
-		OutputClass::output("Deleting module object prefs`n");
-		$sql = "DELETE FROM " . db_prefix("module_objprefs") .
-			" WHERE modulename='$module'";
-		db_query($sql);
-		DataCache::invalidatedatacache("inject-$module");
-		massinvalidate("moduleprepare");
-		return true;
-	} else {
-		return false;
-	}
-}
 
 
 

@@ -92,7 +92,7 @@ if (!$session['skipmodules']) {
 		  switch($op){
 			  case "uninstall":
 			  OutputClass::output("`3Uninstalling `#$modulename`3: ");
-			  if (uninstall_module($modulename)){
+			  if (Modules::uninstall_module($modulename)){
 				  OutputClass::output("`@OK!`0`n");
 			  }else{
 				  OutputClass::output("`\$Failed!`0`n");

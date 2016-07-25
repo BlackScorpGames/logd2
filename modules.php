@@ -47,7 +47,7 @@ while (list($key,$module)=each($modules)){
 		$op="";
 		Http::httpset('op', "");
 	}elseif($op=="uninstall"){
-		if (uninstall_module($module)) {
+		if (Modules::uninstall_module($module)) {
 		} else {
 			OutputClass::output("Unable to inject module.  Module not uninstalled.`n");
 		}
