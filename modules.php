@@ -54,7 +54,7 @@ while (list($key,$module)=each($modules)){
 		$op="";
 		Http::httpset('op', "");
 	}elseif($op=="activate"){
-		activate_module($module);
+		Modules::activate_module($module);
 		$op="";
 		Http::httpset('op', "");
 		DataCache::invalidatedatacache("inject-$module");

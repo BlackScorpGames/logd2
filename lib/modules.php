@@ -181,6 +181,22 @@ $currenthook = "";
 
 class Modules
 {
+    public static function activate_module($module){
+        if (!is_module_installed($module)){
+            if (!Modules::install_module($module)){
+                return false;
+            }
+        }
+        $sql = "UPDATE " . db_prefix("modules") . " SET active=1 WHERE modulename='$module'";
+        db_query($sql);
+        DataCache::invalidatedatacache("inject-$module");
+        massinvalidate("moduleprepare");
+        if (db_affected_rows() <= 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
     public static function uninstall_module($module){
         if (Modules::injectmodule($module,true)) {
             $fname = $module."_uninstall";
@@ -1380,22 +1396,7 @@ function module_compare_versions($a,$b){
 	return ($a < $b ? -1 : ($a > $b ? 1 : 0) );
 }
 
-function activate_module($module){
-	if (!is_module_installed($module)){
-		if (!Modules::install_module($module)){
-			return false;
-		}
-	}
-	$sql = "UPDATE " . db_prefix("modules") . " SET active=1 WHERE modulename='$module'";
-	db_query($sql);
-	DataCache::invalidatedatacache("inject-$module");
-	massinvalidate("moduleprepare");
-	if (db_affected_rows() <= 0){
-		return false;
-	}else{
-		return true;
-	}
-}
+
 
 function deactivate_module($module){
 	if (!is_module_installed($module)){
