@@ -181,6 +181,37 @@ $currenthook = "";
 
 class Modules
 {
+    public static function get_module_install_status(){
+        // Collect the names of all installed modules.
+        $seenmodules = array();
+        $seencats = array();
+        $sql = "SELECT modulename,category FROM " . db_prefix("modules");
+        $result = @db_query($sql);
+        if ($result !== false){
+            while ($row = db_fetch_assoc($result)) {
+                $seenmodules[$row['modulename'].".php"] = true;
+                if (!array_key_exists($row['category'], $seencats))
+                    $seencats[$row['category']] = 1;
+                else
+                    $seencats[$row['category']]++;
+            }
+        }
+
+        $uninstmodules = array();
+        if ($handle = opendir("modules")){
+            $ucount=0;
+            while (false !== ($file = readdir($handle))){
+                if ($file[0] == ".") continue;
+                if (preg_match("/\\.php$/", $file) && !isset($seenmodules[$file])){
+                    $ucount++;
+                    $uninstmodules[] = substr($file, 0, strlen($file)-4);
+                }
+            }
+        }
+        closedir($handle);
+        sort($uninstmodules);
+        return array('installedcategories'=>$seencats,'installedmodules'=>$seenmodules,'uninstalledmodules'=>$uninstmodules, 'uninstcount'=>$ucount);
+    }
     public static function deactivate_module($module){
         if (!is_module_installed($module)){
             if (!Modules::install_module($module)){
@@ -1435,37 +1466,7 @@ function module_condition($condition) {
 	return (bool)$result;
 }
 
-function get_module_install_status(){
-	// Collect the names of all installed modules.
-	$seenmodules = array();
-	$seencats = array();
-	$sql = "SELECT modulename,category FROM " . db_prefix("modules");
-	$result = @db_query($sql);
-	if ($result !== false){
-		while ($row = db_fetch_assoc($result)) {
-			$seenmodules[$row['modulename'].".php"] = true;
-			if (!array_key_exists($row['category'], $seencats))
-				$seencats[$row['category']] = 1;
-			else
-				$seencats[$row['category']]++;
-		}
-	}
 
-	$uninstmodules = array();
-	if ($handle = opendir("modules")){
-		$ucount=0;
-		while (false !== ($file = readdir($handle))){
-			if ($file[0] == ".") continue;
-			if (preg_match("/\\.php$/", $file) && !isset($seenmodules[$file])){
-				$ucount++;
-				$uninstmodules[] = substr($file, 0, strlen($file)-4);
-			}
-		}
-	}
-	closedir($handle);
-	sort($uninstmodules);
-	return array('installedcategories'=>$seencats,'installedmodules'=>$seenmodules,'uninstalledmodules'=>$uninstmodules, 'uninstcount'=>$ucount);
-}
 
 function get_racename($thisuser=true) {
 	if ($thisuser === true) {

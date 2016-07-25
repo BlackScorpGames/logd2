@@ -48,7 +48,7 @@ if (return_bytes($phpram) < 12582912 && $phpram!=-1 && !$session['overridememory
 			$all_modules[$row['category']][$row['modulename']] = $row;
 		}
 	}
-	$install_status = get_module_install_status();
+	$install_status = Modules::get_module_install_status();
 		$uninstalled = $install_status['uninstalledmodules'];
 	reset($uninstalled);
 	$invalidmodule = array(

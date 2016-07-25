@@ -74,7 +74,7 @@ while (list($key,$module)=each($modules)){
 	}
 }
 
-$install_status = get_module_install_status();
+$install_status = Modules::get_module_install_status();
 $uninstmodules = $install_status['uninstalledmodules'];
 $seencats = $install_status['installedcategories'];
 $ucount = $install_status['uninstcount'];
