@@ -12,9 +12,9 @@ Translator::tlschema("source");
 
 $url=Http::httpget('url');
 if ($url) {
-	popup_header("Source code for %s", $url);
+	PageParts::popup_header("Source code for %s", $url);
 } else {
-	popup_header("Source code");
+	PageParts::popup_header("Source code");
 }
 if (!($session['user']['loggedin'] && $session['user']['superuser'] & SU_VIEW_SOURCE) || !isset($session['user']['loggedin'])) {
 	OutputClass::output("Due to the behaviour of people in the past, access to the source code online has been restricted.");

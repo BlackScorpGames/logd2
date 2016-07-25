@@ -1,6 +1,6 @@
 <?php
 Translator::tlschema("faq");
-popup_header("General Questions");
+PageParts::popup_header("General Questions");
 $c = Translator::translate_inline("Return to Contents");
 OutputClass::rawoutput("<a href='petition.php?op=faq'>$c</a><hr>");
 OutputClass::output("`n`n`c`bGeneral questions`b`c`n");

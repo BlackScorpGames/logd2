@@ -16,7 +16,7 @@ $op = Http::httpget('op');
 $id = Http::httpget('id');
 
 Commentary::addcommentary();
-popup_header("LoGD Message of the Day (MoTD)");
+PageParts::popup_header("LoGD Message of the Day (MoTD)");
 
 if ($session['user']['superuser'] & SU_POST_MOTD) {
 	$addm = Translator::translate_inline("Add MoTD");

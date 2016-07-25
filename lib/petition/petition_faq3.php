@@ -1,6 +1,6 @@
 <?php
 Translator::tlschema("faq");
-popup_header("Specific and Technical Questions");
+PageParts::popup_header("Specific and Technical Questions");
 $c = Translator::translate_inline("Return to Contents");
 OutputClass::rawoutput("<a href='petition.php?op=faq'>$c</a><hr>");
 OutputClass::output("`n`n`c`bSpecific and technical questions`b`c`n");

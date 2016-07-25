@@ -1,6 +1,6 @@
 <?php
 Translator::tlschema("faq");
-popup_header("Frequently Asked Questions (FAQ)");
+PageParts::popup_header("Frequently Asked Questions (FAQ)");
 OutputClass::output("`^Welcome to Legend of the Green Dragon.`n`n");
 OutputClass::output("`@You wake up one day, and you're in a village for some reason.");
 OutputClass::output("You wander around, bemused, until you stumble upon the main village square.");

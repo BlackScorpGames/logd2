@@ -39,7 +39,7 @@ if($op=="del"){
 	exit();
 }
 
-popup_header("Ye Olde Poste Office");
+PageParts::popup_header("Ye Olde Poste Office");
 $inbox = Translator::translate_inline("Inbox");
 $write = Translator::translate_inline("Write");
 

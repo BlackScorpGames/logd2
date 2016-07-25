@@ -9,7 +9,7 @@ Translator::tlschema("translatortool");
 SuAccess::check_su_access(SU_IS_TRANSLATOR);
 $op=Http::httpget("op");
 if ($op==""){
-	popup_header("Translator Tool");
+	PageParts::popup_header("Translator Tool");
 	$uri = rawurldecode(Http::httpget('u'));
 	$text = stripslashes(rawurldecode(Http::httpget('t')));
 	
@@ -87,12 +87,12 @@ if ($op==""){
 		header("Location: translatortool.php?op=list&u=$page");
 		exit();
 	}else{
-		popup_header("Updated");
+		PageParts::popup_header("Updated");
 		OutputClass::rawoutput("<script language='javascript'>window.close();</script>");
 		PageParts::popup_footer();
 	}
 }elseif($op=="list"){
-	popup_header("Translation List");
+	PageParts::popup_header("Translation List");
 	$sql = "SELECT uri,count(*) AS c FROM " . db_prefix("translations") . " WHERE language='".LANGUAGE."' GROUP BY uri ORDER BY uri ASC";
 	$result = db_query($sql);
 	OutputClass::rawoutput("<form action='translatortool.php' method='GET'>");

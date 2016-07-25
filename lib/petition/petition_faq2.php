@@ -1,6 +1,6 @@
 <?php
 Translator::tlschema("faq");
-popup_header("General Questions with Spoilers");
+PageParts::popup_header("General Questions with Spoilers");
 $c = Translator::translate_inline("Return to Contents");
 OutputClass::rawoutput("<a href='petition.php?op=faq'>$c</a><hr>");
 OutputClass::output("`n`n`&(Warning, the FAQs below might contain some spoilers, so if you really want to discover things on your own, you'd be better off not reading too far.");

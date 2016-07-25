@@ -21,6 +21,30 @@ $runheaders = array();
  *		header-{scriptname}
  */
 class PageParts{
+
+    /**
+     * Page header for popup windows.
+     *
+     * @param string $title The title of the popup window
+     */
+    public static function popup_header($title="Legend of the Green Dragon"){
+        global $header, $template;
+
+        Translator::translator_setup();
+        Template::prepare_template();
+
+        Modules::modulehook("header-popup");
+
+        $arguments = func_get_args();
+        if (!$arguments || count($arguments) == 0) {
+            $arguments = array("Legend of the Green Dragon");
+        }
+        $title = call_user_func_array("Translator::sprintf_translate", $arguments);
+        $title = holidayize($title,'title');
+
+        $header = $template['popuphead'];
+        $header = str_replace("{title}", $title, $header);
+    }
     /**
      * Ends page generation for popup windows.  Saves the user account info - doesn't update page generation stats
      *
@@ -459,29 +483,7 @@ function popup($page,$size="550x300"){
 
 
 
-/**
- * Page header for popup windows.
- *
- * @param string $title The title of the popup window
- */
-function popup_header($title="Legend of the Green Dragon"){
-	global $header, $template;
 
-	Translator::translator_setup();
-	Template::prepare_template();
-
-	Modules::modulehook("header-popup");
-
-	$arguments = func_get_args();
-	if (!$arguments || count($arguments) == 0) {
-		$arguments = array("Legend of the Green Dragon");
-	}
-	$title = call_user_func_array("Translator::sprintf_translate", $arguments);
-	$title = holidayize($title,'title');
-
-	$header = $template['popuphead'];
-	$header = str_replace("{title}", $title, $header);
-}
 
 
 
