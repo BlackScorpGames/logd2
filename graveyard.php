@@ -20,7 +20,7 @@ if (!$skipgraveyardtext) {
 	GameDateTime::checkday();
 }
 $battle = false;
-strip_all_buffs();
+Buffs::strip_all_buffs();
 
 $op = Http::httpget('op');
 switch ($op) {

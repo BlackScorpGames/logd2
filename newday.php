@@ -145,7 +145,7 @@ if ($dp < $dkills) {
 	//clear all standard buffs
 	$tempbuf = unserialize($session['user']['bufflist']);
 	$session['user']['bufflist']="";
-	strip_all_buffs();
+	Buffs::strip_all_buffs();
 	Translator::tlschema("buffs");
 	while(list($key,$val)=@each($tempbuf)){
 		if (array_key_exists('survivenewday', $val) &&

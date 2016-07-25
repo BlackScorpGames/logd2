@@ -92,7 +92,7 @@ if ($op==""){
 		OutputClass::output("`n`nYou fall forward, and remember at the last moment that you at least managed to grab some of the dragon's treasure, so maybe it wasn't all a total loss.");
 	}
 	OutputClass::addnav("It is a new day","news.php");
-	strip_all_buffs();
+	Buffs::strip_all_buffs();
 	$sql = "DESCRIBE " . db_prefix("accounts");
 	$result = db_query($sql);
 

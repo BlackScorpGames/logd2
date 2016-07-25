@@ -9,47 +9,56 @@ $debuggedbuffs = array();
 
 class Buffs
 {
-   public static function strip_buff($name){
+    public static function strip_buff($name)
+    {
         global $session, $buffreplacements;
         Buffs::restore_buff_fields();
-        if (isset($session['bufflist'][$name]))
+        if (isset($session['bufflist'][$name])) {
             unset($session['bufflist'][$name]);
-        if (isset($buffreplacements[$name]))
+        }
+        if (isset($buffreplacements[$name])) {
             unset($buffreplacements[$name]);
+        }
         Buffs::calculate_buff_fields();
     }
 
-    public static function apply_buff($name,$buff){
-        global $session,$buffreplacements, $translation_namespace;
+    public static function apply_buff($name, $buff)
+    {
+        global $session, $buffreplacements, $translation_namespace;
 
         if (!isset($buff['schema']) || $buff['schema'] == "") {
             $buff['schema'] = $translation_namespace;
         }
 
-        if (isset($buffreplacements[$name])) unset($buffreplacements[$name]);
-        if (isset($session['bufflist'][$name])){
+        if (isset($buffreplacements[$name])) {
+            unset($buffreplacements[$name]);
+        }
+        if (isset($session['bufflist'][$name])) {
             //we'll need to unapply buff fields before applying this buff since
             //it's already set.
             Buffs::restore_buff_fields();
         }
-        $buff = Modules::modulehook("modify-buff", array("name"=>$name, "buff"=>$buff));
+        $buff = Modules::modulehook("modify-buff", array("name" => $name, "buff" => $buff));
         $session['bufflist'][$name] = $buff['buff'];
         Buffs::calculate_buff_fields();
     }
-    public static function apply_companion($name,$companion,$ignorelimit=false){
+
+    public static function apply_companion($name, $companion, $ignorelimit = false)
+    {
         global $session, $companions;
         if (!is_array($companions)) {
             $companions = @unserialize($session['user']['companions']);
         }
         $companionsallowed = Settings::getsetting("companionsallowed", 1);
-        $args = Modules::modulehook("companionsallowed", array("maxallowed"=>$companionsallowed));
+        $args = Modules::modulehook("companionsallowed", array("maxallowed" => $companionsallowed));
         $companionsallowed = $args['maxallowed'];
         $current = 0;
-        foreach ($companions as $thisname=>$thiscompanion) {
+        foreach ($companions as $thisname => $thiscompanion) {
             if (isset($companion['ignorelimit']) && $companion['ignorelimit'] == true) {
             } else {
-                if ($thisname != $name)
+                if ($thisname != $name) {
                     ++$current;
+                }
             }
         }
         if ($current < $companionsallowed || $ignorelimit == true) {
@@ -67,6 +76,7 @@ class Buffs
             return false;
         }
     }
+
     public static function calculate_buff_fields()
     {
         global $session, $badguy, $buffreplacements, $debuggedbuffs;
@@ -212,26 +222,26 @@ class Buffs
             }//end if
         }//end while
     }//end function
+
+    public static function strip_all_buffs()
+    {
+        global $session;
+        $thebuffs = $session['bufflist'];
+        reset($thebuffs);
+        while (list($buffname, $buff) = each($thebuffs)) {
+            Buffs::strip_buff($buffname);
+        }
+    }
 }
 
 
-
-
-
-
-function strip_all_buffs(){
-	global $session;
-	$thebuffs = $session['bufflist'];
-	reset($thebuffs);
-	while (list($buffname,$buff)=each($thebuffs)){
-		Buffs::strip_buff($buffname);
-	}
-}
-
-function has_buff($name){
-	global $session;
-	if (isset($session['bufflist'][$name])) return true;
-	return false;
+function has_buff($name)
+{
+    global $session;
+    if (isset($session['bufflist'][$name])) {
+        return true;
+    }
+    return false;
 }
 
 ?>
