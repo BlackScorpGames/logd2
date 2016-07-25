@@ -112,11 +112,11 @@ if ($op==""){
 	OutputClass::rawoutput("</form>");
 	OutputClass::addnav("", "$link");
 	if ($area==""){
-		talkform("X","says");
+		Commentary::talkform("X","says");
 		Commentary::commentdisplay("", "' or '1'='1","X",100);
 	}else{
 		Commentary::commentdisplay("", $area,"X",100);
-		talkform($area,"says");
+		Commentary::talkform($area,"says");
 	}
 }elseif ($op=="audit"){
 	$subop = Http::httpget("subop");

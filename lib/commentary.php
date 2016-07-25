@@ -38,6 +38,71 @@ function commentarylocs() {
 
 class Commentary
 {
+
+	public static function talkform($section,$talkline,$limit=10,$schema=false){
+		require_once("lib/forms.php");
+		global $REQUEST_URI,$session,$translation_namespace;
+		if ($schema===false) $schema=$translation_namespace;
+		Translator::tlschema("commentary");
+
+		$jump = false;
+		if (isset($session['user']['prefs']['nojump']) && $session['user']['prefs']['nojump'] == true) {
+			$jump = true;
+		}
+
+		$counttoday=0;
+		if (substr($section,0,5)!="clan-"){
+			$sql = "SELECT author FROM " . db_prefix("commentary") . " WHERE section='$section' AND postdate>'".date("Y-m-d 00:00:00")."' ORDER BY commentid DESC LIMIT $limit";
+			$result = db_query($sql);
+			while ($row=db_fetch_assoc($result)){
+				if ($row['author']==$session['user']['acctid']) $counttoday++;
+			}
+			if (round($limit/2,0)-$counttoday <= 0 && Settings::getsetting('postinglimit',1)){
+				if ($session['user']['superuser']&~SU_DOESNT_GIVE_GROTTO){
+					OutputClass::output("`n`)(You'd be out of posts if you weren't a superuser or moderator.)`n");
+				}else{
+					OutputClass::output("`n`)(You are out of posts for the time being.  Once some of your existing posts have moved out of the comment area, you'll be allowed to post again.)`n");
+					return false;
+				}
+			}
+		}
+		if (Translator::translate_inline($talkline,$schema)!="says")
+			$tll = strlen(Translator::translate_inline($talkline,$schema))+11;
+		else $tll=0;
+		$req = comscroll_sanitize($REQUEST_URI)."&comment=1";
+		$req = str_replace("?&","?",$req);
+		if (!strpos($req,"?")) $req = str_replace("&","?",$req);
+		if ($jump) {
+			$req .= "#$section";
+		}
+		OutputClass::addnav("",$req);
+		OutputClass::output_notl("<form action=\"$req\" method='POST' autocomplete='false'>",true);
+		previewfield("insertcommentary", $session['user']['name'], $talkline, true, array("size"=>"40", "maxlength"=>200-$tll));
+		OutputClass::rawoutput("<input type='hidden' name='talkline' value='$talkline'>");
+		OutputClass::rawoutput("<input type='hidden' name='schema' value='$schema'>");
+		OutputClass::rawoutput("<input type='hidden' name='counter' value='{$session['counter']}'>");
+		$session['commentcounter'] = $session['counter'];
+		if ($section=="X"){
+			$vname = Settings::getsetting("villagename", LOCATION_FIELDS);
+			$iname = Settings::getsetting("innname", LOCATION_INN);
+			$sections = commentarylocs();
+			reset ($sections);
+			OutputClass::output_notl("<select name='section'>",true);
+			while (list($key,$val)=each($sections)){
+				OutputClass::output_notl("<option value='$key'>$val</option>",true);
+			}
+			OutputClass::output_notl("</select>",true);
+		}else{
+			OutputClass::output_notl("<input type='hidden' name='section' value='$section'>",true);
+		}
+		$add = htmlentities(Translator::translate_inline("Add"), ENT_QUOTES, Settings::getsetting("charset", "ISO-8859-1"));
+		OutputClass::output_notl("<input type='submit' class='button' value='$add'>`n",true);
+		if (round($limit/2,0)-$counttoday < 3 && Settings::getsetting('postinglimit',1)){
+			OutputClass::output("`)(You have %s posts left today)`n`0",(round($limit/2,0)-$counttoday));
+		}
+		OutputClass::rawoutput("<div id='previewtext'></div></form>");
+		Translator::tlschema();
+	}
     public static function commentdisplay(
         $intro,
         $section,
@@ -495,7 +560,7 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 			if ($message!="X"){
 				$message="`n`@$message`n";
 				OutputClass::output($message);
-				talkform($section,$talkline,$limit,$schema);
+				Commentary::talkform($section,$talkline,$limit,$schema);
 			}
 		}else{
 			$message="`n`@$message`n";
@@ -579,68 +644,4 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 	if ($needclose) Modules::modulehook("}collapse");
 }
 
-function talkform($section,$talkline,$limit=10,$schema=false){
-	require_once("lib/forms.php");
-	global $REQUEST_URI,$session,$translation_namespace;
-	if ($schema===false) $schema=$translation_namespace;
-	Translator::tlschema("commentary");
-
-	$jump = false;
-	if (isset($session['user']['prefs']['nojump']) && $session['user']['prefs']['nojump'] == true) {
-		$jump = true;
-	}
-
-	$counttoday=0;
-	if (substr($section,0,5)!="clan-"){
-		$sql = "SELECT author FROM " . db_prefix("commentary") . " WHERE section='$section' AND postdate>'".date("Y-m-d 00:00:00")."' ORDER BY commentid DESC LIMIT $limit";
-		$result = db_query($sql);
-		while ($row=db_fetch_assoc($result)){
-			if ($row['author']==$session['user']['acctid']) $counttoday++;
-		}
-		if (round($limit/2,0)-$counttoday <= 0 && Settings::getsetting('postinglimit',1)){
-			if ($session['user']['superuser']&~SU_DOESNT_GIVE_GROTTO){
-				OutputClass::output("`n`)(You'd be out of posts if you weren't a superuser or moderator.)`n");
-			}else{
-				OutputClass::output("`n`)(You are out of posts for the time being.  Once some of your existing posts have moved out of the comment area, you'll be allowed to post again.)`n");
-				return false;
-			}
-		}
-	}
-	if (Translator::translate_inline($talkline,$schema)!="says")
-		$tll = strlen(Translator::translate_inline($talkline,$schema))+11;
-		else $tll=0;
-	$req = comscroll_sanitize($REQUEST_URI)."&comment=1";
-	$req = str_replace("?&","?",$req);
-	if (!strpos($req,"?")) $req = str_replace("&","?",$req);
-	if ($jump) {
-		$req .= "#$section";
-	}
-	OutputClass::addnav("",$req);
-	OutputClass::output_notl("<form action=\"$req\" method='POST' autocomplete='false'>",true);
-	previewfield("insertcommentary", $session['user']['name'], $talkline, true, array("size"=>"40", "maxlength"=>200-$tll));
-	OutputClass::rawoutput("<input type='hidden' name='talkline' value='$talkline'>");
-	OutputClass::rawoutput("<input type='hidden' name='schema' value='$schema'>");
-	OutputClass::rawoutput("<input type='hidden' name='counter' value='{$session['counter']}'>");
-	$session['commentcounter'] = $session['counter'];
-	if ($section=="X"){
-		$vname = Settings::getsetting("villagename", LOCATION_FIELDS);
-		$iname = Settings::getsetting("innname", LOCATION_INN);
-		$sections = commentarylocs();
-		reset ($sections);
-		OutputClass::output_notl("<select name='section'>",true);
-		while (list($key,$val)=each($sections)){
-			OutputClass::output_notl("<option value='$key'>$val</option>",true);
-		}
-		OutputClass::output_notl("</select>",true);
-	}else{
-		OutputClass::output_notl("<input type='hidden' name='section' value='$section'>",true);
-	}
-	$add = htmlentities(Translator::translate_inline("Add"), ENT_QUOTES, Settings::getsetting("charset", "ISO-8859-1"));
-	OutputClass::output_notl("<input type='submit' class='button' value='$add'>`n",true);
-	if (round($limit/2,0)-$counttoday < 3 && Settings::getsetting('postinglimit',1)){
-		OutputClass::output("`)(You have %s posts left today)`n`0",(round($limit/2,0)-$counttoday));
-	}
-	OutputClass::rawoutput("<div id='previewtext'></div></form>");
-	Translator::tlschema();
-}
 ?>
