@@ -117,7 +117,7 @@ if (!$session['skipmodules']) {
 			  break;
 			  case "deactivate":
 			  OutputClass::output("`3Deactivating `#$modulename`3: ");
-			  if (deactivate_module($modulename)){
+			  if (Modules::deactivate_module($modulename)){
 				  OutputClass::output("`@OK!`0`n");
 			  }else{
 				  OutputClass::output("`\$Failed!`0`n");

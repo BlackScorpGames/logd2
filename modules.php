@@ -59,7 +59,7 @@ while (list($key,$module)=each($modules)){
 		Http::httpset('op', "");
 		DataCache::invalidatedatacache("inject-$module");
 	}elseif($op=="deactivate"){
-		deactivate_module($module);
+		Modules::deactivate_module($module);
 		$op="";
 		Http::httpset('op', "");
 		DataCache::invalidatedatacache("inject-$module");
