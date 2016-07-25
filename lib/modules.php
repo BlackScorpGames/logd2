@@ -181,6 +181,67 @@ $currenthook = "";
 
 class Modules
 {
+    public static function install_module($module, $force=true){
+        global $mostrecentmodule, $session;
+        $name = $session['user']['name'];
+        if (!$name) $name = '`@System`0';
+
+        require_once("lib/sanitize.php");
+        if (modulename_sanitize($module)!=$module){
+            OutputClass::output("Error, module file names can only contain alpha numeric characters and underscores before the trailing .php`n`nGood module names include 'testmodule.php', 'joesmodule2.php', while bad module names include, 'test.module.php' or 'joes module.php'`n");
+            return false;
+        }else{
+            // If we are forcing an install, then whack the old version.
+            if ($force) {
+                $sql = "DELETE FROM " . db_prefix("modules") . " WHERE modulename='$module'";
+                db_query($sql);
+            }
+            // We want to do the inject so that it auto-upgrades any installed
+            // version correctly.
+            if (Modules::injectmodule($module,true)) {
+                // If we're not forcing and this is already installed, we are done
+                if (!$force && is_module_installed($module))
+                    return true;
+                $info = Modules::get_module_info($module);
+                //check installation requirements
+                if (!module_check_requirements($info['requires'])){
+                    OutputClass::output("`\$Module could not installed -- it did not meet its prerequisites.`n");
+                    return false;
+                }else{
+                    $keys = "|".join(array_keys($info), "|")."|";
+                    $sql = "INSERT INTO " . db_prefix("modules") . " (modulename,formalname,moduleauthor,active,filename,installdate,installedby,category,infokeys,version,download,description) VALUES ('$mostrecentmodule','".addslashes($info['name'])."','".addslashes($info['author'])."',0,'{$mostrecentmodule}.php','".date("Y-m-d H:i:s")."','".addslashes($name)."','".addslashes($info['category'])."','$keys','".addslashes($info['version'])."','".addslashes($info['download'])."', '".addslashes($info['description'])."')";
+                    db_query($sql);
+                    $fname = $mostrecentmodule."_install";
+                    if (isset($info['settings']) && count($info['settings']) > 0) {
+                        foreach($info['settings'] as $key=>$val){
+                            if (is_array($val)) {
+                                $x = explode("|", $val[0]);
+                            } else {
+                                $x = explode("|",$val);
+                            }
+                            if (isset($x[1])){
+                                set_module_setting($key,$x[1]);
+                                OutputClass::debug("Setting $key to default {$x[1]}");
+                            }
+                        }
+                    }
+                    if ($fname() === false) {
+                        return false;
+                    }
+                    OutputClass::output("`^Module installed.  It is not yet active.`n");
+                    DataCache::invalidatedatacache("inject-$mostrecentmodule");
+                    massinvalidate("moduleprepare");
+                    return true;
+                }
+            } else {
+                OutputClass::output("`\$Module could not be injected.");
+                OutputClass::output("Module not installed.");
+                OutputClass::output("This is probably due to the module file having a parse error or not existing in the filesystem.`n");
+                return false;
+            }
+        }
+
+    }
     /**
      * Determines if a module is activated
      *
@@ -1283,7 +1344,7 @@ function module_compare_versions($a,$b){
 
 function activate_module($module){
 	if (!is_module_installed($module)){
-		if (!install_module($module)){
+		if (!Modules::install_module($module)){
 			return false;
 		}
 	}
@@ -1300,7 +1361,7 @@ function activate_module($module){
 
 function deactivate_module($module){
 	if (!is_module_installed($module)){
-		if (!install_module($module)){
+		if (!Modules::install_module($module)){
 			return false;
 		}else{
 			//modules that weren't installed go to deactivated state by default in install_module
@@ -1357,67 +1418,7 @@ function uninstall_module($module){
 	}
 }
 
-function install_module($module, $force=true){
- 	global $mostrecentmodule, $session;
-	$name = $session['user']['name'];
-	if (!$name) $name = '`@System`0';
 
-	require_once("lib/sanitize.php");
-	if (modulename_sanitize($module)!=$module){
-		OutputClass::output("Error, module file names can only contain alpha numeric characters and underscores before the trailing .php`n`nGood module names include 'testmodule.php', 'joesmodule2.php', while bad module names include, 'test.module.php' or 'joes module.php'`n");
-		return false;
-	}else{
-		// If we are forcing an install, then whack the old version.
-		if ($force) {
-			$sql = "DELETE FROM " . db_prefix("modules") . " WHERE modulename='$module'";
-			db_query($sql);
-		}
-		// We want to do the inject so that it auto-upgrades any installed
-		// version correctly.
-		if (Modules::injectmodule($module,true)) {
-			// If we're not forcing and this is already installed, we are done
-			if (!$force && is_module_installed($module))
-				return true;
-			$info = Modules::get_module_info($module);
-			//check installation requirements
-			if (!module_check_requirements($info['requires'])){
-				OutputClass::output("`\$Module could not installed -- it did not meet its prerequisites.`n");
-				return false;
-			}else{
-				$keys = "|".join(array_keys($info), "|")."|";
-				$sql = "INSERT INTO " . db_prefix("modules") . " (modulename,formalname,moduleauthor,active,filename,installdate,installedby,category,infokeys,version,download,description) VALUES ('$mostrecentmodule','".addslashes($info['name'])."','".addslashes($info['author'])."',0,'{$mostrecentmodule}.php','".date("Y-m-d H:i:s")."','".addslashes($name)."','".addslashes($info['category'])."','$keys','".addslashes($info['version'])."','".addslashes($info['download'])."', '".addslashes($info['description'])."')";
-				db_query($sql);
-				$fname = $mostrecentmodule."_install";
-				if (isset($info['settings']) && count($info['settings']) > 0) {
-					foreach($info['settings'] as $key=>$val){
-						if (is_array($val)) {
-							$x = explode("|", $val[0]);
-						} else {
-							$x = explode("|",$val);
-						}
-						if (isset($x[1])){
-							set_module_setting($key,$x[1]);
-							OutputClass::debug("Setting $key to default {$x[1]}");
-						}
-					}
-				}
-				if ($fname() === false) {
-					return false;
-				}
-				OutputClass::output("`^Module installed.  It is not yet active.`n");
-				DataCache::invalidatedatacache("inject-$mostrecentmodule");
-				massinvalidate("moduleprepare");
-				return true;
-			}
-		} else {
-			OutputClass::output("`\$Module could not be injected.");
-			OutputClass::output("Module not installed.");
-			OutputClass::output("This is probably due to the module file having a parse error or not existing in the filesystem.`n");
-			return false;
-		}
-	}
-
-}
 
 /**
   * Evaluates a PHP Expression

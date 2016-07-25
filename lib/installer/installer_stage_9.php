@@ -100,12 +100,12 @@ if (!$session['skipmodules']) {
 			  break;
 			  case "install":
 			  OutputClass::output("`3Installing `#$modulename`3: ");
-			  if (install_module($modulename)){
+			  if (Modules::install_module($modulename)){
 				  OutputClass::output("`@OK!`0`n");
 			  }else{
 				  OutputClass::output("`\$Failed!`0`n");
 			  }
-			  install_module($modulename);
+			  Modules::install_module($modulename);
 			  break;
 			  case "activate":
 			  OutputClass::output("`3Activating `#$modulename`3: ");

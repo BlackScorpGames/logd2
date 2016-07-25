@@ -39,7 +39,7 @@ while (list($key,$module)=each($modules)){
 	$op = $theOp;
 	OutputClass::output("`2Performing `^%s`2 on `%%s`0`n", Translator::translate_inline($op), $module);
 	if($op=="install"){
-		if (install_module($module)){
+		if (Modules::install_module($module)){
 
 		}else{
 			Http::httpset('cat','');
