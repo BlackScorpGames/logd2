@@ -200,7 +200,7 @@ if ($op==""){
 		}
 		OutputClass::rawoutput("</td>");
 		OutputClass::rawoutput("<td>");
-		OutputClass::output_notl("`7%s`0", reltime(strtotime($row['date'])));
+		OutputClass::output_notl("`7%s`0", GameDateTime::reltime(strtotime($row['date'])));
 		OutputClass::rawoutput("</td>");
 		OutputClass::rawoutput("<td>");
 		OutputClass::output_notl("`#%s`0", $counter['c']);
@@ -209,7 +209,7 @@ if ($op==""){
 		OutputClass::output_notl("`^%s`0", $row['closer']);
 		OutputClass::rawoutput("</td>");
 		OutputClass::rawoutput("<td>");
-		if ($row['closedate'] != 0) OutputClass::output_notl("`7%s`0", reltime(strtotime($row['closedate'])));
+		if ($row['closedate'] != 0) OutputClass::output_notl("`7%s`0", GameDateTime::reltime(strtotime($row['closedate'])));
 		OutputClass::rawoutput("</td>");
 		OutputClass::rawoutput("</tr>");
 	}
@@ -284,9 +284,9 @@ if ($op==""){
 		OutputClass::rawoutput("<a href=\"mail.php?op=write&to=".rawurlencode($row['login'])."&body=".rawurlencode("\n\n----- $yourpeti -----\n$reppet")."&subject=RE:+$peti\" target=\"_blank\" onClick=\"".popup("mail.php?op=write&to=".rawurlencode($row['login'])."&body=".rawurlencode("\n\n----- $yourpeti -----\n$reppet")."&subject=RE:+$peti").";return false;\"><img src='images/newscroll.GIF' width='16' height='16' alt='$write' border='0'></a>");
 	}
 	OutputClass::output_notl("`^`b%s`b`n", $row['name']);
-	OutputClass::output("`@Date: `^`b%s`b (%s)`n", $row['date'], reltime(strtotime($row['date'])));
+	OutputClass::output("`@Date: `^`b%s`b (%s)`n", $row['date'], GameDateTime::reltime(strtotime($row['date'])));
 	OutputClass::output("`@Status: %s`n", $statuses[$row['status']]);
-	if($row['closedate']) OutputClass::output("`@Last Update: `^%s`@ on `^%s (%s)`n", $row['closer'], $row['closedate'],  reltime(strtotime($row['closedate'])));
+	if($row['closedate']) OutputClass::output("`@Last Update: `^%s`@ on `^%s (%s)`n", $row['closer'], $row['closedate'],  GameDateTime::reltime(strtotime($row['closedate'])));
 	OutputClass::output("`@Body:`^`n");
 	OutputClass::output("`\$[ipaddress] `^= `#%s`^`n", $row['ip']);
 	$body = htmlentities(stripslashes($row['body']), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"));

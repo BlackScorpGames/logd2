@@ -39,7 +39,7 @@ if ($row['name']!=""){
 	while ($row = db_fetch_assoc($result)){
 		OutputClass::output("`0� (%s) `%%s`0 - %s hits, last: %s`n", $row['lastip'],
 				$row['name'], $row['gentimecount'],
-				reltime(strtotime($row['laston'])));
+				GameDateTime::reltime(strtotime($row['laston'])));
 	}
 	OutputClass::output_notl("`n");
 		$oip = "";
@@ -62,7 +62,7 @@ if ($row['name']!=""){
 				OutputClass::output("� (%s) [%s] `%%s`0 - %s hits, last: %s`n",
 						$row['lastip'], $row['uniqueid'], $row['name'],
 						$row['gentimecount'],
-						reltime(strtotime($row['laston'])));
+						GameDateTime::reltime(strtotime($row['laston'])));
 			}
 			OutputClass::output_notl("`n");
 		}

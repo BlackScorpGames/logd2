@@ -73,7 +73,7 @@
 			OutputClass::rawoutput("</td><td>");
 			OutputClass::output_notl("`3%s`0",$row['clanjoindate']);
 			OutputClass::rawoutput("</td><td>");
-			OutputClass::output_notl("`#%s`0",reltime(strtotime($row['laston'])));
+			OutputClass::output_notl("`#%s`0",GameDateTime::reltime(strtotime($row['laston'])));
 			OutputClass::rawoutput("</td>");
 			if ($session['user']['clanrank']>CLAN_MEMBER){
 				OutputClass::rawoutput("<td>");

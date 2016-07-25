@@ -62,7 +62,7 @@ while ($row = db_fetch_assoc($result)) {
 		OutputClass::output_notl("`n`b`@%s`0`b`n", $dom);
 		$odate = $dom;
 	}
-	$time = date("H:i:s", strtotime($row['date']))." (".reltime(strtotime($row['date'])).")";
+	$time = date("H:i:s", strtotime($row['date']))." (".GameDateTime::reltime(strtotime($row['date'])).")";
 	OutputClass::output_notl("`#%s (%s) `^%s - `&%s`7 %s`0", $row['field'], $row['value'], $time, $row['actorname'], $row['message']);
 	if ($row['target']) {
 		OutputClass::output(" \\-- Recipient = `\$%s`0", $row['targetname']);

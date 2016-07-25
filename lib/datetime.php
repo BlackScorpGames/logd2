@@ -2,51 +2,7 @@
 // addnews ready
 // translator ready
 // mail ready
-function reltime($date,$short=true){
-	$now = strtotime("now");
-	$x = abs($now - $date);
-	$d = (int)($x/86400);
-	$x = $x % 86400;
-	$h = (int)($x/3600);
-	$x = $x % 3600;
-	$m = (int)($x/60);
-	$x = $x % 60;
-	$s = (int)($x);
-	if ($short){
-		$array=array("d"=>"d","h"=>"h","m"=>"m","s"=>"s");
-		$array=Translator::translate_inline($array,"datetime");
-		if ($d > 0)
-			$o = $d.$array['d'].($h>0?$h.$array['h']:"");
-		elseif ($h > 0)
-			$o = $h.$array['h'].($m>0?$m.$array['m']:"");
-		elseif ($m > 0)
-			$o = $m.$array['m'].($s>0?$s.$array['s']:"");
-		else
-			$o = $s.$array['s'];
 
-/*		if ($d > 0)
-			$o = sprintf("%3s%2s",$d.$array['d'],($h>0?$h.$array['h']:""));
-		elseif ($h > 0)
-			$o = sprintf("%3s%2s",$h.$array['h'],($m>0?$m.$array['m']:""));
-		elseif ($m > 0)
-			$o = sprintf("%3s%2s",$m.$array['m'],($s>0?$s.$array['s']:""));
-		else
-			$o = sprintf("%5s", $s.$array['s']);
-		$o = str_replace(" ", "&nbsp;", $o);*/
-	}else{
-		$array=array("day"=>"day","days"=>"days","hour"=>"hour","hours"=>"hours","minute"=>"minute","minutes"=>"minutes","second"=>"second","seconds"=>"second");
-		$array=Translator::translate_inline($array,"datetime"); //translate it... tl-ready now
-		if ($d > 0)
-			$o = "$d ".($d>1?$array['days']:$array['day']).($h>0?", $h ".($h>1?$array['hours']:$array['hour']):"");
-		elseif ($h > 0)
-			$o = "$h ".($h>1?$array['hours']:$array['hour']).($m>0?", $m ".($m>1?$array['minutes']:$array['minute']):"");
-		elseif ($m > 0)
-			$o = "$m ".($m>1?$array['minutes']:$array['minute']).($s>0?", $s ".($s>1?$array['seconds']:$array['second']):"");
-		else
-			$o = "$s ".($s>0?$array['seconds']:$array['second']);
-	}
-	return $o;
-}
 
 
 
@@ -70,6 +26,51 @@ function is_new_day($now=0){
 
 class GameDateTime
 {
+	public static function reltime($date,$short=true){
+		$now = strtotime("now");
+		$x = abs($now - $date);
+		$d = (int)($x/86400);
+		$x = $x % 86400;
+		$h = (int)($x/3600);
+		$x = $x % 3600;
+		$m = (int)($x/60);
+		$x = $x % 60;
+		$s = (int)($x);
+		if ($short){
+			$array=array("d"=>"d","h"=>"h","m"=>"m","s"=>"s");
+			$array=Translator::translate_inline($array,"datetime");
+			if ($d > 0)
+				$o = $d.$array['d'].($h>0?$h.$array['h']:"");
+			elseif ($h > 0)
+				$o = $h.$array['h'].($m>0?$m.$array['m']:"");
+			elseif ($m > 0)
+				$o = $m.$array['m'].($s>0?$s.$array['s']:"");
+			else
+				$o = $s.$array['s'];
+
+			/*		if ($d > 0)
+                        $o = sprintf("%3s%2s",$d.$array['d'],($h>0?$h.$array['h']:""));
+                    elseif ($h > 0)
+                        $o = sprintf("%3s%2s",$h.$array['h'],($m>0?$m.$array['m']:""));
+                    elseif ($m > 0)
+                        $o = sprintf("%3s%2s",$m.$array['m'],($s>0?$s.$array['s']:""));
+                    else
+                        $o = sprintf("%5s", $s.$array['s']);
+                    $o = str_replace(" ", "&nbsp;", $o);*/
+		}else{
+			$array=array("day"=>"day","days"=>"days","hour"=>"hour","hours"=>"hours","minute"=>"minute","minutes"=>"minutes","second"=>"second","seconds"=>"second");
+			$array=Translator::translate_inline($array,"datetime"); //translate it... tl-ready now
+			if ($d > 0)
+				$o = "$d ".($d>1?$array['days']:$array['day']).($h>0?", $h ".($h>1?$array['hours']:$array['hour']):"");
+			elseif ($h > 0)
+				$o = "$h ".($h>1?$array['hours']:$array['hour']).($m>0?", $m ".($m>1?$array['minutes']:$array['minute']):"");
+			elseif ($m > 0)
+				$o = "$m ".($m>1?$array['minutes']:$array['minute']).($s>0?", $s ".($s>1?$array['seconds']:$array['second']):"");
+			else
+				$o = "$s ".($s>0?$array['seconds']:$array['second']);
+		}
+		return $o;
+	}
     public static function gametimedetails(){
         $ret = array();
         $ret['now'] = date("Y-m-d 00:00:00");

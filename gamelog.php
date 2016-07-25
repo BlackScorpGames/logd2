@@ -56,7 +56,7 @@ while ($row = db_fetch_assoc($result)) {
 		OutputClass::output_notl("`n`b`@%s`0`b`n", $dom);
 		$odate = $dom;
 	}
-	$time = date("H:i:s", strtotime($row['date']))." (".reltime(strtotime($row['date'])).")";
+	$time = date("H:i:s", strtotime($row['date']))." (".GameDateTime::reltime(strtotime($row['date'])).")";
 	OutputClass::output_notl("`7(%s) %s `7(`&%s`7)", $row['category'], $row['message'], $row['name']);
 	if (!isset($categories[$row['category']]) && $category == "") {
 		OutputClass::addnav("Operations");

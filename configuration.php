@@ -201,7 +201,7 @@ if ($op == "") {
 		if ($off < 0) $off += 86400;
 		$x = strtotime("+".$off." secs");
         $str = Translator::sprintf_translate("In %s at %s (+%s)",
-                reltime($x), date("h:i a", $x),date("H:i",$i));
+                GameDateTime::reltime($x), date("h:i a", $x),date("H:i",$i));
 		$enum.=",$i,$str";
 	}
 	OutputClass::rawoutput(Translator::tlbutton_clear());

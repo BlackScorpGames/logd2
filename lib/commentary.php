@@ -365,7 +365,7 @@ function viewcommentary($section,$message="Interject your own commentary?",$limi
 			$s=date("`7" . $session['user']['prefs']['timeformat'] . "`0 ",$time);
 			$op[$i] = $s.$op[$i];
 		}elseif ($session['user']['prefs']['timestamp']==2) {
-			$s=reltime(strtotime($row['postdate']));
+			$s=GameDateTime::reltime(strtotime($row['postdate']));
 			$op[$i] = "`7($s)`0 ".$op[$i];
 		}
 		if ($message=="X")
