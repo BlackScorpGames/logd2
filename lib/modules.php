@@ -83,40 +83,7 @@ function is_module_installed($modulename,$version=false){
 			(MODULE_INSTALLED|MODULE_VERSION_OK));
 }
 
-/**
- * Checks if the module requirements are satisfied.  Should a module require
- * other modules to be installed and active, then optionally makes them so
- *
- * @param array $reqs Requirements of a module from _getmoduleinfo()
- * @return bool If successful or not
- */
-function module_check_requirements($reqs, $forceinject=false){
-	// Since we can inject here, we need to save off the module we're on
-	global $mostrecentmodule;
 
-	$oldmodule = $mostrecentmodule;
-	$result = true;
-
-	if (!is_array($reqs)) return false;
-
-	// Check the requirements.
-	reset($reqs);
-	while (list($key,$val)=each($reqs)){
-		$info = explode("|",$val);
-		if (!is_module_installed($key,$info[0])) {
-			return false;
-		}
-		// This is actually cheap since we cache the result
-		$status = module_status($key);
-		// If it's not injected and we should force it, do so.
-		if (!($status & MODULE_INJECTED) && $forceinject) {
-			$result = $result && Modules::injectmodule($key);
-		}
-	}
-
-	$mostrecentmodule = $oldmodule;
-	return $result;
-}
 
 /**
  * Blocks a module from being able to hook for the rest of the page hit.
@@ -181,6 +148,40 @@ $currenthook = "";
 
 class Modules
 {
+    /**
+     * Checks if the module requirements are satisfied.  Should a module require
+     * other modules to be installed and active, then optionally makes them so
+     *
+     * @param array $reqs Requirements of a module from _getmoduleinfo()
+     * @return bool If successful or not
+     */
+    public static function module_check_requirements($reqs, $forceinject=false){
+        // Since we can inject here, we need to save off the module we're on
+        global $mostrecentmodule;
+
+        $oldmodule = $mostrecentmodule;
+        $result = true;
+
+        if (!is_array($reqs)) return false;
+
+        // Check the requirements.
+        reset($reqs);
+        while (list($key,$val)=each($reqs)){
+            $info = explode("|",$val);
+            if (!is_module_installed($key,$info[0])) {
+                return false;
+            }
+            // This is actually cheap since we cache the result
+            $status = module_status($key);
+            // If it's not injected and we should force it, do so.
+            if (!($status & MODULE_INJECTED) && $forceinject) {
+                $result = $result && Modules::injectmodule($key);
+            }
+        }
+
+        $mostrecentmodule = $oldmodule;
+        return $result;
+    }
     public static function get_module_install_status(){
         // Collect the names of all installed modules.
         $seenmodules = array();
@@ -308,7 +309,7 @@ class Modules
                     return true;
                 $info = Modules::get_module_info($module);
                 //check installation requirements
-                if (!module_check_requirements($info['requires'])){
+                if (!Modules::module_check_requirements($info['requires'])){
                     OutputClass::output("`\$Module could not installed -- it did not meet its prerequisites.`n");
                     return false;
                 }else{
@@ -412,7 +413,7 @@ class Modules
                 if (!is_array($info['requires'])) $info['requires'] = array();
                 if (!isset($info['download'])) $info['download']="";
                 if (!isset($info['description'])) $info['description']="";
-                if (!module_check_requirements($info['requires'])) {
+                if (!Modules::module_check_requirements($info['requires'])) {
                     $injected_modules[$force][$modulename]=false;
                     Translator::tlschema();
                     OutputClass::output("`n`3Module `#%s`3 does not meet its prerequisites.`n",$modulename);

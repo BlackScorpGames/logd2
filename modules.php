@@ -282,7 +282,7 @@ if ($op==""){
 					reset($moduleinfo[$i]['requires']);
 					while (list($key,$val)=each($moduleinfo[$i]['requires'])){
 						$info = explode("|",$val);
-						if (module_check_requirements(array($key=>$val))){
+						if (Modules::module_check_requirements(array($key=>$val))){
 							OutputClass::output_notl("`@");
 						}else{
 							OutputClass::output_notl("`\$");
