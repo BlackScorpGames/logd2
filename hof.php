@@ -71,8 +71,8 @@ if ($totalplayers > $playersperpage) {
 		}
 	}
 }
-
-function display_table($title, $sql, $none=false, $foot=false,
+class Hof{
+public static function display_table($title, $sql, $none=false, $foot=false,
 		$data_header=false, $tag=false, $translate=false)
 {
 	global $session, $from, $to, $page, $playersperpage, $totalplayers;
@@ -134,7 +134,7 @@ function display_table($title, $sql, $none=false, $foot=false,
 	OutputClass::rawoutput("</table>");
 	if ($foot !== false) OutputClass::output_notl("`n`c%s`c", $foot);
 }
-
+}
 if ($op=="days") {
 	if ($subop == "least") {
 		$order = "DESC";
@@ -223,7 +223,7 @@ if ($op=="money"){
 }
 
 if (isset($table) && is_array($table)){
-	call_user_func_array("display_table",$table);
+	call_user_func_array("Hof::display_table",$table);
 	if (isset($me) && $me>"" && $totalplayers){
 		$meresult = db_query($me);
 		$row = db_fetch_assoc($meresult);
