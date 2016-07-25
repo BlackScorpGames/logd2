@@ -14,62 +14,6 @@ require_once("lib/sanitize.php");
 
 Translator::tlschema("logdnet");
 
-function lotgdsort($a, $b)
-{
-	// $a and $b are table rows.
-
-	global $logd_version;
-	$official_prefixes = array(
-		"1.1.2 Dragonprime Edition",
-		"1.1.1 Dragonprime Edition",
-		"1.1.0 Dragonprime Edition",
-		"1.0.6",
-		"1.0.5",
-		"1.0.4",
-		"1.0.3",
-		"1.0.2",
-		"1.0.1",
-		"1.0.0",
-		// MUST REMEMBER TO PUT NEW PRE-RELEASES HERE
-		"0.9.7"
-	);
-
-	$aver = strtolower(str_replace(' ', '', $a['version']));
-	$bver = strtolower(str_replace(' ', '', $b['version']));
-
-	// Okay, if $a and $b are the same version, use the priority
-	// This is true whether or not they are the official version or not.
-	// We bubble the official version to the top below.
-	if (strcmp($aver, $bver) == 0) {
-		if ($a['priority'] == $b['priority']) return 0;
-		return (($a['priority'] < $b['priority']) ? 1 : -1);
-	}
-
-	// Unknown versions are always worse than non-unknown
-	if (strcmp($aver, "unknown") == 0 && strcmp($bver, "unknown") != 0) {
-		return 1;
-	}
-	if (strcmp($bver, "unknown") == 0 && strcmp($aver, "unknown") != 0) {
-		return -1;
-	}
-
-	// Check if either of them are a prefix.
-	$costa = 10000;
-	$costb = 10000;
-	foreach ($official_prefixes as $index => $value) {
-		if (strncmp($aver, $value, strlen($value)) == 0)
-			if ($costa == 10000) $costa = $index;
-		if (strncmp($bver, $value, strlen($value)) == 0)
-			if ($costb == 10000) $costb = $index;
-	}
-
-	// If both are the same prefix (or no prefix), just strcmp.
-	if ($costa == $costb) {
-		return strcmp($aver, $bver);
-	}
-
-	return (($costa < $costb) ? -1 : 1);
-}
 
 $op = Http::httpget('op');
 if ($op==""){
@@ -179,8 +123,8 @@ if ($op==""){
 	for ($i=0;$i<$number;$i++){
 		$rows[] = db_fetch_assoc($result);
 	}
-	$rows = apply_logdnet_bans($rows);
-	usort($rows, "lotgdsort");
+	$rows = LogdNet::apply_logdnet_bans($rows);
+	usort($rows, "LogdNet::lotgdsort");
 
 	// Okay, they are now sorted, so OutputClass::output them
 	for ($i = 0; $i < count($rows); $i++) {
@@ -260,18 +204,78 @@ if ($op==""){
 	OutputClass::rawoutput("</table>");
 	PageParts::page_footer();
 }
+class LogdNet
+{
+    public static function apply_logdnet_bans($logdnet)
+    {
+        $sql = "SELECT * FROM " . db_prefix("logdnetbans");
+        $result = db_query($sql, "logdnetbans");
+        while ($row = db_fetch_assoc($result)) {
+            reset($logdnet);
+            while (list($i, $net) = each($logdnet)) {
+                if (preg_match("/{$row['banvalue']}/i", $net[$row['bantype']])) {
+                    unset($logdnet[$i]);
+                }
+            }
+        }
+        return $logdnet;
+    }
 
-function apply_logdnet_bans($logdnet){
-	$sql = "SELECT * FROM ".db_prefix("logdnetbans");
-	$result = db_query($sql,"logdnetbans");
-	while ($row = db_fetch_assoc($result)){
-		reset($logdnet);
-		while (list($i,$net)=each($logdnet)){
-			if (preg_match("/{$row['banvalue']}/i",$net[$row['bantype']])){
-				unset($logdnet[$i]);
-			}
-		}
-	}
-	return $logdnet;
+    public static function lotgdsort($a, $b)
+    {
+        // $a and $b are table rows.
+
+        global $logd_version;
+        $official_prefixes = array(
+            "1.1.2 Dragonprime Edition",
+            "1.1.1 Dragonprime Edition",
+            "1.1.0 Dragonprime Edition",
+            "1.0.6",
+            "1.0.5",
+            "1.0.4",
+            "1.0.3",
+            "1.0.2",
+            "1.0.1",
+            "1.0.0",
+            // MUST REMEMBER TO PUT NEW PRE-RELEASES HERE
+            "0.9.7"
+        );
+
+        $aver = strtolower(str_replace(' ', '', $a['version']));
+        $bver = strtolower(str_replace(' ', '', $b['version']));
+
+        // Okay, if $a and $b are the same version, use the priority
+        // This is true whether or not they are the official version or not.
+        // We bubble the official version to the top below.
+        if (strcmp($aver, $bver) == 0) {
+            if ($a['priority'] == $b['priority']) return 0;
+            return (($a['priority'] < $b['priority']) ? 1 : -1);
+        }
+
+        // Unknown versions are always worse than non-unknown
+        if (strcmp($aver, "unknown") == 0 && strcmp($bver, "unknown") != 0) {
+            return 1;
+        }
+        if (strcmp($bver, "unknown") == 0 && strcmp($aver, "unknown") != 0) {
+            return -1;
+        }
+
+        // Check if either of them are a prefix.
+        $costa = 10000;
+        $costb = 10000;
+        foreach ($official_prefixes as $index => $value) {
+            if (strncmp($aver, $value, strlen($value)) == 0)
+                if ($costa == 10000) $costa = $index;
+            if (strncmp($bver, $value, strlen($value)) == 0)
+                if ($costb == 10000) $costb = $index;
+        }
+
+        // If both are the same prefix (or no prefix), just strcmp.
+        if ($costa == $costb) {
+            return strcmp($aver, $bver);
+        }
+
+        return (($costa < $costb) ? -1 : 1);
+    }
 }
 ?>
