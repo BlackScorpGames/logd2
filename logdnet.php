@@ -90,7 +90,7 @@ if ($op==""){
 	$row = db_fetch_assoc($result);
 
 	// Clean up the desc
-	$desc = logdnet_sanitize($desc);
+	$desc = SanitizeClass::logdnet_sanitize($desc);
 	$desc = Censor::soap($desc);
 	// Limit descs to 75 characters.
 	if (strlen($desc) > 75) $desc = substr($desc, 0, 75);
@@ -236,7 +236,7 @@ if ($op==""){
 			preg_replace("|<[a-zA-Z0-9/ =]+>|", "", $row['description']);
 
 		// Clean up the desc
-		$row['description'] = logdnet_sanitize($row['description']);
+		$row['description'] = SanitizeClass::logdnet_sanitize($row['description']);
 		$row['description'] = Censor::soap($row['description']);
 		// Limit descs to 75 characters.
 		if (strlen($row['description']) > 75)

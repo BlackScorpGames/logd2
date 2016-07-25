@@ -11,17 +11,18 @@ function newline_sanitize($in)
 }
 
 
-function logdnet_sanitize($in)
-{
-    // to keep the regexp from boinging this, we need to make sure
-    // that we're not replacing in with the ` mark.
-    $out = preg_replace("/[`](?=[^1234567890!@#\$%^&)Qqbi])/", chr(1) . chr(1), $in);
-    $out = str_replace(chr(1), "`", $out);
-    return $out;
-}
-
 class SanitizeClass
 {
+
+    public static function logdnet_sanitize($in)
+    {
+        // to keep the regexp from boinging this, we need to make sure
+        // that we're not replacing in with the ` mark.
+        $out = preg_replace("/[`](?=[^1234567890!@#\$%^&)Qqbi])/", chr(1) . chr(1), $in);
+        $out = str_replace(chr(1), "`", $out);
+        return $out;
+    }
+
 // Handle spaces in character names
     public static function sanitize_name($spaceallowed, $inname)
     {
