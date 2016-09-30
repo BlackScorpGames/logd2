@@ -91,7 +91,7 @@ if ($op=="deactivate"){
 			$buff['schema']="mounts";
 			Http::httppostset('mount', $buff, 'mountbuff');
 
-			list($sql, $keys, $vals) = postparse(false, 'mount');
+			list($sql, $keys, $vals) = Http::postparse(false, 'mount');
 			if ($id>""){
 				$sql="UPDATE " . db_prefix("mounts") .
 					" SET $sql WHERE mountid='$id'";

@@ -89,7 +89,7 @@ function drinks_editor(){
 		$subop = Http::httpget("subop");
 		if ($subop=="") {
 			$drinkid = Http::httppost("drinkid");
-			list($sql, $keys, $vals) = postparse($drinksarray);
+			list($sql, $keys, $vals) = Http::postparse($drinksarray);
 			if ($drinkid > 0) {
 				$sql = "UPDATE " . db_prefix("drinks") . " SET $sql WHERE drinkid='$drinkid'";
 			} else {

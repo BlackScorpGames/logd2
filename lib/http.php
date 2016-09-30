@@ -61,7 +61,26 @@ class Http
             $HTTP_GET_VARS[$var] = $val;
         }
     }
+	public static function postparse($verify=false, $subval=false){
+		if ($subval) $var = $_POST[$subval];
+		else $var = $_POST;
 
+		reset($var);
+		$sql = "";
+		$keys = "";
+		$vals = "";
+		$i = 0;
+		while(list($key, $val) = each($var)) {
+			if ($verify === false || isset($verify[$key])) {
+				if (is_array($val)) $val = addslashes(serialize($val));
+				$sql .= (($i > 0) ? "," : "") . "$key='$val'";
+				$keys .= (($i > 0) ? "," : "") . "$key";
+				$vals .= (($i > 0) ? "," : "") . "'$val'";
+				$i++;
+			}
+		}
+		return array($sql, $keys, $vals);
+	}
 }
 function httpallget() {
 	return $_GET;
@@ -82,24 +101,5 @@ function httppostisset($var) {
 
 
 
-function postparse($verify=false, $subval=false){
-	if ($subval) $var = $_POST[$subval];
-	else $var = $_POST;
 
-	reset($var);
-	$sql = "";
-	$keys = "";
-	$vals = "";
-	$i = 0;
-	while(list($key, $val) = each($var)) {
-		if ($verify === false || isset($verify[$key])) {
-			if (is_array($val)) $val = addslashes(serialize($val));
-			$sql .= (($i > 0) ? "," : "") . "$key='$val'";
-			$keys .= (($i > 0) ? "," : "") . "$key";
-			$vals .= (($i > 0) ? "," : "") . "'$val'";
-			$i++;
-		}
-	}
-	return array($sql, $keys, $vals);
-}
 ?>
