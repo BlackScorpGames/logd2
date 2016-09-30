@@ -238,6 +238,16 @@ public static function motditem($subject,$body,$author,$date,$id){
         }
         OutputClass::rawoutput("<hr>",true);
     }
+    public static function motd_del($id) {
+        $sql = "DELETE FROM " . db_prefix("motd") . " WHERE motditem=\"$id\"";
+        db_query($sql);
+        DataCache::invalidatedatacache("motd");
+        DataCache::invalidatedatacache("lastmotd");
+        DataCache::invalidatedatacache("motddate");
+        header("Location: motd.php");
+        exit();
+    }
+
 }
 
 
@@ -245,14 +255,5 @@ public static function motditem($subject,$body,$author,$date,$id){
 
 
 
-function motd_del($id) {
-	$sql = "DELETE FROM " . db_prefix("motd") . " WHERE motditem=\"$id\"";
-	db_query($sql);
-	DataCache::invalidatedatacache("motd");
-	DataCache::invalidatedatacache("lastmotd");
-	DataCache::invalidatedatacache("motddate");
-	header("Location: motd.php");
-	exit();
-}
 
 ?>

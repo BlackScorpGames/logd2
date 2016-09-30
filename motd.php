@@ -39,7 +39,7 @@ if ($op == "add" || $op == "addpoll" || $op == "del")  {
 	if ($session['user']['superuser'] & SU_POST_MOTD) {
 		if ($op == "add") Motd::motd_form($id);
 		elseif ($op == "addpoll") Motd::motd_poll_form($id);
-		elseif ($op == "del") motd_del($id);
+		elseif ($op == "del") Motd::motd_del($id);
 	} else {
 		if ($session['user']['loggedin']){
 			$session['user']['experience'] =
