@@ -17,6 +17,45 @@ function motd_admin($id, $poll=false) {
 	}
 }
 class Motd{
+    public static function motd_poll_form() {
+        global $session;
+        $subject = Http::httppost('subject');
+        $body = Http::httppost('body');
+        if ($subject=="" || $body==""){
+            OutputClass::output("`\$NOTE:`^ Polls cannot be edited after they are begun in order to ensure fairness and accuracy of results.`0`n`n");
+            OutputClass::rawoutput("<form action='motd.php?op=addpoll' method='POST'>");
+            OutputClass::addnav("","motd.php?op=add");
+            OutputClass::output("Subject: ");
+            OutputClass::rawoutput("<input type='text' size='50' name='subject' value=\"".HTMLEntities(stripslashes($subject), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"><br/>");
+            OutputClass::output("Body:`n");
+            OutputClass::rawoutput("<textarea class='input' name='body' cols='37' rows='5'>".HTMLEntities(stripslashes($body), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
+            $option = Translator::translate_inline("Option");
+            OutputClass::output("Choices:`n");
+            $pollitem = "$option <input name='opt[]'><br/>";
+            OutputClass::rawoutput($pollitem);
+            OutputClass::rawoutput($pollitem);
+            OutputClass::rawoutput($pollitem);
+            OutputClass::rawoutput($pollitem);
+            OutputClass::rawoutput($pollitem);
+            OutputClass::rawoutput("<div id='hidepolls'>");
+            OutputClass::rawoutput("</div>");
+            OutputClass::rawoutput("<script language='JavaScript'>document.getElementById('hidepolls').innerHTML = '';</script>",true);
+            $addi = Translator::translate_inline("Add Poll Item");
+            $add = Translator::translate_inline("Add");
+            OutputClass::rawoutput("<a href=\"#\" onClick=\"javascript:document.getElementById('hidepolls').innerHTML += '".addslashes($pollitem)."'; return false;\">$addi</a><br>");
+            OutputClass::rawoutput("<input type='submit' class='button' value='$add'></form>");
+        }else{
+            $opt = Http::httppost("opt");
+            $body = array("body"=>$body,"opt"=>$opt);
+            $sql = "INSERT INTO " . db_prefix("motd") . " (motdtitle,motdbody,motddate,motdtype,motdauthor) VALUES (\"$subject\",\"".addslashes(serialize($body))."\",'".date("Y-m-d H:i:s")."',1,'{$session['user']['acctid']}')";
+            db_query($sql);
+            DataCache::invalidatedatacache("motd");
+            DataCache::invalidatedatacache("lastmotd");
+            DataCache::invalidatedatacache("motddate");
+            header("Location: motd.php");
+            exit();
+        }
+    }
     public static function motd_form($id)
     {
         global $session;
@@ -204,45 +243,7 @@ public static function motditem($subject,$body,$author,$date,$id){
 
 
 
-function motd_poll_form() {
-	global $session;
-	$subject = Http::httppost('subject');
-	$body = Http::httppost('body');
-	if ($subject=="" || $body==""){
-		OutputClass::output("`\$NOTE:`^ Polls cannot be edited after they are begun in order to ensure fairness and accuracy of results.`0`n`n");
-		OutputClass::rawoutput("<form action='motd.php?op=addpoll' method='POST'>");
-		OutputClass::addnav("","motd.php?op=add");
-		OutputClass::output("Subject: ");
-		OutputClass::rawoutput("<input type='text' size='50' name='subject' value=\"".HTMLEntities(stripslashes($subject), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"><br/>");
-		OutputClass::output("Body:`n");
-		OutputClass::rawoutput("<textarea class='input' name='body' cols='37' rows='5'>".HTMLEntities(stripslashes($body), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
-		$option = Translator::translate_inline("Option");
-		OutputClass::output("Choices:`n");
-		$pollitem = "$option <input name='opt[]'><br/>";
-		OutputClass::rawoutput($pollitem);
-		OutputClass::rawoutput($pollitem);
-		OutputClass::rawoutput($pollitem);
-		OutputClass::rawoutput($pollitem);
-		OutputClass::rawoutput($pollitem);
-		OutputClass::rawoutput("<div id='hidepolls'>");
-		OutputClass::rawoutput("</div>");
-		OutputClass::rawoutput("<script language='JavaScript'>document.getElementById('hidepolls').innerHTML = '';</script>",true);
-		$addi = Translator::translate_inline("Add Poll Item");
-		$add = Translator::translate_inline("Add");
-		OutputClass::rawoutput("<a href=\"#\" onClick=\"javascript:document.getElementById('hidepolls').innerHTML += '".addslashes($pollitem)."'; return false;\">$addi</a><br>");
-		OutputClass::rawoutput("<input type='submit' class='button' value='$add'></form>");
-	}else{
-		$opt = Http::httppost("opt");
-		$body = array("body"=>$body,"opt"=>$opt);
-		$sql = "INSERT INTO " . db_prefix("motd") . " (motdtitle,motdbody,motddate,motdtype,motdauthor) VALUES (\"$subject\",\"".addslashes(serialize($body))."\",'".date("Y-m-d H:i:s")."',1,'{$session['user']['acctid']}')";
-		db_query($sql);
-		DataCache::invalidatedatacache("motd");
-		DataCache::invalidatedatacache("lastmotd");
-		DataCache::invalidatedatacache("motddate");
-		header("Location: motd.php");
-		exit();
-	}
-}
+
 
 function motd_del($id) {
 	$sql = "DELETE FROM " . db_prefix("motd") . " WHERE motditem=\"$id\"";
