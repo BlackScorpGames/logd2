@@ -239,7 +239,7 @@ if ($op==""){
 }elseif ($op=="add"){
 	OutputClass::output("Add a mount:`n");
 	OutputClass::addnav("Mount Editor Home","mounts.php");
-	mountform(array());
+	Mounts::mountform(array());
 }elseif ($op=="edit"){
 	OutputClass::addnav("Mount Editor Home","mounts.php");
 	$sql = "SELECT * FROM " . db_prefix("mounts") . " WHERE mountid='$id'";
@@ -260,12 +260,12 @@ if ($op==""){
 			OutputClass::output("Mount Editor:`n");
 			$row = db_fetch_assoc($result);
 			$row['mountbuff']=unserialize($row['mountbuff']);
-			mountform($row);
+			Mounts::mountform($row);
 		}
 	}
 }
-
-function mountform($mount){
+class Mounts{
+public static function mountform($mount){
 	// Let's sanitize the data
 	if (!isset($mount['mountname'])) $mount['mountname'] = "";
 	if (!isset($mount['mountid'])) $mount['mountid'] = "";
@@ -461,6 +461,6 @@ function mountform($mount){
 	$save = Translator::translate_inline("Save");
 	OutputClass::rawoutput("<input type='submit' class='button' value='$save'></form>");
 }
-
+}
 PageParts::page_footer();
 ?>
