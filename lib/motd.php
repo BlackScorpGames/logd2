@@ -17,6 +17,115 @@ function motd_admin($id, $poll=false) {
 	}
 }
 class Motd{
+    public static function motd_form($id)
+    {
+        global $session;
+        $subject = Http::httppost('subject');
+        $body = Http::httppost('body');
+        $preview = Http::httppost('preview');
+        if ($subject == "" || $body == "" || $preview > "") {
+            $edit = Translator::translate_inline("Edit a MoTD");
+            $add = Translator::translate_inline("Add a MoTD");
+            $ret = Translator::translate_inline("Return");
+
+            $row = array(
+                "motditem" => 0,
+                "motdauthorname" => "",
+                "motdtitle" => "",
+                "motdbody" => "",
+            );
+            if ($id > "") {
+                $sql = "SELECT " . db_prefix("motd") . ".*,name AS motdauthorname FROM " . db_prefix("motd") . " LEFT JOIN " . db_prefix("accounts") . " ON " . db_prefix("accounts") . ".acctid = " . db_prefix("motd") . ".motdauthor WHERE motditem='$id'";
+                $result = db_query($sql);
+                if (db_num_rows($result) > 0) {
+                    $row = db_fetch_assoc($result);
+                    $msg = $edit;
+                } else {
+                    $msg = $add;
+                }
+            } else {
+                $msg = $add;
+            }
+            OutputClass::output_notl("`b%s`b", $msg);
+            OutputClass::rawoutput("[ <a href='motd.php'>$ret</a> ]<br>");
+
+            OutputClass::rawoutput("<form action='motd.php?op=add&id={$row['motditem']}' method='POST'>");
+            OutputClass::addnav("", "motd.php?op=add&id={$row['motditem']}");
+            if ($row['motdauthorname'] > "") {
+                OutputClass::output("Originally by `@%s`0 on %s`n", $row['motdauthorname'],
+                    $row['motddate']);
+            }
+            if ($subject > "") {
+                $row['motdtitle'] = stripslashes($subject);
+            }
+            if ($body > "") {
+                $row['motdbody'] = stripslashes($body);
+            }
+            if ($preview > "") {
+                if (Http::httppost('changeauthor') || $row['motdauthorname'] == "") {
+                    $row['motdauthorname'] = $session['user']['name'];
+                }
+                if (Http::httppost('changedate') || !isset($row['motddate']) || $row['motddate'] == "") {
+                    $row['motddate'] = date("Y-m-d H:i:s");
+                }
+                Motd::motditem($row['motdtitle'], $row['motdbody'],
+                    $row['motdauthorname'], $row['motddate'], "");
+            }
+            OutputClass::output("Subject: ");
+            OutputClass::rawoutput("<input type='text' size='50' name='subject' value=\"" . HTMLEntities(stripslashes($row['motdtitle']),
+                    ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")) . "\"><br/>");
+            OutputClass::output("Body:`n");
+            OutputClass::rawoutput("<textarea align='right' class='input' name='body' cols='37' rows='5'>" . HTMLEntities(stripslashes($row['motdbody']),
+                    ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1")) . "</textarea><br/>");
+            if ($row['motditem'] > 0) {
+                OutputClass::output("Options:`n");
+                OutputClass::rawoutput("<input type='checkbox' value='1' name='changeauthor'" . (Http::httppost('changeauthor') ? " checked" : "") . ">");
+                OutputClass::output("Change Author`n");
+                OutputClass::rawoutput("<input type='checkbox' value='1' name='changedate'" . (Http::httppost('changedate') ? " checked" : "") . ">");
+                OutputClass::output("Change Date (force popup again)`n");
+            }
+            $prev = Translator::translate_inline("Preview");
+            $sub = Translator::translate_inline("Submit");
+            OutputClass::rawoutput("<input type='submit' class='button' name='preview' value='$prev'> <input type='submit' class='button' value='$sub'></form>");
+        } else {
+            if ($id > "") {
+                $sql = " SET motdtitle='$subject', motdbody='$body'";
+                if (Http::httppost('changeauthor')) {
+                    $sql .= ", motdauthor={$session['user']['acctid']}";
+                }
+                if (Http::httppost('changedate')) {
+                    $sql .= ", motddate='" . date("Y-m-d H:i:s") . "'";
+                }
+                $sql = "UPDATE " . db_prefix("motd") . $sql . " WHERE motditem='$id'";
+                db_query($sql);
+                DataCache::invalidatedatacache("motd");
+                DataCache::invalidatedatacache("lastmotd");
+                DataCache::invalidatedatacache("motddate");
+            }
+            if ($id == "" || db_affected_rows() == 0) {
+                if ($id > "") {
+                    $sql = "SELECT * FROM " . db_prefix("motd") . " WHERE motditem='$id'";
+                    $result = db_query($sql);
+                    if (db_num_rows($result) > 0) {
+                        $doinsert = false;
+                    } else {
+                        $doinsert = true;
+                    }
+                } else {
+                    $doinsert = true;
+                }
+                if ($doinsert) {
+                    $sql = "INSERT INTO " . db_prefix("motd") . " (motdtitle,motdbody,motddate,motdauthor) VALUES (\"$subject\",\"$body\",'" . date("Y-m-d H:i:s") . "','{$session['user']['acctid']}')";
+                    db_query($sql);
+                    DataCache::invalidatedatacache("motd");
+                    DataCache::invalidatedatacache("lastmotd");
+                    DataCache::invalidatedatacache("motddate");
+                }
+            }
+            header("Location: motd.php");
+            exit();
+        }
+    }
 public static function motditem($subject,$body,$author,$date,$id){
 	if ($date)
 		OutputClass::rawoutput("<a name='motd".date("YmdHis",strtotime($date))."'>");
@@ -93,100 +202,7 @@ public static function motditem($subject,$body,$author,$date,$id){
 }
 
 
-function motd_form($id) {
-	global $session;
-	$subject = Http::httppost('subject');
-	$body = Http::httppost('body');
-	$preview = Http::httppost('preview');
-	if ($subject=="" || $body=="" || $preview>""){
-		$edit = Translator::translate_inline("Edit a MoTD");
-		$add = Translator::translate_inline("Add a MoTD");
-		$ret = Translator::translate_inline("Return");
 
-		$row = array(
-			"motditem"=>0,
-			"motdauthorname"=>"",
-			"motdtitle"=>"",
-			"motdbody"=>"",
-		);
-		if ($id>""){
-			$sql = "SELECT " . db_prefix("motd") . ".*,name AS motdauthorname FROM " . db_prefix("motd") . " LEFT JOIN " . db_prefix("accounts") . " ON " . db_prefix("accounts") . ".acctid = " . db_prefix("motd") . ".motdauthor WHERE motditem='$id'";
-			$result = db_query($sql);
-			if (db_num_rows($result)>0){
-				$row = db_fetch_assoc($result);
-				$msg = $edit;
-			}else{
-				$msg = $add;
-			}
-		}else{
-			$msg = $add;
-		}
-		OutputClass::output_notl("`b%s`b", $msg);
-		OutputClass::rawoutput("[ <a href='motd.php'>$ret</a> ]<br>");
-
-		OutputClass::rawoutput("<form action='motd.php?op=add&id={$row['motditem']}' method='POST'>");
-		OutputClass::addnav("","motd.php?op=add&id={$row['motditem']}");
-		if ($row['motdauthorname']>"")
-			OutputClass::output("Originally by `@%s`0 on %s`n", $row['motdauthorname'],
-					$row['motddate']);
-		if ($subject>"") $row['motdtitle'] = stripslashes($subject);
-		if ($body>"") $row['motdbody'] = stripslashes($body);
-		if ($preview>""){
-			if (Http::httppost('changeauthor') || $row['motdauthorname']=="")
-				$row['motdauthorname']=$session['user']['name'];
-			if (Http::httppost('changedate') || !isset($row['motddate']) || $row['motddate']=="")
-				$row['motddate']=date("Y-m-d H:i:s");
-			Motd::motditem($row['motdtitle'], $row['motdbody'],
-					$row['motdauthorname'],$row['motddate'], "");
-		}
-		OutputClass::output("Subject: ");
-		OutputClass::rawoutput("<input type='text' size='50' name='subject' value=\"".HTMLEntities(stripslashes($row['motdtitle']), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."\"><br/>");
-		OutputClass::output("Body:`n");
-		OutputClass::rawoutput("<textarea align='right' class='input' name='body' cols='37' rows='5'>".HTMLEntities(stripslashes($row['motdbody']), ENT_COMPAT, Settings::getsetting("charset", "ISO-8859-1"))."</textarea><br/>");
-		if ($row['motditem']>0){
-			OutputClass::output("Options:`n");
-			OutputClass::rawoutput("<input type='checkbox' value='1' name='changeauthor'".(Http::httppost('changeauthor')?" checked":"").">");
-			OutputClass::output("Change Author`n");
-			OutputClass::rawoutput("<input type='checkbox' value='1' name='changedate'".(Http::httppost('changedate')?" checked":"").">");
-			OutputClass::output("Change Date (force popup again)`n");
-		}
-		$prev = Translator::translate_inline("Preview");
-		$sub = Translator::translate_inline("Submit");
-		OutputClass::rawoutput("<input type='submit' class='button' name='preview' value='$prev'> <input type='submit' class='button' value='$sub'></form>");
-	}else{
-		if ($id>""){
-			$sql = " SET motdtitle='$subject', motdbody='$body'";
-			if (Http::httppost('changeauthor'))
-				$sql.=", motdauthor={$session['user']['acctid']}";
-			if (Http::httppost('changedate'))
-				$sql.=", motddate='".date("Y-m-d H:i:s")."'";
-			$sql = "UPDATE " . db_prefix("motd") . $sql . " WHERE motditem='$id'";
-			db_query($sql);
-			DataCache::invalidatedatacache("motd");
-			DataCache::invalidatedatacache("lastmotd");
-			DataCache::invalidatedatacache("motddate");
-		}
-		if ($id=="" || db_affected_rows()==0){
-			if ($id>""){
-				$sql = "SELECT * FROM " . db_prefix("motd") . " WHERE motditem='$id'";
-				$result = db_query($sql);
-				if (db_num_rows($result)>0) $doinsert = false;
-				else $doinsert=true;
-			}else{
-				$doinsert=true;
-			}
-			if ($doinsert){
-				$sql = "INSERT INTO " . db_prefix("motd") . " (motdtitle,motdbody,motddate,motdauthor) VALUES (\"$subject\",\"$body\",'".date("Y-m-d H:i:s")."','{$session['user']['acctid']}')";
-				db_query($sql);
-				DataCache::invalidatedatacache("motd");
-				DataCache::invalidatedatacache("lastmotd");
-				DataCache::invalidatedatacache("motddate");
-			}
-		}
-		header("Location: motd.php");
-		exit();
-	}
-}
 
 function motd_poll_form() {
 	global $session;
