@@ -2,8 +2,8 @@
 function create_db($dbname){
 	OutputClass::output("`n`2Attempting to create your database...`n");
 	$sql = "CREATE DATABASE $dbname";
-	mysql_query($sql);
-	$error = mysql_error();
+	mysqli_query($sql);
+	$error = mysqli_error();
 	if ($error == ""){
 		if (mysql_select_db($dbname)){
 			OutputClass::output("`@Success!`2  I was able to create the database and connect to it!`n");
