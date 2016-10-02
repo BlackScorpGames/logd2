@@ -172,7 +172,7 @@ return array(
 			'name'=>'gentimecount', 'type'=>'int(11) unsigned', 'default'=>'0'
 			),
 		'lastip'=>array(
-			'name'=>'lastip', 'type'=>'varchar(40)'
+			'name'=>'lastip', 'type'=>'varchar(40)','default' => ''
 			),
 		'uniqueid'=>array(
 			'name'=>'uniqueid', 'type'=>'varchar(32)', 'null'=>'1'
@@ -184,10 +184,10 @@ return array(
 			'name'=>'boughtroomtoday', 'type'=>'tinyint(4)', 'default'=>'0'
 			),
 		'emailaddress'=>array(
-			'name'=>'emailaddress', 'type'=>'varchar(128)'
+			'name'=>'emailaddress', 'type'=>'varchar(128)','default' => ''
 			),
 		'emailvalidation'=>array(
-			'name'=>'emailvalidation', 'type'=>'varchar(32)'
+			'name'=>'emailvalidation', 'type'=>'varchar(32)','default' => ''
 			),
 		'sentnotice'=>array(
 			'name'=>'sentnotice', 'type'=>'int(11)', 'default'=>'0'
@@ -208,7 +208,7 @@ return array(
 			'name'=>'gravefights', 'type'=>'int(11) unsigned', 'default'=>'0'
 			),
 		'hauntedby'=>array(
-			'name'=>'hauntedby', 'type'=>'varchar(50)'
+			'name'=>'hauntedby', 'type'=>'varchar(50)','default' => ''
 			),
 		'deathpower'=>array(
 			'name'=>'deathpower', 'type'=>'int(11) unsigned', 'default'=>'0'
@@ -237,7 +237,7 @@ return array(
 			'name'=>'refererawarded', 'type'=>'tinyint(1)', 'default'=>'0'
 			),
 		'bio'=>array(
-			'name'=>'bio', 'type'=>'varchar(255)'
+			'name'=>'bio', 'type'=>'varchar(255)','default' => ''
 			),
 		'race'=>array(
 			'name'=>'race', 'type'=>'varchar(25)', 'default'=>'0'
