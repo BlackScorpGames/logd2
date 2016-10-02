@@ -28,7 +28,8 @@ if (db_num_rows($result)==0){
 			$sql = "DELETE FROM ".db_prefix("accounts")." WHERE login='$name'";
 			db_query($sql);
 			$sql = "INSERT INTO " .db_prefix("accounts") ." (login,password,superuser,name,ctitle,regdate) VALUES('$name','$pass',$su,'`%Admin `&$name`0','`%Admin', NOW())";
-			db_query($sql);
+			var_dump($sql);
+            db_query($sql);
 			OutputClass::output("`^Your superuser account has been created as `%Admin `&$name`^!");
 			Settings::savesetting("installer_version",$logd_version);
 		}

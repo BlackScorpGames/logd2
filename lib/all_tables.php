@@ -29,7 +29,7 @@ return array(
 			'name'=>'sex', 'type'=>'tinyint(4) unsigned', 'default'=>'0'
 			),
 		'specialty'=>array(
-			'name'=>'specialty', 'type'=>'varchar(20)',
+			'name'=>'specialty', 'type'=>'varchar(20)' ,'default' => '',
 			),
 		'experience'=>array(
 			'name'=>'experience', 'type'=>'int(11) unsigned', 'default'=>'0'
@@ -92,7 +92,7 @@ return array(
 			'name'=>'turns', 'type'=>'int(11) unsigned', 'default'=>'10'
 			),
 		'title'=>array(
-			'name'=>'title', 'type'=>'varchar(25)'
+			'name'=>'title', 'type'=>'varchar(25)' ,'default' => ''
 			),
 		'password'=>array(
 			'name'=>'password', 'type'=>'varchar(32)'
@@ -101,7 +101,7 @@ return array(
 			'name'=>'badguy', 'type'=>'text'
 			),
 		'companions'=>array(
-			'name'=>'companions', 'type'=>'text'
+			'name'=>'companions', 'type'=>'text','default' => ''
 			),
 		'allowednavs'=>array(
 			'name'=>'allowednavs', 'type'=>'mediumtext'
@@ -128,7 +128,7 @@ return array(
 			'name'=>'charm', 'type'=>'int(11) unsigned', 'default'=>'0'
 			),
 		'specialinc'=>array(
-			'name'=>'specialinc', 'type'=>'varchar(50)'
+			'name'=>'specialinc', 'type'=>'varchar(50)','default' => ''
 			),
 		'specialmisc'=>array(
 			'name'=>'specialmisc', 'type'=>'text'
@@ -341,8 +341,8 @@ return array(
 		'acctid'=>array(
 			'name'=>'acctid', 'type'=>'int(11) unsigned'
 			),
-		'OutputClass::output'=>array(
-			'name'=>'OutputClass::output', 'type'=>'mediumtext'
+		'output'=>array(
+			'name'=>'output', 'type'=>'mediumtext'
 			),
 		'key-PRIMARY'=>array(
 			'name'=>'PRIMARY',
@@ -1214,8 +1214,8 @@ return array(
 		'arguments'=>array(
 			'name'=>'arguments', 'type'=>'text'
 			),
-		'Translator::tlschema'=>array(
-			'name'=>'Translator::tlschema', 'type'=>'varchar(255)', 'default'=>'news'
+		'tlschema'=>array(
+			'name'=>'tlschema', 'type'=>'varchar(255)', 'default'=>'news'
 			),
 		'key-PRIMARY'=>array(
 			'name'=>'PRIMARY',
