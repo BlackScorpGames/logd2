@@ -188,7 +188,7 @@ if (Settings::getsetting("allowcreation",1)==0){
 					} else {
 						$dbpass = md5(md5($pass1));
 					}
-					$sql = "INSERT INTO " . db_prefix("accounts") . "
+					$sql = "INSERT IGNORE INTO " . db_prefix("accounts") . "
 						(name, superuser, title, password, sex, login, laston, uniqueid, lastip, gold, emailaddress, emailvalidation, referer, regdate)
 						VALUES
 						('$title $shortname', '".Settings::getsetting("defaultsuperuser",0)."', '$title', '$dbpass', '$sex', '$shortname', '".date("Y-m-d H:i:s",strtotime("-1 day"))."', '".$_COOKIE['lgi']."', '".$_SERVER['REMOTE_ADDR']."', ".Settings::getsetting("newplayerstartgold",50).", '$email', '$emailverification', '$referer', NOW())";
