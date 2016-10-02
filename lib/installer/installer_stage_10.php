@@ -27,7 +27,7 @@ if (db_num_rows($result)==0){
 			$pass = md5(md5(stripslashes(Http::httppost("pass1"))));
 			$sql = "DELETE FROM ".db_prefix("accounts")." WHERE login='$name'";
 			db_query($sql);
-			$sql = "INSERT INTO " .db_prefix("accounts") ." (login,password,superuser,name,ctitle,regdate) VALUES('$name','$pass',$su,'`%Admin `&$name`0','`%Admin', NOW())";
+			$sql = "INSERT IGNORE INTO " .db_prefix("accounts") ." (login,password,superuser,name,ctitle,regdate) VALUES('$name','$pass',$su,'`%Admin `&$name`0','`%Admin', NOW())";
 
             db_query($sql);
 			OutputClass::output("`^Your superuser account has been created as `%Admin `&$name`^!");
