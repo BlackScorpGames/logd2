@@ -233,7 +233,7 @@ if ($dp < $dkills) {
 	$nbgold = $session['user']['goldinbank'] - $bgold;
 
 	if ($nbgold != 0) {
-		debuglog(($nbgold >= 0 ? "earned " : "paid ") . abs($nbgold) . " gold in interest");
+		DebugLogClass::debuglog(($nbgold >= 0 ? "earned " : "paid ") . abs($nbgold) . " gold in interest");
 	}
 	$turnstoday .= ", Spirits: $resurrectionturns, DK: $dkff";
 	$session['user']['turns']=$turnsperday+$resurrectionturns+$dkff;
