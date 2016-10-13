@@ -72,7 +72,7 @@ if (!$fp) {
 					$emsg = "This payment isn't to me!  It's to $receiver_email.\n";
 					Payment::payment_error(E_WARNING,$emsg,__FILE__,__LINE__);
 				}
-				writelog($response);
+				Payment::writelog($response);
 
 			}else{
 				Payment::payment_error(E_ERROR,"Payment Status isn't 'Completed' it's '$payment_status'",__FILE__,__LINE__);
@@ -86,45 +86,53 @@ if (!$fp) {
 	fclose ($fp);
 }
 
-function writelog($response){
-	global $post;
-	global $item_name, $item_number, $payment_status, $payment_amount;
-	global $payment_currency, $txn_id, $receiver_email, $payer_email;
-	global $payment_fee,$txn_type;
-	$match = array();
-	preg_match("'([^:]*):([^/])*'",$item_number,$match);
-	if ($match[1]>""){
-		$match[1] = addslashes($match[1]);
-		$sql = "SELECT acctid FROM " . db_prefix("accounts") . " WHERE login='{$match[1]}'";
-		$result = db_query($sql);
-		$row = db_fetch_assoc($result);
-		$acctid = $row['acctid'];
-		if ($acctid>0){
-			$donation = $payment_amount;
-			// if it's a reversal, it'll only post back to us the amount
-			// we received back, with out counting the fees, which we
-			// receive under a different transaction, but get no
-			// notification for.
-			if ($txn_type =="reversal") $donation -= $payment_fee;
 
-			$hookresult = Modules::modulehook("donation_adjustments",array("points"=>$donation*100,"amount"=>$donation,"acctid"=>$acctid,"messages"=>array()));
-			$hookresult['points'] = round($hookresult['points']);
-
-			$sql = "UPDATE " . db_prefix("accounts") . " SET donation = donation + '{$hookresult['points']}' WHERE acctid=$acctid";
-
-			$result = db_query($sql);
-			DebugLogClass::debuglog("Received donator points for donating -- Credited Automatically",false,$acctid,"donation",$hookresult['points'],false);
-			if (!is_array($hookresult['messages'])){
-				$hookresult['messages'] = array($hookresult['messages']);
-			}
-			foreach ($hookresult['messages'] as $id=>$message){
-				DebugLogClass::debuglog($message,false,$acctid,"donation",0,false);
-			}
-			if (db_affected_rows()>0) $processed = 1;
-			Modules::modulehook("donation", array("id"=>$acctid, "amt"=>$donation*100, "manual"=>false));
-		}
+class Payment{
+public static function payment_error($errno, $errstr, $errfile, $errline){
+	global $payment_errors;
+	if (!is_int($errno) || (is_int($errno) && ($errno & error_reporting()))) {
+		$payment_errors.="Error $errno: $errstr in $errfile on $errline\n";
 	}
-	$sql = "
+}
+    public static function writelog($response){
+        global $post;
+        global $item_name, $item_number, $payment_status, $payment_amount;
+        global $payment_currency, $txn_id, $receiver_email, $payer_email;
+        global $payment_fee,$txn_type;
+        $match = array();
+        preg_match("'([^:]*):([^/])*'",$item_number,$match);
+        if ($match[1]>""){
+            $match[1] = addslashes($match[1]);
+            $sql = "SELECT acctid FROM " . db_prefix("accounts") . " WHERE login='{$match[1]}'";
+            $result = db_query($sql);
+            $row = db_fetch_assoc($result);
+            $acctid = $row['acctid'];
+            if ($acctid>0){
+                $donation = $payment_amount;
+                // if it's a reversal, it'll only post back to us the amount
+                // we received back, with out counting the fees, which we
+                // receive under a different transaction, but get no
+                // notification for.
+                if ($txn_type =="reversal") $donation -= $payment_fee;
+
+                $hookresult = Modules::modulehook("donation_adjustments",array("points"=>$donation*100,"amount"=>$donation,"acctid"=>$acctid,"messages"=>array()));
+                $hookresult['points'] = round($hookresult['points']);
+
+                $sql = "UPDATE " . db_prefix("accounts") . " SET donation = donation + '{$hookresult['points']}' WHERE acctid=$acctid";
+
+                $result = db_query($sql);
+                DebugLogClass::debuglog("Received donator points for donating -- Credited Automatically",false,$acctid,"donation",$hookresult['points'],false);
+                if (!is_array($hookresult['messages'])){
+                    $hookresult['messages'] = array($hookresult['messages']);
+                }
+                foreach ($hookresult['messages'] as $id=>$message){
+                    DebugLogClass::debuglog($message,false,$acctid,"donation",0,false);
+                }
+                if (db_affected_rows()>0) $processed = 1;
+                Modules::modulehook("donation", array("id"=>$acctid, "amt"=>$donation*100, "manual"=>false));
+            }
+        }
+        $sql = "
 		INSERT INTO " . db_prefix("paylog") . " (
 			info,
 			response,
@@ -148,19 +156,12 @@ function writelog($response){
 			'$payment_fee',
 			'".date("Y-m-d H:i:s")."'
 		)";
-	db_query($sql);
-	$err = db_error();
-	if ($err) {
-		Payment::payment_error(E_ERROR,"SQL: $sql\nERR: $err", __FILE__,__LINE__);
-	}
-}
-class Payment{
-public static function payment_error($errno, $errstr, $errfile, $errline){
-	global $payment_errors;
-	if (!is_int($errno) || (is_int($errno) && ($errno & error_reporting()))) {
-		$payment_errors.="Error $errno: $errstr in $errfile on $errline\n";
-	}
-}
+        db_query($sql);
+        $err = db_error();
+        if ($err) {
+            Payment::payment_error(E_ERROR,"SQL: $sql\nERR: $err", __FILE__,__LINE__);
+        }
+    }
 }
 $adminEmail = Settings::getsetting("gameadminemail", "postmaster@localhost.com");
 if ($payment_errors>"") {
