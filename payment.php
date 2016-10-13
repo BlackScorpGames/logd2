@@ -41,7 +41,7 @@ $payment_fee = Http::httppost('mc_fee');
 $response='';
 if (!$fp) {
 	// HTTP ERROR
-	payment_error(E_ERROR,"Unable to open socket to verify payment",__FILE__,__LINE__);
+	Payment::payment_error(E_ERROR,"Unable to open socket to verify payment",__FILE__,__LINE__);
 } else {
 	fputs ($fp, $header . $req);
 	while (!feof($fp)) {
@@ -65,22 +65,22 @@ if (!$fp) {
 				$result = db_query($sql);
 				if (db_num_rows($result)==1){
 					$emsg .= "Already logged this transaction ID ($txn_id)\n";
-					payment_error(E_ERROR,$emsg,__FILE__,__LINE__);
+					Payment::payment_error(E_ERROR,$emsg,__FILE__,__LINE__);
 				}
 				if (($receiver_email != "logd@mightye.org") &&
 					($receiver_email != Settings::getsetting("paypalemail", ""))) {
 					$emsg = "This payment isn't to me!  It's to $receiver_email.\n";
-					payment_error(E_WARNING,$emsg,__FILE__,__LINE__);
+					Payment::payment_error(E_WARNING,$emsg,__FILE__,__LINE__);
 				}
 				writelog($response);
 
 			}else{
-				payment_error(E_ERROR,"Payment Status isn't 'Completed' it's '$payment_status'",__FILE__,__LINE__);
+				Payment::payment_error(E_ERROR,"Payment Status isn't 'Completed' it's '$payment_status'",__FILE__,__LINE__);
 			}
 		}
 		else if (strcmp ($res, "INVALID") == 0) {
 			// log for manual investigation
-			payment_error(E_ERROR,"Payment Status is 'INVALID'!\n\nPOST data:`n".serialize($_POST),__FILE__,__LINE__);
+			Payment::payment_error(E_ERROR,"Payment Status is 'INVALID'!\n\nPOST data:`n".serialize($_POST),__FILE__,__LINE__);
 		}
 	}
 	fclose ($fp);
@@ -151,17 +151,17 @@ function writelog($response){
 	db_query($sql);
 	$err = db_error();
 	if ($err) {
-		payment_error(E_ERROR,"SQL: $sql\nERR: $err", __FILE__,__LINE__);
+		Payment::payment_error(E_ERROR,"SQL: $sql\nERR: $err", __FILE__,__LINE__);
 	}
 }
-
-function payment_error($errno, $errstr, $errfile, $errline){
+class Payment{
+public static function payment_error($errno, $errstr, $errfile, $errline){
 	global $payment_errors;
 	if (!is_int($errno) || (is_int($errno) && ($errno & error_reporting()))) {
 		$payment_errors.="Error $errno: $errstr in $errfile on $errline\n";
 	}
 }
-
+}
 $adminEmail = Settings::getsetting("gameadminemail", "postmaster@localhost.com");
 if ($payment_errors>"") {
 	$subj = Translator::translate_mail("Payment Error",0);
