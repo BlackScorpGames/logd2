@@ -14,7 +14,7 @@ function is_new_day($now=0){
 		return true;
 	}
 	$t1 = gametime();
-	$t2 = convertgametime(strtotime($session['user']['lasthit']." +0000"));
+	$t2 = GameDateTime::convertgametime(strtotime($session['user']['lasthit']." +0000"));
 	$d1 = gmdate("Y-m-d",$t1);
 	$d2 = gmdate("Y-m-d",$t2);
 
@@ -26,6 +26,24 @@ function is_new_day($now=0){
 
 class GameDateTime
 {
+
+	public static function convertgametime($intime,$debug=false){
+
+		//adjust the requested time by the game offset
+		$intime -= Settings::getsetting("gameoffsetseconds",0);
+
+		// we know that strtotime gives us an identical timestamp for
+		// everywhere in the world at the same time, if it is provided with
+		// the GMT offset:
+		$epoch = strtotime(Settings::getsetting("game_epoch",gmdate("Y-m-d 00:00:00 O",strtotime("-30 days"))));
+		$now = strtotime(gmdate("Y-m-d H:i:s O",$intime));
+		$logd_timestamp = ($now - $epoch) * Settings::getsetting("daysperday",4);
+		if ($debug){
+			echo "Game Timestamp: ".$logd_timestamp.", which makes it ".gmdate("Y-m-d H:i:s",$logd_timestamp)."<br>";
+		}
+		return $logd_timestamp;
+	}
+
 	public static function reltime($date,$short=true){
 		$now = strtotime("now");
 		$x = abs($now - $date);
@@ -139,26 +157,10 @@ class GameDateTime
 
 }
 function gametime(){
-	$time = convertgametime(strtotime("now"));
+	$time = GameDateTime::convertgametime(strtotime("now"));
 	return $time;
 }
 
-function convertgametime($intime,$debug=false){
-
-	//adjust the requested time by the game offset
-	$intime -= Settings::getsetting("gameoffsetseconds",0);
-
-	// we know that strtotime gives us an identical timestamp for
-	// everywhere in the world at the same time, if it is provided with
-	// the GMT offset:
-	$epoch = strtotime(Settings::getsetting("game_epoch",gmdate("Y-m-d 00:00:00 O",strtotime("-30 days"))));
-	$now = strtotime(gmdate("Y-m-d H:i:s O",$intime));
-	$logd_timestamp = ($now - $epoch) * Settings::getsetting("daysperday",4);
-	if ($debug){
-		echo "Game Timestamp: ".$logd_timestamp.", which makes it ".gmdate("Y-m-d H:i:s",$logd_timestamp)."<br>";
-	}
-	return $logd_timestamp;
-}
 
 
 
